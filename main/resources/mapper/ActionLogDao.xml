@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.ActionLogDao">
+    <!--增加语句-->
+    <insert id="add" parameterType="cn.wj.dao.ActionLogDao">
+        INSERT INTO
+            user_action_log (account_name, session_id, TIME, ip_addr_v4, ip_addr_v6, os_name, os_version, bro_name, bro_version, request_body, description, other, METHOD)
+        VALUES
+            (#{accountName}, #{sessionId}, #{time}, #{ipAddrV4}, #{ipAddrV6}, #{osName}, #{osVersion}, #{broName},
+                             #{broVersion}, #{requestBody}, #{description}, #{other}, #{method})
+    </insert>
+
+    <select id="findAll" resultType="cn.wj.dao.ActionLogDao">
+        SELECT *
+        FROM user_action_log
+        ORDER BY id DESC
+        LIMIT #{offset} #{limit}
+    </select>
+
+    <select id="getAllCount" resultType="int">
+        SELECT COUNT(*)
+        FROM user_action_log;
+    </select>
+    <!--5更新session的ID- -->
+    <update id="updateLoginSession">
+        UPDATE user_action_log
+        SET session_id = #{sessionId}
+        WHERE account_name = #{accountName}
+    </update>
+</mapper>
