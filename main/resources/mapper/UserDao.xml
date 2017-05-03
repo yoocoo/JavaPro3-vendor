@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.UserDao">
-
+    <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离  注意:使用mapper代理方法开发，namespace有特殊重要的作用 -->
     <resultMap id="UserMapperMap" type="cn.wj.domain.User">
 
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
@@ -26,7 +26,19 @@
         <result column="head_image" property="headImage" jdbcType="VARCHAR"/>
         <result column="approved" property="approved" jdbcType="TINYINT"/>
     </resultMap>
+    <!-- 在映射文件中配置很多sql语句 -->
+    <!-- 通过select执行数据库查询，
+            id:标示映射文件中的sql，成为Statement的id
+            将sql语句封装到mappedStatement对象中，所以将id称为statement的id,
 
+            parameterType:指定输入参数的类型，
+
+            #{}标示一个占位符,
+
+            #{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
+
+            resultType：指定sql输出结果的映射的java对象类型，
+            select指定resultType表示将单条记录映射成java对象-->
     <!--1查找-登录用户，查找用户是否存在-->
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
      SELECT  *
@@ -54,7 +66,11 @@
     WHERE  account_name = #{accountName}
   </update>
 
-    <!--4更新用户信息-修改个人资料- -->
+    <!--4更新用户信息-修改个人资料- 依据用户登录的账户名，来修改个人资料
+     分析:
+    需要传入用户的accountName，需要传入用户的更新信息.
+    parameterType指定user对象，包括accountName和更新信息(注意:accountName必须存在)
+    #{accountName}:从输入user对象中获取accountName属性值-->
     <update id="update" parameterType="cn.wj.domain.User">
     UPDATE user
     SET

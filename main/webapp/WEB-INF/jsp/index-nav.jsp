@@ -94,23 +94,27 @@
     <ul class="nav">
         <li class="dropdown" id="profile-messages">
             <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i
-                    class="icon icon-user"></i> <span class="text">欢迎用户${userInfo.accountName}</span><b
-                    class="caret"></b></a>
+                    class="icon icon-user"></i> <span class="text">欢迎用户</span><b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <%--modal弹窗触发的修改个人资料--%>
-                <li>
-                    <a data-toggle="modal" data-target="#my-prompt1" href="#">
-                        <i class="icon-user"></i> 个人资料</a></li>
+                <li><a data-toggle="modal" data-target="#my-prompt1" href="#"><i class="icon-user"></i> 个人资料</a></li>
                 <li class="divider">
                 <li><a href="<%=request.getContextPath()%>/mvc/login"><i class="icon-key"></i> 退出登录</a></li>
             </ul>
         </li>
-        <li class=""><a title="" href="#"><i class="icon icon-cog"></i>
-            <span
-                    class="text">设置</span></a></li>
+        <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-plus"></i> 通知</a></li>
+                <li class="divider"><>
+                <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a></li>
+                <li class="divider"><>
+                <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
+                <li class="divider"><>
+                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a></li>
+            </ul>
+            </li>
         <li class=""><a title="" href="<%=request.getContextPath()%>/mvc/login"><i class="icon icon-share-alt"></i>
             <span class="text">安全退出</span></a></li>
-
     </ul>
 </div>
 <!--close-top-Header-menu-->
