@@ -7,13 +7,7 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>--%>
-<%--<%--%>
-<%--String path = request.getContextPath();--%>
-<%--%>--%>
-<%--<script type="text/javascript">--%>
-<%--var path = "${path}";--%>
-<%--</script>--%>
+
 <html>
 <head>
 </head>
