@@ -56,6 +56,6 @@
     <div id="page" style="width:100%;height:100%;"></div>
 </div>
 </body>
-<script type="text/javascript" charset="utf-8" src="/static/js/tab.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="/static/js/framework.js"></script>
 </html>

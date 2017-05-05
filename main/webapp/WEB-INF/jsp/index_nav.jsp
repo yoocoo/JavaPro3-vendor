@@ -86,7 +86,17 @@
     }
 
 </script>
-
+<%--定义退出系统--%>
+<script type="text/javascript">
+    function logout() {
+        if (!confirm("您确定要退出吗？")) {
+            location.href = '<%=request.getContextPath()%>/mvc/login';
+        }
+        else {
+            return false;
+        }
+    }
+</script>
 <body>
 
 <!--top-Header-menu-->
@@ -102,19 +112,24 @@
                 <li><a href="<%=request.getContextPath()%>/mvc/login"><i class="icon-key"></i> 退出登录</a></li>
             </ul>
         </li>
-        <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
+        <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
+                                                   class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
+                class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a class="sAdd" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-plus"></i> 通知</a></li>
                 <li class="divider"><>
-                <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a></li>
+                <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
+                </li>
                 <li class="divider"><>
-                <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
+                <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i
+                        class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
                 <li class="divider"><>
-                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a></li>
+                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a>
+                </li>
             </ul>
-            </li>
-        <li class=""><a title="" href="<%=request.getContextPath()%>/mvc/login"><i class="icon icon-share-alt"></i>
-            <span class="text">安全退出</span></a></li>
+        </li>
+        <li class=""><a title="" href=javascript:logout()><i class="icon icon-share-alt"></i>
+            <span class="text">退出系统</span></a></li>
     </ul>
 </div>
 <!--close-top-Header-menu-->

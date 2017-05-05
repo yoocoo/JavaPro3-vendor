@@ -1,24 +1,37 @@
 <%--
   Created by IntelliJ IDEA.
-  User: ThinkPad
+  User:  WJ
   Date: 2017/4/14
   Time: 12:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath}"></c:set>
+<script type="text/javascript">
+    var path = "${path}";
+</script>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<script type="text/javascript" src="<c:url value='/static/js/jquery-3.1.1.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.tips.js'/>"></script>
+<script type="text/javascript" src="${path}/static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="${path}/static/js/jquery.tips.js"></script>
+<script type="text/javascript" src="${path}/static/js/login.js"></script>
+
+<%--<script type="text/javascript" src="<c:url value='/static/js/jquery-3.1.1.min.js'/>"></script>--%>
+<%--<script type="text/javascript" src="<c:url value='/static/js/jquery.tips.js'/>"></script>--%>
+<%--<script type="text/javascript" src="<c:url value='/static/js/login.js'/>"></script>--%>
 <head>
     <meta charset="UTF-8">
     <title>售货机系统账户登录</title>
-    <link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/denglu.css'/>">
-    <%--<link rel="stylesheet" href="/css/denglu.css">--%>
+
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <script type="text/javascript" src="<c:url value='/static/js/denglu.js'/>"></script>
+    <link rel="shortcut icon" href="${path}/static/img/favicon.ico"/>
+    <link type="text/css" rel="stylesheet" href="${path}/static/css/login.css">
+
+    <%--<link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>--%>
+    <%--<link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login.css'/>">--%>
+    <%--<link rel="stylesheet" href="/css/login.css">--%>
+
     <script type="text/javascript">
         function checkLoginInfo() {
             if ("" == $("#u").val()) {  //u标签的值为空

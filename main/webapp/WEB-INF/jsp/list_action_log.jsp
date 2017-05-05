@@ -136,7 +136,7 @@
     </div>
 </div>
 <%--引入顶部导航jsp  --%>
-<%@ include file="/WEB-INF/jsp/index-nav.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_nav.jsp" %>
 
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
@@ -335,7 +335,7 @@
 
 
 <!-- 引入页面底部文件Footer-part-->
-<%@ include file="/WEB-INF/jsp/index-footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_footer.jsp" %>
 <!--end-Footer-part-->
 
 <%--<script type="text/javascript" src="<c:url value='/static/js/jquery-3.1.1.min.js'/>"></script>--%>
