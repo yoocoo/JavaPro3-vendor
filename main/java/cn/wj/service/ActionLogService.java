@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created by ThinkPad on 2017/4/24.
+ * Created by WJ on 2017/4/24.
  */
 public interface ActionLogService  extends BaseService<UserActionLog> {
 	void add(HttpServletRequest request);

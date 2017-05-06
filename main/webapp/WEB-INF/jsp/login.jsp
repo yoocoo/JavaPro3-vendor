@@ -12,9 +12,9 @@
     var path = "${path}";
 </script>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<script type="text/javascript" src="${path}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="${path}/static/js/jquery.tips.js"></script>
-<script type="text/javascript" src="${path}/static/js/login.js"></script>
+<script type="text/javascript" src="${path}/static/js/login/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="${path}/static/js/common/jquery.tips.js"></script>
+<script type="text/javascript" src="${path}/static/js/login/login.js"></script>
 
 <%--<script type="text/javascript" src="<c:url value='/static/js/jquery-3.1.1.min.js'/>"></script>--%>
 <%--<script type="text/javascript" src="<c:url value='/static/js/jquery.tips.js'/>"></script>--%>
@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel="shortcut icon" href="${path}/static/img/favicon.ico"/>
-    <link type="text/css" rel="stylesheet" href="${path}/static/css/login.css">
+    <link type="text/css" rel="stylesheet" href="${path}/static/css/login/login.css">
 
     <%--<link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>--%>
     <%--<link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login.css'/>">--%>
@@ -208,10 +208,6 @@
 
                         <input type="button" value="                                  登    录" id="btn_login"
                                onclick="webLogin();" class="btn_login"/>
-                        <%--改造代码     版本1 1    --%>
-                        <%--<a href="javascript:document.forms[0].submit();">--%>
-                        <%--<button class="btn_login" type="submit" class="btn_login">登 录</button>--%>
-                        <%--</a>--%>
 
                     </form>
                 </div>
@@ -234,14 +230,10 @@
                         <input class="btn_sign_up" type="button" id="reg" onclick="webReg();"
                                value="                         同意协议并注册"/>
                         <%--<a href="#" target="_blank"> 注册协议</a>--%>
-
                     </form>
-
                 </div>
                 <%--注册结束--%>
-
             </div>
-
         </div>
     </div>
 </div>

@@ -40,29 +40,36 @@ log输出
 项目Maven构建，真实大型互联网架构，做到高并发，大数据处理，整个项目使用定制化服务思想，提供模块化、服务化、原子化的方案，将功能模块进行拆分，可以公用到所有的项目中。架构采用分布式部署架构，所有模块进行拆分，使项目做到绝对解耦，稳定压倒一切
 框架整合:
 
-[Springmvc] + [Mybatis] + Shiro（权限） + REST(服务) + WebService(服务) + JMS(消息) + Lucene(搜搜引擎) + Quartz(定时调度) + [Bootstrap Html5（支持PC、IOS、Android]
+[Springmvc] + [Mybatis] + Shiro（权限） + REST(服务) + WebService(服务) + JMS(消息) + Lucene(搜搜引擎) + Quartz(定时调度) + [Bootstrap
+Html5（支持PC、IOS、Android]
 
 技术点：
 
-1.  Springmvc + Mybatis集成、SpringSecurity权限控制、Spring AOP事务处理。
-2.   Wink Rest服务、Webservice服务：jaxws、CXF等
-3.  IO 流上传下载文件，多线程操作
-4.  发送邮件，配置邮件服务器，发基于html、纯文本格式的邮件（可以免费赠送网络爬虫，使其群发邮件，做到广告推送等）
-5.  MD5加密（登陆密码校验加密等），用户统一Session、Cookie管理，统一验证码校验等。
-6.  数据库连接池统一配置
-7.  Quartz定时调度任务集成（直接通过配置即可）
-8.  Httpclient破解验证码，登陆联通充值平台
-9.  汉字、英文拆分、可以用作文档关键字搜索等。
-10.  Base64图片处理，支持PC，Android，IOS
-11.  Service Socket 、Client Socket 通信技术(已经做过GPRS数据获取，并用到了项目中)
-12.  提供大量工具类，可以直接使用
-13.  Maven项目构建，您可以直接做架构，可以提升自己的学习能力，使您成为真正的架构师。
+1. Springmvc + Mybatis集成、SpringSecurity权限控制、Spring AOP事务处理。
+2. Wink Rest服务、Webservice服务：jaxws、CXF等
+3. IO 流上传下载文件，多线程操作
+4. 发送邮件，配置邮件服务器，发基于html、纯文本格式的邮件（可以免费赠送网络爬虫，使其群发邮件，做到广告推送等）
+5. MD5加密（登陆密码校验加密等），用户统一Session、Cookie管理，统一验证码校验等。
+6. 数据库连接池统一配置
+7. Quartz定时调度任务集成（直接通过配置即可）
+8. Httpclient破解验证码，登陆联通充值平台
+9. 汉字、英文拆分、可以用作文档关键字搜索等。
+10. Base64图片处理，支持PC，Android，IOS
+11. Service Socket 、Client Socket 通信技术(已经做过GPRS数据获取，并用到了项目中)
+12. 提供大量工具类，可以直接使用
+13. Maven项目构建，您可以直接做架构，可以提升自己的学习能力，使您成为真正的架构师。
+
 以上项目只实现了部分功能，后续待开发，fighting.....
+
 <h1>项目总结----五月（2） ----作者WJ</h1>
 （1）
-   BootStrap-table客户端分页（模板网页：http://issues.wenzhixin.net.cn/bootstrap-table/）：后台一次性将数据推送到前台，由前台代码负责分页、排序等；（针对数据庞大的数据，不适用）
-   服务端分页：一次只传当前页的数据，点上一页或下一页时再以ajax方式获取所对应的数据；
-  1）. 可以考考虑 把用户表（数据较少的）使用 Bootstrap-table模板分页
-  2）.
+BootStrap-table客户端分页（模板网页：http://issues.wenzhixin.net.cn/bootstrap-table/）：后台一次性将数据推送到前台，由前台代码负责分页、排序等；（针对数据庞大的数据，不适用）
+服务端分页：一次只传当前页的数据，点上一页或下一页时再以ajax方式获取所对应的数据；
+1）. 可以考考虑 把用户表（数据较少的）使用 Bootstrap-table模板分页，功能实现简单，方便，样式更多，更好看
+2）.
+(2) 关于页面跳转： 目前知道的有两种：一种是 利用easyui tab.js 一种是在每个页面 复写头部文件和底部文件
+页面 总结：目前使用每个页面 调用头部和底部，这样能更好加载和分开样式，有些 主页主内容需要不同的样式
+（3）权限总结：网上一大堆资料，怎么使用好，关键在于自己怎么处理
+
 </body>
 </html>

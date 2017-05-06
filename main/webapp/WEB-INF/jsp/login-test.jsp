@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>账户登录(旧版本)</title>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login.css'/>">
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login/login.css'/>">
     <%--<link rel="stylesheet" href="/css/login.css">--%>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <script type="text/javascript" src="<c:url value='/static/js/login.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/js/login/login.js'/>"></script>
 </head>
 <html>
 <body>

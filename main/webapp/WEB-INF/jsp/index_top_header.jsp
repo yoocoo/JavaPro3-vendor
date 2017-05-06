@@ -9,7 +9,9 @@
 <html>
 <head>
 </head>
+
 <script type="text/javascript">
+
 
     //   ========== 修改个人资料 start========
     function webUpdate() {
@@ -97,8 +99,56 @@
         }
     }
 </script>
-<body>
+<script type="text/javascript">
+    //   ============ 修改个人头像 start==========
+    var fileName;
+    function upLoadFile() {
+        fileName = document.getElementById('changeHeadPic').value;
+        $.ajaxFileUpload({
+            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",
+            secureuri: false,//是否需要安全协议，一般设置为false
+            fileElementId: 'changeHeadPic',//文件上传域Id
+            dataType: 'json',//返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+                alert(data.msg);
+//先根据返回的code确定文件是否上传成功
+//文件上传失败，直接弹出错误提示，根据错误进行相应的事物处理（关闭Loading窗口，弹出提示对话框）
+//文件上传成功后，继续实现loading窗口，接着执行上传表单信息等事物
+            }
 
+        });
+    }
+
+    function onConfirm() {
+        upLoadFile();
+    }
+    function onCancel(e) {
+    }
+
+    //显示个人修改窗口
+    function changeImageInfo() {
+        $('#my-prompt').modal({
+            relateTarge: this,
+//            onConfirm: function () {
+//                upLoadFile();
+//            },
+//            onCancel: function (e) {
+//            }
+        });
+
+
+    }
+</script>
+<body>
+<!--close-Header-part-->
+<!--Header-part-->
+<div id="header">
+    <div class="img" id="admin-offcanvas">
+        <img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
+             class="img-circle img-thumbnail img-responsive">修改头像
+    </div>
+</div>
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
     <ul class="nav">

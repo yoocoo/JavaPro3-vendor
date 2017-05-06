@@ -39,6 +39,7 @@ public class ActionLogServiceImpl implements ActionLogService {
 		userActionLog.setMethod(request.getMethod());   //获取请求方式
 		if (request.getHeader("x-forwarded-for") == null) { //获取请求IP
 			userActionLog.setIpAddrV4(request.getRemoteAddr());
+
 		} else {
 			userActionLog.setIpAddrV4(request.getHeader("x-forwarded-for"));
 		}
@@ -50,12 +51,14 @@ public class ActionLogServiceImpl implements ActionLogService {
 		try {
 			UserAgent agent = new UserAgent(request.getHeader("User-Agent"));   //载入user-agent
 			userActionLog.setOsName(agent.getOperatingSystem().getName());  //设定os名称
+			System.out.println("==========="+agent);
 			userActionLog.setBroName(StringUtils.isEmpty(agent.getBrowser().getName()) ? "" : agent.getBrowser().getName()); //设定浏览器名称
 			userActionLog.setBroVersion(StringUtils.isEmpty(agent.getBrowserVersion().getVersion()) ? "" : agent.getBrowserVersion().getVersion());    //设定浏览器版本
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			actionLogDao.add(userActionLog);
+			System.out.println("==========="+userActionLog);
 		}
 
 	}
