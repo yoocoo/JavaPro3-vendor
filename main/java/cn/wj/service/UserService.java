@@ -12,10 +12,14 @@ public interface UserService extends  BaseService<User> {
 
 	void  update(User user)throws  Exception;
 
+	void updateImage(User user) throws  Exception;
+
 	User findUser(User user) throws  Exception;
 
 	void updateLoginSession(String sessionId, String accountName) throws Exception;
 
 	List<User> findAll(int pageNum,int pageSize);
+
+	public  String  findPathById(String accountName);
 
 }

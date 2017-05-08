@@ -95,10 +95,10 @@ public class UserController {
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 
 		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
-		System.out.println("========"+user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
+		System.out.println("========" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
 
 		session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
-		System.out.println("======userInfo=="+user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
+		System.out.println("======userInfo==" + user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
 
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
@@ -161,10 +161,10 @@ public class UserController {
 
 				//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
 
-				System.out.println("========"+user1);  //能打印用户所有信息（密码是加密）
+				System.out.println("========" + user1);  //能打印用户所有信息（密码是加密）
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 
-				System.out.println("======userInfo=="+user);//只打印 用户名和密码（未加密）
+				System.out.println("======userInfo==" + user);//只打印 用户名和密码（未加密）
 
 				result = new GsonUtils().toJson(responseObj);
 			} else {
@@ -224,7 +224,7 @@ public class UserController {
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);
 		session.setAttribute("userInfo", user);
-
+		System.out.println("====更改资料后===" + user);
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;
@@ -243,18 +243,49 @@ public class UserController {
 			, method = RequestMethod.POST
 			, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, HttpSession session) {
-
+	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file,  String accountName,HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+		responseObj = new ResponseObj();
+		Object result;
+		//保存相对路径到数据库，，图片写入数据库
 		if (null == file || file.isEmpty()) {
 			responseObj = new ResponseObj();
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("文件不能为空");
 			return new GsonUtils().toJson(responseObj);
 		}
-		responseObj = new ResponseObj();
+		//更新用户头像
+		try {
+			userService.updateImage(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他错误");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		//获取默认初始文件原名
+		String userImagePath= userService.findPathById(accountName);
+		//String pathOriginal = request.getParameter("accountName");
+		//String fileOriginalName= userService.findPathById(pathOriginal);
+
+		//获取新上传头像地址
+		String fileName = file.getOriginalFilename();
+		// 获取图片的扩展名
+		//String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
+		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
+		//responseObj = new ResponseObj<User>();
 		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("文件长度为：" + file.getSize());
+		responseObj.setMsg("头像上传成功"+"文件原名为：" + file.getOriginalFilename()+"文件长度为：" + file.getSize());
+		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		responseObj.setData(user);
+		session.setAttribute("userInfo", user);
+		//responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
+		//responseObj.setMsg("文件长度为：" + file.getSize());
 		return new GsonUtils().toJson(responseObj);
+
+
 	}
 
 

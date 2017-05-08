@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	/**
+	 * 更新用户资料
+	 * @param user
+	 * @throws OtherThingsException
+	 */
 	public void update(User user) throws OtherThingsException {
 		int result1 = 0;//受影响的行数默认为零
 		try {
@@ -57,6 +62,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 更新用户头像
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+
+	public void updateImage(User user) throws OtherThingsException {
+		int result2 = 0;//受影响的行数默认为零
+		try {
+			result2 = userDao.updateImage(user);
+		}catch (Exception e){
+			System.out.println("更新用户头像失败");
+			//其他用户更新失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result2 > 0) {
+
+			System.out.println("service更新用户头像成功！");
+
+		}
+
+	}
+
+
+	/**
 	 * @param user 用户bean
 	 * @return  返回用户名
 	 * @throws Exception
@@ -72,4 +101,15 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAll(int pageNum, int pageSize) {
 		return null;
 	}
+
+	/**
+	 * 依据用户名找到 该用户名头像地址 Path
+	 * @param accountName
+	 * @return
+	 */
+	public String findPathById(String accountName) {
+		return this.userDao.findPathById(accountName);
+	}
+
+
 }

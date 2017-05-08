@@ -135,12 +135,11 @@
 <%--它支持柱状、线状和饼图，图的颜色、宽度、半径、分隔符都可以修改。当数据变化时，图形也立即重新生成。--%>
 <%--只能用于支持<canvas>标签的浏览器包括： Chrome、 Firefox、IE9、Opera和Safari。--%>
 <script type="text/javascript" src="<c:url value='/static/js/canvas/jquery.peity.min.js'/>"></script>
-<%--跟图表数据相关js脚本--%>
-<script type="text/javascript" src="<c:url value='/static/js/matrix.dashboard.js'/>"></script>
+
 <%--home首页进度条，快捷菜单，按钮分类等--%>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.interface.js'/>"></script>
-<%--home高亮消息提示脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.gritter.min.js'/>"></script>
+
+
 
 </body>
 </html>

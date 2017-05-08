@@ -101,6 +101,7 @@
 </script>
 <script type="text/javascript">
     //   ============ 修改个人头像 start==========
+//    var path= userImagePath
     var fileName;
     function upLoadFile() {
         fileName = document.getElementById('changeHeadPic').value;
@@ -126,7 +127,7 @@
     function onCancel(e) {
     }
 
-    //显示个人修改窗口
+    //显示个人修改头像窗口
     function changeImageInfo() {
         $('#my-prompt').modal({
             relateTarge: this,
@@ -145,7 +146,10 @@
 <!--Header-part-->
 <div id="header">
     <div class="img" id="admin-offcanvas">
-        <img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
+         <%--src="/static/images/avatar-1.jpg"--%>
+         <img src="${path} " alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
+                  class="img-circle img-thumbnail img-responsive">修改头像
+             <img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
              class="img-circle img-thumbnail img-responsive">修改头像
     </div>
 </div>
@@ -356,9 +360,9 @@
                         <div class="control-group ">
                             <label class="control-label">上传头像</label>
                             <ul class="thumbnails">
-                                <li class="span2"><a> <img src="/static/images/avatar-1.jpg" alt=""> </a>
+                                <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
-                                            class="lightbox_trigger" title="预览" href="/static/images/avatar-1.jpg"><i
+                                            class="lightbox_trigger" title="预览" href="# "><i
                                             class="icon-search"></i></a></div>
                             </ul>
                             <div class="controls span3 ">

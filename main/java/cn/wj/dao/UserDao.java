@@ -22,9 +22,13 @@ public interface UserDao extends Dao<User> {
 	//更新用户
 	int update(User user);
 
+	//更新用户头像
+	int updateImage(User user);
+
 	//查找数据库中的用户
 	User findOneById(Serializable Id);
 
+	String  findPathById(String accountName);
 	//查询所有用户
 	List<User> findAll();
 

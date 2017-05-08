@@ -83,10 +83,21 @@
     idcard = #{idcard},
     post_adress = #{postAdress}
    WHERE  account_name = #{accountName}
-  </update>
+    </update>
 
-
-
+    <!--5查找-该登录用户的头像-->
+    <select id="findPathById" resultType="string" parameterType="String">
+        SELECT  head_image
+        FROM  user
+        WHERE  account_name = #{accountNname}
+    </select>
+    <!--5更新用户信息-修改个人头像 -->
+    <update id="updateImage" parameterType="cn.wj.domain.User">
+   UPDATE  user
+   SET
+   head_image =#{headImage}
+   WHERE  account_name = #{accountName}
+    </update>
 
     <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
     <!--insert into user (user_id, account_name, password, -->
