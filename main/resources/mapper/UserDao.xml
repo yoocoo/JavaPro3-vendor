@@ -28,17 +28,13 @@
     </resultMap>
     <!-- 在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
-            id:标示映射文件中的sql，成为Statement的id
-            将sql语句封装到mappedStatement对象中，所以将id称为statement的id,
-
-            parameterType:指定输入参数的类型，
-
-            #{}标示一个占位符,
-
-            #{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
-
-            resultType：指定sql输出结果的映射的java对象类型，
-            select指定resultType表示将单条记录映射成java对象-->
+            1.id:标示映射文件中的sql，成为Statement的id
+            2.将sql语句封装到mappedStatement对象中，所以将id称为statement的id,
+            3.parameterType:指定输入参数的类型，
+            4.#{}标示一个占位符,
+            5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
+            6.resultType：指定sql输出结果的映射的java对象类型，
+            7.select指定resultType表示将单条记录映射成java对象-->
     <!--1查找-登录用户，查找用户是否存在-->
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
      SELECT  *
@@ -47,7 +43,6 @@
    </select>
     <!--2增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
-
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
         </selectKey>
@@ -58,7 +53,6 @@
         CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/',1)
     </insert>
 
-
     <!--3删除-->
     <update id="del" parameterType="User">
     UPDATE  user
@@ -68,8 +62,7 @@
 
     <!--4更新用户信息-修改个人资料- 依据用户登录的账户名，来修改个人资料
      分析:
-    需要传入用户的accountName，需要传入用户的更新信息.
-    parameterType指定user对象，包括accountName和更新信息(注意:accountName必须存在)
+    1.需要传入用户的accountName，需要传入用户的更新信息.2.parameterType指定user对象，包括accountName和更新信息(注意:accountName必须存在)
     #{accountName}:从输入user对象中获取accountName属性值-->
     <update id="update" parameterType="cn.wj.domain.User">
     UPDATE user
@@ -98,7 +91,10 @@
    head_image =#{headImage}
    WHERE  account_name = #{accountName}
     </update>
-
+    <!--6.用户列表-->
+<select id="findAll" resultMap="UserMapperMap">
+     SELECT * FROM user
+</select>
     <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
     <!--insert into user (user_id, account_name, password, -->
     <!--real_name, role_id, factory_id, -->

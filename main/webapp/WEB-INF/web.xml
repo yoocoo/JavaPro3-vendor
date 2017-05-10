@@ -52,7 +52,7 @@
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
         <!-- 默认匹配所有的请求 -->
-
+        <!-- 配置 DispatcherServlet，对所有后缀为（暂时未设置后缀）的url进行过滤 -->
         <url-pattern>/</url-pattern>
         <url-pattern>/css/*</url-pattern>
         <url-pattern>/images/*</url-pattern>

@@ -38,7 +38,6 @@ public class UserController {
 	/**
 	 * ModelAndView 代表一个web页面(初期页面跳转4.1)
 	 * setViewName代表设置一个JSP页面的名称
-	 *
 	 * @param response http响应
 	 * @param user     发起请求后，spring接收到请求，然后封装的 bean 数据
 	 * @return 返回一个 web页面
@@ -234,18 +233,24 @@ public class UserController {
 
 	/**
 	 * 修改个人头像
+	 * 创建上传头像接口
 	 *
 	 * @param file
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/uploadHeadPic"
-			, method = RequestMethod.POST
-			, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/uploadHeadPic", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file,  String accountName,HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file,  @RequestParam(value="accountName" ,required = true) String accountName,HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		responseObj = new ResponseObj();
 		Object result;
+
+		//获取默认初始文件原名
+		String userImagePath= userService.findPathById(accountName);
+		//session中放入原始图片路径
+		session.setAttribute("userImagePath", userImagePath);
+		System.out.println("===打印图片原始路径======"+userImagePath);
+
 		//保存相对路径到数据库，，图片写入数据库
 		if (null == file || file.isEmpty()) {
 			responseObj = new ResponseObj();
@@ -263,9 +268,9 @@ public class UserController {
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 		}
-		//获取默认初始文件原名
-		String userImagePath= userService.findPathById(accountName);
+
 		//String pathOriginal = request.getParameter("accountName");
+
 		//String fileOriginalName= userService.findPathById(pathOriginal);
 
 		//获取新上传头像地址
@@ -275,18 +280,22 @@ public class UserController {
 
 		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
 		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
+		userService.updateImage(user);
 		//responseObj = new ResponseObj<User>();
 		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("头像上传成功"+"文件原名为：" + file.getOriginalFilename()+"文件长度为：" + file.getSize());
+		responseObj.setMsg("头像上传成功");
+		responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
+		responseObj.setMsg("文件长度为：" + file.getSize());
 		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);
 		session.setAttribute("userInfo", user);
-		//responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
-		//responseObj.setMsg("文件长度为：" + file.getSize());
+
 		return new GsonUtils().toJson(responseObj);
 
 
 	}
+
+
 
 
 }

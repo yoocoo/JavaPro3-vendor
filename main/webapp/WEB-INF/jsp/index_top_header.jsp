@@ -147,10 +147,10 @@
 <div id="header">
     <div class="img" id="admin-offcanvas">
          <%--src="/static/images/avatar-1.jpg"--%>
-         <img src="${path} " alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
+         <img src="${userImagePath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
                   class="img-circle img-thumbnail img-responsive">修改头像
-             <img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"
-             class="img-circle img-thumbnail img-responsive">修改头像
+             <%--<img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"--%>
+             <%--class="img-circle img-thumbnail img-responsive">修改头像--%>
     </div>
 </div>
 <!--top-Header-menu-->
@@ -170,7 +170,7 @@
                                                    class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
                 class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a class="sAdd" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-plus"></i> 通知</a></li>
+                <li><a class="sAdd" title="" href="/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
                 <li class="divider"><>
                 <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
                 </li>
@@ -362,7 +362,7 @@
                             <ul class="thumbnails">
                                 <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
-                                            class="lightbox_trigger" title="预览" href="# "><i
+                                            class="lightbox_trigger" title="图片预览" href="${path} "><i
                                             class="icon-search"></i></a></div>
                             </ul>
                             <div class="controls span3 ">

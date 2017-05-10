@@ -33,9 +33,7 @@ public class UserServiceImpl implements UserService {
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-
 			System.out.println("添加用户成功！");
-
 		}
 
 	}
@@ -55,9 +53,7 @@ public class UserServiceImpl implements UserService {
 			throw new OtherThingsException(e);
 		}
 		if (result1 > 0) {
-
 			System.out.println("service更新用户信息成功！");
-
 		}
 	}
 
@@ -77,15 +73,13 @@ public class UserServiceImpl implements UserService {
 			throw new OtherThingsException(e);
 		}
 		if (result2 > 0) {
-
 			System.out.println("service更新用户头像成功！");
-
 		}
-
 	}
 
 
 	/**
+	 * 查找数据库中用户（注册时查重和登录时判空）
 	 * @param user 用户bean
 	 * @return  返回用户名
 	 * @throws Exception
@@ -94,10 +88,22 @@ public class UserServiceImpl implements UserService {
 		return userDao.findOneById(user.getAccountName());
 	}
 
+	/**
+	 * 更新用户session
+	 * @param sessionId
+	 * @param accountName
+	 * @throws Exception
+	 */
 	public void updateLoginSession(String sessionId, String accountName) throws Exception {
 		userDao.updateLoginSession(sessionId, accountName);
 	}
 
+	/**
+	 * 用户列表（查找所有用户，带分页）
+	 * @param pageNum  页码
+	 * @param pageSize 每页的查询数量
+	 * @return
+	 */
 	public List<User> findAll(int pageNum, int pageSize) {
 		return null;
 	}
@@ -105,7 +111,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 依据用户名找到 该用户名头像地址 Path
 	 * @param accountName
-	 * @return
+	 * @return  返回头像地址
 	 */
 	public String findPathById(String accountName) {
 		return this.userDao.findPathById(accountName);
