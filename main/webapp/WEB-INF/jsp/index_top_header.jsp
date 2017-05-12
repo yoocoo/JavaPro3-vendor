@@ -147,7 +147,7 @@
 <div id="header">
     <div class="img" id="admin-offcanvas">
          <%--src="/static/images/avatar-1.jpg"--%>
-         <img src="${userImagePath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
+         <img src="${userPath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
                   class="img-circle img-thumbnail img-responsive">修改头像
              <%--<img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"--%>
              <%--class="img-circle img-thumbnail img-responsive">修改头像--%>
@@ -158,7 +158,7 @@
     <ul class="nav">
         <li class="dropdown" id="profile-messages">
             <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i
-                    class="icon icon-user"></i> <span class="text">欢迎用户</span><b class="caret"></b></a>
+                    class="icon icon-user"></i> <span class="text">${userInfo.accountName}欢迎用户</span><b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <%--modal弹窗触发的修改个人资料--%>
                 <li><a data-toggle="modal" data-target="#my-prompt1" href="#"><i class="icon-user"></i> 个人资料</a></li>

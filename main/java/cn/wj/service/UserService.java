@@ -1,5 +1,6 @@
 package cn.wj.service;
 
+import cn.wj.domain.Menu;
 import cn.wj.domain.User;
 
 import java.util.List;
@@ -66,6 +67,20 @@ public interface UserService extends BaseService<User> {
 	 * @return 返回用户列表
 	 */
 	List<User> findAll(int pageNum, int pageSize);
+
+	/**
+	 * 根据用户ID 获得 该用户的菜单
+	 * @param userId
+	 * @return
+	 */
+	List<Menu> getMenu(int  userId);
+
+	/**
+	 * 根据用户名 获得该用户的ID
+	 * @param accountName
+	 * @return
+	 */
+	int getUserIdByName(String accountName);
 
 
 }

@@ -1,5 +1,6 @@
 package cn.wj.dao;
 
+import cn.wj.domain.Menu;
 import cn.wj.domain.Page;
 import cn.wj.domain.User;
 import org.apache.ibatis.annotations.Param;
@@ -40,5 +41,12 @@ public interface UserDao extends Dao<User> {
 
 	//增加用户sessionId
 	void addSessionId(String id);
+
+	//根据用户ID 获得权限菜单
+	List<Menu> getMenuByUserId(@Param("userId") int userId);
+
+	//根据用户名获得该用户的ID
+	int selectUserIdByName(String accountName);
+
 
 }

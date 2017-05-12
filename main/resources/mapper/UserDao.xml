@@ -3,7 +3,6 @@
 <mapper namespace="cn.wj.dao.UserDao">
     <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离  注意:使用mapper代理方法开发，namespace有特殊重要的作用 -->
     <resultMap id="UserMapperMap" type="cn.wj.domain.User">
-
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="next_url" property="nextUrl" jdbcType="VARCHAR"/>
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
@@ -25,6 +24,15 @@
         <result column="creat_time" property="creatTime" jdbcType="DATE"/>
         <result column="head_image" property="headImage" jdbcType="VARCHAR"/>
         <result column="approved" property="approved" jdbcType="TINYINT"/>
+    </resultMap>
+    <resultMap id="MenuMap" type="cn.wj.domain.Menu" >
+        <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+        <result column="menu_order" property="menuOrder" jdbcType="VARCHAR" />
+        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
+        <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
     </resultMap>
     <!-- 在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
@@ -95,6 +103,40 @@
 <select id="findAll" resultMap="UserMapperMap">
      SELECT * FROM user
 </select>
+
+    <!--7依据用户名获得菜单-->
+    <select id="getMenuByUserId" resultMap="MenuMap">
+        SELECT
+        m.menu_id,m.menu_name,m.parent_id,m.menu_icon,m.menu_url,
+			(select count(1) from menu s where s.parent_id!=0 and s.parent_id=m.parent_id) countChildrens
+		FROM menu m
+		  LEFT JOIN role_in_menu rm
+		  ON m.menu_id = rm.menu_id
+		  LEFT JOIN user_role r
+		  ON rm.role_id = r.role_id
+		  LEFT JOIN user_in_role ur
+		  ON  r.role_id = ur.role_id
+		  LEFT JOIN user u
+		  ON ur.user_id = u.user_id
+		  WHERE u.user_id = #{userId}
+		  AND m.menu_id NOT IN(
+			SELECT tt.menu_id
+			FROM
+				(SELECT m.menu_id,
+					(SELECT COUNT(parent_id) FROM menu sp WHERE sp.parent_id=m.menu_id AND m.parent_id=0 ) countch
+				 FROM menu m WHERE m.parent_id=0
+		  		) tt
+		  	where countch =0
+		  )
+		  ORDER BY m.menu_order
+    </select>
+
+    <select id="selectUserIdByName" parameterType="String" resultType="int">
+        SELECT  user_id
+        FROM  user
+        WHERE account_name = #{accountName}
+    </select>
+
     <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
     <!--insert into user (user_id, account_name, password, -->
     <!--real_name, role_id, factory_id, -->

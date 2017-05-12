@@ -1,8 +1,9 @@
 package cn.wj.service.serviceImpl;
 
 import cn.wj.dao.UserDao;
+import cn.wj.domain.Menu;
 import cn.wj.domain.User;
-import cn.wj.exception.*;
+import cn.wj.exception.OtherThingsException;
 import cn.wj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,5 +118,16 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.findPathById(accountName);
 	}
 
+	/**
+	 * 根据用户ID 获得   该用户权限的菜单
+	 * @param userId
+	 * @return
+	 */
+	public List<Menu> getMenu(int userId){
+		return  userDao.getMenuByUserId(userId);
+	}
 
+	public int getUserIdByName(String accountName) {
+		return this.userDao.selectUserIdByName(accountName);
+	}
 }

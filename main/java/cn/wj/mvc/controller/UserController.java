@@ -1,27 +1,27 @@
 package cn.wj.mvc.controller;
 
+import cn.wj.domain.Menu;
 import cn.wj.domain.ResponseObj;
+import cn.wj.domain.Tree;
 import cn.wj.domain.User;
-import cn.wj.exception.*;
-import cn.wj.service.UserService;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.utils.GsonUtils;
-import cn.wj.utils.PublicUtil;
 import cn.wj.utils.StringUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户请求相关控制器
@@ -38,6 +38,7 @@ public class UserController {
 	/**
 	 * ModelAndView 代表一个web页面(初期页面跳转4.1)
 	 * setViewName代表设置一个JSP页面的名称
+	 *
 	 * @param response http响应
 	 * @param user     发起请求后，spring接收到请求，然后封装的 bean 数据
 	 * @return 返回一个 web页面
@@ -121,7 +122,7 @@ public class UserController {
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object login(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+	public Object login(HttpServletRequest request, @RequestParam(value = "accountName", required = true) String accountName, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		Object result;
 		//if(PublicUtil.isJsonRequest(request)){//确认是否JSON提交
 		//	user = new GsonUtils().jsonRequest2Bean(request.getInputStream(),User.class);//转换成指定类型的对象
@@ -150,20 +151,82 @@ public class UserController {
 			responseObj.setMsg("未找到该用户");
 			result = new GsonUtils().toJson(responseObj);
 		} else {
+
+			//(1)获取默认初始文件原名
+			String userImagePath = userService.findPathById(accountName);
+			System.out.println("===打印图片原始路径======" + userImagePath);
+
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
+				//(2)5.12  做权限菜单
+				List<Menu> menuList = userService.getMenu(user1.getUserId());
+
+				//获取当前菜单的所有子菜单
+				List<Tree> treeList = new ArrayList<Tree>();
+				for (Menu menu : menuList) {
+					Tree node = new Tree();
+					if (menu.getParentId() == 0) {
+						node.setId(menu.getMenuId());
+						node.setPid(menu.getParentId());
+						node.setText(menu.getMenuName());
+						node.setIconCls(menu.getMenuIcon());
+						if (menu.getCountChildrens() > 0) { // 有子节点
+							node.setState("closed");
+						}
+						Map<String, Object> attr1 = new HashMap<String, Object>();
+						attr1.put("url", menu.getMenuUrl());
+						node.setAttributes(attr1);
+						List<Tree> childernList = new ArrayList<Tree>();
+						for (Menu newMenu : menuList) {
+
+							// 选中父节点后，再遍历选出它对应的子节点，并将它放入list<tree> children中
+							Tree newnode = new Tree();
+							if ((newMenu.getParentId() != 0)
+									&& (newMenu.getParentId().equals(menu.getMenuId()))) { // 有父节点
+								newnode.setId(newMenu.getMenuId());
+								newnode.setPid(newMenu.getParentId());
+								newnode.setText(newMenu.getMenuName());
+								newnode.setIconCls(newMenu.getMenuIcon());
+								Map<String, Object> attr2 = new HashMap<String, Object>();
+								attr2.put("url", newMenu.getMenuUrl());
+								newnode.setAttributes(attr2);
+								childernList.add(newnode);
+							}
+						}
+						node.setChildren(childernList);
+						treeList.add(node);
+						System.out.println("==打印for循环里面菜单treeList======" + treeList);
+					} else {
+						break;
+					}
+				}
+//return treeList;
+
 				user1.setNextUrl(request.getContextPath() + "/mvc/home");
 				responseObj = new ResponseObj<User>();
 				responseObj.setCode(ResponseObj.OK);
 				responseObj.setMsg(ResponseObj.OK_STR);
+				responseObj.setMenulist(menuList);
+				responseObj.setTreelist(treeList);
+
+				responseObj.setPath(userImagePath);
+				System.out.println("===打印图片原始路径======" + userImagePath);
+
+				System.out.println("====打印出来所有要显示的菜单menuList=======" + menuList);
+				System.out.println("==打印*treeList菜单======" + treeList);
 				responseObj.setData(user1);//提取到数据库中该用户登录的所有的信息，（密码是加密）
-
 				//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
-
-				System.out.println("========" + user1);  //能打印用户所有信息（密码是加密）
+				System.out.println("====查找的用户的信息====" + user1);  //能打印用户所有信息（密码是加密）
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
+				session.setAttribute("menu",menuList);
+				session.setAttribute("tree",treeList);
 
-				System.out.println("======userInfo==" + user);//只打印 用户名和密码（未加密）
+				session.setAttribute("userPath", userImagePath);
+
+				System.out.println("===打印图片原始路径======" + userImagePath);
+				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
+				System.out.println("===存入session信息,menu===" + menuList);
+				System.out.println("===存入session信息,tree===" + treeList);
 
 				result = new GsonUtils().toJson(responseObj);
 			} else {
@@ -241,15 +304,15 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/uploadHeadPic", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file,  @RequestParam(value="accountName" ,required = true) String accountName,HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, @RequestParam(value = "accountName", required = true) String accountName, HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		responseObj = new ResponseObj();
 		Object result;
 
 		//获取默认初始文件原名
-		String userImagePath= userService.findPathById(accountName);
+		String userImagePath = userService.findPathById(accountName);
 		//session中放入原始图片路径
-		session.setAttribute("userImagePath", userImagePath);
-		System.out.println("===打印图片原始路径======"+userImagePath);
+		//session.setAttribute("userImagePath", userImagePath);
+		System.out.println("===打印图片原始路径======" + userImagePath);
 
 		//保存相对路径到数据库，，图片写入数据库
 		if (null == file || file.isEmpty()) {
@@ -282,6 +345,7 @@ public class UserController {
 		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
 		userService.updateImage(user);
 		//responseObj = new ResponseObj<User>();
+		responseObj.setPath(userImagePath);
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("头像上传成功");
 		responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
@@ -289,13 +353,13 @@ public class UserController {
 		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);
 		session.setAttribute("userInfo", user);
+		//session.setAttribute("userPath", userImagePath);
 
+		System.out.println("===打印图片原始路径======" + userImagePath);
 		return new GsonUtils().toJson(responseObj);
 
 
 	}
-
-
 
 
 }

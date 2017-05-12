@@ -226,8 +226,7 @@ public class User implements Serializable {
 				", mobilePhone='" + mobilePhone + '\'' + ", qq='" + qq + '\'' + ", postcode='" + postcode + '\'' +
 				", idcard='" + idcard + '\'' + ", loginCount='" + loginCount + '\'' + ", idcard='" + idcard + '\'' +
 				", postAdress='" + postAdress + '\'' + ", creatTime='" + creatTime + '\'' + ", headImage='" + headImage + '\'' +
-				", approved='" + approved +
-				'}';
+				", approved='" + approved + '}';
 	}
 
 }

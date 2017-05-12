@@ -14,7 +14,11 @@
 <!--Footer-part-->
 
 <div class="row-fluid">
-    <div id="footer" class="span12"> 2017 &copy; ZJNU.</div>
+    <div id="footer" class="span12"> 2017 &copy; ZJNU.
+        ${menu}
+        ${tree}
+        ${userPath}
+    </div>
 </div>
 
 <!--end-Footer-part-->

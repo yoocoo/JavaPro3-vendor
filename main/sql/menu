@@ -1,0 +1,14 @@
+CREATE TABLE `menu` (
+	`menu_id` INT(50) NOT NULL COMMENT '菜单ID',
+	`menu_name` VARCHAR(255) NULL DEFAULT NULL COMMENT '菜单描述',
+	`menu_url` VARCHAR(255) NULL DEFAULT NULL COMMENT '菜单地址',
+	`parent_id` INT(50) NULL DEFAULT NULL COMMENT '父菜单ID',
+	`menu_order` VARCHAR(100) NULL DEFAULT NULL COMMENT '菜单顺序',
+	`menu_icon` VARCHAR(50) NULL DEFAULT NULL COMMENT '主菜单icon',
+	`menu_type` VARCHAR(50) NULL DEFAULT NULL COMMENT '菜单分类/后期功能',
+	PRIMARY KEY (`menu_id`)
+)
+COMMENT='菜单表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
