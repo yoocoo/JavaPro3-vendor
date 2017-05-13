@@ -105,8 +105,12 @@
     var fileName;
     function upLoadFile() {
         fileName = document.getElementById('changeHeadPic').value;
+       // var path = $("#headImage").val();
         $.ajaxFileUpload({
             url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",
+//            data: {
+//                headImage: path
+//            },
             secureuri: false,//是否需要安全协议，一般设置为false
             fileElementId: 'changeHeadPic',//文件上传域Id
             dataType: 'json',//返回值类型 一般设置为json
@@ -367,6 +371,7 @@
                             </ul>
                             <div class="controls span3 ">
                                 <input type="file" name="file" id="changeHeadPic" size="28"/>
+                                <%--<input type="hidden" id="path" name="headImage">--%>
                             </div>
                         </div>
                         <hr>

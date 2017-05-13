@@ -30,7 +30,7 @@
         <li class="active"><a href="#"><i class="icon icon-home"></i>首页</a></li>
 
         <li class="submenu"><a href="#"><i class="icon icon-inbox"></i>
-            <span>主测试</span>
+            <span>${tree[0].text}</span>
             <span class="label label-important"></span></a>
             <ul>
                 <li><a href="account-user.html">子测试</a></li>
@@ -38,23 +38,18 @@
                 <li><a href="<%=request.getContextPath()%>/mvc/listActionLog">子测试3</a></li>
             </ul>
         </li>
-        <c:forEach items="${menulist}" var="Menu">
-        <li    class="submenu" id="lm${Menu.id }" ><a href="#" ><i class="${Menu.iconCls}"></i>
-            <span>${Menu.text}</span>
-            <span class="label label-important"></span></a>
-            <ul >
-
-                <c:forEach items="${Menu.children}" var="sub">
-                <li id="z${sub.id}"
-                    <%--class="${ sub.iconCls}"--%>
-                >
-                    <a  target="mainFrame"  onclick="siMenu('z${sub.id}','lm${Menu.id}','${sub.text}','${sub.attributes.url }')">${sub.text }</a></li>>
-
+        <c:forEach items="${tree}" var="Menu">
+            <li    class="submenu" id="lm${Menu.id }" ><a href="#" ><i class="${Menu.iconCls}"></i>
+                <span>${Menu.text}</span>
+                <span class="label label-important"></span></a>
+                <ul >
+                    <c:forEach items="${Menu.children}" var="sub">
+                        <li id="z${sub.id}">
+                            <a  href="${sub.attributes.url }" ><i class="${sub.iconCls}"></i>${sub.text }</a></li>
                     </c:forEach>
-            </ul>
-
-        </li>
-            </c:forEach>
+                </ul>
+            </li>
+        </c:forEach>
     </ul>
 </div>
 <!--sidebar-menu-->
@@ -91,3 +86,17 @@
         <%--</li>--%>
     <%--</ul>--%>
 <%--</div>--%>
+
+=====================================
+<%--<c:forEach items="${tree}" var="Menu">--%>
+    <%--<li    class="submenu" id="lm${Menu.id }" ><a href="#" ><i class="${Menu.iconCls}"></i>--%>
+        <%--<span>${Menu.text}</span>--%>
+        <%--<span class="label label-important"></span></a>--%>
+        <%--<ul >--%>
+            <%--<c:forEach items="${Menu.children}" var="sub">--%>
+                <%--<li id="z${sub.id}"&lt;%&ndash;class="${ sub.iconCls}"&ndash;%&gt;>--%>
+                    <%--<a   onclick="siMenu('z${sub.id}','lm${Menu.id}','${sub.text}','${sub.attributes.url }')">${sub.text }</a></li>>--%>
+            <%--</c:forEach>--%>
+        <%--</ul>--%>
+    <%--</li>--%>
+<%--</c:forEach>--%>

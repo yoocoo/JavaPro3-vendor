@@ -151,16 +151,13 @@ public class UserController {
 			responseObj.setMsg("未找到该用户");
 			result = new GsonUtils().toJson(responseObj);
 		} else {
-
-			//(1)获取默认初始文件原名
+			//(1)获取该登录用户的头像
 			String userImagePath = userService.findPathById(accountName);
-			System.out.println("===打印图片原始路径======" + userImagePath);
-
+			//System.out.println("===打印图片原始路径======" + userImagePath);
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
 				//(2)5.12  做权限菜单
 				List<Menu> menuList = userService.getMenu(user1.getUserId());
-
 				//获取当前菜单的所有子菜单
 				List<Tree> treeList = new ArrayList<Tree>();
 				for (Menu menu : menuList) {
@@ -178,7 +175,6 @@ public class UserController {
 						node.setAttributes(attr1);
 						List<Tree> childernList = new ArrayList<Tree>();
 						for (Menu newMenu : menuList) {
-
 							// 选中父节点后，再遍历选出它对应的子节点，并将它放入list<tree> children中
 							Tree newnode = new Tree();
 							if ((newMenu.getParentId() != 0)
@@ -195,11 +191,12 @@ public class UserController {
 						}
 						node.setChildren(childernList);
 						treeList.add(node);
-						System.out.println("==打印for循环里面菜单treeList======" + treeList);
+
 					} else {
 						break;
 					}
 				}
+				System.out.println("==打印for循环之后的面菜单treeList======" + treeList);
 //return treeList;
 
 				user1.setNextUrl(request.getContextPath() + "/mvc/home");
@@ -210,20 +207,17 @@ public class UserController {
 				responseObj.setTreelist(treeList);
 
 				responseObj.setPath(userImagePath);
-				System.out.println("===打印图片原始路径======" + userImagePath);
-
-				System.out.println("====打印出来所有要显示的菜单menuList=======" + menuList);
-				System.out.println("==打印*treeList菜单======" + treeList);
+				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
+				System.out.println("====打印出来该用户所有要显示的权限菜单menuList=======" + menuList);
 				responseObj.setData(user1);//提取到数据库中该用户登录的所有的信息，（密码是加密）
 				//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
 				System.out.println("====查找的用户的信息====" + user1);  //能打印用户所有信息（密码是加密）
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
-				session.setAttribute("menu",menuList);
-				session.setAttribute("tree",treeList);
+				session.setAttribute("menu", menuList);
+				session.setAttribute("tree", treeList);
 
 				session.setAttribute("userPath", userImagePath);
-
-				System.out.println("===打印图片原始路径======" + userImagePath);
+				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
 				System.out.println("===存入session信息,menu===" + menuList);
 				System.out.println("===存入session信息,tree===" + treeList);
@@ -302,18 +296,11 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/uploadHeadPic", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/uploadHeadPic"
+			, method = RequestMethod.POST
+			, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, @RequestParam(value = "accountName", required = true) String accountName, HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
-		responseObj = new ResponseObj();
-		Object result;
-
-		//获取默认初始文件原名
-		String userImagePath = userService.findPathById(accountName);
-		//session中放入原始图片路径
-		//session.setAttribute("userImagePath", userImagePath);
-		System.out.println("===打印图片原始路径======" + userImagePath);
-
+	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file,  HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		//保存相对路径到数据库，，图片写入数据库
 		if (null == file || file.isEmpty()) {
 			responseObj = new ResponseObj();
@@ -322,44 +309,29 @@ public class UserController {
 			return new GsonUtils().toJson(responseObj);
 		}
 		//更新用户头像
-		try {
-			userService.updateImage(user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			responseObj.setCode(ResponseObj.FAILED);
-			responseObj.setMsg("其他错误");
-			result = new GsonUtils().toJson(responseObj);
-			return result;
+		//String userImagePath = userService.findPathById(accountName);
+			//userService.updateImage(user);
+			//获取新上传头像地址
+			String fileName = file.getOriginalFilename();
+			// 获取图片的扩展名
+			//String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
+			// 新的图片文件名 = 本地静态资源目录+上传的文件原名
+			//String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
+
+			//responseObj = new ResponseObj<User>();
+			responseObj.setCode(ResponseObj.OK);
+			responseObj.setMsg("头像上传成功");
+			responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
+			responseObj.setMsg("文件长度为：" + file.getSize());
+			responseObj.setfileName(fileName);
+		//	responseObj.setData(user);
+			session.setAttribute("file", fileName);
+			System.out.println("===存入session信息,新头像地址===" + fileName);
+			//System.out.println("===存入session信息,修改头像后userinfo===" + user);
+			return new GsonUtils().toJson(responseObj);
+
+
 		}
-
-		//String pathOriginal = request.getParameter("accountName");
-
-		//String fileOriginalName= userService.findPathById(pathOriginal);
-
-		//获取新上传头像地址
-		String fileName = file.getOriginalFilename();
-		// 获取图片的扩展名
-		//String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
-
-		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
-		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
-		userService.updateImage(user);
-		//responseObj = new ResponseObj<User>();
-		responseObj.setPath(userImagePath);
-		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("头像上传成功");
-		responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
-		responseObj.setMsg("文件长度为：" + file.getSize());
-		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
-		responseObj.setData(user);
-		session.setAttribute("userInfo", user);
-		//session.setAttribute("userPath", userImagePath);
-
-		System.out.println("===打印图片原始路径======" + userImagePath);
-		return new GsonUtils().toJson(responseObj);
 
 
 	}
-
-
-}

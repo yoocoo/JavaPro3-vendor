@@ -73,6 +73,7 @@ public class Tree{
 				+ ", checked='" + checked + '\''
 				+ ", attributes='" + attributes + '\''
 				+ ", children='" + children + '\''
+				+ ", iconCls='" + iconCls + '\''
 				+ ", pid='" + pid +
 				'}';
 	}

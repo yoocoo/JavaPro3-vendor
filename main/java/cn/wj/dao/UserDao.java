@@ -30,7 +30,7 @@ public interface UserDao extends Dao<User> {
 	//查找数据库中的用户
 	User findOneById(Serializable Id);
 
-	//查找用户头像地址
+	//查找用户头像地址，用于动态显示头像
 	String findPathById(String accountName);
 
 	//查询所有用户

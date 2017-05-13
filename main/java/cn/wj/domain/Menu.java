@@ -119,28 +119,29 @@ public class Menu {
     @Override
     public String toString() {
 
-      // String MenuName= menuName;
-        return "MenuName{" +
-                "menuId='" + menuId + '\''
-                + ",menuName='" + menuName + '\''
-                + ", menuUrl='" + menuUrl + '\''
-                + ", menuIcon='" + menuIcon + '\''
-                + ", parentId='" + parentId + '\''
-                + ", countChildrens='" + countChildrens + '\''
-                + ", subMenu='" + subMenu +
-                '}';
+        return "Menu{" +
+        "menuId='" + menuId + '\''
+        + "menuName='" + menuName + '\''
+        + ", menuUrl='" + menuUrl + '\''
+        + ", parentId='" + parentId + '\''
+        + ", menuOrder='" + menuOrder + '\''
+        + ", menuIcon='" + menuIcon + '\''
+        + ", menuType=" + menuType + '\''
+        + ", countChildrens='" + countChildrens + '\''
+        + ", parentMenu='" + parentMenu + '\''
+        + ", subMenu='" + subMenu +
+        '}';
 
     }
 }
-//return "Menu{" +
-//        "menuId='" + menuId + '\''
-//        + "menuName='" + menuName + '\''
-//        + ", menuUrl='" + menuUrl + '\''
-//        + ", parentId='" + parentId + '\''
-//        + ", menuOrder='" + menuOrder + '\''
-//        + ", menuIcon='" + menuIcon + '\''
-//        + ", menuType=" + menuType + '\''
-//        + ", countChildrens='" + countChildrens + '\''
-//        + ", parentMenu='" + parentMenu + '\''
-//        + ", subMenu='" + subMenu +
-//        '}';
+
+   //return "MenuName{" +
+   //        "menuId='" + menuId + '\''
+   //        + ",menuName='" + menuName + '\''
+   //        + ", menuUrl='" + menuUrl + '\''
+   //        + ", menuIcon='" + menuIcon + '\''
+   //        + ", parentId='" + parentId + '\''
+   //        + ", countChildrens='" + countChildrens + '\''
+   //        + ", parentMenu='" + parentMenu + '\''
+   //        + ", subMenu='" + subMenu +
+   //        '}';

@@ -8,10 +8,12 @@ public class ResponseObj<T> {
 
 	private int code; // 状态码,0成功;1空数据;-1请求失败
 	private String msg;
-	private  String path;
+	private  String path;//数据库中头像地址
+	private  String fileName;//上传头像地址
 	private Object data;
 	private Object menulist;
 	private  Object  treeList;
+
 
 	public int getCode() {
 		return code;
@@ -37,6 +39,14 @@ public class ResponseObj<T> {
 		this.data = data;
 	}
 
+
+	public Object getTreelist() {
+		return treeList;
+	}
+	public void setTreelist(List<Tree> treeList) {
+		this.treeList = treeList;
+	}
+
 	public Object getMenulist() {
 		return menulist;
 	}
@@ -45,16 +55,22 @@ public class ResponseObj<T> {
 		this.menulist = menulist;
 	}
 
+	/**
+	 * 获得图片在数据库中的地址
+	 * @return
+	 */
 	public String getPath() {
 		return path;
 	}
-	public void setPath(String path1) {
-		this.path = path1;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	public Object getTreelist() {
-		return treeList;
+
+	public void setfileName(String fileName){
+		this.fileName = fileName;
 	}
-	public void setTreelist(List<Tree> treeList) {
-		this.treeList = treeList;
+	public String getfileName(){
+		return   fileName;
 	}
+
 }
