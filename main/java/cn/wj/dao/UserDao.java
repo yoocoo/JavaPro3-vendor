@@ -1,5 +1,7 @@
 package cn.wj.dao;
 
+import cn.wj.domain.Menu;
+import cn.wj.domain.Page;
 import cn.wj.domain.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,16 +24,29 @@ public interface UserDao extends Dao<User> {
 	//更新用户
 	int update(User user);
 
+	//更新用户头像
+	int updateImage(User user);
+
 	//查找数据库中的用户
 	User findOneById(Serializable Id);
 
+	//查找用户头像地址，用于动态显示头像
+	String findPathById(String accountName);
+
 	//查询所有用户
-	List<User> findAll();
+	List<User> findAll(Page page);
 
 	//用户 sessionId
 	void updateLoginSession(@Param("sessionId") String sessionId, @Param("accountName") String accountName);
 
 	//增加用户sessionId
 	void addSessionId(String id);
+
+	//根据用户ID 获得权限菜单
+	List<Menu> getMenuByUserId(@Param("userId") int userId);
+
+	//根据用户名获得该用户的ID
+	int selectUserIdByName(String accountName);
+
 
 }

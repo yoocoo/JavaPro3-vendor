@@ -1,8 +1,9 @@
 package cn.wj.service.serviceImpl;
 
 import cn.wj.dao.UserDao;
+import cn.wj.domain.Menu;
 import cn.wj.domain.User;
-import cn.wj.exception.*;
+import cn.wj.exception.OtherThingsException;
 import cn.wj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,16 @@ public class UserServiceImpl implements UserService {
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-
 			System.out.println("添加用户成功！");
-
 		}
 
 	}
 
+	/**
+	 * 更新用户资料
+	 * @param user
+	 * @throws OtherThingsException
+	 */
 	public void update(User user) throws OtherThingsException {
 		int result1 = 0;//受影响的行数默认为零
 		try {
@@ -50,13 +54,33 @@ public class UserServiceImpl implements UserService {
 			throw new OtherThingsException(e);
 		}
 		if (result1 > 0) {
-
 			System.out.println("service更新用户信息成功！");
-
 		}
 	}
 
 	/**
+	 * 更新用户头像
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+
+	public void updateImage(User user) throws OtherThingsException {
+		int result2 = 0;//受影响的行数默认为零
+		try {
+			result2 = userDao.updateImage(user);
+		}catch (Exception e){
+			System.out.println("更新用户头像失败");
+			//其他用户更新失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result2 > 0) {
+			System.out.println("service更新用户头像成功！");
+		}
+	}
+
+
+	/**
+	 * 查找数据库中用户（注册时查重和登录时判空）
 	 * @param user 用户bean
 	 * @return  返回用户名
 	 * @throws Exception
@@ -65,11 +89,45 @@ public class UserServiceImpl implements UserService {
 		return userDao.findOneById(user.getAccountName());
 	}
 
+	/**
+	 * 更新用户session
+	 * @param sessionId
+	 * @param accountName
+	 * @throws Exception
+	 */
 	public void updateLoginSession(String sessionId, String accountName) throws Exception {
 		userDao.updateLoginSession(sessionId, accountName);
 	}
 
+	/**
+	 * 用户列表（查找所有用户，带分页）
+	 * @param pageNum  页码
+	 * @param pageSize 每页的查询数量
+	 * @return
+	 */
 	public List<User> findAll(int pageNum, int pageSize) {
 		return null;
+	}
+
+	/**
+	 * 依据用户名找到 该用户名头像地址 Path
+	 * @param accountName
+	 * @return  返回头像地址
+	 */
+	public String findPathById(String accountName) {
+		return this.userDao.findPathById(accountName);
+	}
+
+	/**
+	 * 根据用户ID 获得   该用户权限的菜单
+	 * @param userId
+	 * @return
+	 */
+	public List<Menu> getMenu(int userId){
+		return  userDao.getMenuByUserId(userId);
+	}
+
+	public int getUserIdByName(String accountName) {
+		return this.userDao.selectUserIdByName(accountName);
 	}
 }

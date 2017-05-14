@@ -1,0 +1,10 @@
+CREATE TABLE `user_role` (
+	`role_id` INT(50) NOT NULL COMMENT '角色表ID',
+	`role_name` VARCHAR(50) NOT NULL COMMENT '角色描述',
+	`role_type` VARCHAR(50) NOT NULL COMMENT '角色类型',
+	PRIMARY KEY (`role_id`)
+)
+COMMENT='角色表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;

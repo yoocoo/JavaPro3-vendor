@@ -1,0 +1,21 @@
+CREATE TABLE `user_action_log` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+	`account_name` VARCHAR(50) NULL DEFAULT NULL COMMENT '登录的用户名',
+	`session_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '访问session的ID\\\\r\\\\n',
+	`time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+	`ip_addr_v4` VARCHAR(15) NULL DEFAULT NULL COMMENT 'ipV4地址',
+	`ip_addr_v6` VARCHAR(128) NULL DEFAULT NULL COMMENT 'ipv6地址\\\\r\\\\n',
+	`os_name` VARCHAR(20) NULL DEFAULT NULL COMMENT '操作系统名称',
+	`os_version` VARCHAR(20) NULL DEFAULT NULL,
+	`bro_name` VARCHAR(20) NULL DEFAULT NULL COMMENT '浏览器名称',
+	`bro_version` VARCHAR(20) NULL DEFAULT NULL COMMENT '浏览器版本',
+	`request_body` VARCHAR(60) NULL DEFAULT NULL COMMENT '请求体信息',
+	`description` VARCHAR(100) NULL DEFAULT NULL COMMENT '操作描述',
+	`other` VARCHAR(150) NULL DEFAULT NULL,
+	`method` VARCHAR(10) NULL DEFAULT NULL COMMENT 'HTTP请求方法',
+	PRIMARY KEY (`id`)
+)
+COMMENT='行为日志表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;

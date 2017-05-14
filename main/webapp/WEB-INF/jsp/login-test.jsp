@@ -5,11 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <title>账户登录(旧版本)</title>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/denglu.css'/>">
-    <%--<link rel="stylesheet" href="/css/denglu.css">--%>
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login/login.css'/>">
+    <%--<link rel="stylesheet" href="/css/login.css">--%>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <script type="text/javascript" src="<c:url value='/static/js/denglu.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/js/login/login.js'/>"></script>
 </head>
 <html>
 <body>
@@ -48,7 +48,7 @@
 
                     <input type="text" name="accountName" placeholder="账号"/>
                     <input type="password" name="password" placeholder="密码"/>
-         <%--改造代码      1    --%>
+                    <%--改造代码      1    --%>
                     <a href="javascript:document.forms[0].submit();">
                         <button class="btn_login" type="submit" class="btn_login">登 录</button>
                     </a>
@@ -104,55 +104,3 @@
 
 </body>
 </html>
-<%--<script type="javascript">
-function checkLoginInfo() {
-if ("" == $("#u").val()) {  //u标签的值为空
-$("#u").tips({ // .tips 是js提示标签的调用方法，具体的轮廓如上面的登陆页面的提示标签
-side: 2,
-msg: '用户名不得为空',//提示信息
-bg: '#AE81FF',//提示的背景颜色
-time: 3//提示呈现的时间
-});
-$("#u").focus();  //让u标签获取输入焦点
-return false;  //返回false，打断js的执行
-}
-if ($("#p").val() == "") {
-
-$("#p").tips({
-side: 2,
-msg: '密码不得为空',
-bg: '#AE81FF',
-time: 3
-});
-$("#p").focus();
-return false;
-}
-return true;
-}
-
-function webLogin() {
-if (checkLoginInfo()) {
-var accountName = $("#u").val();
-//                var是申明一个变量的关键字，accountName为变量名，
-//                $("#u")是找到一个标签ID为"u"的标签，.val() 是获取对应ID标签的值
-var password = $("#p").val();
-$.ajax({   //使用jquery下面的ajax开启网络请求
-type: "POST",  //http请求方式为POST
-url: '<%=request.getContextPath()%>/userAction/login',   //请求接口的地址
-data: {accountName: accountName, password: password},   //存放的数据，服务器接口字段为accountName和password，分别对应用户登录名和密码
-dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
-cache: false,  //不用缓存
-success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
-if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
-//                            window.location.href = data.data.nextUrl; //跳转到主页
-window.location.href = "<%=request.getContextPath()%>/mvc/home";
-} else {
-alert(data.msg);
-$("#u").focus();
-}
-}
-});
-}
-}
-
-</script>--%>

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.UserDao">
-
+    <!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离  注意:使用mapper代理方法开发，namespace有特殊重要的作用 -->
     <resultMap id="UserMapperMap" type="cn.wj.domain.User">
-
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
         <result column="next_url" property="nextUrl" jdbcType="VARCHAR"/>
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
@@ -26,7 +25,24 @@
         <result column="head_image" property="headImage" jdbcType="VARCHAR"/>
         <result column="approved" property="approved" jdbcType="TINYINT"/>
     </resultMap>
-
+    <resultMap id="MenuMap" type="cn.wj.domain.Menu" >
+        <id column="menu_id" property="menuId" jdbcType="INTEGER" />
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
+        <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+    </resultMap>
+    <!-- 在映射文件中配置很多sql语句 -->
+    <!-- 通过select执行数据库查询，
+            1.id:标示映射文件中的sql，成为Statement的id
+            2.将sql语句封装到mappedStatement对象中，所以将id称为statement的id,
+            3.parameterType:指定输入参数的类型，
+            4.#{}标示一个占位符,
+            5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
+            6.resultType：指定sql输出结果的映射的java对象类型，
+            7.select指定resultType表示将单条记录映射成java对象-->
     <!--1查找-登录用户，查找用户是否存在-->
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
      SELECT  *
@@ -35,7 +51,6 @@
    </select>
     <!--2增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
-
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
         </selectKey>
@@ -43,9 +58,8 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
-
 
     <!--3删除-->
     <update id="del" parameterType="User">
@@ -54,7 +68,10 @@
     WHERE  account_name = #{accountName}
   </update>
 
-    <!--4更新用户信息-修改个人资料- -->
+    <!--4更新用户信息-修改个人资料- 依据用户登录的账户名，来修改个人资料
+     分析:
+    1.需要传入用户的accountName，需要传入用户的更新信息.2.parameterType指定user对象，包括accountName和更新信息(注意:accountName必须存在)
+    #{accountName}:从输入user对象中获取accountName属性值-->
     <update id="update" parameterType="cn.wj.domain.User">
     UPDATE user
     SET
@@ -67,10 +84,58 @@
     idcard = #{idcard},
     post_adress = #{postAdress}
    WHERE  account_name = #{accountName}
-  </update>
+    </update>
 
+    <!--5查找-该登录用户的头像-->
+    <select id="findPathById" resultType="string" parameterType="String">
+        SELECT  head_image
+        FROM  user
+        WHERE  account_name = #{accountNname}
+    </select>
+    <!--5更新用户信息-修改个人头像 -->
+    <update id="updateImage" parameterType="cn.wj.domain.User">
+   UPDATE  user
+   SET
+   head_image =#{headImage}
+   WHERE  account_name = #{accountName}
+    </update>
+    <!--6.用户列表-->
+<select id="findAll" resultMap="UserMapperMap">
+     SELECT * FROM user
+</select>
 
+    <!--7依据用户名获得菜单-->
+    <select id="getMenuByUserId" resultMap="MenuMap">
+        SELECT
+        m.menu_id,m.menu_name,m.parent_id,m.menu_icon,m.menu_url,
+			(select count(1) from menu s where s.parent_id!=0 and s.parent_id=m.parent_id) countChildrens
+		FROM menu m
+		  LEFT JOIN role_in_menu rm
+		  ON m.menu_id = rm.menu_id
+		  LEFT JOIN user_role r
+		  ON rm.role_id = r.role_id
+		  LEFT JOIN user_in_role ur
+		  ON  r.role_id = ur.role_id
+		  LEFT JOIN user u
+		  ON ur.user_id = u.user_id
+		  WHERE u.user_id = #{userId}
+		  AND m.menu_id NOT IN(
+			SELECT tt.menu_id
+			FROM
+				(SELECT m.menu_id,
+					(SELECT COUNT(parent_id) FROM menu sp WHERE sp.parent_id=m.menu_id AND m.parent_id=0 ) countch
+				 FROM menu m WHERE m.parent_id=0
+		  		) tt
+		  	where countch =0
+		  )
+		  ORDER BY m.menu_order
+    </select>
 
+    <select id="selectUserIdByName" parameterType="String" resultType="int">
+        SELECT  user_id
+        FROM  user
+        WHERE account_name = #{accountName}
+    </select>
 
     <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
     <!--insert into user (user_id, account_name, password, -->

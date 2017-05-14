@@ -9,7 +9,9 @@
 <html>
 <head>
 </head>
+
 <script type="text/javascript">
+
 
     //   ========== 修改个人资料 start========
     function webUpdate() {
@@ -86,31 +88,110 @@
     }
 
 </script>
+<%--定义退出系统--%>
+<script type="text/javascript">
+    function logout() {
+        if (!confirm("您确定要退出吗？")) {
+            location.href = '<%=request.getContextPath()%>/mvc/login';
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+<script type="text/javascript">
+    //   ============ 修改个人头像 start==========
 
+
+    var path =$("#path").val();
+
+    function upLoadFile() {
+        fileName = document.getElementById('changeHeadPic').value;
+        alert(fileName)
+        // var path = $("#headImage").val();
+        $.ajaxFileUpload({
+            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",//请求修改个人头像接口地址
+            data: {
+                headImage: path
+            },
+            secureuri: false,//是否需要安全协议，一般设置为false
+            fileElementId: 'changeHeadPic',//文件上传域Id
+            dataType: 'json',//返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+                alert(data.msg);
+//先根据返回的code确定文件是否上传成功
+//文件上传失败，直接弹出错误提示，根据错误进行相应的事物处理（关闭Loading窗口，弹出提示对话框）
+//文件上传成功后，继续实现loading窗口，接着执行上传表单信息等事物
+            }
+
+        });
+    }
+
+    function onConfirm() {
+        upLoadFile();
+    }
+    function onCancel(e) {
+    }
+
+    //显示个人修改头像窗口
+    function changeImageInfo() {
+        $('#my-prompt').modal({
+            relateTarge: this,
+//            onConfirm: function () {
+//                upLoadFile();
+//            },
+//            onCancel: function (e) {
+//            }
+        });
+
+
+    }
+</script>
 <body>
-
+<!--close-Header-part-->
+<!--Header-part-->
+<div id="header">
+    <div class="img" id="admin-offcanvas">
+        <%--src="/static/images/avatar-1.jpg"--%>
+        <img src="${userPath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
+             class="img-circle img-thumbnail img-responsive">修改头像
+        <%--<img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"--%>
+        <%--class="img-circle img-thumbnail img-responsive">修改头像--%>
+    </div>
+</div>
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
     <ul class="nav">
         <li class="dropdown" id="profile-messages">
             <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i
-                    class="icon icon-user"></i> <span class="text">欢迎用户${userInfo.accountName}</span><b
+                    class="icon icon-user"></i> <span class="text">${userInfo.accountName}欢迎用户</span><b
                     class="caret"></b></a>
             <ul class="dropdown-menu">
                 <%--modal弹窗触发的修改个人资料--%>
-                <li>
-                    <a data-toggle="modal" data-target="#my-prompt1" href="#">
-                        <i class="icon-user"></i> 个人资料</a></li>
+                <li><a data-toggle="modal" data-target="#my-prompt1" href="#"><i class="icon-user"></i> 个人资料</a></li>
                 <li class="divider">
                 <li><a href="<%=request.getContextPath()%>/mvc/login"><i class="icon-key"></i> 退出登录</a></li>
             </ul>
         </li>
-        <li class=""><a title="" href="#"><i class="icon icon-cog"></i>
-            <span
-                    class="text">设置</span></a></li>
-        <li class=""><a title="" href="<%=request.getContextPath()%>/mvc/login"><i class="icon icon-share-alt"></i>
-            <span class="text">安全退出</span></a></li>
-
+        <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
+                                                   class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
+                class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
+                <li class="divider"></li>
+                <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
+                </li>
+                <li class="divider"></li>
+                <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i
+                        class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
+                <li class="divider"></li>
+                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a>
+                </li>
+            </ul>
+        </li>
+        <li class=""><a title="" href=javascript:logout()><i class="icon icon-share-alt"></i>
+            <span class="text">退出系统</span></a></li>
     </ul>
 </div>
 <!--close-top-Header-menu-->
@@ -281,19 +362,26 @@
             <%--modal-header end--%>
 
             <div class="modal-body ">
-                <form class="form-horizontal " enctype="multipart/form-data" accept-charset="utf-8">
+                <form class="form-horizontal "
+                      enctype="multipart/form-data"
+                      accept-charset="utf-8"
+                      <%--action=""--%>
+                      <%--method="post"--%>
+                      >
 
                     <div class="modal-prompt-input span5">
                         <div class="control-group ">
                             <label class="control-label">上传头像</label>
                             <ul class="thumbnails">
-                                <li class="span2"><a> <img src="/static/images/avatar-1.jpg" alt=""> </a>
+                                <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
-                                            class="lightbox_trigger" title="预览" href="/static/images/avatar-1.jpg"><i
+                                            class="lightbox_trigger" title="图片预览" href="${userPath} "><i
                                             class="icon-search"></i></a></div>
                             </ul>
                             <div class="controls span3 ">
                                 <input type="file" name="file" id="changeHeadPic" size="28"/>
+                                <input type="text" id="path" name="headImage" value="${file}">
+                                <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
                             </div>
                         </div>
                         <hr>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目开发总结</title>
+    <!--bootstrap页面基础CSS-->
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!--页面重要CSS-->
+    <link type="text/css" rel="stylesheet" href="/static/css/matrix-style.css">
+    <!--bootstrap页面基础脚本-->
+    <script type="text/javascript" src="/static/js/common/jquery.min.js"></script>
+    <!--整体UI 界面公用-->
+    <script type="text/javascript" src="/static/js/common/jquery.ui.custom.js"></script>
+    <script type="text/javascript" src="/static/js/common/bootstrap.min.js'"></script>
+    <!--数据表格脚本引用-->
+    <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/js/matrix.tables.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
+                    <h2>项目总结</h2>
+                </div>
+                <div class="widget-content nopadding">
+                    <table class="table table-bordered data-table table-striped with-check">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>
+                            <th>名称</th>
+                            <th>描述</th>
+                        </tr>
+                        </thead>
+
+                        <!-- ------------------ 开始  -->
+                        <tbody>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结-三月--作者王娇</td>
+                            <td>
+                               （一）三月一号，接手项目，挑选一个好的开发环境，研究javaWeb 框架--SSM （拥有Spring4.0 完美超越SSH框架+springMVC+mybatis）
+                                （二）三月七号，根据已开发项目，登录网站，研究该系统原先的功能
+                                （三）三月十日，着手数据库设计，和老师一起研究数据库的设计
+                                （四）三月十五日----三月底，原型设计， 把新设计的系统分不同角色，做了一个全面的覆盖。 细节到每个按钮都有详细代码。
+                                （五）总结：1.我不是一个专业设计页面的设计师，使用的是全球最受欢迎后台系统纯静态设计页面，通过一些途径，终于下载了。
+                                          2.这里 包括优点就是包含bootstrap所有的页面元素，设计很精良，如果说这个都很粗糙，我只能说，我不是设计师，不可能超越这位大师的团队几年的心血
+                                           3. 原先用.NET 设计的后台页面，我完全可以说，这绝对也是COPY的这位大师的杰作。
+                                           4. 唯一的坑就是，所有JS解说都是英文，需要翻译成中文，按照中国人日历习惯等，经过一些改造，是需要花时间的。
+                                           5.不要想当然，可能一个执着的人，会为了一个元素，花上一个星期，只为最好的效果。
+                                           6.登录界面，也是从网上海量的资源里，挑选的比较精良的设计，经过自己的专研，改动了几个版本（只有登录，或者放大登录界面，结果都不如原版效果最好，时间我花了，我乐意，我快乐）
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----四月（1） ----作者WJ</td>
+                            <td>
+                                (一)框架搭建完成后，打开日志调试来看信息，有这几点原则：1.数据库链接正常
+                                数据库驱动、数据库服务
+                                数据库配置文件
+                                数据库测试
+                                2.网页资源访问正常
+                                静态html、js、css、font、image、MP3等
+                                动态的接口
+                                动态页面如：jsp
+                                3.提示信息正常
+                                异常输出
+                                log输出
+                                等等···
+                                （二）四月中上旬，终于把自己的想要的框架搭建好了，
+                                之前研究（SSM（SpringMVC + Spring + Mybatis）框架的增删改查（含分页）），
+                                一个大神搭的框架，进群要交五元，自己又默默给他的网站贡献了五元。但是Shiro + Redis 的集成，也提供Ehcache的依赖Jar。
+                                Shiro 初始权限动态加载，需要框架依赖，配置，工具包，以及各种语句，嵌入到整个系统中，代码解读困难，也有作者自己封装的代码，
+                                学习成果是巨大的，想到自己时间不多，把自己最喜欢的跨平台开发时间都放弃了，索性就另寻他经。
+                                四月中下旬，进入框架 整体填充，这是整个系统最复杂，虽然要实现的功能较为简单，但是，怎么才能做到整个项目最简单的功能，也符合社会需求，是需要花费功夫和时间的。
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----四月（2） ----作者WJ</td>
+                            <td>
+                                (二)关于web只有大概下面几点：1.减少每个页面的请求数。
+                                2.js方法整合到页面，工具js封装成工具。
+                                3.js方法一般写在页面头部
+                                4.web页面除非整体刷新，其他情况考虑异步请求。
+                                5.页面图片资源整合到一起，然后根据位置取图片
+                                6.web页面良好体验可以考虑组件引入
+                                7.页面需要大量重用的地方可以考虑模板完成
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（1） ----作者WJ</td>
+                            <td>框架简介:
+                                项目Maven构建，真实大型互联网架构，做到高并发，大数据处理，整个项目使用定制化服务思想，提供模块化、服务化、原子化的方案，将功能模块进行拆分，可以公用到所有的项目中。架构采用分布式部署架构，所有模块进行拆分，使项目做到绝对解耦，稳定压倒一切
+                                框架整合:[Springmvc] + [Mybatis] + Shiro（权限） + REST(服务) + WebService(服务) + JMS(消息) +
+                                Lucene(搜搜引擎) + Quartz(定时调度) + [Bootstrap
+                                Html5（支持PC、IOS、Android]
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>技术点：</td>
+
+                            <td>1. Springmvc + Mybatis集成、SpringSecurity权限控制、Spring AOP事务处理。
+                                2. Wink Rest服务、Webservice服务：jaxws、CXF等
+                                3. IO 流上传下载文件，多线程操作
+                                4. 发送邮件，配置邮件服务器，发基于html、纯文本格式的邮件（可以免费赠送网络爬虫，使其群发邮件，做到广告推送等）
+                                5. MD5加密（登陆密码校验加密等），用户统一Session、Cookie管理，统一验证码校验等。
+                                6. 数据库连接池统一配置
+                                7. Quartz定时调度任务集成（直接通过配置即可）
+                                8. Httpclient破解验证码，登陆联通充值平台
+                                9. 汉字、英文拆分、可以用作文档关键字搜索等。
+                                10. Base64图片处理，支持PC，Android，IOS
+                                11. Service Socket 、Client Socket 通信技术(已经做过GPRS数据获取，并用到了项目中)
+                                12. 提供大量工具类，可以直接使用
+                                13. Maven项目构建，您可以直接做架构，可以提升自己的学习能力，使您成为真正的架构师。
+
+                                以上项目只实现了部分功能，后续待开发，fighting.....
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（2） ----作者WJ</td>
+                            <td>（1）
+                                BootStrap-table客户端分页（模板网页：http://issues.wenzhixin.net.cn/bootstrap-table/）：后台一次性将数据推送到前台，由前台代码负责分页、排序等；（针对数据庞大的数据，不适用）
+                                服务端分页：一次只传当前页的数据，点上一页或下一页时再以ajax方式获取所对应的数据；
+                                1）. 可以考考虑 把用户表（数据较少的）使用 Bootstrap-table模板分页，功能实现简单，方便，样式更多，更好看
+                                2）.
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（3） ----作者WJ</td>
+                            <td>(2) 关于页面跳转： 目前知道的有两种：一种是 利用easyui tab.js 一种是在每个页面 复写头部文件和底部文件
+                                页面 总结：目前使用每个页面 调用头部和底部，这样能更好加载和分开样式，有些 主页主内容需要不同的样式
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（4） ----作者WJ</td>
+                            <td> (4)Github是一个集成了git的服务。它可以以网页或者客户端的形式，帮助用户把git本地的数据提交到远程的服务器里。</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>裁剪插件用的是jcrop,用于头像上传，进行一个预览和剪切到，该系统需要的大小的插件</td>
+                            <td>1.使用到的技术插件
+                                Jcrop：用于前端“裁剪”图片
+                                bootstrap-fileinput：用于前端优化上传控件样式
+                                ARTtemplate：JS版的JSTL？反正就是一个腾讯的模板化插件，很好用，真心。
+                                bootstrap-sco.modal.js：这个是bootstrap的一个模态插件
+                                SpringMVC：使用框架自带的MultipartFile来获取文件（效率能够大大的提高）
+                                Image：这个是Java的内置类，用于处理图片很方便。
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--widget-box end-->
+        </div>
+    </div>
+    <!-- row-fluid-->
+</div>
+<!--container-fluid end-->
+</div>
+<!--content  end-->
+</body>
+</html>

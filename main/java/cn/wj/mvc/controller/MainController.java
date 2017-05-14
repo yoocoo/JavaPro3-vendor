@@ -47,7 +47,14 @@ public class MainController {
 		return "login";
 	}
 
-
+	/**
+	 * 权限菜单
+	 * @return
+	 */
+	@RequestMapping(value = "/left",method = RequestMethod.GET)
+ public  String left(){
+	return "index_siderbar";
+}
 
 	/**
 	 * 后台主页

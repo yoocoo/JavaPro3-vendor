@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.ActionLogDao">
+
+    <sql id="pagination">
+        <if test="offset != null and rowCount!= null">
+            <![CDATA[
+                LIMIT #{offset},#{rowCount}
+            ]]>
+        </if>
+    </sql>
     <!--增加语句-->
     <insert id="add" parameterType="cn.wj.dao.ActionLogDao">
         INSERT INTO
@@ -10,12 +18,14 @@
                              #{broVersion}, #{requestBody}, #{description}, #{other}, #{method})
     </insert>
 
-    <select id="findAll" resultType="cn.wj.dao.ActionLogDao">
-        SELECT *
-        FROM user_action_log
+    <select id="findAll" resultType="cn.wj.dao.ActionLogDao" parameterType="map">
+        <![CDATA[
+        SELECT * FROM user_action_log WHERE 1 = 1
+        ]]>
         ORDER BY id DESC
-        LIMIT #{offset} #{limit}
+        <include refid="pagination"/>
     </select>
+
 
     <select id="getAllCount" resultType="int">
         SELECT COUNT(*)
@@ -28,3 +38,11 @@
         WHERE account_name = #{accountName}
     </update>
 </mapper>
+
+
+        <!--<select id="findAll" resultType="cn.wj.dao.ActionLogDao" parameterType="map">-->
+        <!--SELECT *-->
+        <!--FROM user_action_log-->
+        <!--ORDER BY id DESC-->
+        <!--LIMIT #{limit}  #{offset}-->
+        <!--</select>-->

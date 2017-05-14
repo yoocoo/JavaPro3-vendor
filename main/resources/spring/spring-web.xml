@@ -42,8 +42,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
     <!--限制文件大小-->
+
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
         <property name="maxUploadSize" value="10000000"/>
+        <!--<property name="uploadTempDir" value="static/images"></property>-->
     </bean>
     <!-- 4.扫描web相关的bean配置 -->
     <context:component-scan base-package="cn.wj.mvc">
