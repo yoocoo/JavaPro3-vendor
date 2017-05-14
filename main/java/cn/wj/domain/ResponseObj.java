@@ -12,7 +12,7 @@ public class ResponseObj<T> {
 	private  String fileName;//上传头像地址
 	private Object data;
 	private Object menulist;
-	private  Object  treeList;
+	private Object treeList;
 
 
 	public int getCode() {
@@ -40,8 +40,8 @@ public class ResponseObj<T> {
 	}
 
 
-	public Object getTreelist() {
-		return treeList;
+	public Object getTreelist(List<Tree> treeList) {
+		return this.treeList;
 	}
 	public void setTreelist(List<Tree> treeList) {
 		this.treeList = treeList;

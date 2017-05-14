@@ -101,16 +101,19 @@
 </script>
 <script type="text/javascript">
     //   ============ 修改个人头像 start==========
-//    var path= userImagePath
-    var fileName;
+
+
+    var path =$("#path").val();
+
     function upLoadFile() {
         fileName = document.getElementById('changeHeadPic').value;
-       // var path = $("#headImage").val();
+        alert(fileName)
+        // var path = $("#headImage").val();
         $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",
-//            data: {
-//                headImage: path
-//            },
+            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",//请求修改个人头像接口地址
+            data: {
+                headImage: path
+            },
             secureuri: false,//是否需要安全协议，一般设置为false
             fileElementId: 'changeHeadPic',//文件上传域Id
             dataType: 'json',//返回值类型 一般设置为json
@@ -150,11 +153,11 @@
 <!--Header-part-->
 <div id="header">
     <div class="img" id="admin-offcanvas">
-         <%--src="/static/images/avatar-1.jpg"--%>
-         <img src="${userPath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
-                  class="img-circle img-thumbnail img-responsive">修改头像
-             <%--<img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"--%>
-             <%--class="img-circle img-thumbnail img-responsive">修改头像--%>
+        <%--src="/static/images/avatar-1.jpg"--%>
+        <img src="${userPath}" id="target" alt="user-img" title="点击头像" onclick="changeImageInfo()"
+             class="img-circle img-thumbnail img-responsive">修改头像
+        <%--<img src="/static/images/avatar-1.jpg" alt="user-img" title="点击头像修改个人资料" onclick="changeImageInfo()"--%>
+        <%--class="img-circle img-thumbnail img-responsive">修改头像--%>
     </div>
 </div>
 <!--top-Header-menu-->
@@ -162,7 +165,8 @@
     <ul class="nav">
         <li class="dropdown" id="profile-messages">
             <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i
-                    class="icon icon-user"></i> <span class="text">${userInfo.accountName}欢迎用户</span><b class="caret"></b></a>
+                    class="icon icon-user"></i> <span class="text">${userInfo.accountName}欢迎用户</span><b
+                    class="caret"></b></a>
             <ul class="dropdown-menu">
                 <%--modal弹窗触发的修改个人资料--%>
                 <li><a data-toggle="modal" data-target="#my-prompt1" href="#"><i class="icon-user"></i> 个人资料</a></li>
@@ -175,13 +179,13 @@
                 class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a class="sAdd" title="" href="/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
-                <li class="divider"><>
+                <li class="divider"></li>
                 <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
                 </li>
-                <li class="divider"><>
+                <li class="divider"></li>
                 <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i
                         class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
-                <li class="divider"><>
+                <li class="divider"></li>
                 <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a>
                 </li>
             </ul>
@@ -358,7 +362,12 @@
             <%--modal-header end--%>
 
             <div class="modal-body ">
-                <form class="form-horizontal " enctype="multipart/form-data" accept-charset="utf-8">
+                <form class="form-horizontal "
+                      enctype="multipart/form-data"
+                      accept-charset="utf-8"
+                      <%--action=""--%>
+                      <%--method="post"--%>
+                      >
 
                     <div class="modal-prompt-input span5">
                         <div class="control-group ">
@@ -366,12 +375,13 @@
                             <ul class="thumbnails">
                                 <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
-                                            class="lightbox_trigger" title="图片预览" href="${path} "><i
+                                            class="lightbox_trigger" title="图片预览" href="${userPath} "><i
                                             class="icon-search"></i></a></div>
                             </ul>
                             <div class="controls span3 ">
                                 <input type="file" name="file" id="changeHeadPic" size="28"/>
-                                <%--<input type="hidden" id="path" name="headImage">--%>
+                                <input type="text" id="path" name="headImage" value="${file}">
+                                <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
                             </div>
                         </div>
                         <hr>

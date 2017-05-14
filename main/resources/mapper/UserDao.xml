@@ -29,8 +29,8 @@
         <id column="menu_id" property="menuId" jdbcType="INTEGER" />
         <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
         <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
-        <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
-        <result column="menu_order" property="menuOrder" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+        <result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
         <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
         <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
     </resultMap>
@@ -58,7 +58,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
 
     <!--3删除-->
