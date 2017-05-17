@@ -31,7 +31,7 @@ public interface Dao<T> {
 	int update(T t);
 
 	/**
-	 * 通过一个IS 查找一个对象
+	 * 通过一个Id 查找一个对象
 	 * @param Id  待查询的对象账号名
 	 * @return  返回该Id对应的对象
 	 */

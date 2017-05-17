@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.ActionLogDao">
-
-    <sql id="pagination">
-        <if test="offset != null and rowCount!= null">
-            <![CDATA[
-                LIMIT #{offset},#{rowCount}
-            ]]>
-        </if>
+    <resultMap id="ActionLogResultMap" type="cn.wj.domain.UserActionLog">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="session_id" property="sessionId" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="ip_addr_v4" property="ipAddrV4" jdbcType="VARCHAR"/>
+        <result column="ip_addr_v6" property="ipAddrV6" jdbcType="VARCHAR"/>
+        <result column="os_name" property="osName" jdbcType="VARCHAR"/>
+        <result column="os_version" property="osVersion" jdbcType="VARCHAR"/>
+        <result column="bro_name" property="broName" jdbcType="VARCHAR"/>
+        <result column="bro_version" property="broVersion" jdbcType="VARCHAR"/>
+        <result column="request_body" property="requestBody" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="other" property="other" jdbcType="VARCHAR"/>
+        <result column="method" property="method" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="ActionLog_Column_List">
+        id, account_name, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version,
+        bro_name, bro_version, request_body, description, other, method
     </sql>
+
     <!--增加语句-->
     <insert id="add" parameterType="cn.wj.dao.ActionLogDao">
         INSERT INTO
@@ -18,12 +31,12 @@
                              #{broVersion}, #{requestBody}, #{description}, #{other}, #{method})
     </insert>
 
-    <select id="findAll" resultType="cn.wj.dao.ActionLogDao" parameterType="map">
-        <![CDATA[
+    <select id="findAll" resultType="cn.wj.dao.ActionLogDao">
+
         SELECT * FROM user_action_log WHERE 1 = 1
-        ]]>
-        ORDER BY id DESC
-        <include refid="pagination"/>
+        ORDER BY id
+        DESC
+        LIMIT #{offset},#{limit}
     </select>
 
 

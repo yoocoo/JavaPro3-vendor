@@ -16,7 +16,7 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value = "/listActionLog",method =  RequestMethod.GET)
-	public String listActionLog(){
+	public String findLogList(){
 		return "list_action_log";
 	}
 
@@ -24,10 +24,10 @@ public class MainController {
 	 * 项目框架测试
 	 * @return
 	 */
-	@RequestMapping(value = "/hello",method =  RequestMethod.GET)
-	public String hello(){
-		return "Hello Controller";
-	}
+	//@RequestMapping(value = "/hello",method =  RequestMethod.GET)
+	//public String hello(){
+	//	return "Hello Controller";
+	//}
 
 	/**
 	 * 登录界面
@@ -65,14 +65,14 @@ public class MainController {
 		return "home";
 	}
 
-	///**
-	// * 修改个人资料
-	// * @return
-	// */
-	//@RequestMapping(value = "/update.do",method = RequestMethod.GET)
-	//public  String update(){
-	//	return "home";
-	//}
+	/**
+	 * 修改个人资料
+	 * @return
+	 */
+	@RequestMapping(value = "/userAction/update",method = RequestMethod.GET)
+	public  String update(){
+		return "userinfo_update";
+	}
 
 
 }

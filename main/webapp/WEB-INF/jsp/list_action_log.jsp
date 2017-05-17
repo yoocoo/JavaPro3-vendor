@@ -20,7 +20,7 @@
 
 </head>
 
-<script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>--%>
 
 <script type="text/javascript">
     var pageNum;
@@ -43,6 +43,7 @@
 
     function goToLastPage() {
         pageNum = parseInt(pageNum) - 1;
+        alert(pageNum);
         $.ajax({
             type: "GET",
             url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=15',
@@ -97,17 +98,8 @@
                         </thead>
                         <tbody id="log-table-body">
 
-                        <tr class="gradeX">
-                            <td>123me</td>
-                            <td>食品售货机</td>
-                            <td>沃尔玛1</td>
-                            <td>200</td>
-                            <td>2017.01.01</td>
-                            <td>2018.01.01</td>
-                        </tr>
-
                         <script id="pagetmpl" type="text/x-dot-template">
-                            {{for(var i=0; i < it.length; i++){}}
+                            {{for(var i=0; i < it.length; i++){ }}
 
                             <tr class="gradeX">
                                 <td>{{=it[i].id}}</td>
@@ -117,7 +109,7 @@
                                 <td>{{=it[i].sessionId}}</td>
                                 <td>{{=it[i].broName}}</td>
                             </tr>
-                            {{ }}
+                            {{} }}
                         </script>
 
                         </tbody>

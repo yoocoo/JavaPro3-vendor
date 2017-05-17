@@ -159,7 +159,7 @@ public class UserController {
 			//System.out.println("===测试打印图片原始路径======" + userImagePath);
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
-			//==========================================分主次的权限菜单，五月十四日===============================================================================================
+				//==========================================分主次的权限菜单，五月十四日===============================================================================================
 				//================(2)5.12  做权限菜单=================
 				List<Menu> menuList = userService.getMenu(user1.getUserId());
 				//=============重新组装menulist 到treelist =========
@@ -211,6 +211,7 @@ public class UserController {
 //				=========================================分主次的权限菜单==五月十四日============================================================================================
 				user1.setNextUrl(request.getContextPath() + "/mvc/home");
 				responseObj = new ResponseObj<User>();
+				//ResponseList<UserActionLog> responseObj = new ResponseList<UserActionLog>();
 				responseObj = new ResponseObj<Tree>();
 				responseObj.setCode(ResponseObj.OK);
 				responseObj.setMsg(ResponseObj.OK_STR);
@@ -219,7 +220,7 @@ public class UserController {
 				responseObj.setMenulist(menuList);
 
 				//============================分主次的权限菜单=======================================
-				responseObj.setTreelist( treeList);
+				responseObj.setTreelist(treeList);
 				//============================分主次的权限菜单=======================================
 
 				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
@@ -228,8 +229,10 @@ public class UserController {
 				//System.out.println("===存入setData,tree===" + treeList);
 				responseObj.setData(user1);//提取到数据库中该用户登录的所有的信息，（密码是加密）
 				//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
-
-				System.out.println("====查找的用户的信息====" + user1);  //能打印用户所有信息（密码是加密）
+				responseObj.setuserMessage(userService.findUser(user));
+				System.out.println("====查找的用户的信息setData====" + user1);  //能打印用户所有信息（密码是加密）
+				System.out.println("====查找的用户的信息setuserMessage====" + user1);  //能打印用户所有信息（密码是加密）
+				session.setAttribute("userMess", userService.findUser(user));
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 				session.setAttribute("menu", menuList);
 
@@ -300,7 +303,8 @@ public class UserController {
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);
 		session.setAttribute("userInfo", user);
-		System.out.println("====更改资料后===" + user);
+		System.out.println("====更改资料后userInfo===" + user);
+
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;
@@ -313,6 +317,7 @@ public class UserController {
 	 * 创建上传头像接口
 	 * 在登录的窗口已经实现 动态显示用户头像
 	 * 注册时使用 初始头像
+	 *
 	 * @param file
 	 * @param session
 	 * @return
@@ -323,10 +328,8 @@ public class UserController {
 	@ResponseBody
 	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		//保存相对路径到数据库，，图片写入数据库
-
 		Object result;
 		responseObj = new ResponseObj<User>();
-
 		if (null == file || file.isEmpty()) {
 			responseObj = new ResponseObj();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -335,7 +338,6 @@ public class UserController {
 		}
 		//更新用户头像
 		//String userImagePath = userService.findPathById(accountName);
-
 		//更新用户资料
 		try {
 			userService.updateImage(user);
@@ -346,7 +348,6 @@ public class UserController {
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 		}
-
 		//获取新上传头像地址
 		String fileName = file.getOriginalFilename();
 		// 获取图片的扩展名
@@ -372,6 +373,7 @@ public class UserController {
 
 	/**
 	 * 使用ModelAndView 得到左侧权限菜单， 未完成（2017.5.13）
+	 *
 	 * @param getMenu
 	 * @param user
 	 * @return

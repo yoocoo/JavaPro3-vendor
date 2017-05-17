@@ -4,7 +4,6 @@ import cn.wj.domain.ResponseList;
 import cn.wj.domain.UserActionLog;
 import cn.wj.service.ActionLogService;
 import cn.wj.utils.GsonUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +53,7 @@ public class ActionLogController {
 			produces = "application/json;charset=utf-8")
 	//设置其访问地址形式：http://xxx.cn/actionLog/findLogList,响应请求头 ContentType表明响应是JSON数九，字符编码 utf8
 	@ResponseBody //表明 该方法直接返回的是响应体的内容
-	public Object findLog(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize) {
+	public Object findLog( int pageNum, int pageSize) {
 		if (pageNum <= 0) {
 			pageNum = 1;
 		}

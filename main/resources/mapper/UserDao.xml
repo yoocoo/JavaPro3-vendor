@@ -49,6 +49,11 @@
      FROM  user
      WHERE  account_name = #{accountNname}
    </select>
+    <select id="findUserInfo" resultMap="UserMapperMap" parameterType="String">
+         SELECT  *
+     FROM  user
+     WHERE  account_name = #{accountNname}
+    </select>
     <!--2增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">

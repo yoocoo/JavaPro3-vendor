@@ -10,9 +10,11 @@ public class ResponseObj<T> {
 	private String msg;
 	private  String path;//数据库中头像地址
 	private  String fileName;//上传头像地址
+	private  Object userMessage;//得到用户信息
 	private Object data;
-	private Object menulist;
-	private Object treeList;
+	private Object menulist;//数据库中筛选出来的 权限菜单
+	private Object treeList;//通过 tree 重新组装 权限菜单
+
 
 
 	public int getCode() {
@@ -51,6 +53,10 @@ public class ResponseObj<T> {
 		return menulist;
 	}
 
+	/**
+	 * 筛选出来所有的用户权限菜单
+	 * @param menuList
+	 */
 	public void setMenulist(List<Menu> menuList) {
 		this.menulist = menulist;
 	}
@@ -66,6 +72,10 @@ public class ResponseObj<T> {
 		this.path = path;
 	}
 
+	/**
+	 * 获得上传文件 名称
+	 * @param fileName
+	 */
 	public void setfileName(String fileName){
 		this.fileName = fileName;
 	}
@@ -73,4 +83,14 @@ public class ResponseObj<T> {
 		return   fileName;
 	}
 
+	/**
+	 * 提供用户原来资料
+	 * @param userMessage
+	 */
+	public void setuserMessage(Object userMessage){
+		this.userMessage = userMessage;
+	}
+	public Object getuserMessage(){
+		return  userMessage;
+	}
 }

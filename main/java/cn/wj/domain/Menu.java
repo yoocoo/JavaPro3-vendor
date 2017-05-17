@@ -138,13 +138,3 @@ public class Menu {
 	}
 }
 
-//return "MenuName{" +
-//        "menuId='" + menuId + '\''
-//        + ",menuName='" + menuName + '\''
-//        + ", menuUrl='" + menuUrl + '\''
-//        + ", menuIcon='" + menuIcon + '\''
-//        + ", parentId='" + parentId + '\''
-//        + ", countChildrens='" + countChildrens + '\''
-//        + ", parentMenu='" + parentMenu + '\''
-//        + ", subMenu='" + subMenu +
-//        '}';
