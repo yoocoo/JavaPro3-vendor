@@ -3,18 +3,12 @@ package cn.wj.domain;
 import java.util.List;
 
 public class Menu {
-	private Integer menuId;
-
+	private Integer menuId;//菜单ID
 	private String menuName;//菜单名
-
-	private String menuUrl;//菜单连接地址
-
 	private Integer parentId;//父级菜单  0 表示根节点
-
-	private Integer menuOrder;//菜单顺序
-
+	private String menuOrder;//菜单顺序
 	private String menuIcon;//菜单图标
-
+	private String menuUrl;//菜单连接地址
 	private String menuType;//切换菜单   （待开发功能）
 	/**
 	 * 子结点个数
@@ -89,11 +83,11 @@ public class Menu {
 		return parentId;
 	}
 
-	public Integer getMenuOrder() {
+	public String getMenuOrder() {
 		return menuOrder;
 	}
 
-	public void setMenuOrder(int menuOrder) {
+	public void setMenuOrder(String menuOrder) {
 		this.menuOrder = menuOrder;
 	}
 
@@ -132,7 +126,6 @@ public class Menu {
 				+ ", parentMenu='" + parentMenu + '\''
 				+ ", hasMenu='" + hasMenu + '\''
 				+ ", subMenu='" + subMenu +
-
 				'}';
 
 	}

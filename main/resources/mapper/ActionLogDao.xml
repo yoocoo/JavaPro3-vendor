@@ -17,10 +17,10 @@
         <result column="other" property="other" jdbcType="VARCHAR"/>
         <result column="method" property="method" jdbcType="VARCHAR"/>
     </resultMap>
-    <sql id="ActionLog_Column_List">
-        id, account_name, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version,
-        bro_name, bro_version, request_body, description, other, method
-    </sql>
+    <!--<sql id="ActionLog_Column_List">-->
+        <!--id, account_name, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version,-->
+        <!--bro_name, bro_version, request_body, description, other, method-->
+    <!--</sql>-->
 
     <!--增加语句-->
     <insert id="add" parameterType="cn.wj.dao.ActionLogDao">
@@ -33,10 +33,10 @@
 
     <select id="findAll" resultType="cn.wj.dao.ActionLogDao">
 
-        SELECT * FROM user_action_log WHERE 1 = 1
+        SELECT * FROM user_action_log
         ORDER BY id
         DESC
-        LIMIT #{offset},#{limit}
+       LIMIT #{offset} ,#{limit};
     </select>
 
 

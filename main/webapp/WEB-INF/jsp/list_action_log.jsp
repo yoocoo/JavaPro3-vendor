@@ -19,7 +19,8 @@
     <%@ include file="/WEB-INF/jsp/common_css.jsp" %>
 
 </head>
-
+<%--单独引用js脚本--%>
+<script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>
 <%--<script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>--%>
 
 <script type="text/javascript">
@@ -160,8 +161,7 @@
 <%--引入公共的js脚本，防止页面部分功能冲突--%>
 <%@ include file="/WEB-INF/jsp/common_js.jsp" %>
 
-<%--单独引用js脚本--%>
-<script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>
+
 
 <!--end-javascript-part-->
 </body>

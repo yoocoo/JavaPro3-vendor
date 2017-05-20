@@ -5,6 +5,7 @@ import cn.wj.domain.UserActionLog;
 import cn.wj.service.ActionLogService;
 import cn.wj.utils.StringUtils;
 import eu.bitwalker.useragentutils.UserAgent;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +73,7 @@ public class ActionLogServiceImpl implements ActionLogService {
 
 	}
 
-	public List<UserActionLog> findAll(int pageNum, int pageSize) {
+	public List<UserActionLog> findAll(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize) {
 		//因为数据库内容是从第一条出的数据，所以我们查询的 起始位置 = 页码 * 条数 + 1；
 		pageNum -= 1;
 		return actionLogDao.findAll(pageNum * pageSize + 1, pageSize);

@@ -2,7 +2,7 @@ package cn.wj.dao;
 
 import cn.wj.domain.Menu;
 
-public interface MenuDao {
+public interface MenuDao extends Dao<MenuDao>{
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(Menu record);

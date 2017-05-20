@@ -24,10 +24,10 @@ public class MainController {
 	 * 项目框架测试
 	 * @return
 	 */
-	//@RequestMapping(value = "/hello",method =  RequestMethod.GET)
-	//public String hello(){
-	//	return "Hello Controller";
-	//}
+	@RequestMapping(value = "/hello",method =  RequestMethod.GET)
+	public String hello(){
+		return "Hello Controller";
+	}
 
 	/**
 	 * 登录界面

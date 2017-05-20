@@ -171,7 +171,7 @@ public class UserController {
 				// children='null', iconCls='icon-barcode', pid='2}]', iconCls='icon icon-signal', pid='0}]
 				List<Tree> treeList = new ArrayList<Tree>();
 				{
-					for (Menu menu : menuList) {
+					for (Menu menu : menuList) {//先便选出父亲结点
 						Tree node = new Tree();
 						if (menu.getParentId() == 0) {
 							node.setId(menu.getMenuId());
@@ -179,7 +179,7 @@ public class UserController {
 							node.setText(menu.getMenuName());
 							node.setIconCls(menu.getMenuIcon());
 							if (menu.getCountChildrens() > 0) { // 有子节点
-								node.setState("closed");
+								//node.setState("closed");
 							}
 							Map<String, Object> attr1 = new HashMap<String, Object>();
 							attr1.put("url", menu.getMenuUrl());
@@ -203,54 +203,44 @@ public class UserController {
 							node.setChildren(childernList);
 							treeList.add(node);
 						} else {
-							break;
+							//break; 我break 你妹啊
 						}
 					}
 				}
-//return treeList;
 //				=========================================分主次的权限菜单==五月十四日============================================================================================
 				user1.setNextUrl(request.getContextPath() + "/mvc/home");
 				responseObj = new ResponseObj<User>();
-				//ResponseList<UserActionLog> responseObj = new ResponseList<UserActionLog>();
-				responseObj = new ResponseObj<Tree>();
 				responseObj.setCode(ResponseObj.OK);
 				responseObj.setMsg(ResponseObj.OK_STR);
 				responseObj.setPath(userImagePath);
-
-				responseObj.setMenulist(menuList);
-
+				//responseObj.setMenulist(menuList);
 				//============================分主次的权限菜单=======================================
 				responseObj.setTreelist(treeList);
+				System.out.println("===存入setTreelist,tree===" + treeList);
 				//============================分主次的权限菜单=======================================
-
 				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
 				//System.out.println("====打印出来该用户所有要显示的权限菜单menuList=======" + menuList);
-				//responseObj.setData(treeList);
-				//System.out.println("===存入setData,tree===" + treeList);
 				responseObj.setData(user1);//提取到数据库中该用户登录的所有的信息，（密码是加密）
-				//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
+				//userService.updateLoginSession(request.getSession().getId(), user.getAccountName());
 				responseObj.setuserMessage(userService.findUser(user));
 				System.out.println("====查找的用户的信息setData====" + user1);  //能打印用户所有信息（密码是加密）
 				System.out.println("====查找的用户的信息setuserMessage====" + user1);  //能打印用户所有信息（密码是加密）
 				session.setAttribute("userMess", userService.findUser(user));
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
-				session.setAttribute("menu", menuList);
-
-				//session.setAttribute("tree", treeList);
+				//session.setAttribute("menu", menuList);
+				session.setAttribute("tree", treeList);
+    			System.out.println("===存入session信息,tree===" + treeList);
 
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
-				System.out.println("===存入session信息,menu===" + menuList);
-				//System.out.println("===存入session信息,tree===" + treeList);
-
+				//System.out.println("===存入session信息,menu===" + menuList);
 				result = new GsonUtils().toJson(responseObj);
 			} else {
 				responseObj = new ResponseObj<User>();
 				responseObj.setCode(ResponseObj.FAILED);
 				responseObj.setMsg("用户密码错误");
 				result = new GsonUtils().toJson(responseObj);
-
 			}
 		}
 		return result;

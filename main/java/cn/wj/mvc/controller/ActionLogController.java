@@ -4,6 +4,7 @@ import cn.wj.domain.ResponseList;
 import cn.wj.domain.UserActionLog;
 import cn.wj.service.ActionLogService;
 import cn.wj.utils.GsonUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +37,12 @@ import java.util.List;
  * <p>
  * Created by ThinkPad  WJ on 2017/4/26.
  */
-@Controller//表明这个是Controller,只要这个类放在Spring配置文件指定的Controller路径中就能自动装载
-@RequestMapping("/actionLog")//域名后面跟着最外层地址
+//行为日志的调用接口，ActionLogController.java
+
+@Controller
+//表明这个是Controller,只要这个类放在Spring配置文件指定的Controller路径中就能自动装载
+@RequestMapping("/actionLog")
+//域名后面跟着最外层地址
 public class ActionLogController {
 	@Autowired
 	ActionLogService actionLogService;//自动注入ActionLogService
@@ -53,7 +58,7 @@ public class ActionLogController {
 			produces = "application/json;charset=utf-8")
 	//设置其访问地址形式：http://xxx.cn/actionLog/findLogList,响应请求头 ContentType表明响应是JSON数九，字符编码 utf8
 	@ResponseBody //表明 该方法直接返回的是响应体的内容
-	public Object findLog( int pageNum, int pageSize) {
+	public Object findLog(@Param("pageNum") int pageNum,@Param("pageSize") int pageSize) {
 		if (pageNum <= 0) {
 			pageNum = 1;
 		}
@@ -65,8 +70,9 @@ public class ActionLogController {
 		try {
 			toalNum = actionLogService.getAllCount();//先把总条数赋值给总页数，作为缓存变量，减少下面算法的查找次数
 			toalNum = toalNum % pageSize > 0 ? toalNum / pageSize + 1 : toalNum / pageSize;//在每页固定条数下能不能分页完成，有余则加一页码
-			System.out.println("==========="+toalNum);
+			System.out.println("===========" + toalNum);
 			List<UserActionLog> result = actionLogService.findAll(pageNum, pageSize);
+			System.out.println("===========" + result);
 			responseObj.setPageNum(pageNum);
 			responseObj.setTotalNum(toalNum);
 			responseObj.setPageSize(pageSize);
