@@ -153,27 +153,6 @@
                             <div class="controls">${userMess.email}
                             </div>
                         </div>
-                        <%--<div class="control-group">--%>
-                        <%--<label class="control-label">角色类型</label>--%>
-                        <%--<div class="controls">--%>
-                        <%--<div class="form-group span4 ">--%>
-                        <%--<select class="form-control" id="roleid" name="roleId" placeholder="请选择角色种类"--%>
-                        <%--aria-describedby="basic-addon1"--%>
-                        <%--data-original-title="请务必选择真实有效角色,否则不予通过验证">--%>
-                        <%--<option value="1"> 系统管理员</option>--%>
-                        <%--<option value="2"> 系统操作员</option>--%>
-                        <%--<option value="3">运营商管理员</option>--%>
-                        <%--<option value="4">运营商配货员</option>--%>
-                        <%--<option value="5">运营商仓库员</option>--%>
-                        <%--<option value="6">生产商管理员</option>--%>
-                        <%--<option value="7">生产商操作员</option>--%>
-                        <%--<option value="8">出租商管理员</option>--%>
-                        <%--<option value="9">出租商操作员</option>--%>
-                        <%--<option value="10"> 贸易商管理员</option>--%>
-                        <%--</select>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
                         <div class="control-group">
                             <label class="control-label">移动电话 ：</label>
                             <div class="controls">${userMess.mobilePhone}

@@ -15,8 +15,11 @@ import java.util.List;
  * Created by ThinkPad  WJ on 2017/4/8.
  */
 public interface UserDao extends Dao<User> {
-	//注册用户
+	//注册普通用户
 	int add(User user);
+
+	//系统管理员注册一级用户
+	int sysuseradd(User user);
 
 	//删除用户
 	int del(User user);

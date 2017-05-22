@@ -44,7 +44,7 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/register",method = RequestMethod.GET)
 	public  String register(){
-		return "login";
+		return "register";
 	}
 
 	/**
@@ -74,5 +74,13 @@ public class MainController {
 		return "userinfo_update";
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/userAction/sysuserRes",method = RequestMethod.GET)
+	public  String sysuserRes(){
+		return "sysuser_res";
+	}
 
 }

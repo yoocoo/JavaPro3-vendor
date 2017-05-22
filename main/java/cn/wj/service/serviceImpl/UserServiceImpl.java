@@ -40,6 +40,26 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 系统管理员 注册一级管理用户
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void sysuseradd(User user) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.sysuseradd(user);
+		} catch (Exception e) {
+			System.out.println("添加用户失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("添加用户成功！");
+		}
+
+	}
+
+	/**
 	 * 更新用户资料
 	 * @param user
 	 * @throws OtherThingsException

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,12 +164,6 @@ public class UserController {
 				//================(2)5.12  做权限菜单=================
 				List<Menu> menuList = userService.getMenu(user1.getUserId());
 				//=============重新组装menulist 到treelist =========
-
-				//===存入session信息,tree(进行了两次for循环后，并没有按照拼接的所有菜单，只有部分菜单)===
-				// [Menu{id='2',text='图形和数据', state='open', checked='false', attributes='{url=/mvc/chart}',
-				// children='[Menu{id='201',text='图形', state='open', checked='false', attributes='{url=/mvc/chart}',
-				// children='null', iconCls='icon-bar-chart', pid='2}, Menu{id='202',text='数据', state='open', checked='false', attributes='{url=/mvc/table}',
-				// children='null', iconCls='icon-barcode', pid='2}]', iconCls='icon icon-signal', pid='0}]
 				List<Tree> treeList = new ArrayList<Tree>();
 				{
 					for (Menu menu : menuList) {//先便选出父亲结点
@@ -229,7 +224,7 @@ public class UserController {
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 				//session.setAttribute("menu", menuList);
 				session.setAttribute("tree", treeList);
-    			System.out.println("===存入session信息,tree===" + treeList);
+				System.out.println("===存入session信息,tree===" + treeList);
 
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
@@ -362,73 +357,75 @@ public class UserController {
 	}
 
 	/**
-	 * 使用ModelAndView 得到左侧权限菜单， 未完成（2017.5.13）
-	 *
-	 * @param getMenu
+	 * 系统管理员 创建一级管理用户
+	 * @param request
+	 * @param response
 	 * @param user
+	 * @param session
 	 * @return
-	 * @throws Exception
 	 */
-	@RequestMapping(value = "/getMenu", method = RequestMethod.GET)
-	public ModelAndView getMenuView(HttpServletRequest getMenu, User user) throws Exception {
-		ModelAndView mav = new ModelAndView();//创建左侧权限菜单JSP对象
-
-		//查找用户
-		User user3 = userService.findUser(user);
-		if (null == user3) {
-			mav.addObject("message", "未找到该用户，请重新登录");
-			return mav;//返回页面
-		} else {
-			List<Menu> menuList = userService.getMenu(user3.getUserId());
-			//获取当前菜单的所有子菜单
-			List<Tree> treeList = new ArrayList<Tree>();
-			{
-				for (Menu menu : menuList) {
-					Tree node = new Tree();
-					if (menu.getParentId() == 0) {
-						node.setId(menu.getMenuId());
-						node.setPid(menu.getParentId());
-						node.setText(menu.getMenuName());
-						node.setIconCls(menu.getMenuIcon());
-						if (menu.getCountChildrens() > 0) { // 有子节点
-							node.setState("closed");
-						}
-						Map<String, Object> attr1 = new HashMap<String, Object>();
-						attr1.put("url", menu.getMenuUrl());
-						node.setAttributes(attr1);
-						List<Tree> childernList = new ArrayList<Tree>();
-						for (Menu newMenu : menuList) {
-							// 选中父节点后，再遍历选出它对应的子节点，并将它放入list<tree> children中
-							Tree newnode = new Tree();
-							if ((newMenu.getParentId() != 0)
-									&& (newMenu.getParentId().equals(menu.getMenuId()))) { // 有父节点
-								newnode.setId(newMenu.getMenuId());
-								newnode.setPid(newMenu.getParentId());
-								newnode.setText(newMenu.getMenuName());
-								newnode.setIconCls(newMenu.getMenuIcon());
-								Map<String, Object> attr2 = new HashMap<String, Object>();
-								attr2.put("url", newMenu.getMenuUrl());
-								newnode.setAttributes(attr2);
-								childernList.add(newnode);
-							}
-						}
-						node.setChildren(childernList);
-						treeList.add(node);
-
-					} else {
-						break;
-					}
-				}
-				mav.setViewName("index_siderbar");//设置jsp文件名
-				mav.addObject("user", user3);
-				mav.addObject("tree", treeList);
-				System.out.println("===存入session信息,tree===" + treeList.get(1).getChildren());
-			}
-
-			return mav;
+	@RequestMapping(value = "/sysuserRes"
+			, method = RequestMethod.POST
+			, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session)throws  Exception {
+		Object result;
+		responseObj = new ResponseObj<User>();
+		//ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
+		//mav.setViewName("home");//设置Jsp页面文件名
+		if (null == user) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户信息不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+			//mav.addObject("message","用户信息不能为空！");//加入提示信息
+			//return mav;//返回页面
 		}
+		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户名或密码不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+			//mav.addObject("message","用户名或密码不能为空！");
+			//return  mav;
+		}
+		if (null != userService.findUser(user)) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户已存在");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+			//mav.addObject("message","用户名已存在！");
+			//return  mav;
+		}
+		try {
+			userService.sysuseradd(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他错误");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+			//mav.addObject("message","错误，用户其他信息错误！");
+			//return mav;
+		}
+		//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("注册管理成功");
+		//user.setPassword(session.getId());//单独设置
+		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 
+		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
+		System.out.println("===注册管理用户信息=====" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
+
+		session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
+		//System.out.println("======userInfo==" + user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
+
+		result = new GsonUtils().toJson(responseObj);
+		result = result;
+		//mav.addObject("code",110);
+		//mav.addObject("message","恭喜注册成功！");
+		//req.getSession().setAttribute("user",user);
+		//return  mav;
+		return result;
 	}
-
 }
-

@@ -175,7 +175,7 @@
             <div class="cont_info_log_sign_up">
                 <div class="col_md_login">
                     <div class="cont_ba_opcitiy">
-                        <h2>已注册用户登录</h2>
+                        <h2>管理员登录</h2>
                         <p>遵守用户登录规则，保管好个人信息！</p>
                         <button class="btn_login" onclick="cambiar_login()">登 录</button>
                     </div>

@@ -10,12 +10,19 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
-	 * 注册用户
+	 * 注册普通用户
 	 *
 	 * @param user
 	 * @throws Exception
 	 */
 	void add(User user) throws Exception;
+
+	/**
+	 * 系统管理员注册 一级管理用户
+	 * @param user
+	 * @throws Exception
+	 */
+	void sysuseradd(User user) throws Exception;
 
 	/**
 	 * 更新用户资料
@@ -70,13 +77,15 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 根据用户ID 获得 该用户的菜单
+	 *
 	 * @param userId
 	 * @return
 	 */
-	List<Menu> getMenu(int  userId);
+	List<Menu> getMenu(int userId);
 
 	/**
 	 * 根据用户名 获得该用户的ID
+	 *
 	 * @param accountName
 	 * @return
 	 */

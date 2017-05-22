@@ -54,7 +54,7 @@
      FROM  user
      WHERE  account_name = #{accountNname}
     </select>
-    <!--2增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <!--2.1增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
@@ -63,6 +63,17 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+    </insert>
+    <!--2.1增加语句-注册管理用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <insert id="sysuseradd" parameterType="cn.wj.domain.User">
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS user_id
+        </selectKey>
+        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
+        nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
+        login_count,post_adress,creat_time,head_image,approved)
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null','null',
         CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
 
@@ -119,7 +130,7 @@
 		  ON m.menu_id = rm.menu_id
 		  LEFT JOIN user_role r
 		  ON rm.role_id = r.role_id
-		  LEFT JOIN user_in_role ur
+		  LEFT JOIN user ur
 		  ON  r.role_id = ur.role_id
 		  LEFT JOIN user u
 		  ON ur.user_id = u.user_id
