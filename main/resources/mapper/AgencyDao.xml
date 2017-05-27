@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.AgencyDao">
+    <resultMap id="AgencyResultMap" type="cn.wj.domain.Agency">
+        <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
+        <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--========================SQL语句=====================================-->
+    <!--1。1查找-登录运营商用户，查找用户是否存在-->
+    <select id="findOneById" resultMap="AgencyResultMap" parameterType="String">
+        SELECT  *
+        FROM  agency
+        WHERE  account_name = #{accountNname}
+    </select>
+    <!--2.2增加语句-注册新的运营商用户 ，在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <insert id="add" parameterType="cn.wj.domain.Agency">
+        <selectKey keyProperty="agencyId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS agency_id
+        </selectKey>
+        INSERT into agency(agency_name,account_name)
+        VALUES (#{agencyName}, #{accountName})
+    </insert>
+
+    <!--INSERT into agency(agency_name,account_name)-->
+    <!--VALUES (#{agencyName}, #{accountName})-->
+
+
+
+    <!--<insert id="insert" parameterType="cn.wj.domain.Agency" >-->
+    <!--insert into agency (agency_id, agency_name, account_name-->
+    <!--)-->
+    <!--values (#{agencyId,jdbcType=INTEGER}, #{agencyName,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}-->
+    <!--)-->
+    <!--</insert>-->
+
+
+    <!--====================自动生成====================================================-->
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.Agency" >-->
+    <!--insert into agency-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+    <!--<if test="agencyId != null" >-->
+    <!--agency_id,-->
+    <!--</if>-->
+    <!--<if test="agencyName != null" >-->
+    <!--agency_name,-->
+    <!--</if>-->
+    <!--<if test="accountName != null" >-->
+    <!--account_name,-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+    <!--<if test="agencyId != null" >-->
+    <!--#{agencyId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="agencyName != null" >-->
+    <!--#{agencyName,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="accountName != null" >-->
+    <!--#{accountName,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--</insert>-->
+
+</mapper>

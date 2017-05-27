@@ -1,9 +1,8 @@
 package cn.wj.mvc.controller;
 
-import cn.wj.domain.Menu;
-import cn.wj.domain.ResponseObj;
-import cn.wj.domain.Tree;
-import cn.wj.domain.User;
+import cn.wj.domain.*;
+import cn.wj.service.AgencyService;
+import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
@@ -34,7 +33,9 @@ import java.util.Map;
 @RequestMapping("/userAction")
 public class UserController {
 	@Autowired
-	private UserServiceImpl userService;//自动载入Service对象
+	private UserServiceImpl userService;//自动载入 用户表格Service对象
+	@Autowired
+	private AgencyServiceImpl agencyService;//载入 运营商Service对象
 	private ResponseObj responseObj;
 
 	/**
@@ -357,7 +358,9 @@ public class UserController {
 	}
 
 	/**
-	 * 系统管理员 创建一级管理用户
+	 * 系统管理员 创建一级管理用户（！！！！运营商），受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
+	 * 时间：5月25日
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
@@ -368,9 +371,10 @@ public class UserController {
 			, method = RequestMethod.POST
 			, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session)throws  Exception {
+	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, Agency agency, HttpSession session) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
+		//responseObj = new ResponseObj<Agency>();
 		//ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
 		//mav.setViewName("home");//设置Jsp页面文件名
 		if (null == user) {
@@ -397,27 +401,39 @@ public class UserController {
 			//mav.addObject("message","用户名已存在！");
 			//return  mav;
 		}
+		//if (null == agencyService.findAgency(agency)) {
+		//	responseObj.setCode(ResponseObj.FAILED);
+		//	responseObj.setMsg("运营商账户已经存在！请重新填写合适账户名，避免重复！");
+		//	result = new GsonUtils().toJson(responseObj);
+		//	return result;
+		//}
 		try {
+			agencyService.add(agency);
 			userService.sysuseradd(user);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
-			responseObj.setMsg("其他错误");
+			responseObj.setMsg("其他错误====!!");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 			//mav.addObject("message","错误，用户其他信息错误！");
 			//return mav;
 		}
+
 		//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("注册管理成功");
 		//user.setPassword(session.getId());//单独设置
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
-
+		//user.setNextUrl(request.getContextPath() + "/userAction/sysuserResAdd");//单独控制地址
 		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
 		System.out.println("===注册管理用户信息=====" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
 
-		session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
+		responseObj.setData(agency);
+		session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
+		System.out.println("======agencyInfo==" + agency);
+		//session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
 		//System.out.println("======userInfo==" + user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
 
 		result = new GsonUtils().toJson(responseObj);
@@ -428,4 +444,40 @@ public class UserController {
 		//return  mav;
 		return result;
 	}
+
+	//@RequestMapping(value = "/sysuserResAdd"
+	//		, method = RequestMethod.POST
+	//		, produces = "application/json;charset=utf-8")
+	//@ResponseBody
+	//public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, Agency agency, HttpSession session) throws Exception {
+	//	Object result;
+	//	responseObj = new ResponseObj<Agency>();
+	//	if (null == agency) {
+	//		responseObj.setCode(ResponseObj.FAILED);
+	//		responseObj.setMsg("运营商用户信息不能为空");
+	//		result = new GsonUtils().toJson(responseObj);
+	//		return result;
+	//	}
+	//	if (null == agencyService.findAgency(agency)) {
+	//		responseObj.setCode(ResponseObj.FAILED);
+	//		responseObj.setMsg("运营商账户已经存在！请重新填写合适账户名，避免重复！");
+	//		result = new GsonUtils().toJson(responseObj);
+	//		return result;
+	//	}
+	//	try {
+	//		agencyService.add(agency);
+	//	} catch (Exception e) {
+	//		e.printStackTrace();
+	//		responseObj.setCode(ResponseObj.FAILED);
+	//		responseObj.setMsg("其他错误");
+	//		result = new GsonUtils().toJson(responseObj);
+	//	}
+	//	responseObj.setCode(ResponseObj.OK);
+	//	responseObj.setMsg("添加运营商信息成功");
+	//	agency.setAgecynextUrl(request.getContextPath() + "/mvc/home");
+	//	responseObj.setData(agency);
+	//	session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
+	//	result = new GsonUtils().toJson(responseObj);
+	//	return result;
+	//}
 }

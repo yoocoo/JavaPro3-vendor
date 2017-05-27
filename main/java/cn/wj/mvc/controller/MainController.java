@@ -75,7 +75,7 @@ public class MainController {
 	}
 
 	/**
-	 *
+	 * 系统管理员  创建 一级管理用户
 	 * @return
 	 */
 	@RequestMapping(value = "/userAction/sysuserRes",method = RequestMethod.GET)

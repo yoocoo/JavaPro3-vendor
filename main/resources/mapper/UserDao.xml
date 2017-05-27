@@ -25,16 +25,19 @@
         <result column="head_image" property="headImage" jdbcType="VARCHAR"/>
         <result column="approved" property="approved" jdbcType="TINYINT"/>
     </resultMap>
-    <resultMap id="MenuMap" type="cn.wj.domain.Menu" >
-        <id column="menu_id" property="menuId" jdbcType="INTEGER" />
-        <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
-        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
-        <result column="parent_id" property="parentId" jdbcType="INTEGER" />
-        <result column="menu_order" property="menuOrder" jdbcType="VARCHAR" />
-        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
-        <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
+
+    <resultMap id="MenuMap" type="cn.wj.domain.Menu">
+        <id column="menu_id" property="menuId" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="menu_url" property="menuUrl" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="menu_order" property="menuOrder" jdbcType="VARCHAR"/>
+        <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR"/>
+        <result column="menu_type" property="menuType" jdbcType="VARCHAR"/>
     </resultMap>
-    <!-- 在映射文件中配置很多sql语句 -->
+
+
+    <!-- 知识点：在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
             1.id:标示映射文件中的sql，成为Statement的id
             2.将sql语句封装到mappedStatement对象中，所以将id称为statement的id,
@@ -43,12 +46,13 @@
             5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
             6.resultType：指定sql输出结果的映射的java对象类型，
             7.select指定resultType表示将单条记录映射成java对象-->
-    <!--1查找-登录用户，查找用户是否存在-->
+    <!--1.1查找-登录用户，查找用户是否存在-->
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
-     SELECT  *
-     FROM  user
-     WHERE  account_name = #{accountNname}
-   </select>
+        SELECT *
+        FROM user
+        WHERE account_name = #{accountNname}
+    </select>
+    <!--1.1查找-登录用户的所有信息-->
     <select id="findUserInfo" resultMap="UserMapperMap" parameterType="String">
          SELECT  *
      FROM  user
@@ -73,10 +77,9 @@
         INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
-        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null','null',
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null',#{email},
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
-
     <!--3删除-->
     <update id="del" parameterType="User">
     UPDATE  user
@@ -116,11 +119,12 @@
    WHERE  account_name = #{accountName}
     </update>
     <!--6.用户列表-->
-<select id="findAll" resultMap="UserMapperMap">
+    <select id="findAll" resultMap="UserMapperMap">
      SELECT * FROM user
 </select>
 
-    <!--7依据用户名获得菜单-->
+    <!--7依据用户名获得菜单~~~~resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西, 而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap 的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。
+-->
     <select id="getMenuByUserId" resultMap="MenuMap">
         SELECT
         m.menu_id,m.menu_name,m.parent_id,m.menu_icon,m.menu_url,
