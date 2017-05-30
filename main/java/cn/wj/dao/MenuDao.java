@@ -3,6 +3,12 @@ package cn.wj.dao;
 import cn.wj.domain.Menu;
 
 public interface MenuDao extends Dao<MenuDao>{
+
+
+
+
+
+    //================================自动生成=========================================
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(Menu record);

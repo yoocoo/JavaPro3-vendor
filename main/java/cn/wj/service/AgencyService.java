@@ -18,7 +18,7 @@ public interface AgencyService extends BaseService<Agency> {
 	 */
 	Agency findAgency(Agency agency) throws Exception;
 	/**
-	 * 添加一条记录到 运营商表格中
+	 * 系统管理员 sysuseradd 添加一条记录到 运营商表格中
 	 *
 	 * @param agency
 	 * @throws Exception

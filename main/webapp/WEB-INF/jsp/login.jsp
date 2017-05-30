@@ -175,16 +175,17 @@
             <div class="cont_info_log_sign_up">
                 <div class="col_md_login">
                     <div class="cont_ba_opcitiy">
-                        <h2>管理员登录</h2>
+                        <h2>用户登录</h2>
                         <p>遵守用户登录规则，保管好个人信息！</p>
                         <button class="btn_login" onclick="cambiar_login()">登 录</button>
                     </div>
                 </div>
                 <div class="col_md_sign_up">
                     <div class="cont_ba_opcitiy">
-                        <h2>新用户注册</h2>
-                        <p>我已阅读并同意相关服务条款和隐私政策</p>
-                        <button class="btn_sign_up" onclick="cambiar_sign_up()">注 册</button>
+                        <h2>声明</h2>
+                        <p> *推荐使用ie8或以上版本ie浏览器或<br/>
+                            Chrome内核浏览器访问本站</p>
+                        <button class="btn_sign_up" onclick="cambiar_sign_up()">打开细则</button>
                     </div>
                 </div>
             </div>
@@ -201,8 +202,6 @@
                           method="POST">
                         <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
                         <h2>用户登录</h2>
-
-
                         <input type="text" id="u" name="accountName" placeholder="账号"/>
                         <input type="password" id="p" name="password" placeholder="密码"/>
 
@@ -213,33 +212,56 @@
                 </div>
                 <%--登录 end--%>
 
-                <div id="web_reg">
 
-                    <form name="regform" id="regUser" class="cont_form_sign_up"
-                          action=""
-                          accept-charset="utf-8"
-                          method="post">
-                        <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">
-                            &#xE5C4;</i></a>
+                <div class="cont_form_sign_up"><a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">
+                    &#xE5C4;</i>
+                </a>
+                    <%--5.30 日更改由此声明： 由于该系统暂时不需要 用户自主注册功能,暂时换成，用户登录准则--%>
+                    <h2>登录协议</h2>
+                    <p>
+                        <marquee direction="up" height="400px" width="200px"
+                                 scrollamount="2" onmouseover="stop();" onmouseout="start();">
+                    <p>阅读《售货机协议》及《售货机服务条款》</p>
+                    <p>（一）</p>
+                    <p>用户必须同意，其提供的真实的、准确的、合法的帐号</p>
+                    <p>，这是作为认定用户与售货机的关联性以及确认用户身</p>
+                    <p>份的唯一证据。 用户在享用售货机提供的各项服务的</p>
+                    <p>同时，   同意接受售货机后台管理系统提供的各类</p>
+                    <p> 信息服务。</p>
+                    <p>（二）</p>
+                    <p>售货机公司始终在不断变更和改进服务。售货机公司</p>
+                    <p>可能会增加或删除功能，也可能暂停或彻底停止某项</p>
+                    <p>服务。用户同 意售货机公司有权行使上述权利且不需</p>
+                    <p>对用户或第三方承担任何责任。</p>
+                    </marquee>
+                    </p>
+                    <%--<div id="web_reg">--%>
+                    <%--5月出 注册版本， 注册开始--%>
+                    <%--<form name="regform" id="regUser" class="cont_form_sign_up"--%>
+                    <%--action=""--%>
+                    <%--accept-charset="utf-8"--%>
+                    <%--method="post">--%>
+                    <%--<a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">--%>
+                    <%--&#xE5C4;</i></a>--%>
 
-                        <h2>注 册</h2>
-                        <input type="text" id="user" name="accountName" placeholder="账号"/>
-                        <input type="password" id="passwd" placeholder="密码" name="password"/>
-                        <input type="password" id="passwd2" placeholder="确认密码" name="password"/>
-                        <input type="text" id="cellnumber" placeholder="联系电话" name="mobilePhone"/>
-                        <input class="btn_sign_up" type="button" id="reg" onclick="webReg();"
-                               value="                         同意协议并注册"/>
-                        <%--<a href="#" target="_blank"> 注册协议</a>--%>
-                    </form>
+                    <%--<h2>注 册</h2>--%>
+                    <%--<input type="text" id="user" name="accountName" placeholder="账号"/>--%>
+                    <%--<input type="password" id="passwd" placeholder="密码" name="password"/>--%>
+                    <%--<input type="password" id="passwd2" placeholder="确认密码" name="password"/>--%>
+                    <%--<input type="text" id="cellnumber" placeholder="联系电话" name="mobilePhone"/>--%>
+                    <%--<input class="btn_sign_up" type="button" id="reg" onclick="webReg();"--%>
+                    <%--value="                         同意协议并注册"/>--%>
+                    <%--&lt;%&ndash;<a href="#" target="_blank"> 注册协议</a>&ndash;%&gt;--%>
+                    <%--</form>--%>
+                    <%--</div>--%>
+                    <%--注册结束--%>
+                    <%--</div>--%>
                 </div>
-                <%--注册结束--%>
             </div>
         </div>
-    </div>
-</div>
-<div class="footer">
-    *推荐使用ie8或以上版本ie浏览器或Chrome内核浏览器访问本站
-</div>
+        <%--<div class="footer">--%>
+        <%--*推荐使用ie8或以上版本ie浏览器或Chrome内核浏览器访问本站--%>
+        <%--</div>--%>
 
 </body>
 </html>

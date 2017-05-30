@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.CashBaseDao" >
+  <resultMap id="CashBaseResultMap" type="cn.wj.domain.CashBase" >
+    <id column="cash_id" property="cashId" jdbcType="INTEGER" />
+    <result column="vendor_id" property="vendorId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="trans_border" property="transBorder" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="CashBase_Column_List" >
+    cash_id, vendor_id, money, time, trans_border
+  </sql>
+
+
+
+  <!--================================自动生成=========================================-->
+
+  <select id="selectByPrimaryKey" resultMap="CashBaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="CashBase_Column_List" />
+    from cash_base
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cash_base
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.wj.domain.CashBase" >
+    insert into cash_base (cash_id, vendor_id, money, 
+      time, trans_border)
+    values (#{cashId,jdbcType=INTEGER}, #{vendorId,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, 
+      #{time,jdbcType=TIMESTAMP}, #{transBorder,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.CashBase" >
+    insert into cash_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cashId != null" >
+        cash_id,
+      </if>
+      <if test="vendorId != null" >
+        vendor_id,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="transBorder != null" >
+        trans_border,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cashId != null" >
+        #{cashId,jdbcType=INTEGER},
+      </if>
+      <if test="vendorId != null" >
+        #{vendorId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transBorder != null" >
+        #{transBorder,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.CashBase" >
+    update cash_base
+    <set >
+      <if test="vendorId != null" >
+        vendor_id = #{vendorId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transBorder != null" >
+        trans_border = #{transBorder,jdbcType=TINYINT},
+      </if>
+    </set>
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.wj.domain.CashBase" >
+    update cash_base
+    set vendor_id = #{vendorId,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      time = #{time,jdbcType=TIMESTAMP},
+      trans_border = #{transBorder,jdbcType=TINYINT}
+    where cash_id = #{cashId,jdbcType=INTEGER}
+  </update>
+</mapper>

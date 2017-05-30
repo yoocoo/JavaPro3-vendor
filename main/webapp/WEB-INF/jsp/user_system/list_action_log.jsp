@@ -16,7 +16,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%--引入公共CSS 样式--%>
-    <%@ include file="/WEB-INF/jsp/common_css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/common/common_css.jsp" %>
 
 </head>
 <%--单独引用js脚本--%>
@@ -29,7 +29,7 @@
         pageNum = parseInt(pageNum) + 1;
         $.ajax({
             type: "GET",
-            url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=15',
+            url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=10',
             dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
             cache: false,
             success: function (data) {
@@ -47,7 +47,7 @@
         alert(pageNum);
         $.ajax({
             type: "GET",
-            url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=15',
+            url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=10',
             dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
             cache: false,
             success: function (data) {
@@ -63,10 +63,10 @@
 
 <body>
 <%--引入顶部导航jsp  --%>
-<%@ include file="/WEB-INF/jsp/index_top_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_top_header.jsp" %>
 
 <%--引入左侧菜单栏--%>
-<%@ include file="index_siderbar.jsp" %>
+<%@ include file="../index_body/index_siderbar.jsp" %>
 
 <%--页面功能箱子--%>
 <div id="content">
@@ -75,7 +75,7 @@
                 class="icon-home"></i> 首页</a> <a href="<%=request.getContextPath()%>/mvc/listActionLog" class="current">日志列表</a>
         </div>
         <div class="container-fluid">
-            <hr>
+            <%--<hr>--%>
         </div>
     </div>
     <div class="container-fluid">
@@ -98,7 +98,92 @@
                         </tr>
                         </thead>
                         <tbody id="log-table-body">
-
+                        <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>  <tr class="gradeX">
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
                         <script id="pagetmpl" type="text/x-dot-template">
                             {{for(var i=0; i < it.length; i++){ }}
 
@@ -106,11 +191,11 @@
                                 <td>{{=it[i].id}}</td>
                                 <td>{{=it[i].ipAddrV4}}</td>
                                 <td>{{=it[i].osName}}</td>
-                                <td><span class="alert-danger"> {{=it[i].description}}</span></td>
+                                <td>{{=it[i].description}}</td>
                                 <td>{{=it[i].sessionId}}</td>
                                 <td>{{=it[i].broName}}</td>
                             </tr>
-                            {{} }}
+                            {{ } }}
                         </script>
 
                         </tbody>
@@ -137,7 +222,7 @@
 <script type="application/javascript">
     $.ajax({
         type: "GET",
-        url: '/actionLog/findLogList?pageNum=1&pageSize=15',
+        url: '/actionLog/findLogList?pageNum=1&pageSize=10',
         dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
         cache: false,
         success: function (data) {
@@ -156,11 +241,11 @@
 </script>
 
 <!-- 引入页面底部文件Footer-part-->
-<%@ include file="/WEB-INF/jsp/index_footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
 <!--end-Footer-part-->
 
 <%--引入公共的js脚本，防止页面部分功能冲突--%>
-<%@ include file="/WEB-INF/jsp/common_js.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 
 

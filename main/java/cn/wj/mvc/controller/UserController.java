@@ -1,8 +1,8 @@
 package cn.wj.mvc.controller;
 
 import cn.wj.domain.*;
-import cn.wj.service.AgencyService;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
+import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,10 +30,17 @@ import java.util.Map;
 @Controller
 @RequestMapping("/userAction")
 public class UserController {
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
+	//HTTP Status 500 - Request processing failed; nested exception is java.lang.NullPointerException
+
 	private UserServiceImpl userService;//自动载入 用户表格Service对象
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
+
 	private AgencyServiceImpl agencyService;//载入 运营商Service对象
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
+
+	private FactoryServiceImpl factoryService;//载入 生产商Service对象
+
 	private ResponseObj responseObj;
 
 	/**
@@ -410,6 +415,7 @@ public class UserController {
 		try {
 			agencyService.add(agency);
 			userService.sysuseradd(user);
+			userService.updateAgencyId(user);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -423,7 +429,7 @@ public class UserController {
 
 		//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
 		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("注册管理成功");
+		responseObj.setMsg("注册运营商管理用户成功");
 		//user.setPassword(session.getId());//单独设置
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		//user.setNextUrl(request.getContextPath() + "/userAction/sysuserResAdd");//单独控制地址
@@ -432,7 +438,7 @@ public class UserController {
 
 		responseObj.setData(agency);
 		session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
-		System.out.println("======agencyInfo==" + agency);
+		System.out.println("======查看 新注册的 添加运营商表里的记录：agencyInfo==" + agency);
 		//session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
 		//System.out.println("======userInfo==" + user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
 
@@ -480,4 +486,68 @@ public class UserController {
 	//	result = new GsonUtils().toJson(responseObj);
 	//	return result;
 	//}
+
+	/**
+	 * 系统管理员 创建一级管理用户（！！！！生产商），受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
+	 * 时间：5月29日
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @param factory
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+
+	@RequestMapping(value = "/sysuserResSheng"
+			, method = RequestMethod.POST
+			, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object sysuserResSheng(HttpServletRequest request, HttpServletResponse response, User user, Factory factory, HttpSession session) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<User>();
+		if (null == user) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户信息不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户名或密码不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (null != userService.findUser(user)) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户已存在");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		try {
+			userService.sysuseradd(user);//创建用户表（新的生产商）
+			factoryService.add(factory);//生产商表添加记录
+			userService.updateFactoryId(user);// 补充用户表总 生产商的 ID 完整
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他错误====!!");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("注册生产商管理员用户成功");
+		//user.setPassword(session.getId());//单独设置
+		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
+		System.out.println("===注册管理用户信息=====" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
+
+		responseObj.setData(factory);
+		session.setAttribute("factoryInfo", factory);//只有注册时输入表单项数
+		System.out.println("======查看 新注册的，添加生产商表里的记录：factoryInfo==" + factory);
+
+		result = new GsonUtils().toJson(responseObj);
+		result = result;
+		return result;
+	}
 }

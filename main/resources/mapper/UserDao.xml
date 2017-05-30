@@ -36,6 +36,12 @@
         <result column="menu_type" property="menuType" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="AgencyResultMap" type="cn.wj.domain.Agency">
+        <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
+        <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+    </resultMap>
+
 
     <!-- 知识点：在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
@@ -69,7 +75,7 @@
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
         CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
-    <!--2.1增加语句-注册管理用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <!--2.2.1增加语句-注册管理用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="sysuseradd" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
@@ -80,6 +86,20 @@
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null',#{email},
         CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
+    <!--2.2.2增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
+    <update id="updateAgencyId" parameterType="User">
+        UPDATE  user u    LEFT JOIN  agency a
+         ON u.account_name = a.account_name
+        SET  u.agency_id = a.agency_id
+    </update>
+    <!--2.2.3增加语句-注入factory_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
+    <update id="updateFactoryId" parameterType="User">
+        UPDATE  user u    LEFT JOIN  factory f
+        ON u.account_name = f.account_name
+        SET  u.factory_id = f.factory_id
+    </update>
+    <!--2.3.1 系统管理员注册一级管理用户（生产商）动态创建表格 -->
+
     <!--3删除-->
     <update id="del" parameterType="User">
     UPDATE  user

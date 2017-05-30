@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 王娇
+  User: WJ
   Date: 2017/4/26
   Time: 20:13
   To change this template use File | Settings | File Templates.
@@ -47,7 +47,7 @@
         <%--</div>--%>
     <%--</div>--%>
 </div>
-
+</div>
 <!--end-Footer-part-->
 </body>
 </html>

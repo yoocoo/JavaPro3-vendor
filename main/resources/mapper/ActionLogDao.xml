@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.ActionLogDao">
-    <resultMap id="ActionLogResultMap" type="cn.wj.domain.UserActionLog">
+    <resultMap id="ActionLogMapperResultMap" type="cn.wj.domain.UserActionLog">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
         <result column="session_id" property="sessionId" jdbcType="VARCHAR"/>
@@ -18,25 +18,26 @@
         <result column="method" property="method" jdbcType="VARCHAR"/>
     </resultMap>
     <!--<sql id="ActionLog_Column_List">-->
-        <!--id, account_name, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version,-->
-        <!--bro_name, bro_version, request_body, description, other, method-->
+    <!--id, account_name, session_id, time, ip_addr_v4, ip_addr_v6, os_name, os_version,-->
+    <!--bro_name, bro_version, request_body, description, other, method-->
     <!--</sql>-->
 
     <!--增加语句-->
-    <insert id="add" parameterType="cn.wj.dao.ActionLogDao">
+    <insert id="add" parameterType="cn.wj.domain.UserActionLog">
         INSERT INTO
             user_action_log (account_name, session_id, TIME, ip_addr_v4, ip_addr_v6, os_name, os_version, bro_name, bro_version, request_body, description, other, METHOD)
         VALUES
             (#{accountName}, #{sessionId}, #{time}, #{ipAddrV4}, #{ipAddrV6}, #{osName}, #{osVersion}, #{broName},
                              #{broVersion}, #{requestBody}, #{description}, #{other}, #{method})
     </insert>
+    <!--物理分页：这种分页方法从底层上就是每次只查询对应条目数量的数据，从而实现了真正意义上的分页-->
+    <select id="findAll" resultType="cn.wj.domain.UserActionLog" parameterType="java.util.Map">
 
-    <select id="findAll" resultType="cn.wj.dao.ActionLogDao">
-
-        SELECT * FROM user_action_log
+        SELECT *
+        FROM user_action_log
         ORDER BY id
         DESC
-       LIMIT #{offset} ,#{limit};
+        LIMIT #{offset}, #{limit};
     </select>
 
 
@@ -52,10 +53,3 @@
     </update>
 </mapper>
 
-
-        <!--<select id="findAll" resultType="cn.wj.dao.ActionLogDao" parameterType="map">-->
-        <!--SELECT *-->
-        <!--FROM user_action_log-->
-        <!--ORDER BY id DESC-->
-        <!--LIMIT #{limit}  #{offset}-->
-        <!--</select>-->

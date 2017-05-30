@@ -3,6 +3,10 @@ package cn.wj.dao;
 import cn.wj.domain.RoleInMenu;
 
 public interface RoleInMenuDao {
+
+
+
+    //================================自动生成=========================================
     int deleteByPrimaryKey(Integer id);
 
     int insert(RoleInMenu record);

@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	private UserDao userDao;
 
 	/**
@@ -57,6 +57,43 @@ public class UserServiceImpl implements UserService {
 			System.out.println("添加用户成功！");
 		}
 
+	}
+
+	/**
+	 * 2.2更新 用户表中 agencyId
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public  void updateAgencyId(User user )throws OtherThingsException{
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.updateAgencyId(user);
+		} catch (Exception e) {
+			System.out.println("更新用户表中agencyid 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("更新用户表中agencyid 成功");
+		}
+	}
+	/**
+	 * 2.3更新 用户表中 factoryId
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public  void updateFactoryId(User user )throws OtherThingsException{
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.updateFactoryId(user);
+		} catch (Exception e) {
+			System.out.println("更新用户表中factoryid 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("更新用户表中factoryid 成功");
+		}
 	}
 
 	/**

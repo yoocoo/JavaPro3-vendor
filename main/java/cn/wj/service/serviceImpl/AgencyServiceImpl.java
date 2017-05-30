@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service("AgencyService")
 public class AgencyServiceImpl implements AgencyService {
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	private AgencyDao agencyDao;
 
 	/**

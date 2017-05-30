@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.CashSaleBaseDao" >
+  <resultMap id="CashSaleBaseResultMap" type="cn.wj.domain.CashSaleBase" >
+    <result column="cash_id" property="cashId" jdbcType="INTEGER" />
+    <result column="sale_id" property="saleId" jdbcType="INTEGER" />
+  </resultMap>
+
+
+
+
+
+
+  <!--================================自动生成=========================================-->
+
+  <insert id="insert" parameterType="cn.wj.domain.CashSaleBase" >
+    insert into cash_sale_base (cash_id, sale_id)
+    values (#{cashId,jdbcType=INTEGER}, #{saleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.CashSaleBase" >
+    insert into cash_sale_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cashId != null" >
+        cash_id,
+      </if>
+      <if test="saleId != null" >
+        sale_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cashId != null" >
+        #{cashId,jdbcType=INTEGER},
+      </if>
+      <if test="saleId != null" >
+        #{saleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

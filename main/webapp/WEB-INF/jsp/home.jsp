@@ -16,17 +16,17 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%--引入公共CSS 样式--%>
-    <%@ include file="/WEB-INF/jsp/common_css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/common/common_css.jsp" %>
 </head>
 <body>
 <%--提示信息：${result}<br>--%>
 <%--信息：${message}<br>--%>
 
 <%--引入顶部导航jsp  --%>
-<%@ include file="/WEB-INF/jsp/index_top_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_top_header.jsp" %>
 
 <%--引入左侧菜单栏--%>
-<%@ include file="index_siderbar.jsp" %>
+<%@ include file="index_body/index_siderbar.jsp" %>
 
 <%--页面主体切换模式开始--%>
 
@@ -117,11 +117,11 @@
 <%--</div>--%>
 
 <!-- 引入页面底部文件Footer-part-->
-<%@ include file="/WEB-INF/jsp/index_footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
 <!--end-Footer-part-->
 
 <%--引入公共的js脚本，防止页面部分功能冲突--%>
-<%@ include file="/WEB-INF/jsp/common_js.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 <!--end-javascript-part-->
 
 <%--单独引用js脚本--%>
@@ -142,25 +142,25 @@
 
 
 </body>
-<script type="application/javascript">
-    $.ajax({
-        type: "GET",
-        url: '<%=request.getContextPath()%>/actionLog/findLogList?pageNum=1&pageSize=10',
-        dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
-        cache: false,
-        success: function(data) {
-            if(data.code == 1) {
-                for(var i = 0; i < 10; i++) {
-                    $("#log-table-body").append("<tr><td>" + data.data[i].id + "</td><td>" +
-                        data.data[i].ipAddrV4 + "</td><td>01/01/2016</td><td>" +
-                        data.data[i].osName + "</td><td><span class=\"label label-danger\">" +
-                        data.data[i].description + "</span></td><td>" +
-                        data.data[i].sessionId + "</td><td>" +
-                        data.data[i].broName + "</td></tr>");
-                }
-            }
-        }
-    });
-</script>
+<%--<script type="application/javascript">--%>
+    <%--$.ajax({--%>
+        <%--type: "GET",--%>
+        <%--url: '<%=request.getContextPath()%>/actionLog/findLogList?pageNum=1&pageSize=10',--%>
+        <%--dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了--%>
+        <%--cache: false,--%>
+        <%--success: function(data) {--%>
+            <%--if(data.code == 1) {--%>
+                <%--for(var i = 0; i < 10; i++) {--%>
+                    <%--$("#log-table-body").append("<tr><td>" + data.data[i].id + "</td><td>" +--%>
+                        <%--data.data[i].ipAddrV4 + "</td><td>01/01/2016</td><td>" +--%>
+                        <%--data.data[i].osName + "</td><td><span class=\"label label-danger\">" +--%>
+                        <%--data.data[i].description + "</span></td><td>" +--%>
+                        <%--data.data[i].sessionId + "</td><td>" +--%>
+                        <%--data.data[i].broName + "</td></tr>");--%>
+                <%--}--%>
+            <%--}--%>
+        <%--}--%>
+    <%--});--%>
+<%--</script>--%>
 
 </html>

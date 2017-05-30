@@ -18,11 +18,23 @@ public interface UserService extends BaseService<User> {
 	void add(User user) throws Exception;
 
 	/**
-	 * 系统管理员注册 一级管理用户
+	 * 2.1系统管理员注册 一级管理用户
 	 * @param user
 	 * @throws Exception
 	 */
 	void sysuseradd(User user) throws Exception;
+
+	/**
+	 * 2.2更新 用户表中 agencyId
+	 * @param user
+	 */
+    void updateAgencyId(User  user)throws Exception;
+
+	/**
+	 * 2.3更新 用户表中 factoryId
+	 * @param user
+	 */
+	void updateFactoryId(User  user)throws Exception;
 
 	/**
 	 * 更新用户资料

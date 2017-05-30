@@ -70,9 +70,9 @@ public class ActionLogController {
 		try {
 			toalNum = actionLogService.getAllCount();//先把总条数赋值给总页数，作为缓存变量，减少下面算法的查找次数
 			toalNum = toalNum % pageSize > 0 ? toalNum / pageSize + 1 : toalNum / pageSize;//在每页固定条数下能不能分页完成，有余则加一页码
-			System.out.println("===========" + toalNum);
+			System.out.println("========打印总页码===" + toalNum);
 			List<UserActionLog> result = actionLogService.findAll(pageNum, pageSize);
-			System.out.println("===========" + result);
+			System.out.println("======打印日志结果=====" + result);
 			responseObj.setPageNum(pageNum);
 			responseObj.setTotalNum(toalNum);
 			responseObj.setPageSize(pageSize);

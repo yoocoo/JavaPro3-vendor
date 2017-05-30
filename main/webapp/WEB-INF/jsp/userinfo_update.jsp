@@ -16,7 +16,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%--引入公共CSS 样式--%>
-    <%@ include file="/WEB-INF/jsp/common_css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/common/common_css.jsp" %>
 
 </head>
 <script type="text/javascript">
@@ -99,10 +99,10 @@
 </script>
 <body>
 <%--引入顶部导航jsp  --%>
-<%@ include file="/WEB-INF/jsp/index_top_header.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_top_header.jsp" %>
 
 <%--引入左侧菜单栏--%>
-<%@ include file="index_siderbar.jsp" %>
+<%@ include file="index_body/index_siderbar.jsp" %>
 <%--页面功能箱子--%>
 <div id="content">
     <div id="content-header">
@@ -259,11 +259,11 @@
     <!--container-fluid end-->
 </div>
 <!-- 引入页面底部文件Footer-part-->
-<%@ include file="/WEB-INF/jsp/index_footer.jsp" %>
+<%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
 <!--end-Footer-part-->
 
 <%--引入公共的js脚本，防止页面部分功能冲突--%>
-<%@ include file="/WEB-INF/jsp/common_js.jsp" %>
+<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <%--单独引用js脚本--%>
 <script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>
