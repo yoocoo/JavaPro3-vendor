@@ -37,6 +37,13 @@ public interface UserService extends BaseService<User> {
 	void updateFactoryId(User  user)throws Exception;
 
 	/**
+	 * 2.4  创建动态的生产商的 订单表
+	 * @param tableName
+	 * @return
+	 */
+	void createOrderTable(String tableName)throws Exception;
+
+	/**
 	 * 更新用户资料
 	 *
 	 * @param user

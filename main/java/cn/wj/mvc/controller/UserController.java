@@ -1,6 +1,7 @@
 package cn.wj.mvc.controller;
 
 import cn.wj.domain.*;
+import cn.wj.service.UserService;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
@@ -528,6 +529,7 @@ public class UserController {
 			userService.sysuseradd(user);//创建用户表（新的生产商）
 			factoryService.add(factory);//生产商表添加记录
 			userService.updateFactoryId(user);// 补充用户表总 生产商的 ID 完整
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -544,6 +546,12 @@ public class UserController {
 
 		responseObj.setData(factory);
 		session.setAttribute("factoryInfo", factory);//只有注册时输入表单项数
+
+		String tableName = "order_"+factory.getFactoryId();
+		userService.createOrderTable(tableName);
+
+		//userService.createOrderTable("order_"+factory.getFactoryId().toString());
+		System.out.println("===============得到的 tableName====="+factory.getAccountName());
 		System.out.println("======查看 新注册的，添加生产商表里的记录：factoryInfo==" + factory);
 
 		result = new GsonUtils().toJson(responseObj);

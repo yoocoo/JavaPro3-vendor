@@ -239,8 +239,24 @@
                             <td><input type="checkbox"/></td>
                             <td>项目总结----五月（10)-5.29</td>
                             <td> (一 )myBatis "动态知识点"<br/>
-                               1. MyBatis，动态传入表名，字段名的解决办法：http://luoyu-ds.iteye.com/blog/1517607<br/>
+                                1. MyBatis，动态传入表名，字段名的解决办法：http://luoyu-ds.iteye.com/blog/1517607<br/>
                                 2.mybatis3动态创建表，判断表是否存在，删除表示例http://www.phperz.com/article/15/0123/47902.html<br/>
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（11)-5.31</td>
+                            <td> (一 )myBatis "动态知识点"<br/>
+                                1.以前都是指定了实体类，然后写好sql语句直接套用就可以了。但是现在有个问题，万一你的物理模型不确定，
+                                也即是你的表结构不确定，可以不用设定参数和返回类型的实体类，
+                                只需要形成一个动态的表名和字段名的列表类。就可以动态对那些未知的物理模型进行操作<br/>
+                                2.mybatis中一个属性：statementType。这个属性的作用是告诉mybatis我们写的这个sql到底是
+                                预编译（PRESTATEMENT）还是非预编译（STATEMENT）的。<br/>
+                                3.mybatis3中mapper文件中 #{...} 和 ${...}有什么不同．<br/>
+                                MyBatis interprets #{...} as a parameter marker in a JDBC prepared statement. MyBatis interprets ${...} as<br/>
+                                mybatis3对于#{...}是JDBC prepared statement参数的占位符标志，其值会有对应typehandler针对不同类型设值．<br/>
+                                string substitution. It is important to know the difference because parameter markers cannot be used in certain places<br/>
+                                而${...}在mybatis3中仅仅是字符串替换，这也是以前web编程sql注入发生的地发．<br/>
                             </td>
                         </tr>
                         </tbody>

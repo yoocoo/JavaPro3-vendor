@@ -97,6 +97,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 2.4  创建动态的生产商的 订单表
+	 * @param tableName
+	 * @return
+	 */
+	public void createOrderTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createOrderTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 订单表失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 订单表失败  成功");
+		}
+	}
+
+	/**
 	 * 更新用户资料
 	 * @param user
 	 * @throws OtherThingsException

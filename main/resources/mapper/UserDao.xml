@@ -98,7 +98,31 @@
         ON u.account_name = f.account_name
         SET  u.factory_id = f.factory_id
     </update>
+
     <!--2.3.1 系统管理员注册一级管理用户（生产商）动态创建表格 -->
+
+
+    <update id="createOrderTable" parameterType="String">
+            create table ${tableName} (
+            order_id  int(50) NOT  NULL  AUTO_INCREMENT,
+            sale_id INT(50) NOT NULL COMMENT '支付id',
+            vendor_id INT(200) NOT NULL COMMENT '售货机ID',
+            cube_partner_id VARCHAR(50) NOT NULL COMMENT '第三方身份id' COLLATE 'utf8_unicode_ci',
+            price INT(10) NOT NULL COMMENT '商品价格吧',
+            creat_time DATETIME NOT NULL COMMENT '创建时间',
+            paid_time DATETIME NOT NULL COMMENT '支付时间',
+            paid_money INT(50) NOT NULL COMMENT '支付金额',
+            paid_source VARCHAR(50) NOT NULL COMMENT '支付来源（微信或支付宝）' COLLATE 'utf8_unicode_ci',
+            status VARCHAR(50) NOT NULL COMMENT '支付状态' COLLATE 'utf8_unicode_ci',
+            pay_url VARCHAR(50) NOT NULL COMMENT '支付二维码' COLLATE 'utf8_unicode_ci',
+            discount DOUBLE NOT NULL COMMENT '支付优惠',
+            refound INT(50) NOT NULL COMMENT '退款',
+            cube_creat_result TINYINT(2) NOT NULL COMMENT '是否创建第三方？？？？',
+            channel INT(10) NOT NULL COMMENT '货道数量',
+            primary key (order_id)
+            )
+        </update>
+
 
     <!--3删除-->
     <update id="del" parameterType="User">
