@@ -89,7 +89,15 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/userAction/sysuserRes", method = RequestMethod.GET)
 	public String sysuserRes() {
-		return "user_system/sysuser_res_yun";
+		return "user_system/sysuser_res";
 	}
 
+	/**
+	 * 跳转的菜单管理
+	 * @return
+	 */
+	@RequestMapping(value = "/menuAction/manger", method = RequestMethod.GET)
+	public String menu() {
+		return "user_system/sysuser_res_menu";
+	}
 }

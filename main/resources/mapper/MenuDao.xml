@@ -10,9 +10,23 @@
     <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
     <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="UserInRoleMap" type="cn.wj.domain.UserInRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Menu_Column_List" >
     menu_id, menu_name, menu_url, parent_id, menu_order, menu_icon, menu_type
   </sql>
+  <sql id="UserInRole_Column_List" >
+    id, user_id, role_id
+  </sql>
+
+
+
+
+
+  <!--==================自动生成=================================-->
   <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
     <!--select -->
     <!--<include refid="Base_Column_List" />-->

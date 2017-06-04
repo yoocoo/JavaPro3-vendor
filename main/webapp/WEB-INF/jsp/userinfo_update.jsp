@@ -116,7 +116,7 @@
 
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span10">
+            <div class="span12">
                 <div id="web_update">
                 <div  class="widget-box">
                     <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>

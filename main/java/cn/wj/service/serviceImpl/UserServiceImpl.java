@@ -114,6 +114,45 @@ public class UserServiceImpl implements UserService {
 			System.out.println("创建 订单表失败  成功");
 		}
 	}
+	public void createSaleTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createSaleTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 销售失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 订单表失败  成功");
+		}
+	}
+	public void createCashTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createCashTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 订单表失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 销售表失败  成功");
+		}
+	}
+	public void createCashSaleTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createCashSaleTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 销售和金钱关联失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 销售和金钱关联  成功");
+		}
+	}
 
 	/**
 	 * 更新用户资料

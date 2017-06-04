@@ -44,6 +44,26 @@ public interface UserService extends BaseService<User> {
 	void createOrderTable(String tableName)throws Exception;
 
 	/**
+	 *2.5
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createSaleTable(String tableName)throws Exception;
+
+	/**
+	 *2.6
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createCashTable(String tableName)throws Exception;
+
+	/**
+	 * 2.7
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createCashSaleTable( String tableName)throws Exception;
+	/**
 	 * 更新用户资料
 	 *
 	 * @param user

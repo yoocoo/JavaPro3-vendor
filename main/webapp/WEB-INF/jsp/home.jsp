@@ -137,7 +137,7 @@
 <script type="text/javascript" src="<c:url value='/static/js/canvas/jquery.peity.min.js'/>"></script>
 
 <%--home首页进度条，快捷菜单，按钮分类等--%>
-<script type="text/javascript" src="<c:url value='/static/js/matrix.interface.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/js/matrix.interface.js'/>"></script>--%>
 
 
 

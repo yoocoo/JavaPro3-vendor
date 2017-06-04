@@ -47,6 +47,7 @@ public class UserController {
 	/**
 	 * ModelAndView 代表一个web页面(初期页面跳转4.1)
 	 * setViewName代表设置一个JSP页面的名称
+	 * 这是个 创建用户的模板
 	 *
 	 * @param response http响应
 	 * @param user     发起请求后，spring接收到请求，然后封装的 bean 数据
@@ -120,7 +121,7 @@ public class UserController {
 	}
 
 	/**
-	 * 登录入口
+	 * 统一的用户登录入口
 	 *
 	 * @param req
 	 * @param user
@@ -167,7 +168,6 @@ public class UserController {
 			//System.out.println("===测试打印图片原始路径======" + userImagePath);
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
-				//==========================================分主次的权限菜单，五月十四日===============================================================================================
 				//================(2)5.12  做权限菜单=================
 				List<Menu> menuList = userService.getMenu(user1.getUserId());
 				//=============重新组装menulist 到treelist =========
@@ -215,10 +215,10 @@ public class UserController {
 				responseObj.setCode(ResponseObj.OK);
 				responseObj.setMsg(ResponseObj.OK_STR);
 				responseObj.setPath(userImagePath);
-				//responseObj.setMenulist(menuList);
+				//responseObj.setMenulist(menuList);//主要是从后台数据库中筛选出来的该用户的权限菜单 ，未拼接的
 				//============================分主次的权限菜单=======================================
 				responseObj.setTreelist(treeList);
-				System.out.println("===存入setTreelist,tree===" + treeList);
+				System.out.println("===存入setTreelist,tree===" + treeList);//重新组装的权限菜单
 				//============================分主次的权限菜单=======================================
 				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
 				//System.out.println("====打印出来该用户所有要显示的权限菜单menuList=======" + menuList);
@@ -232,11 +232,9 @@ public class UserController {
 				//session.setAttribute("menu", menuList);
 				session.setAttribute("tree", treeList);
 				System.out.println("===存入session信息,tree===" + treeList);
-
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
-				//System.out.println("===存入session信息,menu===" + menuList);
 				result = new GsonUtils().toJson(responseObj);
 			} else {
 				responseObj = new ResponseObj<User>();
@@ -246,11 +244,10 @@ public class UserController {
 			}
 		}
 		return result;
-
 	}
 
 	/**
-	 * 修改个人资料入口
+	 * 修改个人资料统一入口，模态弹窗修改个人资料
 	 *
 	 * @param request
 	 * @param response
@@ -364,7 +361,9 @@ public class UserController {
 	}
 
 	/**
-	 * 系统管理员 创建一级管理用户（！！！！运营商），受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
+	 * value = "/sysuserRes"  创建一级用户的 统一入口， 也是创建运营商管理员的入口
+	 * 系统管理员 创建一级管理用户(运营商），
+	 * 受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
 	 * 时间：5月25日
 	 *
 	 * @param request
@@ -380,117 +379,109 @@ public class UserController {
 	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, Agency agency, HttpSession session) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
-		//responseObj = new ResponseObj<Agency>();
-		//ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
-		//mav.setViewName("home");//设置Jsp页面文件名
 		if (null == user) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户信息不能为空");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户信息不能为空！");//加入提示信息
-			//return mav;//返回页面
 		}
 		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户名或密码不能为空");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户名或密码不能为空！");
-			//return  mav;
 		}
 		if (null != userService.findUser(user)) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户已存在");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户名已存在！");
-			//return  mav;
 		}
-		//if (null == agencyService.findAgency(agency)) {
-		//	responseObj.setCode(ResponseObj.FAILED);
-		//	responseObj.setMsg("运营商账户已经存在！请重新填写合适账户名，避免重复！");
-		//	result = new GsonUtils().toJson(responseObj);
-		//	return result;
-		//}
 		try {
 			agencyService.add(agency);
+			responseObj.setCode(ResponseObj.OK);
+			responseObj.setData(agency);
 			userService.sysuseradd(user);
-			userService.updateAgencyId(user);
-
+			//userService.updateAgencyId(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("其他错误====!!");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","错误，用户其他信息错误！");
-			//return mav;
 		}
-
-		//userService.updateLoginSession(request.getSession().getId(),user.getAccountName());
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("注册运营商管理用户成功");
-		//user.setPassword(session.getId());//单独设置
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
-		//user.setNextUrl(request.getContextPath() + "/userAction/sysuserResAdd");//单独控制地址
 		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
 		System.out.println("===注册管理用户信息=====" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
-
 		responseObj.setData(agency);
 		session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
 		System.out.println("======查看 新注册的 添加运营商表里的记录：agencyInfo==" + agency);
-		//session.setAttribute("userInfo", user);//只有注册时输入表单项数（用户ID 自增的， 下一步地址，用户名，用户密码（加密），电话）
-		//System.out.println("======userInfo==" + user);//只有注册时输入表单项数（用户ID 自增的，下一步地址，用户名，用户密码（加密），电话）
-
+		System.out.println("======查看 新注册的 运营商ID,另外一种更新id方式 6.4号" + agency.getAgencyId());
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
-		//mav.addObject("code",110);
-		//mav.addObject("message","恭喜注册成功！");
-		//req.getSession().setAttribute("user",user);
-		//return  mav;
 		return result;
 	}
 
-	//@RequestMapping(value = "/sysuserResAdd"
-	//		, method = RequestMethod.POST
-	//		, produces = "application/json;charset=utf-8")
-	//@ResponseBody
-	//public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, Agency agency, HttpSession session) throws Exception {
-	//	Object result;
-	//	responseObj = new ResponseObj<Agency>();
-	//	if (null == agency) {
-	//		responseObj.setCode(ResponseObj.FAILED);
-	//		responseObj.setMsg("运营商用户信息不能为空");
-	//		result = new GsonUtils().toJson(responseObj);
-	//		return result;
-	//	}
-	//	if (null == agencyService.findAgency(agency)) {
-	//		responseObj.setCode(ResponseObj.FAILED);
-	//		responseObj.setMsg("运营商账户已经存在！请重新填写合适账户名，避免重复！");
-	//		result = new GsonUtils().toJson(responseObj);
-	//		return result;
-	//	}
-	//	try {
-	//		agencyService.add(agency);
-	//	} catch (Exception e) {
-	//		e.printStackTrace();
-	//		responseObj.setCode(ResponseObj.FAILED);
-	//		responseObj.setMsg("其他错误");
-	//		result = new GsonUtils().toJson(responseObj);
-	//	}
-	//	responseObj.setCode(ResponseObj.OK);
-	//	responseObj.setMsg("添加运营商信息成功");
-	//	agency.setAgecynextUrl(request.getContextPath() + "/mvc/home");
-	//	responseObj.setData(agency);
-	//	session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
-	//	result = new GsonUtils().toJson(responseObj);
-	//	return result;
-	//}
+	/**
+	 * 系统管理员  创建一级管理员用户（系统用户）,
+	 * 受影响的表格 用户表
+	 * date:2017.06.03
+	 *
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/sysuserResXi"
+			, method = RequestMethod.POST
+			, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<User>();
+		if (null == user) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户信息不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户名或密码不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (null != userService.findUser(user)) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户已存在");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		try {
+			userService.sysuseradd(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他错误");
+			result = new GsonUtils().toJson(responseObj);
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("添加系统账户成功");
+		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
+		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		result = new GsonUtils().toJson(responseObj);
+		return result;
+	}
 
 	/**
-	 * 系统管理员 创建一级管理用户（！！！！生产商），受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
+	 * 系统管理员 创建一级管理用户（生产商），
+	 * 受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
 	 * 时间：5月29日
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
@@ -546,14 +537,13 @@ public class UserController {
 
 		responseObj.setData(factory);
 		session.setAttribute("factoryInfo", factory);//只有注册时输入表单项数
-
-		String tableName = "order_"+factory.getFactoryId();
-		userService.createOrderTable(tableName);
-
-		//userService.createOrderTable("order_"+factory.getFactoryId().toString());
-		System.out.println("===============得到的 tableName====="+factory.getAccountName());
+		//String tableName = "order_"+factory.getFactoryId();
+		//userService.createOrderTable(tableName);
+		userService.createOrderTable("order_" + factory.getFactoryId().toString());//订单表名
+		userService.createOrderTable("sale_" + factory.getFactoryId().toString());//销售表名
+		userService.createOrderTable("cash_" + factory.getFactoryId().toString());//金钱表名
+		userService.createOrderTable("cash_sale_" + factory.getFactoryId().toString());//金钱销售关联表名
 		System.out.println("======查看 新注册的，添加生产商表里的记录：factoryInfo==" + factory);
-
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;
