@@ -1,8 +1,9 @@
 package cn.wj.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Serializable {
 	private Integer menuId;//菜单ID
 	private String menuName;//菜单名
 	private Integer parentId;//父级菜单  0 表示根节点
@@ -129,5 +130,6 @@ public class Menu {
 				'}';
 
 	}
+
 }
 

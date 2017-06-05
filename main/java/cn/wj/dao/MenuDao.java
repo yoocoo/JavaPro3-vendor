@@ -2,10 +2,12 @@ package cn.wj.dao;
 
 import cn.wj.domain.Menu;
 
+import java.util.List;
+
 public interface MenuDao extends Dao<MenuDao>{
 
 
-
+    List<Menu>  getAllMenu(Menu menu);
 
 
     //================================自动生成=========================================

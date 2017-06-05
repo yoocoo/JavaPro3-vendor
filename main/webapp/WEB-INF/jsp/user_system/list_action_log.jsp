@@ -26,7 +26,8 @@
 <script type="text/javascript">
     var pageNum;
     function goToNextPage() {
-        pageNum = parseInt(pageNum) + 1;
+        pageNum = (parseInt(pageNum) + 1) ;
+
         $.ajax({
             type: "GET",
             url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=10',
@@ -36,6 +37,7 @@
                 if (data.code == 1) {
                     updateList(data);
                     pageNum = data.pageNum;
+                    alert("1"+pageNum);
                     $("#log-controller-now").html(pageNum);
                 }
             }
@@ -44,7 +46,7 @@
 
     function goToLastPage() {
         pageNum = parseInt(pageNum) - 1;
-        alert(pageNum);
+        alert("2"+pageNum);
         $.ajax({
             type: "GET",
             url: '/actionLog/findLogList?pageNum=' + pageNum + '&pageSize=10',
@@ -54,6 +56,7 @@
                 if (data.code == 1) {
                     updateList(data);
                     pageNum = data.pageNum;
+                    alert("2+1"+pageNum);
                     $("#log-controller-now").html(pageNum);
                 }
             }
@@ -239,7 +242,31 @@
         $("#log-table-body").html(pagefn(data.data));   //加入数据到模板
     }
 </script>
+<%--========================================================================================--%>
+<script type="application/javascript">
+    $.ajax({
+        type: "GET",
+        url: '<%=request.getContextPath()%>/actionLog/findLogList?pageNum=1&pageSize=10',
+        dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+        cache: false,
+        success: function(data) {
+            if(data.code == 1) {
+                for(var i = 0; i < 10; i++) {
+                    $("#log-table-body").append("<tr><td>" + data.data[i].id + "</td><td>" +
+                        data.data[i].ipAddrV4 + "</td><td>01/01/2016</td><td>" +
+                        data.data[i].osName + "</td><td><span class=\"label label-danger\">" +
+                        data.data[i].description + "</span></td><td>" +
+                        data.data[i].sessionId + "</td><td>" +
+                        data.data[i].broName + "</td></tr>");
+                }
+            }
+        }
+    });
+</script>
 
+
+
+<%--============================================================--%>
 <!-- 引入页面底部文件Footer-part-->
 <%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
 <!--end-Footer-part-->

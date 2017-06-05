@@ -96,8 +96,8 @@ public class MainController {
 	 * 跳转的菜单管理
 	 * @return
 	 */
-	@RequestMapping(value = "/menuAction/manger", method = RequestMethod.GET)
-	public String menu() {
+	@RequestMapping(value = "/listMenu/getMenu", method = RequestMethod.GET)
+	public String getMenu() {
 		return "user_system/sysuser_res_menu";
 	}
 }

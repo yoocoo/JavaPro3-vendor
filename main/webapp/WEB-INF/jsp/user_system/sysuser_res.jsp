@@ -775,7 +775,6 @@
                                             </select>
                                         </div>
                                         <span class="help-inline">*1生产商管理员：负责管理生产商组织<br/> *2.出租商管理员：负责管理出租商组织 <br/> *3.贸易商管理员：负责负责管理贸易商组织，非生产商<br/></span>
-
                                     </div>
                                 </div>
                                 <div class="control-group info">
@@ -859,7 +858,7 @@
                                                 <option value="贸易商" id="1">贸易商</option>
                                             </select>
                                         </div>
-                                        <span class="help-inline">*如果您是专门的生产商，请选择生产商。如果您是贸易商，不负责生产，请选择贸易商</span>
+                                        <span class="help-inline">*如果您是专门的生产商，请选择生产商。<br>如果您是贸易商，不负责生产，请选择贸易商</span>
                                     </div>
                                 </div>
                                 <div class="control-group info">
@@ -916,7 +915,7 @@
                                                data-title=""
                                                class="span3 tip"
                                                data-original-title="请输入有效银行">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请选择正确国内银行，填写全称，如中国建设银行，方便后期核实</span>
+                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;*选填请选择正确国内银行，填写全称，如中国建设银行，方便后期核实</span>
                                     </div>
                                 </div>
                                 <div class="control-group info">
@@ -926,7 +925,7 @@
                                                data-title=""
                                                class="span3 tip"
                                                data-original-title="请输入有效银行卡信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;银行卡有效帮助您收取定向款，也方便您收款</span>
+                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;*选填银行卡有效帮助您收取定向款，也方便您收款</span>
                                     </div>
                                 </div>
                                 <label class="control-label center"></label>

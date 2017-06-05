@@ -231,7 +231,7 @@ public class UserController {
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 				//session.setAttribute("menu", menuList);
 				session.setAttribute("tree", treeList);
-				System.out.println("===存入session信息,tree===" + treeList);
+				System.out.println("===存入session信息,userController里面，tree===" + treeList);
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）

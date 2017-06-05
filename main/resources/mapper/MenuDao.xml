@@ -22,8 +22,12 @@
     id, user_id, role_id
   </sql>
 
-
-
+<!--1.1 得到菜单-->
+<select id="getAllMenu" resultMap="MenuMap">
+  SELECT  menu_id, menu_name, menu_url, parent_id, menu_order, menu_icon, menu_type
+  FROM menu
+  WHERE  1=1
+</select>
 
 
   <!--==================自动生成=================================-->

@@ -253,10 +253,22 @@
                                 2.mybatis中一个属性：statementType。这个属性的作用是告诉mybatis我们写的这个sql到底是
                                 预编译（PRESTATEMENT）还是非预编译（STATEMENT）的。<br/>
                                 3.mybatis3中mapper文件中 #{...} 和 ${...}有什么不同．<br/>
-                                MyBatis interprets #{...} as a parameter marker in a JDBC prepared statement. MyBatis interprets ${...} as<br/>
+                                MyBatis interprets #{...} as a parameter marker in a JDBC prepared statement. MyBatis
+                                interprets ${...} as<br/>
                                 mybatis3对于#{...}是JDBC prepared statement参数的占位符标志，其值会有对应typehandler针对不同类型设值．<br/>
-                                string substitution. It is important to know the difference because parameter markers cannot be used in certain places<br/>
+                                string substitution. It is important to know the difference because parameter markers
+                                cannot be used in certain places<br/>
                                 而${...}在mybatis3中仅仅是字符串替换，这也是以前web编程sql注入发生的地发．<br/>
+                            </td>
+                        </tr>
+
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----五月（11)-6.4</td>
+                            <td> (一 )bootStrap table "动态知识点"<br/>
+                                1. bootStrap table 是一个轻量级的table插件，使用AJAX获取JSON格式的数据，其分页和数据填充很方便，支持国际化<br/>
+                                2.table数据填充：<br/>
+                                bootStrap table获取数据有两种方式，一是通过table 的data-url属性指定数据源，二是通过JavaScript初始化表格时指定url来获取数据<br/>
                             </td>
                         </tr>
                         </tbody>

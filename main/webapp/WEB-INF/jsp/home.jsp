@@ -142,25 +142,6 @@
 
 
 </body>
-<%--<script type="application/javascript">--%>
-    <%--$.ajax({--%>
-        <%--type: "GET",--%>
-        <%--url: '<%=request.getContextPath()%>/actionLog/findLogList?pageNum=1&pageSize=10',--%>
-        <%--dataType: 'json', //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了--%>
-        <%--cache: false,--%>
-        <%--success: function(data) {--%>
-            <%--if(data.code == 1) {--%>
-                <%--for(var i = 0; i < 10; i++) {--%>
-                    <%--$("#log-table-body").append("<tr><td>" + data.data[i].id + "</td><td>" +--%>
-                        <%--data.data[i].ipAddrV4 + "</td><td>01/01/2016</td><td>" +--%>
-                        <%--data.data[i].osName + "</td><td><span class=\"label label-danger\">" +--%>
-                        <%--data.data[i].description + "</span></td><td>" +--%>
-                        <%--data.data[i].sessionId + "</td><td>" +--%>
-                        <%--data.data[i].broName + "</td></tr>");--%>
-                <%--}--%>
-            <%--}--%>
-        <%--}--%>
-    <%--});--%>
-<%--</script>--%>
+
 
 </html>

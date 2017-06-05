@@ -30,7 +30,7 @@
         <%--</li>--%>
         <%--=============5.20日权限菜单修改完成===========================--%>
         <c:forEach items="${tree}" var="Menu">
-            <li class="submenu" id="lm${Menu.id }"><a href="#"><i class="${Menu.iconCls}"></i>
+            <li class="submenu" id="lm${Menu.id }"><a href="/mvc/home"><i class="${Menu.iconCls}"></i>
                 <span>${Menu.text}</span>
                 <span class="label label-important"></span></a>
                 <ul>
