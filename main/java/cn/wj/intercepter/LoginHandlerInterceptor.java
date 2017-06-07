@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 我们要在所有的请求上面加上一层访问日志监控，同时我们需要对外提供接口方便我们的查看数据。
+ */
 public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
     String NO_INTERCEPTOR_PATH = ".*/((login)|(reg)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";    //不对匹配该值的访问路径拦截（正则）
 

@@ -3,4 +3,5 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace是指明Mybatis扫描的目录，mapper是我们的Dao层的映射目录 -->
 <mapper namespace="cn.wj.dao">
+    <!--parameterType 这是引用外部 parameterMap 的已经被废弃的方法。使用内联参数映射和 parameterType 属性。-->
 </mapper>

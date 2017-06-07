@@ -9,6 +9,12 @@ import java.util.List;
 public interface ActionLogService  extends BaseService<UserActionLog> {
 	void add(HttpServletRequest request);
 
+	/**
+	 * 查询所有数据
+	 * @param pageNum   页码
+	 * @param pageSize  每页的查询数量
+	 * @return
+	 */
 	List<UserActionLog> findAll(int pageNum, int pageSize);
 
 	/**

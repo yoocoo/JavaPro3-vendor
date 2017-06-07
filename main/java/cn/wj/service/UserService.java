@@ -10,13 +10,59 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
-	 * 注册用户
+	 * 注册普通用户
 	 *
 	 * @param user
 	 * @throws Exception
 	 */
 	void add(User user) throws Exception;
 
+	/**
+	 * 2.1系统管理员注册 一级管理用户
+	 * @param user
+	 * @throws Exception
+	 */
+	void sysuseradd(User user) throws Exception;
+
+	/**
+	 * 2.2更新 用户表中 agencyId
+	 * @param user
+	 */
+    void updateAgencyId(User  user)throws Exception;
+
+	/**
+	 * 2.3更新 用户表中 factoryId
+	 * @param user
+	 */
+	void updateFactoryId(User  user)throws Exception;
+
+	/**
+	 * 2.4  创建动态的生产商的 订单表
+	 * @param tableName
+	 * @return
+	 */
+	void createOrderTable(String tableName)throws Exception;
+
+	/**
+	 *2.5
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createSaleTable(String tableName)throws Exception;
+
+	/**
+	 *2.6
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createCashTable(String tableName)throws Exception;
+
+	/**
+	 * 2.7
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createCashSaleTable( String tableName)throws Exception;
 	/**
 	 * 更新用户资料
 	 *
@@ -70,13 +116,15 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 根据用户ID 获得 该用户的菜单
+	 *
 	 * @param userId
 	 * @return
 	 */
-	List<Menu> getMenu(int  userId);
+	List<Menu> getMenu(int userId);
 
 	/**
 	 * 根据用户名 获得该用户的ID
+	 *
 	 * @param accountName
 	 * @return
 	 */

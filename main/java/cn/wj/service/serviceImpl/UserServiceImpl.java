@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	private UserDao userDao;
 
 	/**
@@ -37,6 +37,121 @@ public class UserServiceImpl implements UserService {
 			System.out.println("添加用户成功！");
 		}
 
+	}
+
+	/**
+	 * 系统管理员 注册一级管理用户
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void sysuseradd(User user) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.sysuseradd(user);
+		} catch (Exception e) {
+			System.out.println("添加用户失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("添加用户成功！");
+		}
+
+	}
+
+	/**
+	 * 2.2更新 用户表中 agencyId
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public  void updateAgencyId(User user )throws OtherThingsException{
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.updateAgencyId(user);
+		} catch (Exception e) {
+			System.out.println("更新用户表中agencyid 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("更新用户表中agencyid 成功");
+		}
+	}
+	/**
+	 * 2.3更新 用户表中 factoryId
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public  void updateFactoryId(User user )throws OtherThingsException{
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.updateFactoryId(user);
+		} catch (Exception e) {
+			System.out.println("更新用户表中factoryid 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("更新用户表中factoryid 成功");
+		}
+	}
+
+	/**
+	 * 2.4  创建动态的生产商的 订单表
+	 * @param tableName
+	 * @return
+	 */
+	public void createOrderTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createOrderTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 订单表失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 订单表失败  成功");
+		}
+	}
+	public void createSaleTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createSaleTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 销售失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 订单表失败  成功");
+		}
+	}
+	public void createCashTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createCashTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 订单表失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 销售表失败  成功");
+		}
+	}
+	public void createCashSaleTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createCashSaleTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 销售和金钱关联失败 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 销售和金钱关联  成功");
+		}
 	}
 
 	/**

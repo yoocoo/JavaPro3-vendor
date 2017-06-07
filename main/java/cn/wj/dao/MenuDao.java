@@ -2,7 +2,15 @@ package cn.wj.dao;
 
 import cn.wj.domain.Menu;
 
-public interface MenuDao {
+import java.util.List;
+
+public interface MenuDao extends Dao<MenuDao>{
+
+
+    List<Menu>  getAllMenu(Menu menu);
+
+
+    //================================自动生成=========================================
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(Menu record);

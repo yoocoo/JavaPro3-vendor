@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.wj.dao.MenuMapper" >
+<mapper namespace="cn.wj.dao.MenuDao" >
   <resultMap id="MenuMap" type="cn.wj.domain.Menu" >
     <id column="menu_id" property="menuId" jdbcType="INTEGER" />
     <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
@@ -10,9 +10,27 @@
     <result column="menu_icon" property="menuIcon" jdbcType="VARCHAR" />
     <result column="menu_type" property="menuType" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="UserInRoleMap" type="cn.wj.domain.UserInRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Menu_Column_List" >
     menu_id, menu_name, menu_url, parent_id, menu_order, menu_icon, menu_type
   </sql>
+  <sql id="UserInRole_Column_List" >
+    id, user_id, role_id
+  </sql>
+
+<!--1.1 得到菜单-->
+<select id="getAllMenu" resultMap="MenuMap">
+  SELECT  menu_id, menu_name, menu_url, parent_id, menu_order, menu_icon, menu_type
+  FROM menu
+  WHERE  1=1
+</select>
+
+
+  <!--==================自动生成=================================-->
   <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
     <!--select -->
     <!--<include refid="Base_Column_List" />-->

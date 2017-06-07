@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.FactoryDao">
+    <resultMap id="FactoryResultMap" type="cn.wj.domain.Factory">
+        <id column="factory_id" property="factoryId" jdbcType="INTEGER"/>
+        <result column="factory_name" property="factoryName" jdbcType="VARCHAR"/>
+        <result column="factory_type" property="factoryType" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+        <result column="cash_table_name" property="cashTableName" jdbcType="VARCHAR"/>
+        <result column="order_table_name" property="orderTableName" jdbcType="VARCHAR"/>
+        <result column="sale_table_name" property="saleTableName" jdbcType="VARCHAR"/>
+        <result column="alarm_table_name" property="alarmTableName" jdbcType="VARCHAR"/>
+        <result column="factory_logo_path" property="factoryLogoPath" jdbcType="VARCHAR"/>
+        <!--<result column="to_factory_id" property="toFactoryId" jdbcType="BIT"/>-->
+        <result column="sFee_return_rate" property="sfeeReturnRate" jdbcType="DOUBLE"/>
+        <result column="qR_return_rate" property="qrReturnRate" jdbcType="DOUBLE"/>
+        <result column="receive_account" property="receiveAccount" jdbcType="VARCHAR"/>
+        <result column="open_bank_name" property="openBankName" jdbcType="VARCHAR"/>
+        <result column="open_account_name" property="openAccountName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Factory_Column_List">
+    factory_id, factory_name,factory_type,account_name, cash_table_name, order_table_name, sale_table_name, alarm_table_name,
+    factory_logo_path,  sFee_return_rate, qR_return_rate, receive_account,
+    open_bank_name, open_account_name
+  </sql>
+    <!--1.1.1 用户表新增加 用户，并同时 存入 生产商表格中-->
+    <insert id="add" parameterType="cn.wj.domain.Factory">
+        <selectKey keyProperty="factoryId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS factory_id
+        </selectKey>
+        insert into factory ( factory_name, factory_type,account_name, cash_table_name,
+        order_table_name, sale_table_name, alarm_table_name,
+        factory_logo_path,  sFee_return_rate,
+        qR_return_rate, receive_account, open_bank_name,
+        open_account_name)
+        values ( #{factoryName,jdbcType=VARCHAR}, #{factoryType,jdbcType=VARCHAR},#{accountName,jdbcType=VARCHAR}, '1',
+        '2', '3', '4',
+        #{factoryLogoPath,jdbcType=VARCHAR},  #{sfeeReturnRate,jdbcType=DOUBLE},
+        #{qrReturnRate,jdbcType=DOUBLE}, #{receiveAccount,jdbcType=BIT}, #{openBankName,jdbcType=VARCHAR},
+        #{openAccountName,jdbcType=VARCHAR})
+    </insert>
+    <!--1.1.2 查询 当前 生产商的 factoryID-->
+    <select id="findOneByName" resultType="String" parameterType="String">
+        SELECT  factory_id
+        FROM  factory
+        WHERE  account_name =  #{accountName}
+    </select>
+    <!--SELECT  factory.factory_id-->
+    <!--FROM  factory f LEFT  JOIN  user u-->
+    <!--WHERE  u.account_name = f.account_name-->
+    <!--=====================================自动生成== 缺少用户名的 注意：：：==============================================-->
+    <!--<select id="selectByPrimaryKey" resultMap="FactoryResultMap" parameterType="java.lang.Integer">-->
+        <!--select-->
+        <!--<include refid="Factory_Column_List"/>-->
+        <!--from factory-->
+        <!--where factory_id = #{factoryId,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from factory-->
+    <!--where factory_id = #{factoryId,jdbcType=INTEGER}-->
+  <!--</delete>-->
+
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.Factory">-->
+        <!--insert into factory-->
+        <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+            <!--<if test="factoryId != null">-->
+                <!--factory_id,-->
+            <!--</if>-->
+            <!--<if test="factoryName != null">-->
+                <!--factory_name,-->
+            <!--</if>-->
+            <!--<if test="cashTableName != null">-->
+                <!--cash_table_name,-->
+            <!--</if>-->
+            <!--<if test="orderTableName != null">-->
+                <!--order_table_name,-->
+            <!--</if>-->
+            <!--<if test="saleTableName != null">-->
+                <!--sale_table_name,-->
+            <!--</if>-->
+            <!--<if test="alarmTableName != null">-->
+                <!--alarm_table_name,-->
+            <!--</if>-->
+            <!--<if test="factoryLogoPath != null">-->
+                <!--factory_logo_path,-->
+            <!--</if>-->
+            <!--<if test="toFactoryId != null">-->
+                <!--to_factory_id,-->
+            <!--</if>-->
+            <!--<if test="sfeeReturnRate != null">-->
+                <!--sFee_return_rate,-->
+            <!--</if>-->
+            <!--<if test="qrReturnRate != null">-->
+                <!--qR_return_rate,-->
+            <!--</if>-->
+            <!--<if test="receiveAccount != null">-->
+                <!--receive_account,-->
+            <!--</if>-->
+            <!--<if test="openBankName != null">-->
+                <!--open_bank_name,-->
+            <!--</if>-->
+            <!--<if test="openAccountName != null">-->
+                <!--open_account_name,-->
+            <!--</if>-->
+        <!--</trim>-->
+        <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+            <!--<if test="factoryId != null">-->
+                <!--#{factoryId,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <!--<if test="factoryName != null">-->
+                <!--#{factoryName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="cashTableName != null">-->
+                <!--#{cashTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="orderTableName != null">-->
+                <!--#{orderTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="saleTableName != null">-->
+                <!--#{saleTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="alarmTableName != null">-->
+                <!--#{alarmTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="factoryLogoPath != null">-->
+                <!--#{factoryLogoPath,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="toFactoryId != null">-->
+                <!--#{toFactoryId,jdbcType=BIT},-->
+            <!--</if>-->
+            <!--<if test="sfeeReturnRate != null">-->
+                <!--#{sfeeReturnRate,jdbcType=DOUBLE},-->
+            <!--</if>-->
+            <!--<if test="qrReturnRate != null">-->
+                <!--#{qrReturnRate,jdbcType=DOUBLE},-->
+            <!--</if>-->
+            <!--<if test="receiveAccount != null">-->
+                <!--#{receiveAccount,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="openBankName != null">-->
+                <!--#{openBankName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="openAccountName != null">-->
+                <!--#{openAccountName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+        <!--</trim>-->
+    <!--</insert>-->
+    <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.Factory">-->
+        <!--update factory-->
+        <!--<set>-->
+            <!--<if test="factoryName != null">-->
+                <!--factory_name = #{factoryName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="cashTableName != null">-->
+                <!--cash_table_name = #{cashTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="orderTableName != null">-->
+                <!--order_table_name = #{orderTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="saleTableName != null">-->
+                <!--sale_table_name = #{saleTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="alarmTableName != null">-->
+                <!--alarm_table_name = #{alarmTableName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="factoryLogoPath != null">-->
+                <!--factory_logo_path = #{factoryLogoPath,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="toFactoryId != null">-->
+                <!--to_factory_id = #{toFactoryId,jdbcType=BIT},-->
+            <!--</if>-->
+            <!--<if test="sfeeReturnRate != null">-->
+                <!--sFee_return_rate = #{sfeeReturnRate,jdbcType=DOUBLE},-->
+            <!--</if>-->
+            <!--<if test="qrReturnRate != null">-->
+                <!--qR_return_rate = #{qrReturnRate,jdbcType=DOUBLE},-->
+            <!--</if>-->
+            <!--<if test="receiveAccount != null">-->
+                <!--receive_account = #{receiveAccount,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="openBankName != null">-->
+                <!--open_bank_name = #{openBankName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <!--<if test="openAccountName != null">-->
+                <!--open_account_name = #{openAccountName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+        <!--</set>-->
+        <!--where factory_id = #{factoryId,jdbcType=INTEGER}-->
+    <!--</update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.Factory">-->
+    <!--update factory-->
+    <!--set factory_name = #{factoryName,jdbcType=VARCHAR},-->
+      <!--cash_table_name = #{cashTableName,jdbcType=VARCHAR},-->
+      <!--order_table_name = #{orderTableName,jdbcType=VARCHAR},-->
+      <!--sale_table_name = #{saleTableName,jdbcType=VARCHAR},-->
+      <!--alarm_table_name = #{alarmTableName,jdbcType=VARCHAR},-->
+      <!--factory_logo_path = #{factoryLogoPath,jdbcType=VARCHAR},-->
+      <!--sFee_return_rate = #{sfeeReturnRate,jdbcType=DOUBLE},-->
+      <!--qR_return_rate = #{qrReturnRate,jdbcType=DOUBLE},-->
+      <!--receive_account = #{receiveAccount,jdbcType=VARCHAR},-->
+      <!--open_bank_name = #{openBankName,jdbcType=VARCHAR},-->
+      <!--open_account_name = #{openAccountName,jdbcType=VARCHAR}-->
+    <!--where factory_id = #{factoryId,jdbcType=INTEGER}-->
+  <!--</update>-->
+</mapper>

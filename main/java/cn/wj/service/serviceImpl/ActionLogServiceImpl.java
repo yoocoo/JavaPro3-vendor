@@ -16,9 +16,9 @@ import java.util.Map;
  * 使用网络爬虫工具 UserAgent
  * Created by ThinkPad on 2017/4/24.
  */
-@Service("actionService")
+@Service("actionLogService")
 public class ActionLogServiceImpl implements ActionLogService {
-	@Autowired
+	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	private ActionLogDao actionLogDao;
 	private UserActionLog userActionLog;
 

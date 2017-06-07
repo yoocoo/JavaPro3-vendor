@@ -30,4 +30,5 @@
 <%--home主页高亮消息提示样式--%>
 <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/jquery.gritter.css'/>">
 
+<link type="text/css" rel="stylesheet" href="<c:url value='/static/css/uniform.css'/>">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>

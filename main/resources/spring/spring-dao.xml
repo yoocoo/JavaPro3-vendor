@@ -85,4 +85,5 @@
     <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
         <property name="statementExecutableSqlLogEnable" value="false" />
     </bean>
+
 </beans>

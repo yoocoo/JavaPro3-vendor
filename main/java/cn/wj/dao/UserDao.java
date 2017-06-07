@@ -15,25 +15,42 @@ import java.util.List;
  * Created by ThinkPad  WJ on 2017/4/8.
  */
 public interface UserDao extends Dao<User> {
-	//注册用户
+	//1.1注册普通用户
 	int add(User user);
 
-	//删除用户
+	//2.1系统管理员注册一级用户( 运营商、 生产商 )
+	int sysuseradd(User user);
+
+	//2.2更新用户表中 agencyId
+	int updateAgencyId(User  user);
+
+	//2.3更新用户表中 factoryId
+	int updateFactoryId(User  user);
+
+	//2.4  创建动态的生产商的 订单表
+	 int createOrderTable(@Param("tableName") String tableName);
+	//2.5  创建动态的生产商的 销售表
+	int createSaleTable(@Param("tableName") String tableName);
+	//2.6  创建动态的生产商的 金钱表
+	int createCashTable(@Param("tableName") String tableName);
+	//2.7 创建动态的生产商的 金钱和销售关联表
+	int createCashSaleTable(@Param("tableName") String tableName);
+	//3删除用户
 	int del(User user);
 
-	//更新用户
+	//4.1更新用户
 	int update(User user);
 
-	//更新用户头像
+	//4.2更新用户头像
 	int updateImage(User user);
 
-	//查找数据库中的用户
+	//1.2查找数据库中的用户
 	User findOneById(Serializable Id);
 
-	//查找用户头像地址，用于动态显示头像
+	//4.3查找用户头像地址，用于动态显示头像
 	String findPathById(String accountName);
 
-	//查询所有用户
+	//1.3查询所有用户
 	List<User> findAll(Page page);
 
 	//用户 sessionId

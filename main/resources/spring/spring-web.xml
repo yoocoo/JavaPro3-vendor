@@ -25,6 +25,8 @@
     <mvc:resources mapping="/view/**" location="/static/view/"/>
     <mvc:resources mapping="/js/**" location="/static/js/"/>
     <mvc:resources mapping="/img/**" location="/static/img/"/>
+    <!--<mvc:resources mapping="/font-awesome/font/*" location="/static/font-awesome/font/"/>-->
+    <!--<mvc:resources mapping="/font-awesome/css/*" location="/static/font-awesome/css/"/>-->
     <mvc:resources mapping="/font-awesome/**" location="/static/font-awesome/"/>
     <mvc:default-servlet-handler/>
     <!--访问拦截-->

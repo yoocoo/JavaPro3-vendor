@@ -17,17 +17,21 @@
 <%--日历脚本引用--%>
 <script type="text/javascript" src="<c:url value='/static/js/fullcalendar.min.js'/>"></script>
 
-<%--页面整体重要JS 脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/common/matrix.js'/>"></script>
-
-<%--判断消息提示脚本引用-公共引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
 <%--跟图表数据相关js脚本--%>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.dashboard.js'/>"></script>
 
 
+
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.peity.min.js'/>"></script>
+<%--判断消息提示脚本引用-公共引用--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
+
+
+<%--表单公共引用--%>
+<script type="text/javascript" src="<c:url value='/static/js/jquery.uniform.js'/>"></script>
 <%--home首页进度条，快捷菜单，按钮分类等--%>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.interface.js'/>"></script>
+
 
 <%--聊天窗口js 暂时未用到--%>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.chat.js'/>"></script>
@@ -39,8 +43,7 @@
 <script type="text/javascript" src="<c:url value='/static/js/jquery.validate.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.form_validation.js'/>"></script>
 
-<%--表单公共引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.uniform.js'/>"></script>
+
 
 <%--单选复选脚本引用--%>
 <script type="text/javascript" src="<c:url value='/static/js/select2.min.js'/>"></script>
@@ -48,10 +51,16 @@
 <script type="text/javascript" src="<c:url value='/static/js/matrix.popover.js'/>"></script>
 
 <%--数据表格脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.dataTables.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/static/js/matrix.tables.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/js/jquery.dataTables.min.js'/>"></script>--%>
+<%--页面整体重要JS 脚本引用--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/matrix.js'/>"></script>
+
+<%--<script type="text/javascript" src="<c:url value='/static/js/matrix.tables.js'/>"></script>--%>
 <%--文件上传和下载 脚本引用--%>
 <script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
+
+
+<script type="text/javascript" src="<c:url value='/static/js/jquery.gritter.min.js'/>"></script>
 
 
 

@@ -9,9 +9,23 @@
   <sql id="RoleInMenu_Column_List" >
     id, role_id, menu_id
   </sql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--==================自动生成=================================-->
   <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
     <!--select -->
-    <!--<include refid="Base_Column_List" />-->
+    <!--<include refid="RoleInMenu_Column_List" />-->
     <!--from role_in_menu-->
     <!--where id = #{id,jdbcType=INTEGER}-->
   <!--</select>-->
