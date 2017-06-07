@@ -94,6 +94,7 @@ public class MainController {
 
 	/**
 	 * 跳转的菜单管理
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/listMenu/getMenu", method = RequestMethod.GET)

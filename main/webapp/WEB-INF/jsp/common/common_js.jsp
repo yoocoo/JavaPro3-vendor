@@ -20,8 +20,7 @@
 <%--跟图表数据相关js脚本--%>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.dashboard.js'/>"></script>
 
-<%--页面整体重要JS 脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/common/matrix.js'/>"></script>
+
 
 <script type="text/javascript" src="<c:url value='/static/js/common/jquery.peity.min.js'/>"></script>
 <%--判断消息提示脚本引用-公共引用--%>
@@ -53,6 +52,9 @@
 
 <%--数据表格脚本引用--%>
 <%--<script type="text/javascript" src="<c:url value='/static/js/jquery.dataTables.min.js'/>"></script>--%>
+<%--页面整体重要JS 脚本引用--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/matrix.js'/>"></script>
+
 <%--<script type="text/javascript" src="<c:url value='/static/js/matrix.tables.js'/>"></script>--%>
 <%--文件上传和下载 脚本引用--%>
 <script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>

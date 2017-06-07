@@ -14,6 +14,7 @@ public class ResponseObj<T> {
 	private Object data;
 	private Object menulist;//数据库中筛选出来的 权限菜单
 	private Object treeList;//通过 tree 重新组装 权限菜单
+	private Object allmenulist;//数据库中筛选出来的 全部菜单
 
 	public Object getAllmenulist() {
 		return allmenulist;
@@ -22,8 +23,6 @@ public class ResponseObj<T> {
 	public void setAllmenulist(List<Menu> allmenulist) {
 		this.allmenulist = allmenulist;
 	}
-
-	private Object allmenulist;//数据库中筛选出来的 权限菜单
 
 
 	public int getCode() {

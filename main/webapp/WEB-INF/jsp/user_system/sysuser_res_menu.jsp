@@ -18,6 +18,7 @@
 </head>
 <script type="application/javascript">
     function GetMenu() {
+
         $.ajax({
             type: "POST",  //http请求方式为POST
             url: "<%=request.getContextPath()%>/listMenu/getMenu",//请求
@@ -28,13 +29,24 @@
             cache: false,
             success: function (data) {
                 alert(data.msg);
-                location.reload()
+                location.reload() //点击按钮刷新页面
+//原来写在这
             }
         });
+
+        //    window.opener.location.reload();
+
+        function goEdit() {
+
+        }
+
+        function doDelete() {
+
+        }
     }
 </script>
-
 <body>
+<%--<body onload="getMenu()">--%>
 <%--引入顶部导航jsp  --%>
 <%@ include file="/WEB-INF/jsp/index_body/index_top_header.jsp" %>
 
@@ -56,14 +68,15 @@
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-th"></i> </span>
                         <h5>
-                            <input type="button" value="更进菜单" id="btn_login"
+                            <input type="button" value="更进菜单"
                                    onclick="GetMenu();" class="btn-success btn-mini"/>
                         </h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered data-table ">
                             <thead>
                             <tr>
+                                <%--<th><input type="checkbox" id="title-table-checkbox1" name="title-table-checkbox"/></th>--%>
                                 <th>菜单ID</th>
                                 <th>菜单描述</th>
                                 <th>菜单地址</th>
@@ -78,31 +91,18 @@
                             <tbody>
                             <tr>
                                 <c:forEach items="${allMenu}" var="item">
+                                    <%--<td><input type="checkbox"/></td>--%>
                                 <td><c:out value="${item.menuId}"/></td>
                                 <td><c:out value="${item.menuName}"/></td>
                                 <td><c:out value="${item.menuUrl}"/></td>
                                 <td><c:out value="${item.parentId}"/></td>
                                 <td><c:out value="${item.menuOrder}"/></td>
-                                <td><i class=" <c:out value="${item.menuIcon}"/> "></i>
-
-                                </td>
+                                <td><i class=" <c:out value="${item.menuIcon}"/> "></i></td>
                                 <td><c:out value="${item.menuType}"/></td>
                                 <td onclick='goEdit(<c:out value="${item.menuId}"/>)'>编辑</td>
                                 <td onclick='doDelete(<c:out value="${item.menuId}"/>)'>删除</td>
                             </tr>
                             </c:forEach>
-                            <%--<tr>--%>
-                                <%--&lt;%&ndash;<td><input type="checkbox" /></td>&ndash;%&gt;--%>
-                                <%--<td>00</td>--%>
-                                <%--<td>画板</td>--%>
-                                <%--<td>/mvc/user/</td>--%>
-                                <%--<td>/mvc/user/</td>--%>
-                                <%--<td>/mvc/user/</td>--%>
-                                <%--<td>/mvc/user/</td>--%>
-                                <%--<td>/mvc/user/</td>--%>
-                                <%--<td class="center"> 4</td>--%>
-                                <%--<td class="center"> 4</td>--%>
-                            <%--</tr>--%>
                             </tbody>
                         </table>
                     </div>
@@ -112,10 +112,10 @@
                         <h5>权限菜单管理</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table table-striped with-check">
+                        <table class="table table-bordered data-table ">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>
+                                <%--<th><input type="checkbox" id="title-table-checkbox2" name="title-table-checkbox"/></th>--%>
                                 <th>ID值</th>
                                 <th>角色ID值</th>
                                 <th>菜单ID值</th>
@@ -126,7 +126,8 @@
                             <!-- ------------------遍历循环  开始  -->
                             <tbody>
                             <tr class="gradeX">
-                                <td><input type="checkbox"/></td>
+                                <%--<td><input type="checkbox"/></td>--%>
+
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
                                 <td>100</td>
@@ -160,15 +161,12 @@
                             </tr>
                             <!-- ------------------遍历循环  结束  -->
                             <tr class="gradeX">
-                                <td><input type="checkbox"/></td>
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
                                 <td>100</td>
-
                                 <td> ---</td>
                             </tr>
                             <tr class="gradeX">
-                                <td><input type="checkbox"/></td>
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
                                 <td>100</td>
@@ -180,6 +178,79 @@
                         </table>
                     </div>
                 </div>
+                <%--<div class="widget-box">--%>
+                <%--<div class="widget-title"><span class="icon"><i class="icon-th"></i></span>--%>
+                <%--<h5>权限菜单管理</h5>--%>
+                <%--</div>--%>
+                <%--<div class="widget-content nopadding">--%>
+                <%--<table class="table table-bordered data-table table-striped with-check">--%>
+                <%--<thead>--%>
+                <%--<tr>--%>
+                <%--<th><input type="checkbox" id="title-table-checkbox2" name="title-table-checkbox"/></th>--%>
+                <%--<th>ID值</th>--%>
+                <%--<th>角色ID值</th>--%>
+                <%--<th>菜单ID值</th>--%>
+                <%--<th>操作</th>--%>
+                <%--</tr>--%>
+                <%--</thead>--%>
+
+                <%--<!-- ------------------遍历循环  开始  -->--%>
+                <%--<tbody>--%>
+                <%--<tr class="gradeX">--%>
+                <%--<td><input type="checkbox"/></td>--%>
+                <%--<td>沃尔玛</td>--%>
+                <%--<td>9527IG</td>--%>
+                <%--<td>100</td>--%>
+
+                <%--<td>--%>
+                <%--<div class="dropdown">--%>
+                <%--<!-- <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"--%>
+                <%--data-toggle="dropdown">编辑--%>
+                <%--<span class="caret"></span>--%>
+                <%--</button>-->--%>
+                <%--<i class="icon icon-folder-open" id="dropdownMenu1" data-toggle="dropdown"></i>--%>
+                <%--<ul class="dropdown-menu pull-right" role="menu"--%>
+                <%--aria-labelledby="dropdownMenu1">--%>
+                <%--<li role="presentation"><a class="icon icon-edit" role="menuitem"--%>
+                <%--tabindex="-1" href="#">编辑</a></li>--%>
+                <%--<li role="presentation" class="divider"></li>--%>
+                <%--<li role="presentation"><a class="icon icon-shopping-cart" role="menuitem"--%>
+                <%--tabindex="-1" href="vendor-channel.html">货道管理</a>--%>
+                <%--</li>--%>
+                <%--<li role="presentation" class="divider"></li>--%>
+                <%--<!-- <li role="presentation"> <a  class="icon icon-signal" role="menuitem" tabindex="-1" href="#">销售统计</a> </li>--%>
+                <%--<li role="presentation" class="divider"></li>-->--%>
+                <%--<li role="presentation"><a class="icon  icon-warning-sign" role="menuitem"--%>
+                <%--tabindex="-1" href="vendor-test.html">审核</a></li>--%>
+                <%--<li role="presentation" class="divider"></li>--%>
+                <%--<li role="presentation"><a class="icon icon-trash" role="menuitem"--%>
+                <%--tabindex="-1" href="#">删除</a></li>--%>
+                <%--</ul>--%>
+                <%--</div>--%>
+                <%--</td>--%>
+                <%--</tr>--%>
+                <%--<!-- ------------------遍历循环  结束  -->--%>
+                <%--<tr class="gradeX">--%>
+                <%--<td><input type="checkbox"/></td>--%>
+                <%--<td>沃尔玛</td>--%>
+                <%--<td>9527IG</td>--%>
+                <%--<td>100</td>--%>
+
+                <%--<td> ---</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="gradeX">--%>
+                <%--<td><input type="checkbox"/></td>--%>
+                <%--<td>沃尔玛</td>--%>
+                <%--<td>9527IG</td>--%>
+                <%--<td>100</td>--%>
+
+                <%--<td> ---</td>--%>
+                <%--</tr>--%>
+
+                <%--</tbody>--%>
+                <%--</table>--%>
+                <%--</div>--%>
+                <%--</div>--%>
             </div>
         </div>
 
@@ -195,15 +266,21 @@
 <%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
 <!--end-Footer-part-->
 
-<%--引入公共的js脚本，防止页面部分功能冲突--%>
-<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
+<%--注: 有时候 页面 带有冲突的时候，最好是不引入这个页面了，单独引入该需要的JS页面，引入公共的js脚本，防止页面部分功能冲突--%>
+<%--<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>--%>
 
 <%--引用自身需要的 表格 JS--%>
-<%--<script type="text/javascript" src="<c:url value='/static/js/common/jquery.ui.custom.js'/>"></script>--%>
-<%--<script type="text/javascript" src="<c:url value='/static/js/jquery.uniform.js'/>"></script>--%>
+<%--bootstrap页面基础脚本--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.min.js'/>"></script>
+<%--整体UI 界面公用--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.ui.custom.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.ui.custom.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/static/js/common/bootstrap.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/static/js/jquery.uniform.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/js/select2.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/js/jquery.dataTables.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/js/matrix.tables.js'/>"></script>
 <!--end-javascript-part-->
+
 </body>
 </html>
