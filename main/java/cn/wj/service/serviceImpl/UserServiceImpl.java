@@ -106,51 +106,87 @@ public class UserServiceImpl implements UserService {
 		try {
 			result = userDao.createOrderTable(tableName);
 		} catch (Exception e) {
-			System.out.println("创建 订单表失败 失败");
+			System.out.println("创建 该生产商的订单表失败 ");
 			//订单表 创建 其他异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("创建 订单表失败  成功");
+			System.out.println("创建 该生产商的订单表  成功");
 		}
 	}
+
+	/**
+	 * 2.5
+	 * @param tableName
+	 * @throws OtherThingsException
+	 */
 	public void createSaleTable(String tableName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.createSaleTable(tableName);
 		} catch (Exception e) {
-			System.out.println("创建 销售失败 失败");
+			System.out.println("创建 该生产商的销售表 失败");
 			//订单表 创建 其他异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("创建 订单表失败  成功");
+			System.out.println("创建 该生产商的销售表  成功");
 		}
 	}
+
+	/**
+	 * 2.6
+	 * @param tableName
+	 * @throws OtherThingsException
+	 */
 	public void createCashTable(String tableName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.createCashTable(tableName);
 		} catch (Exception e) {
-			System.out.println("创建 订单表失败 失败");
+			System.out.println("创建 该生产商的订单表 失败");
 			//订单表 创建 其他异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("创建 销售表失败  成功");
+			System.out.println("创建该生产商的 订单表  成功");
 		}
 	}
+
+	/**
+	 * 2.7
+	 * @param tableName
+	 * @throws OtherThingsException
+	 */
 	public void createCashSaleTable(String tableName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.createCashSaleTable(tableName);
 		} catch (Exception e) {
-			System.out.println("创建 销售和金钱关联失败 失败");
+			System.out.println("创建 该生产商的销售和金钱关联 失败");
 			//订单表 创建 其他异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("创建 销售和金钱关联  成功");
+			System.out.println("创建 该生产商的销售和金钱关联  成功");
+		}
+	}
+	/**
+	 * 2.8
+	 * @param tableName
+	 * @throws OtherThingsException
+	 */
+	public void createAlarmTable(String tableName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.createAlarmTable(tableName);
+		} catch (Exception e) {
+			System.out.println("创建 该生产商的警告表 失败");
+			//订单表 创建 其他异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("创建 该生产商的警告表  成功");
 		}
 	}
 

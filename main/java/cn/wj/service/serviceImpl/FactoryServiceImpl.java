@@ -38,6 +38,26 @@ public class FactoryServiceImpl implements FactoryService {
 	}
 
 	/**
+	 * 2017.06.10
+	 * author： 王娇s
+	 * 动态创建一级用户，并更新生产商表中 五张表名
+	 * @param alarmTableName,s
+	 * @throws Exception
+	 */
+	public void updateFactoryTableName(String cashTableName,String orderTableName, String saleTableName, String alarmTableName, String cashSaleTableName,String accountName )throws OtherThingsException {
+		int result = 0;//表示受影响的行数
+		try {
+			result = factoryDao.updateFactoryTableName(cashTableName,orderTableName,saleTableName,alarmTableName,cashSaleTableName,accountName);
+		} catch (Exception e) {
+			System.out.println("更新生产商表中 五张表名失败！！");
+			//其他异常情况
+			throw new OtherThingsException(e);
+		}
+		if (result > 0)
+			System.out.println("更新生产商表中 五张表名成功！！");
+	}
+//======================================================
+	/**
 	 * 更新或修改 生产商表中 字段，但是用户名不允许修改
 	 *
 	 * @param factory
@@ -46,7 +66,7 @@ public class FactoryServiceImpl implements FactoryService {
 	public void update(Factory factory) throws Exception {
 
 	}
-
+//===========================================================
 	/**
 	 *
 	 * @param accountName
@@ -56,6 +76,7 @@ public class FactoryServiceImpl implements FactoryService {
 		return this.factoryDao.findOneByName(accountName);
 	}
 
+	//=========================================
 	/**
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量

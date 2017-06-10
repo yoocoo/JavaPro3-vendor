@@ -16,7 +16,7 @@
         <!--只扫描标记了Service的类-->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
-    <!-- 配置事务管理器 -->
+    <!-- 配置事务管理器 --> <!--6.8日 开启事务注解驱动 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
@@ -24,5 +24,6 @@
     </bean>
 
     <!-- 配置基于注解的声明式事务 -->
+    <!-- (事务管理) 6.8日 transaction manager, use JtaTransactionManager for global tx -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

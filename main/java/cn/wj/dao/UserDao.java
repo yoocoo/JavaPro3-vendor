@@ -22,19 +22,26 @@ public interface UserDao extends Dao<User> {
 	int sysuseradd(User user);
 
 	//2.2更新用户表中 agencyId
-	int updateAgencyId(User  user);
+	int updateAgencyId(User user);
 
 	//2.3更新用户表中 factoryId
-	int updateFactoryId(User  user);
+	int updateFactoryId(User user);
 
 	//2.4  创建动态的生产商的 订单表
-	 int createOrderTable(@Param("tableName") String tableName);
+	int createOrderTable(@Param("tableName") String tableName);
+
 	//2.5  创建动态的生产商的 销售表
 	int createSaleTable(@Param("tableName") String tableName);
+
 	//2.6  创建动态的生产商的 金钱表
 	int createCashTable(@Param("tableName") String tableName);
+
 	//2.7 创建动态的生产商的 金钱和销售关联表
 	int createCashSaleTable(@Param("tableName") String tableName);
+
+	//2.8 动态创建 生产商的警告表
+	int createAlarmTable(@Param("tableName") String tableName);
+
 	//3删除用户
 	int del(User user);
 

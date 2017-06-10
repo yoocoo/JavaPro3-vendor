@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: ThinkPad
+  User: 王娇
   Date: 2017/6/4
   Time: 19:03
   To change this template use File | Settings | File Templates.
@@ -34,8 +34,6 @@
             }
         });
 
-        //    window.opener.location.reload();
-
         function goEdit() {
 
         }
@@ -54,17 +52,20 @@
 <%@ include file="../index_body/index_siderbar.jsp" %>
 <%--页面功能箱子--%>
 <div id="content">
+
     <div id="content-header">
         <div id="breadcrumb"><a href="<%=request.getContextPath()%>/mvc/home" title="欢迎回来" class="tip-bottom"><i
                 class="icon-home"></i> 首页</a> <a href="<%=request.getContextPath()%>/mvc/listMenu/getMenu"
                                                  class="current">菜单管理</a>
         </div>
     </div>
+
     <%--container-fluid  start--%>
     <div class="container-fluid">
         <hr>
         <div class="row-fluid">
             <div class="span12">
+                <%--============================ 表一====================================--%>
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"> <i class="icon-th"></i> </span>
                         <h5>
@@ -107,6 +108,7 @@
                         </table>
                     </div>
                 </div>
+                <%--=============================表二===================================--%>
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
                         <h5>权限菜单管理</h5>
@@ -115,7 +117,6 @@
                         <table class="table table-bordered data-table ">
                             <thead>
                             <tr>
-                                <%--<th><input type="checkbox" id="title-table-checkbox2" name="title-table-checkbox"/></th>--%>
                                 <th>ID值</th>
                                 <th>角色ID值</th>
                                 <th>菜单ID值</th>
@@ -123,21 +124,13 @@
                             </tr>
                             </thead>
 
-                            <!-- ------------------遍历循环  开始  -->
                             <tbody>
                             <tr class="gradeX">
-                                <%--<td><input type="checkbox"/></td>--%>
-
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
                                 <td>100</td>
-
                                 <td>
                                     <div class="dropdown">
-                                        <!-- <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
-                        data-toggle="dropdown">编辑
-                        <span class="caret"></span>
-                     </button>-->
                                         <i class="icon icon-folder-open" id="dropdownMenu1" data-toggle="dropdown"></i>
                                         <ul class="dropdown-menu pull-right" role="menu"
                                             aria-labelledby="dropdownMenu1">
@@ -145,13 +138,11 @@
                                                                        tabindex="-1" href="#">编辑</a></li>
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a class="icon icon-shopping-cart" role="menuitem"
-                                                                       tabindex="-1" href="vendor-channel.html">货道管理</a>
+                                                                       tabindex="-1" href="#">货道管理</a>
                                             </li>
                                             <li role="presentation" class="divider"></li>
-                                            <!-- <li role="presentation"> <a  class="icon icon-signal" role="menuitem" tabindex="-1" href="#">销售统计</a> </li>
-                                             <li role="presentation" class="divider"></li>-->
                                             <li role="presentation"><a class="icon  icon-warning-sign" role="menuitem"
-                                                                       tabindex="-1" href="vendor-test.html">审核</a></li>
+                                                                       tabindex="-1" href="#">审核</a></li>
                                             <li role="presentation" class="divider"></li>
                                             <li role="presentation"><a class="icon icon-trash" role="menuitem"
                                                                        tabindex="-1" href="#">删除</a></li>
@@ -159,7 +150,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <!-- ------------------遍历循环  结束  -->
                             <tr class="gradeX">
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
@@ -170,7 +160,6 @@
                                 <td>沃尔玛</td>
                                 <td>9527IG</td>
                                 <td>100</td>
-
                                 <td> ---</td>
                             </tr>
 
@@ -178,82 +167,12 @@
                         </table>
                     </div>
                 </div>
-                <%--<div class="widget-box">--%>
-                <%--<div class="widget-title"><span class="icon"><i class="icon-th"></i></span>--%>
-                <%--<h5>权限菜单管理</h5>--%>
-                <%--</div>--%>
-                <%--<div class="widget-content nopadding">--%>
-                <%--<table class="table table-bordered data-table table-striped with-check">--%>
-                <%--<thead>--%>
-                <%--<tr>--%>
-                <%--<th><input type="checkbox" id="title-table-checkbox2" name="title-table-checkbox"/></th>--%>
-                <%--<th>ID值</th>--%>
-                <%--<th>角色ID值</th>--%>
-                <%--<th>菜单ID值</th>--%>
-                <%--<th>操作</th>--%>
-                <%--</tr>--%>
-                <%--</thead>--%>
 
-                <%--<!-- ------------------遍历循环  开始  -->--%>
-                <%--<tbody>--%>
-                <%--<tr class="gradeX">--%>
-                <%--<td><input type="checkbox"/></td>--%>
-                <%--<td>沃尔玛</td>--%>
-                <%--<td>9527IG</td>--%>
-                <%--<td>100</td>--%>
 
-                <%--<td>--%>
-                <%--<div class="dropdown">--%>
-                <%--<!-- <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"--%>
-                <%--data-toggle="dropdown">编辑--%>
-                <%--<span class="caret"></span>--%>
-                <%--</button>-->--%>
-                <%--<i class="icon icon-folder-open" id="dropdownMenu1" data-toggle="dropdown"></i>--%>
-                <%--<ul class="dropdown-menu pull-right" role="menu"--%>
-                <%--aria-labelledby="dropdownMenu1">--%>
-                <%--<li role="presentation"><a class="icon icon-edit" role="menuitem"--%>
-                <%--tabindex="-1" href="#">编辑</a></li>--%>
-                <%--<li role="presentation" class="divider"></li>--%>
-                <%--<li role="presentation"><a class="icon icon-shopping-cart" role="menuitem"--%>
-                <%--tabindex="-1" href="vendor-channel.html">货道管理</a>--%>
-                <%--</li>--%>
-                <%--<li role="presentation" class="divider"></li>--%>
-                <%--<!-- <li role="presentation"> <a  class="icon icon-signal" role="menuitem" tabindex="-1" href="#">销售统计</a> </li>--%>
-                <%--<li role="presentation" class="divider"></li>-->--%>
-                <%--<li role="presentation"><a class="icon  icon-warning-sign" role="menuitem"--%>
-                <%--tabindex="-1" href="vendor-test.html">审核</a></li>--%>
-                <%--<li role="presentation" class="divider"></li>--%>
-                <%--<li role="presentation"><a class="icon icon-trash" role="menuitem"--%>
-                <%--tabindex="-1" href="#">删除</a></li>--%>
-                <%--</ul>--%>
-                <%--</div>--%>
-                <%--</td>--%>
-                <%--</tr>--%>
-                <%--<!-- ------------------遍历循环  结束  -->--%>
-                <%--<tr class="gradeX">--%>
-                <%--<td><input type="checkbox"/></td>--%>
-                <%--<td>沃尔玛</td>--%>
-                <%--<td>9527IG</td>--%>
-                <%--<td>100</td>--%>
-
-                <%--<td> ---</td>--%>
-                <%--</tr>--%>
-                <%--<tr class="gradeX">--%>
-                <%--<td><input type="checkbox"/></td>--%>
-                <%--<td>沃尔玛</td>--%>
-                <%--<td>9527IG</td>--%>
-                <%--<td>100</td>--%>
-
-                <%--<td> ---</td>--%>
-                <%--</tr>--%>
-
-                <%--</tbody>--%>
-                <%--</table>--%>
-                <%--</div>--%>
-                <%--</div>--%>
             </div>
+            <%--span12 end--%>
         </div>
-
+        <%--row-fluid end--%>
 
         <%--container-fluid  end--%>
     </div>

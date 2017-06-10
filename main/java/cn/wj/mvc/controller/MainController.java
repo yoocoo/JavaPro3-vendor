@@ -83,13 +83,23 @@ public class MainController {
 	}
 
 	/**
-	 * 系统管理员  创建 一级管理用户
+	 * 系统管理员  创建 一级管理用户(生产商)
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/userAction/sysuserRes", method = RequestMethod.GET)
+	@RequestMapping(value = "/userAction/sysuserResSheng", method = RequestMethod.GET)
 	public String sysuserRes() {
-		return "user_system/sysuser_res";
+		return "user_system/sysuser_res_sheng";
+	}
+
+	/**
+	 * 生产商管理员  创建 二级管理用户(运营商)
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/userAction/sysuserResYun", method = RequestMethod.GET)
+	public String sysuserRes1() {
+		return "user_sheng/sheng_res_yun";
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package cn.wj.dao;
 
 import cn.wj.domain.Factory;
-
+import org.apache.ibatis.annotations.Param;
 public interface FactoryDao extends Dao<Factory> {
 	/**
 	 * date： 2017.05.30
@@ -32,7 +32,29 @@ public interface FactoryDao extends Dao<Factory> {
 	 */
 	String findOneByName(String accountName);
 
+	/**
+	 *
+	 * @param cashTableName
+	 * @param orderTableName
+	 * @param saleTableName
+	 * @param alarmTableName
+	 * @param cashSaleTableName
+	 * @return
+	 */
+	int updateFactoryTableName(@Param("cashTableName") String cashTableName,
+							   @Param("orderTableName") String orderTableName,
+							   @Param("saleTableName") String saleTableName,
+							   @Param("alarmTableName") String alarmTableName,
+							   @Param("cashSaleTableName") String cashSaleTableName,
+							   @Param("accountName") String accountName
+	);
 	//================================自动生成=========================================
+
+	/**
+	 *
+	 * @param factoryId
+	 * @return
+	 */
 	int deleteByPrimaryKey(Integer factoryId);
 
 	int insert(Factory record);

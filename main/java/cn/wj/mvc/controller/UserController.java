@@ -361,7 +361,7 @@ public class UserController {
 	}
 
 	/**
-	 * value = "/sysuserRes"  创建一级用户的 统一入口， 也是创建运营商管理员的入口
+	 * value = "/sysuserResYun"  创建二级用户的 统一入口， 也是创建运营商管理员的入口
 	 * 系统管理员 创建一级管理用户(运营商），
 	 * 受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
 	 * 时间：5月25日
@@ -372,7 +372,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/sysuserRes"
+	@RequestMapping(value = "/sysuserResYun"
 			, method = RequestMethod.POST
 			, produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -399,10 +399,10 @@ public class UserController {
 		}
 		try {
 			agencyService.add(agency);
-			responseObj.setCode(ResponseObj.OK);
-			responseObj.setData(agency);
+			//responseObj.setCode(ResponseObj.OK);
+			//responseObj.setData(agency);
 			userService.sysuseradd(user);
-			//userService.updateAgencyId(user);
+			userService.updateAgencyId(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -543,6 +543,14 @@ public class UserController {
 		userService.createOrderTable("sale_" + factory.getFactoryId().toString());//销售表名
 		userService.createOrderTable("cash_" + factory.getFactoryId().toString());//金钱表名
 		userService.createOrderTable("cash_sale_" + factory.getFactoryId().toString());//金钱销售关联表名
+		userService.createAlarmTable("alarm_" + factory.getFactoryId().toString());//金钱销售关联表名
+		factoryService.updateFactoryTableName("order_" + factory.getFactoryId().toString(),
+				"sale_" + factory.getFactoryId().toString(),
+				"cash_" + factory.getFactoryId().toString(),
+				"cash_sale_" + factory.getFactoryId().toString(),
+				"alarm_" + factory.getFactoryId().toString(),
+				factory.getAccountName());
+
 		System.out.println("======查看 新注册的，添加生产商表里的记录：factoryInfo==" + factory);
 		result = new GsonUtils().toJson(responseObj);
 		result = result;

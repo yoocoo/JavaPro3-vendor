@@ -63,6 +63,13 @@ public interface UserService extends BaseService<User> {
 	 * @throws Exception
 	 */
 	void createCashSaleTable( String tableName)throws Exception;
+
+	/**
+	 * 2.8 动态创建生产商警告表
+	 * @param tableName
+	 * @throws Exception
+	 */
+	void createAlarmTable( String tableName)throws Exception;
 	/**
 	 * 更新用户资料
 	 *

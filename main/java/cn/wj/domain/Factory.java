@@ -21,7 +21,7 @@ public class Factory implements Serializable {
 
 	private String factoryLogoPath;
 
-	//private Boolean toFactoryId;
+	private String cashSaleTableName;
 
 	private Double sfeeReturnRate;
 
@@ -105,14 +105,13 @@ public class Factory implements Serializable {
 		this.factoryLogoPath = factoryLogoPath == null ? null : factoryLogoPath.trim();
 	}
 
-	//public Boolean getToFactoryId() {
-	//	return toFactoryId;
-	//}
-	//
-	//public void setToFactoryId(Boolean toFactoryId) {
-	//	this.toFactoryId = toFactoryId;
-	//}
+	public String getCashSaleTableName() {
+		return cashSaleTableName;
+	}
 
+	public void setCashSaleTableName(String cashSaleTableName) {
+		this.cashSaleTableName = cashSaleTableName;
+	}
 
 	public Double getSfeeReturnRate() {
 		return sfeeReturnRate;
@@ -163,6 +162,7 @@ public class Factory implements Serializable {
 				", cashTableName='" + cashTableName + '\'' +
 				", orderTableName='" + orderTableName + '\'' + ", saleTableName='" + saleTableName + '\'' + ", alarmTableName='" + alarmTableName + '\'' +
 				", factoryLogoPath=" + factoryLogoPath +
+				", cashSaleTableName='" + cashSaleTableName + '\'' +
 				", sfeeReturnRate='" + sfeeReturnRate + '\'' +
 				", qrReturnRate='" + qrReturnRate + '\'' + ", receiveAccount='" + receiveAccount + '\'' + ", openBankName='" + openBankName + '\'' +
 				", openAccountName='" + openAccountName + '}';

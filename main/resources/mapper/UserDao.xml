@@ -42,7 +42,7 @@
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
     </resultMap>
 
-<!--================================================================================================================-->
+    <!--================================================================================================================-->
     <!-- 知识点：在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
             1.id:标示映射文件中的sql，成为Statement的id
@@ -84,7 +84,7 @@
         INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
-        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,#{agencyId},'null',#{email},
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null',#{email},
         CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
     <!--2.2.2增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
@@ -99,8 +99,7 @@
         ON u.account_name = f.account_name
         SET  u.factory_id = f.factory_id
     </update>
-
-    <!--2.3.1 系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
+    <!--2.3.1  第一张表 ：系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
     <update id="createOrderTable" parameterType="String">
             create table ${tableName} (
             order_id  int(50) NOT  NULL  AUTO_INCREMENT,
@@ -120,8 +119,9 @@
             channel INT(10) NOT NULL COMMENT '货道数量',
             primary key (order_id)
             )
+            COMMENT=' 订单表'
         </update>
-    <!--2.3.2系统管理员注册一级管理用户（生产商）动态创建销售表表格 -->
+    <!--2.3.2  第二张表 ：系统管理员注册一级管理用户（生产商）动态创建销售表表格 -->
     <update id="createSaleTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     sale_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '销售ID',
@@ -135,8 +135,9 @@
     agency_id INT(50) NOT NULL COMMENT '运营商或出租商id',
     PRIMARY KEY (sale_id)
     )
+    COMMENT=' 销售表'
     </update>
-    <!--2.3.3 系统管理员注册一级管理用户（生产商）动态创建金钱表表格 -->
+    <!--2.3.3  第三张表 ：  系统管理员注册一级管理用户（生产商）动态创建金钱表表格 -->
     <update id="createCashTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     cash_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '现金表ID',
@@ -146,8 +147,9 @@
     trans_border TINYINT(2) NULL DEFAULT '0' COMMENT '事物边界，0：开始，1：结束',
     PRIMARY KEY (cash_id)
     )
+    COMMENT=' 现金表'
     </update>
-    <!--2.34 系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
+    <!--2.3.4  第四张表 ：系统管理员注册一级管理用户（生产商）动态创建现金销售关联表 -->
     <update id="createCashSaleTable" parameterType="String">
     CREATE TABLE ${tableName} (
     cash_id INT(50) NOT NULL COMMENT '现金表id',
@@ -155,6 +157,26 @@
     sale_id INT(50) NULL DEFAULT NULL COMMENT '销售id',
     PRIMARY KEY (id)
     )
+    COMMENT='现金销售关联表'
+    </update>
+
+    <!--2.3.5  第五张表 ：系统管理员注册一级管理用户（生产商）动态创建  警告 表 -->
+    <update id="createAlarmTable" parameterType="String">
+    CREATE TABLE ${tableName}  (
+    alarm_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '警告表id值',
+    vendor_id  INT(255) NOT NULL DEFAULT '0' COMMENT '指定的售货机ID',
+    channel_id INT(50) NULL DEFAULT '0' COMMENT '货到ID',
+    occur_time DATETIME NULL DEFAULT NULL COMMENT '发生时间',
+    ack_time DATETIME NULL DEFAULT NULL COMMENT '确认时间',
+    alarm_code VARCHAR(50) NULL DEFAULT '0' COMMENT '报警编码' COLLATE 'utf8_unicode_ci',
+    description VARCHAR(50) NULL DEFAULT '0' COMMENT '故障描述' COLLATE 'utf8_unicode_ci',
+    acked VARCHAR(50) NULL DEFAULT '0' COMMENT '是否已经确认故障' COLLATE 'utf8_unicode_ci',
+    reason VARCHAR(50) NULL DEFAULT '0' COMMENT '确认的原因' COLLATE 'utf8_unicode_ci',
+    ack_user VARCHAR(50) NULL DEFAULT '0' COMMENT '确认用户' COLLATE 'utf8_unicode_ci',
+    event_id VARCHAR(50) NULL DEFAULT '0' COMMENT '事件ID' COLLATE 'utf8_unicode_ci',
+    PRIMARY KEY (`alarm_id`)
+    )
+    COMMENT=' 警告表'
     </update>
     <!--3删除-->
     <update id="del" parameterType="User">

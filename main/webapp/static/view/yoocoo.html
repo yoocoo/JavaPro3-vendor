@@ -264,11 +264,37 @@
 
                         <tr class="gradeX">
                             <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（11)-6.4</td>
+                            <td>项目总结----六月（1)-6.4</td>
                             <td> (一 )bootStrap table "动态知识点"<br/>
                                 1. bootStrap table 是一个轻量级的table插件，使用AJAX获取JSON格式的数据，其分页和数据填充很方便，支持国际化<br/>
                                 2.table数据填充：<br/>
                                 bootStrap table获取数据有两种方式，一是通过table 的data-url属性指定数据源，二是通过JavaScript初始化表格时指定url来获取数据<br/>
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----六月（2)-6.8</td>
+                            <td> (二 )事务（Transaction）<br/>
+                                1.
+                                事务（Transaction），基本上会就往Spring事务靠。其实Spring事务管理基于底层数据库本身的事务处理机制。数据库事务的基础，是掌握Spring事务管理的基础。<br/>
+                                2.它最终的目标：数据不会被破坏。即事务操作成功，数据的结果和业务期待的结果是一致的。这也就是ACID中的一致性（Consistency）<br/>
+                                3.Spring的AOP技术能很好的将事物隔离出来。
+                                Spring声明式事务让我们从复杂的事务处理中得到解脱。使得我们再也无需要去处理获得连接、关闭连接、
+                                事务提交和回滚等这些操作。再也无需要我们在与事务相关的方法中处理大量的try…catch…finally代码。<br/>
+                                4.在 spring-service中 配置了Spring Framework，它是一个基于IOC和AOP的构架多层j2ee系统的框架，
+                                但它不强迫你必须在每一层 中必须使用Spring，因为它模块化的很好，允许你根据自己的需要选择使用它的某一个模块;它实现了很优雅的MVC，对不同的数据访问技术提供了统一的接口，
+                                采用IOC使得可以很容易的实现bean的装配，提供了简洁的AOP并据此实现Transaction Management，<br/>
+                                5.http://blog.csdn.net/u011199063/article/details/54578139 ---配置mybatis的事务管理说明
+                                6.MyBatis集成Spring事务管理
+                                在SSM框架中，使用的是spring的事务管理机制。Spring可以使用编程式实现事务，声明式实现事务以及注解式实现事务。
+                                本文主要说一下如何使用注解式@Transanctional实现实现事务管理。<br/>
+                                7.http://blog.csdn.net/xiaoerduo123x/article/details/51387203-----SSM 三大框架---事务处理<br/>
+                                8.SSM框架中使用Spring的@Transactional注解进行事务管理---https://www.zifangsky.cn/479.html<br/>
+                                9. 知识点：<br/>
+                                1）在使用了Spring框架的应用中，我们可以使用@Transactional 注解方便地进行事务操作，如事务的回滚等。<br/>
+                                2） 业务中场景中，调用多个service，事务处理中要注意的问题---http://blog.csdn.net/fyxxq/article/details/41544685
+                                3)  spring中的事物传播------http://blog.csdn.net/dknypxt/article/details/5626161s
+                                4) 事物传播需要区分service间的调用和service内部调用。
                             </td>
                         </tr>
                         </tbody>
