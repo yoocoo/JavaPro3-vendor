@@ -33,7 +33,7 @@ public interface FactoryDao extends Dao<Factory> {
 	String findOneByName(String accountName);
 
 	/**
-	 *
+	 *6.10更新五张表名
 	 * @param cashTableName
 	 * @param orderTableName
 	 * @param saleTableName
@@ -48,6 +48,15 @@ public interface FactoryDao extends Dao<Factory> {
 							   @Param("cashSaleTableName") String cashSaleTableName,
 							   @Param("accountName") String accountName
 	);
+
+	/**
+	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址
+	 * @param factoryLogoPath
+	 * @param accountName
+	 * @return
+	 */
+	int updateFactoryImage(@Param("factoryLogoPath") String factoryLogoPath,@Param("accountName") String accountName);
+
 	//================================自动生成=========================================
 
 	/**

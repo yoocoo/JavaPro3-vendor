@@ -39,15 +39,39 @@ public class FactoryServiceImpl implements FactoryService {
 
 	/**
 	 * 2017.06.10
+	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址
+	 *
+	 * @param factoryLogoPath
+	 * @param accountName
+	 * @return
+	 */
+	public void updateFactoryImage(String factoryLogoPath, String accountName) throws OtherThingsException {
+	int result= 0;//受影响的行数默认为零
+		try {
+		result = factoryDao.updateFactoryImage(factoryLogoPath, accountName);
+	} catch (Exception e) {
+		System.out.println("更新用户表中用户头像失败");
+		//其他用户更新失败异常
+		throw new OtherThingsException(e);
+	}
+		if (result > 0) {
+		System.out.println("更新生产商表中用户头像成功！");
+	}
+}
+
+
+	/**
+	 * 2017.06.10
 	 * author： 王娇s
 	 * 动态创建一级用户，并更新生产商表中 五张表名
+	 *
 	 * @param alarmTableName,s
 	 * @throws Exception
 	 */
-	public void updateFactoryTableName(String cashTableName,String orderTableName, String saleTableName, String alarmTableName, String cashSaleTableName,String accountName )throws OtherThingsException {
+	public void updateFactoryTableName(String cashTableName, String orderTableName, String saleTableName, String alarmTableName, String cashSaleTableName, String accountName) throws OtherThingsException {
 		int result = 0;//表示受影响的行数
 		try {
-			result = factoryDao.updateFactoryTableName(cashTableName,orderTableName,saleTableName,alarmTableName,cashSaleTableName,accountName);
+			result = factoryDao.updateFactoryTableName(cashTableName, orderTableName, saleTableName, alarmTableName, cashSaleTableName, accountName);
 		} catch (Exception e) {
 			System.out.println("更新生产商表中 五张表名失败！！");
 			//其他异常情况
@@ -57,6 +81,7 @@ public class FactoryServiceImpl implements FactoryService {
 			System.out.println("更新生产商表中 五张表名成功！！");
 	}
 //======================================================
+
 	/**
 	 * 更新或修改 生产商表中 字段，但是用户名不允许修改
 	 *
@@ -67,8 +92,8 @@ public class FactoryServiceImpl implements FactoryService {
 
 	}
 //===========================================================
+
 	/**
-	 *
 	 * @param accountName
 	 * @return
 	 */
@@ -77,6 +102,7 @@ public class FactoryServiceImpl implements FactoryService {
 	}
 
 	//=========================================
+
 	/**
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量

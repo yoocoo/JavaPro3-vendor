@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 系统管理员 注册一级管理用户
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -61,10 +62,11 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.2更新 用户表中 agencyId
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
-	public  void updateAgencyId(User user )throws OtherThingsException{
+	public void updateAgencyId(User user) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.updateAgencyId(user);
@@ -77,12 +79,14 @@ public class UserServiceImpl implements UserService {
 			System.out.println("更新用户表中agencyid 成功");
 		}
 	}
+
 	/**
 	 * 2.3更新 用户表中 factoryId
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
-	public  void updateFactoryId(User user )throws OtherThingsException{
+	public void updateFactoryId(User user) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.updateFactoryId(user);
@@ -98,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.4  创建动态的生产商的 订单表
+	 *
 	 * @param tableName
 	 * @return
 	 */
@@ -117,6 +122,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.5
+	 *
 	 * @param tableName
 	 * @throws OtherThingsException
 	 */
@@ -136,6 +142,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.6
+	 *
 	 * @param tableName
 	 * @throws OtherThingsException
 	 */
@@ -155,6 +162,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.7
+	 *
 	 * @param tableName
 	 * @throws OtherThingsException
 	 */
@@ -171,8 +179,10 @@ public class UserServiceImpl implements UserService {
 			System.out.println("创建 该生产商的销售和金钱关联  成功");
 		}
 	}
+
 	/**
 	 * 2.8
+	 *
 	 * @param tableName
 	 * @throws OtherThingsException
 	 */
@@ -192,6 +202,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 更新用户资料
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -211,29 +222,31 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 更新用户头像
-	 * @param user
+	 *
+	 * @param
 	 * @throws OtherThingsException
 	 */
 
-	public void updateImage(User user) throws OtherThingsException {
+	public void updateImage(String headImage, String accountName) throws OtherThingsException {
 		int result2 = 0;//受影响的行数默认为零
 		try {
-			result2 = userDao.updateImage(user);
-		}catch (Exception e){
-			System.out.println("更新用户头像失败");
+			result2 = userDao.updateImage(headImage, accountName);
+		} catch (Exception e) {
+			System.out.println("更新用户表中用户头像失败");
 			//其他用户更新失败异常
 			throw new OtherThingsException(e);
 		}
 		if (result2 > 0) {
-			System.out.println("service更新用户头像成功！");
+			System.out.println("service更新用户表中用户头像成功！");
 		}
 	}
 
 
 	/**
 	 * 查找数据库中用户（注册时查重和登录时判空）
+	 *
 	 * @param user 用户bean
-	 * @return  返回用户名
+	 * @return 返回用户名
 	 * @throws Exception
 	 */
 	public User findUser(User user) {
@@ -242,6 +255,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 更新用户session
+	 *
 	 * @param sessionId
 	 * @param accountName
 	 * @throws Exception
@@ -252,6 +266,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 用户列表（查找所有用户，带分页）
+	 *
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量
 	 * @return
@@ -262,8 +277,9 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 依据用户名找到 该用户名头像地址 Path
+	 *
 	 * @param accountName
-	 * @return  返回头像地址
+	 * @return 返回头像地址
 	 */
 	public String findPathById(String accountName) {
 		return this.userDao.findPathById(accountName);
@@ -271,14 +287,19 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 根据用户ID 获得   该用户权限的菜单
+	 *
 	 * @param userId
 	 * @return
 	 */
-	public List<Menu> getMenu(int userId){
-		return  userDao.getMenuByUserId(userId);
+	public List<Menu> getMenu(int userId) {
+		return userDao.getMenuByUserId(userId);
 	}
 
 	public int getUserIdByName(String accountName) {
 		return this.userDao.selectUserIdByName(accountName);
+	}
+
+	public int findUserInfo(String accountName) {
+		return this.findUserInfo(accountName);
 	}
 }

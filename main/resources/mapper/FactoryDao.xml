@@ -34,7 +34,7 @@
         qR_return_rate, receive_account, open_bank_name,
         open_account_name)
         values ( #{factoryName,jdbcType=VARCHAR}, #{factoryType,jdbcType=VARCHAR},#{accountName,jdbcType=VARCHAR}, '1',
-        '2', '3', '4',#{factoryLogoPath,jdbcType=VARCHAR}, '5',#{sfeeReturnRate,jdbcType=DOUBLE},
+        '2', '3', '4','/static/images/avatar-0.jpg', '5',#{sfeeReturnRate,jdbcType=DOUBLE},
         #{qrReturnRate,jdbcType=DOUBLE}, #{receiveAccount,jdbcType=VARCHAR}, #{openBankName,jdbcType=VARCHAR},
         #{openAccountName,jdbcType=VARCHAR})
     </insert>
@@ -55,8 +55,13 @@
     cash_sale_table_name = #{cashSaleTableName}
    WHERE  account_name = #{accountName}
     </update>
-
-
+    <!--2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址 -->
+    <update id="updateFactoryImage" parameterType="cn.wj.domain.Factory">
+        UPDATE  factory
+        SET
+        factory_logo_path =#{factoryLogoPath}
+        WHERE  account_name = #{accountName}
+    </update>
     <!--====================自动生成================================-->
     <!--SELECT  factory.factory_id-->
     <!--FROM  factory f LEFT  JOIN  user u-->

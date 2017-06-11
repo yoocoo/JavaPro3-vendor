@@ -49,7 +49,7 @@ public interface UserDao extends Dao<User> {
 	int update(User user);
 
 	//4.2更新用户头像
-	int updateImage(User user);
+	int updateImage(@Param("headImage") String headImage,@Param("accountName") String accountName);
 
 	//1.2查找数据库中的用户
 	User findOneById(Serializable Id);
@@ -71,6 +71,9 @@ public interface UserDao extends Dao<User> {
 
 	//根据用户名获得该用户的ID
 	int selectUserIdByName(String accountName);
+
+	//查找-登录用户的所有信息
+	 int findUserInfo(String accountName);
 
 
 }

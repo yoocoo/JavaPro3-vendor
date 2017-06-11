@@ -1,6 +1,8 @@
 package cn.wj.mvc.controller;
 
+import cn.wj.dao.UserDao;
 import cn.wj.domain.*;
+import cn.wj.service.FactoryService;
 import cn.wj.service.UserService;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.Name;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -306,6 +309,7 @@ public class UserController {
 	 * 创建上传头像接口
 	 * 在登录的窗口已经实现 动态显示用户头像
 	 * 注册时使用 初始头像
+	 * 更新完善日期：6.11
 	 *
 	 * @param file
 	 * @param session
@@ -315,21 +319,49 @@ public class UserController {
 			, method = RequestMethod.POST
 			, produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+	public Object uploadHeadPic(@RequestParam(required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response, User user, Factory factory, HttpSession session) throws Exception {
 		//保存相对路径到数据库，，图片写入数据库
 		Object result;
 		responseObj = new ResponseObj<User>();
+		if (null == user) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户信息不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
 		if (null == file || file.isEmpty()) {
 			responseObj = new ResponseObj();
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("文件不能为空");
 			return new GsonUtils().toJson(responseObj);
 		}
+
+		//获取新上传头像地址
+		String fileName = file.getOriginalFilename();
+		// 获取图片的扩展名
+		String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
+		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
+		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
+		System.out.println("新上传文件组合出来的文件名字==" + newFileName);
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("头像上传成功");
+		responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
+		responseObj.setMsg("文件长度为：" + file.getSize());
+		responseObj.setfileName(fileName);
+		responseObj.setData(user);
+		session.setAttribute("userinfo", user);
+		session.setAttribute("file", fileName);
+		System.out.println("===存入session信息,新上传的新头像地址===" + fileName);
+		System.out.println("===存入session信息,修改头像后userinfo===" + user);
 		//更新用户头像
 		//String userImagePath = userService.findPathById(accountName);
 		//更新用户资料
 		try {
-			userService.updateImage(user);
+			String name1 = user.getAccountName();
+			System.out.println("得到用户名==" + name1);
+			//String name = String.valueOf(userService.findUserInfo(user.getAccountName()));
+			userService.updateImage(newFileName, name1);
+			factoryService.updateFactoryImage(newFileName, name1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -337,27 +369,7 @@ public class UserController {
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 		}
-		//获取新上传头像地址
-		String fileName = file.getOriginalFilename();
-		// 获取图片的扩展名
-		//String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
-		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
-		//String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
-
-		//responseObj = new ResponseObj<User>();
-		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("头像上传成功");
-		responseObj.setMsg("文件原名为：" + file.getOriginalFilename());
-		responseObj.setMsg("文件长度为：" + file.getSize());
-		responseObj.setfileName(fileName);
-		//responseObj.setData(user);
-		session.setAttribute("file", fileName);
-		System.out.println("===存入session信息,新头像地址===" + fileName);
-		//System.out.println("===存入session信息,修改头像后userinfo===" + user);
 		return new GsonUtils().toJson(responseObj);
-		//result = result;
-		//return result;
-
 	}
 
 	/**
@@ -481,13 +493,14 @@ public class UserController {
 	 * 系统管理员 创建一级管理用户（生产商），
 	 * 受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
 	 * 时间：5月29日
+	 * 更新日期 6.10
 	 *
 	 * @param request
 	 * @param response
 	 * @param user
 	 * @param factory
 	 * @param session
-	 * @return
+	 * @return result
 	 * @throws Exception
 	 */
 

@@ -106,10 +106,10 @@
         alert($(":selected", "#sel2").val());
         var factorytype = $(":selected", "#sel2").val()
 //        var factorytype = $("select option:selected").val();
-        var factorylogopath = $("#factorylogopath").val();
+//        var factorylogopath = $("#factorylogopath").val();
         var sfeereturnrate = $("#sfeereturnrate").val();
         var qrreturnrate = $("#qrreturnrate").val();
-        var receiveaccount =  $("#receiveaccount").val();
+        var receiveaccount = $("#receiveaccount").val();
         var openbankname = $("#openbankname").val();
         var openaccountname = $("#openaccountname").val();
         $.ajax({
@@ -128,7 +128,7 @@
                 postAdress: adress,
                 factoryName: factoryname,
                 factoryType: factorytype,
-                factoryLogoPath: factorylogopath,
+//                factoryLogoPath: factorylogopath,
                 sfeeReturnRate: sfeereturnrate,
                 qrReturnRate: qrreturnrate,
                 receiveAccount: receiveaccount,
@@ -462,16 +462,70 @@
                                         <span class="help-inline">*如果您是专门的生产商，请选择生产商。<br>如果您是贸易商，不负责生产，请选择贸易商</span>
                                     </div>
                                 </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">&emsp;&emsp;&emsp;&emsp;&emsp;生产商logo路径:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="factorylogopath" name="factoryLogoPath"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输路径/static/images/****.jpg...">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;体现公司形象的logo，提升公司文化素养</span>
-                                    </div>
-                                </div>
+                                <%--==============================================6.10增加上传头像功能==========================--%>
+                                <%--<div class="control-group info">--%>
+                                <%--<label class="control-label span4">&emsp;&emsp;&emsp;&emsp;&emsp;生产商logo路径:</label>--%>
+                                <%--<div class="controls">--%>
+                                <%--<input type="text" placeholder="" id="factorylogopath" name="factoryLogoPath"--%>
+                                <%--data-title=""--%>
+                                <%--class="span3 tip"--%>
+                                <%--data-original-title="请输路径/static/images/****.jpg..."/>--%>
+                                <%--<span class="add-on"></span>--%>
+                                <%--<span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;体现公司形象的logo，提升公司文化素养</span>--%>
+                                <%--</div>--%>
+                                <%--</div>--%>
+                                <%--================================模态变动==================================--%>
+                                <%--<div class="modal fade modal" id="my-prompt9" aria-labelledby="myModal-prompt">--%>
+                                <%--<div class="modal-dialog " tabindex="-1">--%>
+                                <%--<div class="modal-content">--%>
+
+                                <%--<div class="modal-header">--%>
+                                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span--%>
+                                <%--aria-hidden="true">&times;</span></button>--%>
+                                <%--<h4 class="modal-title" id="myModal-prompt">修改个人头像</h4>--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;modal-header end&ndash;%&gt;--%>
+
+                                <%--<div class="modal-body ">--%>
+                                <%--<form class="form-horizontal " enctype="multipart/form-data" accept-charset="utf-8">--%>
+                                <%--&lt;%&ndash;===============================================&ndash;%&gt;--%>
+                                <%--<div class="modal-prompt-input span5">--%>
+                                <%--<div class="control-group ">--%>
+                                <%--<label class="control-label">上传头像</label>--%>
+                                <%--<ul class="thumbnails">--%>
+                                <%--<li class="span2"><a> <img src="/static/images/avatar-1.jpg" alt=""> </a>--%>
+                                <%--<div class="actions">--%>
+                                <%--&lt;%&ndash;<a title="编辑" href="#"><i class="icon-pencil"></i></a>&ndash;%&gt;--%>
+                                <%--<a class="lightbox_trigger" title="预览" href="/static/images/avatar-1.jpg"><i class="icon-search"></i></a>--%>
+                                <%--</div>--%>
+                                <%--</ul>--%>
+                                <%--<div class="controls span3 ">--%>
+                                <%--<input type="hidden" id="loginId1" name="accountName" value="${userInfo.accountName}">--%>
+                                <%--<input type="file" name="file" id="changeHeadPic" size="28"/>--%>
+                                <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<hr>--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;================================&ndash;%&gt;--%>
+
+                                <%--</form>--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;modal-body end&ndash;%&gt;--%>
+                                <%--<div class="modal-footer">--%>
+                                <%--<button type="button" class="btn btn-danger" onclick="onCancel9();" data-dismiss="modal">返回--%>
+                                <%--</button>--%>
+                                <%--<button type="button" class="btn btn-success" onclick="onConfirm9();" data-dismiss="modal">上传--%>
+                                <%--</button>--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;modal-footer&ndash;%&gt;--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;modal-content end &ndash;%&gt;--%>
+                                <%--</div>--%>
+                                <%--&lt;%&ndash;moadal-dialog end&ndash;%&gt;--%>
+                                <%--</div>--%>
+
+                                <%--==============================================6.10增加上传头像功能==========================--%>
+
                                 <div class="control-group info ">
                                     <label class="control-label span4">服务费返回率:</label>
                                     <div class="controls">
@@ -491,7 +545,7 @@
                                             <input type="text" placeholder="" id="qrreturnrate" name="qrReturnRate"
                                                    data-title=""
                                                    class="span3 tip"
-                                                   data-original-title="请输入有效的小数位">
+                                                   data-original-title="请输入有效的小数位"/>
                                             <span class="add-on">请输入有效小数位</span></div>
                                         <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写小数位，如：0.10,0.20等有效位数</span>
                                     </div>
@@ -537,7 +591,7 @@
 
                         </div>
                     </div>
-                        <%--==================================================================--%>
+                    <%--==================================================================--%>
                     <div id="tab2" class="tab-pane">
                         <div class="alert alert-error">
                             <button class="close" data-dismiss="alert">×</button>
@@ -688,12 +742,11 @@
                         </div>
                     </div>
                     <%--==================================================================================--%>
-                        <div id="tab3" class="tab-pane">
-                            <h1>该功能等待开发</h1>
+                    <div id="tab3" class="tab-pane">
+                        <h1>该功能等待开发</h1>
 
-                        </div>
+                    </div>
                 </div>
-
 
 
             </div>

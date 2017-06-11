@@ -19,6 +19,7 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 2.1系统管理员注册 一级管理用户
+	 *
 	 * @param user
 	 * @throws Exception
 	 */
@@ -26,50 +27,58 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 2.2更新 用户表中 agencyId
+	 *
 	 * @param user
 	 */
-    void updateAgencyId(User  user)throws Exception;
+	void updateAgencyId(User user) throws Exception;
 
 	/**
 	 * 2.3更新 用户表中 factoryId
+	 *
 	 * @param user
 	 */
-	void updateFactoryId(User  user)throws Exception;
+	void updateFactoryId(User user) throws Exception;
 
 	/**
 	 * 2.4  创建动态的生产商的 订单表
+	 *
 	 * @param tableName
 	 * @return
 	 */
-	void createOrderTable(String tableName)throws Exception;
+	void createOrderTable(String tableName) throws Exception;
 
 	/**
-	 *2.5
+	 * 2.5
+	 *
 	 * @param tableName
 	 * @throws Exception
 	 */
-	void createSaleTable(String tableName)throws Exception;
+	void createSaleTable(String tableName) throws Exception;
 
 	/**
-	 *2.6
+	 * 2.6
+	 *
 	 * @param tableName
 	 * @throws Exception
 	 */
-	void createCashTable(String tableName)throws Exception;
+	void createCashTable(String tableName) throws Exception;
 
 	/**
 	 * 2.7
+	 *
 	 * @param tableName
 	 * @throws Exception
 	 */
-	void createCashSaleTable( String tableName)throws Exception;
+	void createCashSaleTable(String tableName) throws Exception;
 
 	/**
 	 * 2.8 动态创建生产商警告表
+	 *
 	 * @param tableName
 	 * @throws Exception
 	 */
-	void createAlarmTable( String tableName)throws Exception;
+	void createAlarmTable(String tableName) throws Exception;
+
 	/**
 	 * 更新用户资料
 	 *
@@ -89,10 +98,10 @@ public interface UserService extends BaseService<User> {
 	/**
 	 * 更新用户头像
 	 *
-	 * @param user
+	 * @param
 	 * @throws Exception
 	 */
-	void updateImage(User user) throws Exception;
+	void updateImage(String headImage, String accountName) throws Exception;
 
 	/**
 	 * 查找数据库中用户（注册时查重和登录时判空）
@@ -137,5 +146,11 @@ public interface UserService extends BaseService<User> {
 	 */
 	int getUserIdByName(String accountName);
 
+	/**
+	 * 查找-登录用户的所有信息
+	 * @param accountName
+	 * @return
+	 */
+	int findUserInfo(String accountName);
 
 }
