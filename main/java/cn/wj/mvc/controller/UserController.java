@@ -345,7 +345,7 @@ public class UserController {
 		// 获取图片的扩展名
 		String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
 		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
-		String newFileName = "/" + "static" + "/" + "images" + "/" + fileName;
+		String newFileName = "/ssm_vendor/" + "static" + "/" + "images" + "/" + fileName;
 		System.out.println("新上传文件组合出来的文件名字==" + newFileName);
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("头像上传成功");

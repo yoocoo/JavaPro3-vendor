@@ -93,7 +93,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,'null',#{email},
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
     </insert>
     <!--2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="sysuseraddYun" parameterType="cn.wj.domain.User">
@@ -104,7 +104,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},#{factoryId},0,'null',#{email},
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
     </insert>
     <!--2.2.2.1  ！！！！！！增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
     <update id="updateAgencyId"  parameterType="cn.wj.domain.User">

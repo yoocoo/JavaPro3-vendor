@@ -243,7 +243,7 @@
                         <div class="control-group ">
                             <label class="control-label">上传头像</label>
                             <ul class="thumbnails">
-                                <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
+                                <li class="span2"><a> <img src="/ssm_vendor/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
                                             class="lightbox_trigger" title="图片预览" href="${userPath} "><i
                                             class="icon-search"></i></a></div>
