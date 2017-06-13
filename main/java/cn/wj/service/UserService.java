@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
-	 * 注册普通用户
+	 * 1.1.1注册普通用户
 	 *
 	 * @param user
 	 * @throws Exception
@@ -18,7 +18,16 @@ public interface UserService extends BaseService<User> {
 	void add(User user) throws Exception;
 
 	/**
-	 * 2.1系统管理员注册 一级管理用户
+	 *1.1.3 查找User表中 所有用户  6.12日 加入物理分页
+	 * @param accountName
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	//PagedResult<User> queryByPage(String accountName,Integer pageNo,Integer pageSize);
+
+	/**
+	 * 2.1.1系统管理员注册 一级管理用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
 	 *
 	 * @param user
 	 * @throws Exception
@@ -26,11 +35,33 @@ public interface UserService extends BaseService<User> {
 	void sysuseradd(User user) throws Exception;
 
 	/**
-	 * 2.2更新 用户表中 agencyId
+	 * 	2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	 * @param user
+	 * @throws Exception
+	 */
+	 void sysuseraddYun(User user) throws Exception;
+	/**
+	 * 2.2.1 更新 用户表中 agencyId
 	 *
 	 * @param user
 	 */
 	void updateAgencyId(User user) throws Exception;
+
+	/**
+	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
+	 *
+	 * @param accountName
+	 */
+	void selectFactoryIdByName(String accountName) throws Exception;
+
+	/**
+	 * 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
+	 *
+	 * @param user
+	 * @throws Exception
+	 */
+
+	void addAgencyToFactoryId(User user) throws Exception;
 
 	/**
 	 * 2.3更新 用户表中 factoryId
@@ -104,7 +135,7 @@ public interface UserService extends BaseService<User> {
 	void updateImage(String headImage, String accountName) throws Exception;
 
 	/**
-	 * 查找数据库中用户（注册时查重和登录时判空）
+	 * 1.1.2查找数据库中用户（注册时查重和登录时判空）
 	 *
 	 * @param user
 	 * @return
@@ -148,9 +179,10 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 查找-登录用户的所有信息
+	 *
 	 * @param accountName
 	 * @return
 	 */
-	int findUserInfo(String accountName);
+	//int findUserInfo(String accountName);
 
 }

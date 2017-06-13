@@ -96,8 +96,8 @@
 //        =========================
         var agencyname = $("#agencyname").val();
 
-//        var agencyid = $("#agencyid").val();
-//        alert(agencyid);
+        var factoryid = $("#factoryid").val();
+        alert("打印要提交 归属的生产商用户的id值" + factoryid);
         $.ajax({
             type: "POST",
             url: '<%=request.getContextPath()%>/userAction/sysuserResYun',
@@ -112,8 +112,8 @@
                 postcode: code,
                 idcard: card,
                 postAdress: adress,
-                agencyName: agencyname
-//                agencyId: agencyid
+                agencyName: agencyname,
+                factoryId: factoryid
             },
             dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
             cache: false,
@@ -324,6 +324,17 @@
                                         <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;运营商单位名称，是为了更详细描述运营信息</span>
                                     </div>
                                 </div>
+                                <div class="control-group success">
+                                    <label class="control-label span4">请确认归属的生产商id:</label>
+                                    <div class="controls">
+                                        <input type="text" placeholder="请输入提示的${userMess.factoryId}" id="factoryid"
+                                               name="factoryId"
+                                               data-title=""
+                                               class="span3 tip"
+                                               data-original-title="请输入有效信息">
+                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请再次输入生产商账户名，确保归属的运营商符合要求</span>
+                                    </div>
+                                </div>
                                 <label class="control-label center"></label>
                                 <div class="controls">
                                     <%--<button type="reset" class="btn btn-danger" >重置</button>--%>
@@ -338,24 +349,22 @@
 
                     <div id="tab2" class="tab-pane">
 
-                     <h1>该功能等待开发</h1>
+                        <h1>该功能等待开发</h1>
                     </div>
                     <div id="tab3" class="tab-pane">
                         <h1>该功能等待开发</h1>
 
+                    </div>
+
+
                 </div>
-
-
+                <!-- span12-->
             </div>
-            <!-- span12-->
+
         </div>
 
     </div>
-
 </div>
-</div>
-
-
 
 
 <!-- 引入页面底部文件Footer-part-->

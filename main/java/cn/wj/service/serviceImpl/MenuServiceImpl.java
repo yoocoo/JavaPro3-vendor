@@ -24,6 +24,17 @@ public class MenuServiceImpl implements MenuService{
 		return menuDao.getAllMenu(menu);
 	}
 
+	///**
+	// * 得到所有菜单  显示菜单表内容 6.12
+	// * @param pageNum
+	// * @param pageSize
+	// * @return
+	// */
+	//public  List<Menu> getAllMenu(int pageNum, int pageSize){
+	//	//因为数据库内容是从第一条出的数据，所以我们查询的 起始位置 = 页码 * 条数 + 1；
+	//	pageNum -= 1;
+	//	return menuDao.getAllMenu(pageNum * pageSize + 1, pageSize);
+	//}
 
 
 

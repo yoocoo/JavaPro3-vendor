@@ -117,7 +117,7 @@ public class Menu implements Serializable {
 
 		return "Menu{" +
 				"menuId='" + menuId + '\''
-				+ "menuName='" + menuName + '\''
+				+ ",menuName='" + menuName + '\''
 				+ ", menuUrl='" + menuUrl + '\''
 				+ ", parentId='" + parentId + '\''
 				+ ", menuOrder='" + menuOrder + '\''
@@ -126,7 +126,7 @@ public class Menu implements Serializable {
 				+ ", countChildrens='" + countChildrens + '\''
 				+ ", parentMenu='" + parentMenu + '\''
 				+ ", hasMenu='" + hasMenu + '\''
-				+ ", subMenu='" + subMenu +
+				+ ", subMenu='" + subMenu +'\''+
 				'}';
 
 	}

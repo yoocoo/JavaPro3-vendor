@@ -15,14 +15,33 @@ import java.util.List;
  * Created by ThinkPad  WJ on 2017/4/8.
  */
 public interface UserDao extends Dao<User> {
-	//1.1注册普通用户
+	//1.1.1注册普通用户
 	int add(User user);
 
-	//2.1系统管理员注册一级用户( 运营商、 生产商 )
+	//1.1.2查找数据库中的用户
+	User findOneById(Serializable Id);
+
+	//1.1.3查找User表中 所有用户  6.12日 加入物理分页
+	List<User> selectUserByAccountName(@Param("accountName") String accountName);
+
+	//1.3查询所有用户
+	List<User> findAll(Page page);
+
+	//2.1.1系统管理员注册一级用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
+
 	int sysuseradd(User user);
 
-	//2.2更新用户表中 agencyId
+	//2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	int sysuseraddYun(User user);
+
+	//2.2.1更新用户表中 agencyId
 	int updateAgencyId(User user);
+
+	//2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
+	int addAgencyToFactoryId(User user);
+
+	//2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
+	int selectFactoryIdByName(String accountName);
 
 	//2.3更新用户表中 factoryId
 	int updateFactoryId(User user);
@@ -49,16 +68,11 @@ public interface UserDao extends Dao<User> {
 	int update(User user);
 
 	//4.2更新用户头像
-	int updateImage(@Param("headImage") String headImage,@Param("accountName") String accountName);
-
-	//1.2查找数据库中的用户
-	User findOneById(Serializable Id);
+	int updateImage(@Param("headImage") String headImage, @Param("accountName") String Name);
 
 	//4.3查找用户头像地址，用于动态显示头像
 	String findPathById(String accountName);
 
-	//1.3查询所有用户
-	List<User> findAll(Page page);
 
 	//用户 sessionId
 	void updateLoginSession(@Param("sessionId") String sessionId, @Param("accountName") String accountName);
@@ -73,7 +87,7 @@ public interface UserDao extends Dao<User> {
 	int selectUserIdByName(String accountName);
 
 	//查找-登录用户的所有信息
-	 int findUserInfo(String accountName);
+	//int findUserInfo(String accountName);
 
 
 }

@@ -57,6 +57,12 @@ public interface FactoryDao extends Dao<Factory> {
 	 */
 	int updateFactoryImage(@Param("factoryLogoPath") String factoryLogoPath,@Param("accountName") String accountName);
 
+	/**
+	 * 2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值
+	 * @param accountName
+	 * @return
+	 */
+	 int selectFactoryIdByName(@Param("accountName")  String accountName);
 	//================================自动生成=========================================
 
 	/**

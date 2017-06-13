@@ -16,7 +16,12 @@ public interface FactoryService extends BaseService<Factory> {
 	 */
 	void add(Factory factory) throws Exception;
 
-
+	/**
+	 * 2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值
+	 * @param accountName
+	 * @throws Exception
+	 */
+	void selectFactoryIdByName(String accountName)throws Exception;
 	/**
 	 * 2017.06.10
 	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址

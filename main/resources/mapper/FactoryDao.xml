@@ -62,6 +62,12 @@
         factory_logo_path =#{factoryLogoPath}
         WHERE  account_name = #{accountName}
     </update>
+    <!--2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值 -->
+    <select id="selectFactoryIdByName" parameterType="String" resultType="int">
+        SELECT  factory_id
+        FROM factory
+        WHERE account_name = #{accountName}
+    </select>
     <!--====================自动生成================================-->
     <!--SELECT  factory.factory_id-->
     <!--FROM  factory f LEFT  JOIN  user u-->

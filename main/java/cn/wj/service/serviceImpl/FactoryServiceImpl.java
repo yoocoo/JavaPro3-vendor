@@ -38,6 +38,23 @@ public class FactoryServiceImpl implements FactoryService {
 	}
 
 	/**
+	 * 2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值
+	 * 6.13
+	 * @param accountName
+	 */
+	public void selectFactoryIdByName(String accountName) throws OtherThingsException {
+		int result = 0;//表示受影响的行数
+		try {
+			result = factoryDao.selectFactoryIdByName(accountName);
+		} catch (Exception e) {
+			System.out.println("查询该生产商的ID 值失败");
+			//其他异常情况
+			throw new OtherThingsException(e);
+		}
+		if (result > 0)
+			System.out.println("查询该生产商的ID 值！！！");
+	}
+	/**
 	 * 2017.06.10
 	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址
 	 *

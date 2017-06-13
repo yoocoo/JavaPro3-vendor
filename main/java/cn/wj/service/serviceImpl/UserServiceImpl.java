@@ -40,8 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 系统管理员 注册一级管理用户
-	 *
+	 * 2.1.1系统管理员注册 一级管理用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -50,18 +49,42 @@ public class UserServiceImpl implements UserService {
 		try {
 			result = userDao.sysuseradd(user);
 		} catch (Exception e) {
-			System.out.println("添加用户失败");
+			System.out.println("添加一级生产商管理员用户失败");
 			//其他用户添加失败异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("添加用户成功！");
+			System.out.println("添加一级生产商管理员用户成功！");
 		}
-
 	}
 
 	/**
-	 * 2.2更新 用户表中 agencyId
+	 * 2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void sysuseraddYun(User user) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.sysuseraddYun(user);
+		} catch (Exception e) {
+			System.out.println("添加二级运营商管理员用户失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("添加二级运营商管理员用户成功！");
+		}
+	}
+
+	//public PagedResult<User> queryByPage(String accountName,Integer pageNo,Integer pageSize ) {
+	//	pageNo = pageNo == null?1:pageNo;
+	//	pageSize = pageSize == null?10:pageSize;
+	//	PageHelper.startPage(pageNo,pageSize);  //startPage是告诉拦截器说我要开始分页了。分页参数是这两个。
+	//	return BeanUtil.toPagedResult(userDao.selectUserByAccountName(accountName));
+	//}
+	/**
+	 * 2.2 .1 更新 用户表中 agencyId
 	 *
 	 * @param user
 	 * @throws OtherThingsException
@@ -80,6 +103,43 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/**
+	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
+	 * @param accountName
+	 * @throws OtherThingsException
+	 */
+
+	public void  selectFactoryIdByName(String accountName) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.selectFactoryIdByName(accountName);
+		} catch (Exception e) {
+			System.out.println("（一）查询运营商归属的factory_id 到user表中 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("（二）查询运营商归属的factory_id 到user表中 成功");
+		}
+	}
+	/**
+	 * 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void addAgencyToFactoryId(User user)throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.addAgencyToFactoryId(user);
+		} catch (Exception e) {
+			System.out.println("更新注入运营商归属的factory_id 到user表中 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("更新注入运营商归属的factory_id 到user表中 成功");
+		}
+	}
 	/**
 	 * 2.3更新 用户表中 factoryId
 	 *
@@ -299,7 +359,7 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.selectUserIdByName(accountName);
 	}
 
-	public int findUserInfo(String accountName) {
-		return this.findUserInfo(accountName);
-	}
+	//public int findUserInfo(String accountName) {
+	//	return this.findUserInfo(accountName);
+	//}
 }

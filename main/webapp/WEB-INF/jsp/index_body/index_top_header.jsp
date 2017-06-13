@@ -168,6 +168,21 @@
                             <div class="controls">${userMess.postcode}
                             </div>
                         </div>
+                            <div class="control-group">
+                                <label class="control-label">角色ID ：</label>
+                                <div class="controls">${userMess.roleId}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">生产商ID ：</label>
+                                <div class="controls">${userMess.factoryId}
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">运营商ID ：</label>
+                                <div class="controls">${userMess.agencyId}
+                                </div>
+                            </div>
                         <div class="control-group">
                             <label class="control-label">QQ号码 ： </label>
                             <div class="controls">${userMess.qq}

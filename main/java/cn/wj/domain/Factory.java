@@ -157,7 +157,7 @@ public class Factory implements Serializable {
 	public String toString() {
 		return "Factory{" +
 				"factoryId='" + factoryId + '\'' +
-				"factoryName='" + factoryName + '\'' +
+				",factoryName='" + factoryName + '\'' +
 				", accountName='" + accountName + '\'' +
 				", cashTableName='" + cashTableName + '\'' +
 				", orderTableName='" + orderTableName + '\'' + ", saleTableName='" + saleTableName + '\'' + ", alarmTableName='" + alarmTableName + '\'' +
@@ -165,6 +165,7 @@ public class Factory implements Serializable {
 				", cashSaleTableName='" + cashSaleTableName + '\'' +
 				", sfeeReturnRate='" + sfeeReturnRate + '\'' +
 				", qrReturnRate='" + qrReturnRate + '\'' + ", receiveAccount='" + receiveAccount + '\'' + ", openBankName='" + openBankName + '\'' +
-				", openAccountName='" + openAccountName + '}';
+				", openAccountName='" + openAccountName + '\''+
+				'}';
 	}
 }

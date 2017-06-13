@@ -53,9 +53,9 @@
                 cache: false,  //不用缓存
                 success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
                     if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
-                       // window.location.href = data.data.nextUrl; //返回到主页
+                        // window.location.href = data.data.nextUrl; //返回到主页
                         alert(data.msg);
-                         window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回主页
+                        window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回主页
                     } else {//更新不成功
                         alert(data.msg);//弹出对话框，提示返回错误信息
                         // $("#loginId").focus();
@@ -107,7 +107,8 @@
 <div id="content">
     <div id="content-header">
         <div id="breadcrumb"><a href="<%=request.getContextPath()%>/mvc/home" title="欢迎回来" class="tip-bottom"><i
-                class="icon-home"></i> 首页</a> <a href="<%=request.getContextPath()%>/mvc/userAction/update" class="current">更改个人信息</a>
+                class="icon-home"></i> 首页</a> <a href="<%=request.getContextPath()%>/mvc/userAction/update"
+                                                 class="current">更改个人信息</a>
         </div>
         <div class="container-fluid">
             <hr>
@@ -118,138 +119,129 @@
         <div class="row-fluid">
             <div class="span12">
                 <div id="web_update">
-                <div  class="widget-box">
-                    <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                        <h5>${userInfo.accountName}用户编辑</h5>
-                    </div>
-                    <form id="formId"
-                          enctype="multipart/form-data"
-                          class="form-horizontal"
-                          action=""
-                          method="post"
-                          accept-charset="utf-8">
-                        <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
-                        <div class="control-group">
-                            <label class="control-label span4">原用户密码 :</label>
-                            <div class="controls">
-                                <input type="text" placeholder="${userMess.password}" id="pwd" name="password"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="请输入6-10位有效数字或字母" >
-                            </div>
+                    <div class="widget-box">
+                        <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
+                            <h5>${userInfo.accountName}用户编辑</h5>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label span4">原真实姓名 :</label>
-                            <div class="controls">
-                                <input id="username" type="text" name="realName"
-                                       placeholder="${userMess.realName}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="请填写真实姓名">
+                        <form id="formId"
+                              enctype="multipart/form-data"
+                              class="form-horizontal"
+                              action=""
+                              method="post"
+                              accept-charset="utf-8">
+                            <div class="alert alert-error">
+                                <button class="close" data-dismiss="alert">×</button>
+                                <strong>个人资料信息表 </strong> 1.用户名是不可更改。2.角色更改请联系系统管理员。3.若是运营商账户所归属的生产商不能修改。
                             </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label span4">原电子邮箱 ：</label>
-                            <div class="controls">
-                                <input type="text" id="Email" name="email"
-                                       placeholder="${userMess.email}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="请填写真实有效邮箱，方便找回密码">
+                            <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
+                            <div class="control-group warning">
+                                <label class="control-label span4">原用户密码 :</label>
+                                <div class="controls">
+                                    <input type="text" placeholder="${userMess.password}" id="pwd" name="password"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="请输入6-10位有效数字或字母">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入小于6位密码，并保管好密码</span>
+                                </div>
                             </div>
-                        </div>
-                        <%--<div class="control-group">--%>
-                        <%--<label class="control-label">角色类型</label>--%>
+                            <div class="control-group warning">
+                                <label class="control-label span4">原真实姓名 :</label>
+                                <div class="controls">
+                                    <input id="username" type="text" name="realName"
+                                           placeholder="${userMess.realName}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="请填写真实姓名">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;真实姓名，辅助识别账户，小于四个字</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning">
+                                <label class="control-label span4">原电子邮箱 ：</label>
+                                <div class="controls">
+                                    <input type="text" id="Email" name="email"
+                                           placeholder="${userMess.email}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="请填写真实有效邮箱，方便找回密码">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;填写邮箱，可有效管理账户密码，方便找回密码</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning">
+                                <label class="control-label span4">原移动电话 ：</label>
+                                <div class="controls">
+                                    <input type="text" id="phone" name="mobilePhone"
+                                           placeholder="${userMess.mobilePhone}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="电话唯一">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;正确的联系的方式，方便及时通知信息</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning">
+                                <label class="control-label span4">原邮政编码 ：</label>
+                                <div class="controls">
+                                    <input type="text" id="code" name="postcode"
+                                           placeholder="${userMess.postcode}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="请输入6位有效数字的邮编">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入6位有效数字的邮编</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning">
+                                <label class="control-label span4">原QQ号码 ： </label>
+                                <div class="controls">
+                                    <input type="text" id="QQ" name="qq"
+                                           placeholder="${userMess.qq}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="QQ号码">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;QQ号码，方便信息交流，建议填写</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning">
+                                <label class="control-label span4">身份证号 ：</label>
+                                <div class="controls">
+                                    <input type="text" id="card" name="idcard"
+                                           placeholder="${userMess.idcard}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="请输入有效位数二代身份证,18位数字号码">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写有效身份证号信息</span>
+                                </div>
+                            </div>
+                            <div class="control-group warning ">
+                                <label class="control-label span4">原家庭住址 ：</label>
+                                <div class="controls">
+                                    <input type="text" id="adress" name="postAdress"
+                                           placeholder="${userMess.postAdress}"
+                                           data-title=""
+                                           class="span3 tip"
+                                           data-original-title="建议字数不超过五十个字">
+                                    <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字！</span>
+                                </div>
+                            </div>
+                        </form>
+                        <%--<div class="control-group warning">--%>
+                        <%--<label class="control-label">权限审核</label>--%>
                         <%--<div class="controls">--%>
-                        <%--<div class="form-group span4 ">--%>
-                        <%--<select class="form-control" id="roleid" name="roleId" placeholder="请选择角色种类"--%>
-                        <%--aria-describedby="basic-addon1"--%>
-                        <%--data-original-title="请务必选择真实有效角色,否则不予通过验证">--%>
-                        <%--<option value="1"> 系统管理员</option>--%>
-                        <%--<option value="2"> 系统操作员</option>--%>
-                        <%--<option value="3">运营商管理员</option>--%>
-                        <%--<option value="4">运营商配货员</option>--%>
-                        <%--<option value="5">运营商仓库员</option>--%>
-                        <%--<option value="6">生产商管理员</option>--%>
-                        <%--<option value="7">生产商操作员</option>--%>
-                        <%--<option value="8">出租商管理员</option>--%>
-                        <%--<option value="9">出租商操作员</option>--%>
-                        <%--<option value="10"> 贸易商管理员</option>--%>
-                        <%--</select>--%>
+                        <%--<label class="checkbox-inline span3">--%>
+                        <%--<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" checked>--%>
+                        <%--停用 </label>--%>
+                        <%--<label class="checkbox-inline">--%>
+                        <%--<input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option2">--%>
+                        <%--启用</label>--%>
                         <%--</div>--%>
-                        <%--</div>--%>
-                        <%--</div>--%>
-                        <div class="control-group">
-                            <label class="control-label span4">原移动电话 ：</label>
-                            <div class="controls">
-                                <input type="text" id="phone" name="mobilePhone"
-                                       placeholder="${userMess.mobilePhone}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="电话唯一">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label span4">原邮政编码 ：</label>
-                            <div class="controls">
-                                <input type="text" id="code" name="postcode"
-                                       placeholder="${userMess.postcode}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="请输入6位有效数字的邮编">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label span4">原QQ号码 ：  </label>
-                            <div class="controls">
-                                <input type="text" id="QQ" name="qq"
-                                       placeholder="${userMess.qq}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="QQ号码">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label span4">身份证号 ：</label>
-                            <div class="controls">
-                                <input type="text" id="card" name="idcard"
-                                       placeholder="${userMess.idcard}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="请输入有效位数二代身份证,18位数字号码">
-                            </div>
-                        </div>
-                        <div class="control-group ">
-                            <label class="control-label span4">原家庭住址 ：</label>
-                            <div class="controls">
-                                <input type="text" id="adress" name="postAdress"
-                                       placeholder="${userMess.postAdress}"
-                                       data-title=""
-                                       class="span3 tip"
-                                       data-original-title="建议字数不超过五十个字">
-                            </div>
-                        </div>
-                    </form>
-                        <%--<div class="control-group">--%>
-                            <%--<label class="control-label">权限审核</label>--%>
-                            <%--<div class="controls">--%>
-                                <%--<label class="checkbox-inline span3">--%>
-                                    <%--<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" checked>--%>
-                                    <%--停用 </label>--%>
-                                <%--<label class="checkbox-inline">--%>
-                                    <%--<input type="radio" name="optionsRadiosinline" id="optionsRadios4" value="option2">--%>
-                                    <%--启用</label>--%>
-                            <%--</div>--%>
                         <%--</div>--%>
 
-                            <label class="control-label center"></label>
-                            <div class="controls">
-                                <%--<button type="reset" class="btn btn-danger" >重置</button>--%>
-                                &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp;
-                                <input type="button" class="btn btn-success" id="update" onclick="webUpdate();"
-                                       value="提交修改"/>
-                            </div>
-                </div> <!--widget-box end-->
+                        <label class="control-label center"></label>
+                        <div class="controls">
+                            <%--<button type="reset" class="btn btn-danger" >重置</button>--%>
+                            &emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp;
+                            <input type="button" class="btn btn-success" id="update" onclick="webUpdate();"
+                                   value="提交修改"/>
+                        </div>
+                    </div> <!--widget-box end-->
 
                 </div>
             </div>

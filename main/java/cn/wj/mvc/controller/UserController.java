@@ -9,6 +9,7 @@ import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -160,6 +161,8 @@ public class UserController {
 
 		//查找用户
 		User user1 = userService.findUser(user);
+		//int user2 = userService.findUserInfo(user.getAccountName());
+		//System.out.println("=====user 2" + user2);
 		if (null == user1) {
 			responseObj = new ResponseObj<User>();
 			responseObj.setCode(ResponseObj.EMPUTY);
@@ -221,7 +224,7 @@ public class UserController {
 				//responseObj.setMenulist(menuList);//主要是从后台数据库中筛选出来的该用户的权限菜单 ，未拼接的
 				//============================分主次的权限菜单=======================================
 				responseObj.setTreelist(treeList);
-				System.out.println("===存入setTreelist,tree===" + treeList);//重新组装的权限菜单
+				//System.out.println("===存入setTreelist,tree===" + treeList);//重新组装的权限菜单
 				//============================分主次的权限菜单=======================================
 				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
 				//System.out.println("====打印出来该用户所有要显示的权限菜单menuList=======" + menuList);
@@ -238,6 +241,7 @@ public class UserController {
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
+				//System.out.println("===存入session信息,userInfo=====" + userMess);//只打印 用户名和密码（未加密）
 				result = new GsonUtils().toJson(responseObj);
 			} else {
 				responseObj = new ResponseObj<User>();
@@ -250,7 +254,7 @@ public class UserController {
 	}
 
 	/**
-	 * 修改个人资料统一入口，模态弹窗修改个人资料
+	 * 修改个人资料统一入口，修改个人资料
 	 *
 	 * @param request
 	 * @param response
@@ -391,6 +395,7 @@ public class UserController {
 	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, Agency agency, HttpSession session) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
+
 		if (null == user) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户信息不能为空");
@@ -410,11 +415,14 @@ public class UserController {
 			return result;
 		}
 		try {
+			//int factoryId = factoryService.selectFactoryIdByName(accounName);
 			agencyService.add(agency);
 			//responseObj.setCode(ResponseObj.OK);
 			//responseObj.setData(agency);
-			userService.sysuseradd(user);
+			userService.sysuseraddYun(user);
 			userService.updateAgencyId(user);
+			//userService.addAgencyToFactoryId(user);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);

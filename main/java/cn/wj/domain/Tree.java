@@ -91,7 +91,7 @@ public class Tree {
 				+ ", attributes='" + attributes + '\''
 				+ ", children='" + children + '\''
 				+ ", iconCls='" + iconCls + '\''
-				+ ", pid='" + pid +
+				+ ", pid='" + pid +'\''+
 				'}';
 	}
 }

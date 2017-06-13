@@ -26,8 +26,11 @@
         <br>
         ZJNU有限公司<br>地址：金华市婺城区启明公寓5幢 &emsp;&emsp;座机号（010-0000 0000）<br>
         *ICP备***-**号-1&emsp;&emsp; @2016-2017&emsp;&emsp;
-        imvc.cn,&emsp;&emsp; All Rights Reserved.</p>
+        imvc.cn,&emsp;&emsp; All Rights Reserved.
+
+        </p>
     </div>
+
 
         <%--===================测试==============================--%>
         <%--<div class="row-fluid">--%>
