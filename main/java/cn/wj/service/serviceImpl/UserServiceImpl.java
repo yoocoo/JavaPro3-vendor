@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.1.1系统管理员注册 一级管理用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -60,6 +61,7 @@ public class UserServiceImpl implements UserService {
 
 	/**
 	 * 2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -83,33 +85,35 @@ public class UserServiceImpl implements UserService {
 	//	PageHelper.startPage(pageNo,pageSize);  //startPage是告诉拦截器说我要开始分页了。分页参数是这两个。
 	//	return BeanUtil.toPagedResult(userDao.selectUserByAccountName(accountName));
 	//}
+
 	/**
 	 * 2.2 .1 更新 用户表中 agencyId
 	 *
-	 * @param user
+	 * @param accountName
 	 * @throws OtherThingsException
 	 */
-	public void updateAgencyId(User user) throws OtherThingsException {
+	public void updateAgencyId(int agencyId, String accountName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
-			result = userDao.updateAgencyId(user);
+			result = userDao.updateAgencyId(agencyId,accountName);
 		} catch (Exception e) {
-			System.out.println("更新用户表中agencyid 失败");
+			System.out.println("创建运营商商用户时，更新用户表中agencyid 失败");
 			//其他用户添加失败异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("更新用户表中agencyid 成功");
+			System.out.println("创建运营商用户时，更新用户表中agencyid 成功");
 		}
 	}
 
 	/**
-	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
+	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号(暂时没有用到)
+	 *
 	 * @param accountName
 	 * @throws OtherThingsException
 	 */
 
-	public void  selectFactoryIdByName(String accountName) throws OtherThingsException {
+	public void selectFactoryIdByName(String accountName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.selectFactoryIdByName(accountName);
@@ -122,12 +126,14 @@ public class UserServiceImpl implements UserService {
 			System.out.println("（二）查询运营商归属的factory_id 到user表中 成功");
 		}
 	}
+
 	/**
-	 * 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
+	 * 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号（暂时没有用到）
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
-	public void addAgencyToFactoryId(User user)throws OtherThingsException {
+	public void addAgencyToFactoryId(User user) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
 			result = userDao.addAgencyToFactoryId(user);
@@ -140,23 +146,24 @@ public class UserServiceImpl implements UserService {
 			System.out.println("更新注入运营商归属的factory_id 到user表中 成功");
 		}
 	}
+
 	/**
 	 * 2.3更新 用户表中 factoryId
 	 *
-	 * @param user
+	 * @param accountName
 	 * @throws OtherThingsException
 	 */
-	public void updateFactoryId(User user) throws OtherThingsException {
+	public void updateFactoryId(int factoryId, String accountName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
-			result = userDao.updateFactoryId(user);
+			result = userDao.updateFactoryId(factoryId, accountName);
 		} catch (Exception e) {
-			System.out.println("更新用户表中factoryid 失败");
+			System.out.println("创建生产商用户时，并更新用户表中factoryid 失败");
 			//其他用户添加失败异常
 			throw new OtherThingsException(e);
 		}
 		if (result > 0) {
-			System.out.println("更新用户表中factoryid 成功");
+			System.out.println("创建生产商完后，并更新用户表中factoryid 成功");
 		}
 	}
 

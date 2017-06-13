@@ -416,11 +416,14 @@ public class UserController {
 		}
 		try {
 			//int factoryId = factoryService.selectFactoryIdByName(accounName);
+
 			agencyService.add(agency);
-			//responseObj.setCode(ResponseObj.OK);
-			//responseObj.setData(agency);
+			String aName = agency.getAccountName();
+			int aId = agency.getAgencyId();
+			System.out.println("===打印要增加的ID 子=====" + aId);// 打印要增加的ID 子
+			System.out.println("===打印确定要重写 谁的 factory=====" + aName);// 打印谁要重写要增加的ID 子
 			userService.sysuseraddYun(user);
-			userService.updateAgencyId(user);
+			userService.updateAgencyId(aId,aName);
 			//userService.addAgencyToFactoryId(user);
 
 		} catch (Exception e) {
@@ -538,9 +541,20 @@ public class UserController {
 			return result;
 		}
 		try {
-			userService.sysuseradd(user);//创建用户表（新的生产商）
 			factoryService.add(factory);//生产商表添加记录
-			userService.updateFactoryId(user);// 补充用户表总 生产商的 ID 完整
+			userService.sysuseradd(user);//创建用户表（新的生产商）
+			//6.13 版本，单独更新 id
+			String fName = factory.getAccountName();
+			int fId = factory.getFactoryId();
+			System.out.println("===打印要增加的ID 子=====" + fId);// 打印要增加的ID 子
+
+			System.out.println("===打印确定要重写 谁的 factory=====" + fName);// 打印谁要重写要增加的ID 子
+			userService.updateFactoryId(fId, fName);// 补充用户表总 生产商的 ID 完整
+
+			System.out.println("===打印要增加的ID 子=====" + factory.getFactoryId());// 打印要增加的ID 子
+
+			//全部更新ID 6.10号的版本， 当创建运营商账户时，更新factory_id ，会出现清空错误。
+			//userService.updateFactoryId(user);// 补充用户表总 生产商的 ID 完整
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -549,8 +563,7 @@ public class UserController {
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 		}
-		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("注册生产商管理员用户成功");
+
 		//user.setPassword(session.getId());//单独设置
 		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
@@ -573,6 +586,8 @@ public class UserController {
 				factory.getAccountName());
 
 		System.out.println("======查看 新注册的，添加生产商表里的记录：factoryInfo==" + factory);
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("注册生产商管理员用户成功");
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;

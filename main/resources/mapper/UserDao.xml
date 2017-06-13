@@ -61,9 +61,9 @@
     </select>
     <!--1.1.2查找-登录用户的所有信息-->
     <!--<select id="findUserInfo" resultMap="UserMapperMap" parameterType="String">-->
-         <!--SELECT  *-->
-     <!--FROM  user-->
-     <!--WHERE  account_name = #{accountNname}-->
+    <!--SELECT  *-->
+    <!--FROM  user-->
+    <!--WHERE  account_name = #{accountNname}-->
     <!--</select>-->
     <!--1.1.3查找User表中 所有用户-->
     <select id="selectUserByAccountName" resultMap="UserMapperMap" parameterType="String">
@@ -89,10 +89,10 @@
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
         </selectKey>
-        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
+        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
-        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,0,'null',#{email},
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,'null',#{email},
         CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
     <!--2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
@@ -106,31 +106,42 @@
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},#{factoryId},0,'null',#{email},
         CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
-    <!--2.2.2.1增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
-
-    <update id="updateAgencyId" parameterType="User">
-        UPDATE  user u    LEFT JOIN  agency a
-         ON u.account_name = a.account_name
-        SET  u.agency_id = a.agency_id
+    <!--2.2.2.1  ！！！！！！增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
+    <update id="updateAgencyId"  parameterType="cn.wj.domain.User">
+        UPDATE user SET
+        agency_id = #{agencyId}
+        WHERE  account_name = #{accountName}
     </update>
-    <!--2.2.2.2.1增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
+  <!--6.10号 版本，依据两张表，更新全部的 agency_id-->
+    <!--<update id="updateAgencyId" parameterType="cn.wj.domain.User">-->
+        <!--UPDATE  user u    LEFT JOIN  agency a-->
+         <!--ON u.account_name = a.account_name-->
+        <!--SET  u.agency_id = a.agency_id-->
+    <!--</update>-->
+    <!--2.2.2.2.1  (暂时没有用到)增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
     <select id="selectFactoryIdByName" parameterType="String" resultType="int">
         SELECT  factory_id
         FROM  user
         WHERE account_name = #{accountName}
     </select>
-    <!--2.2.2.2.2增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
+    <!--2.2.2.2.2 (暂时没有用到) 增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
     <insert id="addAgencyToFactoryId" parameterType="cn.wj.domain.User">
     INSERT  into user(factory_id)
     VALUE (#{factoryId})
     </insert>
 
-    <!--2.2.3增加语句-注入factory_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
-    <update id="updateFactoryId" parameterType="User">
-        UPDATE  user u    LEFT JOIN  factory f
-        ON u.account_name = f.account_name
-        SET  u.factory_id = f.factory_id
+    <!--2.2.3   6.13！！！！！！增加语句-注入factory_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
+    <update id="updateFactoryId"  parameterType="cn.wj.domain.User">
+          UPDATE user SET
+    factory_id = #{factoryId}
+   WHERE  account_name = #{accountName}
     </update>
+    <!-- 6.10 更新全部factory_id-->
+    <!--<update id="updateFactoryId" parameterType="User">-->
+    <!--UPDATE  user u    LEFT JOIN  factory f-->
+    <!--ON u.account_name = f.account_name-->
+    <!--SET  u.factory_id = f.factory_id-->
+    <!--</update>  -->
     <!--2.3.1  第一张表 ：系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
     <update id="createOrderTable" parameterType="String">
             create table ${tableName} (

@@ -43,9 +43,9 @@ public interface UserService extends BaseService<User> {
 	/**
 	 * 2.2.1 更新 用户表中 agencyId
 	 *
-	 * @param user
+	 * @param accountName
 	 */
-	void updateAgencyId(User user) throws Exception;
+	void updateAgencyId(int agencyId,String accountName) throws Exception;
 
 	/**
 	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
@@ -66,9 +66,10 @@ public interface UserService extends BaseService<User> {
 	/**
 	 * 2.3更新 用户表中 factoryId
 	 *
-	 * @param user
+	 * @param accountName
 	 */
-	void updateFactoryId(User user) throws Exception;
+	void updateFactoryId(int factoryId,String accountName) throws Exception;
+	//void updateFactoryId(User user) throws Exception;
 
 	/**
 	 * 2.4  创建动态的生产商的 订单表

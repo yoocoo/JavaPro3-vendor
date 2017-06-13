@@ -35,7 +35,7 @@ public interface UserDao extends Dao<User> {
 	int sysuseraddYun(User user);
 
 	//2.2.1更新用户表中 agencyId
-	int updateAgencyId(User user);
+	int updateAgencyId(@Param("agencyId")  int agencyId, @Param("accountName") String accountName);
 
 	//2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
 	int addAgencyToFactoryId(User user);
@@ -43,9 +43,11 @@ public interface UserDao extends Dao<User> {
 	//2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
 	int selectFactoryIdByName(String accountName);
 
-	//2.3更新用户表中 factoryId
-	int updateFactoryId(User user);
+	//2.3 创建生产商用户后，更新用户表中 factoryId
+	int updateFactoryId(@Param("factoryId")  int factoryId, @Param("accountName") String accountName);
 
+	//int updateFactoryId(User user);
+	//int updateFactoryId(String accountName);
 	//2.4  创建动态的生产商的 订单表
 	int createOrderTable(@Param("tableName") String tableName);
 
