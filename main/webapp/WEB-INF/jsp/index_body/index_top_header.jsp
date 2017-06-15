@@ -102,7 +102,7 @@
                                                    class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
                 class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a class="sAdd" title="" href="/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
+                <li><a class="sAdd" title="" href="/ssm_vendor/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
                 <li class="divider"></li>
                 <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
                 </li>

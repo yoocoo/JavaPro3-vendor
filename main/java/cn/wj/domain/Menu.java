@@ -114,20 +114,35 @@ public class Menu implements Serializable {
 
 	@Override
 	public String toString() {
-
-		return "Menu{" +
-				"menuId='" + menuId + '\''
-				+ ",menuName='" + menuName + '\''
-				+ ", menuUrl='" + menuUrl + '\''
-				+ ", parentId='" + parentId + '\''
-				+ ", menuOrder='" + menuOrder + '\''
-				+ ", menuIcon='" + menuIcon + '\''
-				+ ", menuType=" + menuType + '\''
-				+ ", countChildrens='" + countChildrens + '\''
-				+ ", parentMenu='" + parentMenu + '\''
-				+ ", hasMenu='" + hasMenu + '\''
-				+ ", subMenu='" + subMenu +'\''+
+//=========6.15号，转换成标标准的 JSON 格式===================
+		return "{"
+				+ '\"' + "menuId" + '\"' + ":" + '\"' + menuId + '\"'
+				+ "," + '\"' + "menuName" + '\"' + ":" + '\"' + menuName + '\"'
+				+ "," + '\"' + "menuUrl" + '\"' + ":" + '\"' + menuUrl + '\"'
+				+ "," + '\"' + "parentId" + '\"' + ":" + '\"' + parentId + '\"'
+				+ "," + '\"' + "menuOrder" + '\"' + ":" + '\"' + menuOrder + '\"'
+				+ "," + '\"' + "menuIcon" + '\"' + ":" + '\"' + menuIcon + '\"'
+				+ "," + '\"' + "menuType" + '\"' + ":" + '\"' + menuType + '\"'
+				+ "," + '\"' + "countChildrens" + '\"' + ":" + '\"' + countChildrens + '\"'
+				+ "," + '\"' + "parentMenu" + '\"' + ":" + '\"' + parentMenu + '\"'
+				+ "," + '\"' + "hasMenu" + '\"' + ":" + '\"' + hasMenu + '\"'
+				+ "," + '\"' + "subMenu" + '\"' + ":" + '\"' + subMenu + '\"'
+				+
 				'}';
+//=========6.15号，转换成标标准的 JSON 格式====================
+		//return "{" +
+		//		"menuId='" + menuId + '\''
+		//		+ ",menuName='" + menuName + '\''
+		//		+ ", menuUrl='" + menuUrl + '\''
+		//		+ ", parentId='" + parentId + '\''
+		//		+ ", menuOrder='" + menuOrder + '\''
+		//		+ ", menuIcon='" + menuIcon + '\''
+		//		+ ", menuType=" + menuType + '\''
+		//		+ ", countChildrens='" + countChildrens + '\''
+		//		+ ", parentMenu='" + parentMenu + '\''
+		//		+ ", hasMenu='" + hasMenu + '\''
+		//		+ ", subMenu='" + subMenu +'\''+
+		//		'}';
 
 	}
 
