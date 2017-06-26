@@ -93,6 +93,7 @@
                                 <li class="bg_lh"><i class="icon-globe"></i> <strong>8540</strong>
                                     <small>报警机器数量</small>
                                 </li>
+
                             </ul>
                         </div>
                     </div>

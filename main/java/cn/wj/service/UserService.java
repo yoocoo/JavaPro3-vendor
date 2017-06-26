@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
-	 * 1.1.1注册普通用户
+	 * 2.1 注册普通用户(暂时未用到，注册页面可以套用)
 	 *
 	 * @param user
 	 * @throws Exception
@@ -18,7 +18,7 @@ public interface UserService extends BaseService<User> {
 	void add(User user) throws Exception;
 
 	/**
-	 *1.1.3 查找User表中 所有用户  6.12日 加入物理分页
+	 *1.1.3 查找User表中 所有用户  6.12日 加入物理分页（暂时未用到）
 	 * @param accountName
 	 * @param pageNo
 	 * @param pageSize
@@ -27,7 +27,7 @@ public interface UserService extends BaseService<User> {
 	//PagedResult<User> queryByPage(String accountName,Integer pageNo,Integer pageSize);
 
 	/**
-	 * 2.1.1系统管理员注册 一级管理用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
+	 * 2.2.1  系统管理员注册 一级管理用户( 生产商管理员用户 ，记住 factory_id 是后期更新上去的 )
 	 *
 	 * @param user
 	 * @throws Exception
@@ -35,27 +35,29 @@ public interface UserService extends BaseService<User> {
 	void sysuseradd(User user) throws Exception;
 
 	/**
-	 * 	2.1.2  6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	 * 2.3.1 6.13 号增加语句-注册二级管理用户(运营商管理用户) ,记住  factory_id 是生产商用户登录的 记录的 factory_id 值，可手输入
+	 *
 	 * @param user
 	 * @throws Exception
 	 */
-	 void sysuseraddYun(User user) throws Exception;
+	void sysuseraddYun(User user) throws Exception;
+
 	/**
-	 * 2.2.1 更新 用户表中 agencyId
+	 * 2.3.2 更新 用户表中 agencyId
 	 *
 	 * @param accountName
 	 */
-	void updateAgencyId(int agencyId,String accountName) throws Exception;
+	void updateAgencyId(int agencyId, String accountName) throws Exception;
 
 	/**
-	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
+	 * （暂时未用到） 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
 	 *
 	 * @param accountName
 	 */
 	void selectFactoryIdByName(String accountName) throws Exception;
 
 	/**
-	 * 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
+	 * （暂时未用到） 2.2.2.2-注入运营商归属的factory_id 到user表中  6.13号
 	 *
 	 * @param user
 	 * @throws Exception
@@ -64,15 +66,15 @@ public interface UserService extends BaseService<User> {
 	void addAgencyToFactoryId(User user) throws Exception;
 
 	/**
-	 * 2.3更新 用户表中 factoryId
+	 * 2.2.7 更新 用户表中 factoryId
 	 *
 	 * @param accountName
 	 */
-	void updateFactoryId(int factoryId,String accountName) throws Exception;
+	void updateFactoryId(int factoryId, String accountName) throws Exception;
 	//void updateFactoryId(User user) throws Exception;
 
 	/**
-	 * 2.4  创建动态的生产商的 订单表
+	 * 2.2.2 创建动态的生产商的 订单表
 	 *
 	 * @param tableName
 	 * @return
@@ -80,7 +82,7 @@ public interface UserService extends BaseService<User> {
 	void createOrderTable(String tableName) throws Exception;
 
 	/**
-	 * 2.5
+	 * 2.2.3  创建动态的生产商的 销售表
 	 *
 	 * @param tableName
 	 * @throws Exception
@@ -88,7 +90,7 @@ public interface UserService extends BaseService<User> {
 	void createSaleTable(String tableName) throws Exception;
 
 	/**
-	 * 2.6
+	 * 2.2.4 创建动态的生产商的 金钱表
 	 *
 	 * @param tableName
 	 * @throws Exception
@@ -96,7 +98,7 @@ public interface UserService extends BaseService<User> {
 	void createCashTable(String tableName) throws Exception;
 
 	/**
-	 * 2.7
+	 * 2.2.5 创建动态的生产商的 金钱和销售关联表
 	 *
 	 * @param tableName
 	 * @throws Exception
@@ -104,7 +106,7 @@ public interface UserService extends BaseService<User> {
 	void createCashSaleTable(String tableName) throws Exception;
 
 	/**
-	 * 2.8 动态创建生产商警告表
+	 * 2.2.6 动态创建 生产商的警告表
 	 *
 	 * @param tableName
 	 * @throws Exception
@@ -112,7 +114,7 @@ public interface UserService extends BaseService<User> {
 	void createAlarmTable(String tableName) throws Exception;
 
 	/**
-	 * 更新用户资料
+	 * 4.1更新用户(全局普通更新)
 	 *
 	 * @param user
 	 * @throws Exception
@@ -121,6 +123,7 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 查找用户用户头像路径，用于后台首页系显示
+	 * 5.1 查找用户头像地址，用于动态显示头像(全局普通更新)
 	 *
 	 * @param accountName
 	 * @return
@@ -129,6 +132,7 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 更新用户头像
+	 * 5.2 更新用户头像(全局普通更新)
 	 *
 	 * @param
 	 * @throws Exception
@@ -136,7 +140,7 @@ public interface UserService extends BaseService<User> {
 	void updateImage(String headImage, String accountName) throws Exception;
 
 	/**
-	 * 1.1.2查找数据库中用户（注册时查重和登录时判空）
+	 * 1.1.2 查找数据库中用户（注册时查重和登录时判空）
 	 *
 	 * @param user
 	 * @return
@@ -145,7 +149,7 @@ public interface UserService extends BaseService<User> {
 	User findUser(User user) throws Exception;
 
 	/**
-	 * 更新用户session
+	 * 更新用户session（暂时未用到）
 	 *
 	 * @param sessionId
 	 * @param accountName
@@ -154,7 +158,7 @@ public interface UserService extends BaseService<User> {
 	void updateLoginSession(String sessionId, String accountName) throws Exception;
 
 	/**
-	 * 用户列表（查找所有用户，带分页）
+	 * 用户列表（查找所有用户，带分页）（暂时未用到）
 	 *
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量
@@ -164,6 +168,7 @@ public interface UserService extends BaseService<User> {
 
 	/**
 	 * 根据用户ID 获得 该用户的菜单
+	 * 7 .1 根据用户ID 获得权限菜单
 	 *
 	 * @param userId
 	 * @return
@@ -171,7 +176,7 @@ public interface UserService extends BaseService<User> {
 	List<Menu> getMenu(int userId);
 
 	/**
-	 * 根据用户名 获得该用户的ID
+	 * 8.1根据用户名 获得该用户的ID
 	 *
 	 * @param accountName
 	 * @return
@@ -179,11 +184,18 @@ public interface UserService extends BaseService<User> {
 	int getUserIdByName(String accountName);
 
 	/**
-	 * 查找-登录用户的所有信息
+	 * 9.1  6.20日 物理分页 处理数据  得到所有用户列表
 	 *
-	 * @param accountName
+	 * @param user
 	 * @return
 	 */
-	//int findUserInfo(String accountName);
+	//List<User> getAllUserList(PageObject page);
+	//List<User> getAllUserList(User user);
 
+	/**
+	 * 	9.2  6.20日 物理分页 处理数据
+	 * 	在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 * @param userId
+	 */
+	void removeUser(int userId)throws Exception;
 }

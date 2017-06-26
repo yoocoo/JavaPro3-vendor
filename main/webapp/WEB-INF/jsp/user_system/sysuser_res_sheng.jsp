@@ -296,7 +296,12 @@
                         <%--</div>--%>
                         <div class="alert alert-error">
                             <button class="close" data-dismiss="alert">×</button>
-                            <strong>新建生产商用户 </strong> 1生产商角色概述：************** 2：生产商职责：********* 3：生产商权限：********** 4
+                            <strong>新建生产商用户 </strong>
+                            用户必须同意，其提供的真实的、准确的、合法的帐号
+                            ，这是作为认定用户与售货机的关联性以及确认用户身
+                            份的唯一证据。 用户在享用售货机提供的各项服务的
+                            同时， 同意接受售货机后台管理系统提供的各类信息服务。<br>
+                            1生产商角色概述：************** 2：生产商职责：********* 3：生产商权限：********** 4
                             ：生产商工作范围：***********
                         </div>
                         <div id="web_res">
@@ -367,11 +372,9 @@
                                                 <%--<option value="3" id="2">运营商管理员</option>--%>
                                                 <%--<option value="4">运营商配货员</option>--%>
                                                 <%--<option value="5">运营商仓库员</option>--%>
-
                                                 <%--<option value="7">生产商操作员</option>--%>
                                                 <option value="8">出租商管理员</option>
                                                 <option value="6">生产商管理员</option>
-                                                <%--<option value="9">出租商操作员</option>--%>
                                                 <option value="10"> 贸易商管理员</option>
                                             </select>
                                         </div>
@@ -535,7 +538,7 @@
                                                    class="span3 tip"
                                                    data-original-title="请输入有效的小数位">
                                             <span class="add-on">请输入有效小数位</span></div>
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写小数位，如：0.10,0.20等有效位数</span>
+                                        <span class="help-inline">请填写小数位，如：0.10,0.20等有效位数</span>
                                     </div>
                                 </div>
                                 <div class="control-group info">
@@ -547,7 +550,7 @@
                                                    class="span3 tip"
                                                    data-original-title="请输入有效的小数位"/>
                                             <span class="add-on">请输入有效小数位</span></div>
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写小数位，如：0.10,0.20等有效位数</span>
+                                        <span class="help-inline">请填写小数位，如：0.10,0.20等有效位数</span>
                                     </div>
                                 </div>
                                 <div class="control-group info">

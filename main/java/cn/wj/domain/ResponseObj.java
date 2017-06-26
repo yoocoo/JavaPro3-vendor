@@ -15,6 +15,17 @@ public class ResponseObj<T> {
 	private Object menulist;//数据库中筛选出来的 权限菜单
 	private Object treeList;//通过 tree 重新组装 权限菜单
 	private Object allmenulist;//数据库中筛选出来的 全部菜单
+	private Object allRoleInMenuList;//数据库中筛选出来，全部 的 角色菜单关联表数据
+
+	public Object getAllRoleInMenuList() {
+		return allRoleInMenuList;
+	}
+
+	public void setAllRoleInMenuList(List<RoleInMenu> allRoleInMenuList) {
+		this.allRoleInMenuList = allRoleInMenuList;
+	}
+
+
 
 	public Object getAllmenulist() {
 		return allmenulist;

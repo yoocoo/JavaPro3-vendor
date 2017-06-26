@@ -17,13 +17,14 @@
         <!--允许在嵌套语句中使用分页（RowBounds）-->
         <setting name="safeRowBoundsEnabled" value="false"/>
     </settings>
-
-    <!--=============6.12 使用 PageHelper 插件分页===============-->
+    <!--=============6.12 使用 PageHelper 插件分页
+       Mybatis分页插件-pagehelper =========在Mybatis配置xml中配置拦截器插件:========
+       ===============-->
     <plugins>
         <!-- com.github.pagehelper为PageHelper类所在包名 -->
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <!-- 4.0.0以后版本可以不设置该参数 -->
-            <property name="dialect" value="oracle"/>
+            <property name="dialect" value="mysql"/>
             <!-- 该参数默认为false -->
             <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
             <!-- 和startPage中的pageNum效果一样-->
@@ -35,9 +36,15 @@
             <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
             <property name="pageSizeZero" value="true"/>
             <!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+            <!--实际情况下：如果你分页插件使用于类似分页查看列表式的数据，-->
+            <!--如新闻列表，软件列表，你希望用户输入的页数不在合法范围（第一页到最后一页之外）-->
+            <!--时能够正确的响应到正确的结果页面，那么你可以配置reasonable为true，这时如果pageNum-->
+
+            <!--<1会查询第一页，如果pageNum>总页数会查询最后一页。-->
             <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
             <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
             <property name="reasonable" value="true"/>
+
             <!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
             <!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
             <!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 -->
@@ -49,6 +56,16 @@
             <property name="returnPageInfo" value="check"/>
         </plugin>
     </plugins>
+
+    <!--=======6.20  配置 PageIntercept====-->
+
+    <!--<typeAliases>-->
+        <!--<typeAlias alias="page" type="cn.wj.domain.PageObject"/>-->
+    <!--</typeAliases>-->
+    <!--<plugins>-->
+        <!--<plugin interceptor="cn.wj.intercepter.PageIntercepter"></plugin>-->
+    <!--</plugins>-->
+
 
     <!--如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。-->
 </configuration>

@@ -33,8 +33,11 @@ public class PublicUtil {
 		
 		return ip;
 	}
-	public  static boolean isJsonRequest(HttpServletRequest request){
-		return  request.getContentType().contains("application/json");
+	//public  static boolean isJsonRequest(HttpServletRequest request){
+	//	return  request.getContentType().contains("application/json");
+	//}
+	public static boolean isJsonRequest(HttpServletRequest request) {
+		return null != request && request.getMethod().contains("post") && request.getContentType().contains("application/json");
 	}
-	
+
 }

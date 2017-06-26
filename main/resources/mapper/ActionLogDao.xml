@@ -36,7 +36,7 @@
         SELECT *
         FROM user_action_log
         ORDER BY id
-        DESC
+        ASC
         LIMIT #{offset}, #{limit};
     </select>
 

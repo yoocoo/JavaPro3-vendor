@@ -240,7 +240,8 @@
                             <td>项目总结----五月（10)-5.29</td>
                             <td> (一 )myBatis "动态知识点"<br/>
                                 1. MyBatis，动态传入表名，字段名的解决办法：http://luoyu-ds.iteye.com/blog/1517607<br/>
-                                2.mybatis3动态创建表，判断表是否存在，删除表示例http://www.phperz.com/article/15/0123/47902.html<br/>
+                                2.mybatis3动态创建表，判断表是否存在，删除表示例http://www.phperz.com/article/15/0123/47902.html
+                                3.如何使用 MyBatis 执行任意 SQL:http://blog.csdn.net/isea533/article/details/52368341<br/>
                             </td>
                         </tr>
                         <tr class="gradeX">
@@ -293,7 +294,7 @@
                                 9. 知识点：<br/>
                                 1）在使用了Spring框架的应用中，我们可以使用@Transactional 注解方便地进行事务操作，如事务的回滚等。<br/>
                                 2） 业务中场景中，调用多个service，事务处理中要注意的问题---http://blog.csdn.net/fyxxq/article/details/41544685
-                                3)  spring中的事物传播------http://blog.csdn.net/dknypxt/article/details/5626161s
+                                3) spring中的事物传播------http://blog.csdn.net/dknypxt/article/details/5626161s
                                 4) 事物传播需要区分service间的调用和service内部调用。
                             </td>
                         </tr>
@@ -304,18 +305,65 @@
                                 前端页面设计使用bootstrap ，头像预览和剪裁工具使用cropper，后台使用springmvc。<br/>
                                 1.头像预览和剪裁工具使用cropper: http://blog.csdn.net/u012441887/article/details/51027012<br/>
                                 2.头像上传以及之前预览再以及剪裁——javaweb版本-http://blog.csdn.net/linshao512/article/details/8078722<br/>
-                                3.java web 网站头像上传处理 (springmvc +bootstrap+cropper):http://www.2cto.com/kf/201604/496824.html<br/>
+                                3.java web 网站头像上传处理 (springmvc
+                                +bootstrap+cropper):http://www.2cto.com/kf/201604/496824.html<br/>
                                 4.jQuery简单且功能强大的图片剪裁插件:http://www.htmleaf.com/jQuery/Image-Effects/201504211716.html<br>
                             </td>
                         </tr>
                         <tr class="gradeX">
                             <td><input type="checkbox"/></td>
                             <td>项目总结----六月（4)-6.12</td>
-                            <td> (一 )bootStrap table "动态知识点二"<br/>
+                            <td> ( 四)bootStrap table "动态知识点二"<br/>
                                 1. 对于bootstrap table 可以通过data 属性或者JavaScript 来启用bootstrap table 插件，显示丰富的功能。<br/>
-                                2.//通过bootstrap Table方法refresh重新加载数据  <br/>
+                                2.//通过bootstrap Table方法refresh重新加载数据 <br/>
                             </td>
                         </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----六月（5)-6.19</td>
+                            (六) Mybatis分页插件 - PageHelper<br/>
+                            配置分页拦截器<br/>
+                            PageHelper的原理是基于拦截器实现的。<br/>拦截器的配置有两种方法，一种是在mybatis的配置文件中配置，一种是直接在spring的配置文件中进行：<br/>
+                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
+                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 <br/>
+                                3.我用的版本是PageHelper-4.1.1、Mybatis-3.3.0<br/>
+                                PageHelper 依赖于 jsqlparser-0.9.4.jar<br/>
+                               4.当你想在实体类中使用Java.util.Date类型，而且还想在数据库中保存时分秒时，你可以在xml中修改为：#{xxdate,jdbcType=TIMESTAMP}<br/>
+                                就是将#{}中的jdbcType属性设置成TIMESTAMP，这样在保存的时候就会将时分秒也包含进去。<br/>
+                                如果你xml中使用了< resultMap>，为了防止意外，最好将相应的字段也修改：<br/>
+                                    < result column="XXDATE" jdbcType="TIMESTAMP" property="xxdate"/><br/>
+                            5.使用方法: http://www.360doc.com/content/15/0728/15/12642656_487954693.shtml<br/>
+                            pageHelper会使用ThreadLocal获取到同一线程中的变量信息，各个线程之间的Threadlocal不会相互干扰，<br/>
+                            也就是Thread1中的ThreadLocal1之后获取到Tread1中的变量的信息，不会获取到Thread2中的信息<br/>
+                            所以在多线程环境下，各个Threadlocal之间相互隔离，可以实现，<br/>
+                            不同thread使用不同的数据源或不同的Thread中执行不同的SQL语句<br/>
+                            所以，PageHelper利用这一点通过拦截器获取到同一线程中的预编译好的SQL语句之后<br/>
+                            将SQL语句包装成具有分页功能的SQL语句，并将其再次赋值给下一步操作，所以实际执行的SQL语句就是有了分页功能的SQL语句<br/>
+                            PageHelper只对紧跟着的第一个SQL语句起作用<br/>
+                            如上：所以若一个方法中涉及到多个查询，需要小心，避免为不需要分页的添加了分页，而真正需要分页的却没有被分页<br/>
+                            6.首先该分页插件支持以下两种调用方式：<br/>
+                            //第一种，RowBounds方式的调用List list = sqlSession.selectList("x.y.selectIf", null, new RowBounds(1, 10));//<br/>
+                            第二种，Mapper接口方式的调用，推荐这种使用方式。<br/>
+                            PageHelper.startPage(1, 10);List list = countryMapper.selectIf(1);<br/>
+                            下面分别对这两种方式进行详细介绍：<br/>
+
+
+                            </td>
+                        </tr>
+                        <tr class="gradeX">
+                            <td><input type="checkbox"/></td>
+                            <td>项目总结----六月（5)-6.19</td>
+                            <td> (七) Spring Boot<br/>
+                                学习网址：http://www.oschina.net/p/mybatis_pagehelper<br/>
+                                http://blog.csdn.net/joker_zhou/article/details/50418005</br>
+                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
+                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 、<br/>
+                                3.
+                                4.
+                                5.
+                            </td>
+                        </tr>
+
                         </tbody>
                     </table>
                 </div>

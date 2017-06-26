@@ -2,7 +2,9 @@ package cn.wj.mvc.controller;
 
 import cn.wj.domain.Menu;
 import cn.wj.domain.ResponseObj;
+import cn.wj.domain.RoleInMenu;
 import cn.wj.service.MenuService;
+import cn.wj.service.RoleInMenuService;
 import cn.wj.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,11 @@ import java.util.List;
 public class MenuController {
 	@Autowired
 	private MenuService menuService;
+	@Autowired
+	private RoleInMenuService roleInMenuService;
+
 	private ResponseObj responseObj;
+
 
 	//
 	//@RequestMapping(value = "/getAllMenu", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
@@ -52,7 +58,37 @@ public class MenuController {
 	//	return mav;
 	//}
 
+	@RequestMapping(value = "/getRoleInMenu"
+			, method = RequestMethod.POST,
+			produces = "application/json;charset=utf-8")
+	@ResponseBody//表明 该方法直接返回的是响应体的内容'
+	public Object findRoleInMenu(HttpServletRequest request, HttpServletResponse response, RoleInMenu roleInMenu,HttpSession session) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<RoleInMenu>();
+		List<RoleInMenu> roleMenuList = roleInMenuService.getAllRoleMenu(roleInMenu);
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("跳转关联菜单");
+		responseObj.setAllRoleInMenuList(roleMenuList);
+		responseObj.setData(roleMenuList);//提取到
+		System.out.println("===控制台打印setAllRole In menu list,allrole in menu===" + roleMenuList);//重新组装的权限菜单
+		session.setAttribute("roleMenuList", roleMenuList);
+		System.out.println("===页面要显示的session信息,MenuController里面，allroleinmenu===" + roleMenuList);
+		result = new GsonUtils().toJson(responseObj);
+		return result;
+	}
 
+
+
+	/**
+	 * 6.10  得到权限菜单
+	 *
+	 * @param request
+	 * @param response
+	 * @param menu
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/getMenu"
 			, method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
@@ -80,9 +116,9 @@ public class MenuController {
 
 		responseObj.setData(menu);//提取到
 
-		System.out.println("===存入setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
+		System.out.println("===控制台打印setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
 		session.setAttribute("allMenu", allMenuList);
-		System.out.println("===存入session信息,MenuController里面，allmenu===" + allMenuList);
+		System.out.println("===页面要显示的session信息,MenuController里面，allmenu===" + allMenuList);
 		result = new GsonUtils().toJson(responseObj);
 		return result;
 

@@ -149,22 +149,41 @@ public class UserActionLog implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserActionLog{" +
-				"id=" + id +
-				", accountName='" + accountName + '\'' +
-				", sessionId='" + sessionId + '\'' +
-				", ipAddrV4='" + ipAddrV4 + '\'' +
-				", ipAddrV6='" + ipAddrV6 + '\'' +
-				", osName='" + osName + '\'' +
-				", osVersion='" + osVersion + '\'' +
-				", broName='" + broName + '\'' +
-				", broVersion='" + broVersion + '\'' +
-				", requestBody='" + requestBody + '\'' +
-				", description='" + description + '\'' +
-				", other='" + other + '\'' +
-				", method='" + method + '\'' +
-				", time=" + time +
+		return "{"
+
+				+ '\"' + "id"  + '\"' + ":" + '\"' + id + '\"'
+				+ "," + '\"' +"accountName"+ '\"' + ":" + '\"' + accountName + '\"'
+				+ "," + '\"' +"sessionId" + '\"' + ":" + '\"' + sessionId + '\"'
+				+ "," + '\"' +"ipAddrV4" + '\"' + ":" + '\"' + ipAddrV4 + '\"'
+				+ "," + '\"' +"ipAddrV6"+ '\"' + ":" + '\"' + ipAddrV6 + '\"'
+				+ "," + '\"' +"osName"+ '\"' + ":" + '\"' + osName + '\"'
+				+ "," + '\"' +"osVersion" + '\"' + ":" + '\"' + osVersion + '\"'
+				+ "," + '\"' +"broName" + '\"' + ":" + '\"' + broName + '\"'
+				+ "," + '\"' +"broVersion"+ '\"' + ":" + '\"' + broVersion+ '\"'
+				+ "," + '\"' +"requestBody" + '\"' + ":" + '\"' +requestBody + '\"'
+				+ "," + '\"' +"description" + '\"' + ":" + '\"' + description + '\"'
+				+ "," + '\"' +"other" + '\"' + ":" + '\"' +other+ '\"'
+				+ "," + '\"' +"method"+ '\"' + ":" + '\"' + method+ '\"'
+				+ "," + '\"' +"time"+ '\"' + ":" + '\"' + time + '\"'+
 				'}';
 	}
-
+	//@Override
+	//public String toString() {
+	//	return "UserActionLog{" +
+	//			"id=" + id +
+	//			", accountName='" + accountName + '\'' +
+	//			", sessionId='" + sessionId + '\'' +
+	//			", ipAddrV4='" + ipAddrV4 + '\'' +
+	//			", ipAddrV6='" + ipAddrV6 + '\'' +
+	//			", osName='" + osName + '\'' +
+	//			", osVersion='" + osVersion + '\'' +
+	//			", broName='" + broName + '\'' +
+	//			", broVersion='" + broVersion + '\'' +
+	//			", requestBody='" + requestBody + '\'' +
+	//			", description='" + description + '\'' +
+	//			", other='" + other + '\'' +
+	//			", method='" + method + '\'' +
+	//			", time=" + time +
+	//			'}';
+	//}
 }

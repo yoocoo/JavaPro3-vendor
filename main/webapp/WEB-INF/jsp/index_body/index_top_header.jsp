@@ -110,7 +110,7 @@
                 <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i
                         class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
                 <li class="divider"></li>
-                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a>
+                <li><a class="sTrash" title="" href="<%=request.getContextPath()%>/userAction/listAllUser"><i class="icon-trash"></i> 切换菜单</a>
                 </li>
             </ul>
         </li>

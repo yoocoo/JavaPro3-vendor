@@ -1,15 +1,14 @@
 package cn.wj.mvc.controller;
 
-import cn.wj.dao.UserDao;
 import cn.wj.domain.*;
-import cn.wj.service.FactoryService;
-import cn.wj.service.UserService;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
+import cn.wj.utils.Datagrid;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
-import org.apache.ibatis.annotations.Param;
+import com.sun.tools.internal.ws.processor.model.Model;
+import com.sun.tools.internal.ws.processor.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.Name;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,23 +34,49 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/userAction")
-public class UserController {
+public class UserController extends BaseController {
 	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	//HTTP Status 500 - Request processing failed; nested exception is java.lang.NullPointerException
-
 	private UserServiceImpl userService;//自动载入 用户表格Service对象
 	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
-
 	private AgencyServiceImpl agencyService;//载入 运营商Service对象
 	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
-
 	private FactoryServiceImpl factoryService;//载入 生产商Service对象
-
 	private ResponseObj responseObj;
 
+	@RequestMapping(value = "listpage")
+	public ModelAndView listpage(HttpServletRequest request, User user) {
+		ModelAndView view = new ModelAndView("user_system/sysuser_list_user");
+		//view.addObject("listpage", PageInfo(request, user, 1, 5));
+		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
+		return view;
+	}
+
+	@RequestMapping(value = "/listAllUser",
+			produces = "application/json;cahset=uft-8"
+	)
+	private void PageInfo(HttpServletRequest request, HttpServletResponse response, User user,
+						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+						  @RequestParam(value = "limit", defaultValue = "5") Integer pageSize) {
+		Datagrid datagrid = userService.getAllUserList(user, pageNum, pageSize);
+		System.out.println("======控制台打印=====pageNum==========" + pageNum);
+		System.out.println("=======控制台打印====pageSize=========" + pageSize);
+		System.out.println("=======控制台打印====== result =datagrid============" + new GsonUtils().toJson(datagrid));
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/json");
+			response.getWriter().write(new GsonUtils().toJson(datagrid));
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/**
-	 * ModelAndView 代表一个web页面(初期页面跳转4.1)
-	 * setViewName代表设置一个JSP页面的名称
+	 * ModelAndView 代表一个web 页面(初期页面跳转4.1)
+	 * setViewName 代表  e 设置一个JSP页面的名称
 	 * 这是个 创建用户的模板
 	 *
 	 * @param response http响应
@@ -423,7 +449,7 @@ public class UserController {
 			System.out.println("===打印要增加的ID 子=====" + aId);// 打印要增加的ID 子
 			System.out.println("===打印确定要重写 谁的 factory=====" + aName);// 打印谁要重写要增加的ID 子
 			userService.sysuseraddYun(user);
-			userService.updateAgencyId(aId,aName);
+			userService.updateAgencyId(aId, aName);
 			//userService.addAgencyToFactoryId(user);
 
 		} catch (Exception e) {
@@ -593,3 +619,26 @@ public class UserController {
 		return result;
 	}
 }
+//public ModelAndView getUserList(HttpServletRequest request, HttpServletResponse response){
+//	ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
+//	String currentpage  =  request.getParameter("sysuser_list_user");
+//	//String result ;
+//	PageObject<User> page;
+//	Object listPage = mav.getModel().get("sysuser_list_user");
+//	if (listPage == null){
+//		page = new PageObject<>();
+//		if(!("".equals(currentpage))&&currentpage != null){
+//			page.setPage(Integer.parseInt(currentpage));
+//		}
+//	}else {
+//		page = (PageObject<User>)  listPage;
+//	//page = GsonUtils.gson.toJson(page);
+//	}
+//	mav.addObject("page",page);
+//	//mav.addObject("contextPath",request.getContextPath());
+//	mav.addObject("list",userService.getAllUserList(page));
+//	mav.setViewName("/list");
+//
+//	return  mav;
+//
+//}

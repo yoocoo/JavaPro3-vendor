@@ -17,7 +17,7 @@ public interface ActionLogDao extends Dao<UserActionLog> {
 
 	/**
 	 * sql 分页查询
-	 *
+	 *sql映射文件里加入这两个参数
 	 * @param offset 起始位置
 	 * @param limit  每页数量
 	 * @return

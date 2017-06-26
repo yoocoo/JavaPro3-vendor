@@ -2,7 +2,16 @@ package cn.wj.dao;
 
 import cn.wj.domain.RoleInMenu;
 
-public interface RoleInMenuDao {
+import java.util.List;
+
+public interface RoleInMenuDao extends Dao<RoleInMenuDao> {
+    /**
+     * 得到 角色菜单 role_in_menu 所有信息
+     * 2017.06.15
+     * @param roleInMenu
+     * @return
+     */
+     List<RoleInMenu> getAllRoleMenu(RoleInMenu roleInMenu);
 
 
 
