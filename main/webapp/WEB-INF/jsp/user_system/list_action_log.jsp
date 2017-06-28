@@ -10,9 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%--引入公共CSS 样式--%>
     <%@ include file="/WEB-INF/jsp/common/common_css.jsp" %>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/static/css/bootstraptable/bootstrap-table.css'/>">
 
-    <script type="application/javascript" src="<c:url value="/static/js/jquery-3.1.1.min.js"/>"></script>
+    <%--<link type="text/css" rel="stylesheet" href="<c:url value='/static/css/bootstraptable/bootstrap-table.css'/>">--%>
+    <%--===6.26--"/static/css/bootstraptable/bootstrap-table.css "可有可无，样式还是那么丑--%>
+
+    <%--======6.15jquery.min.js 版本问题测试=====--%>
+    <%--<script type="text/javascript" src="<c:url value="/static/js/jquery.js"/>"></script>--%>
+    <%--引用/static/js/jquery.js 数据不显示--%>
+
+    <script type="text/javascript" src="<c:url value='/static/js/common/jquery.min.js'/>"></script>
+    <%--<script type="text/javascript" src="<c:url value='/static/js/bootstraptable/jquery.min.js'/>"></script>--%>
+    <%--======6.15jquery.min.js 版本问题测试=====--%>
+    <%--<script type="application/javascript" src="<c:url value="/static/js/jquery-3.1.1.min.js"/>"></script>--%>
     <script type="text/javascript" src="<c:url value='/static/js/doT.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value="/static/js/json2.js"/>"></script>
 
@@ -44,7 +53,7 @@
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
-                        <h5>日志数据分析</h5>
+                        <h5>日志数据分析(doT.min.js版本 物理分页， 页面样式：需要解决)</h5>
                         <div align="right">
                             <i class="icon-arrow-left">
                                 <a onclick="goToLastPage()" style="width: 110px;">上一页</a>
@@ -62,10 +71,10 @@
                     <div class="widget-content nopadding">
                         <div id="blog-table-list" style="font-family: '微软雅黑';font-size: small">
 
-                                <table >
+                                <table class="table table-bordered  data-table">
                                     <script id="pagetmpl" type="text/x-dot-template">
                                     <thead>
-                                    <tr border="1">
+                                    <tr>
                                         <th>日志id</th>
                                         <th>登陆者</th>
                                         <th>SessionId</th>
@@ -193,23 +202,14 @@
     <%--============================================================--%>
     <!-- 引入页面底部文件Footer-part-->
     <%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
-
     <!--end-Footer-part-->
-    <%--<script type="text/javascript" src="<c:url value="/static/js/jquery.js"/>"></script>--%>
-    <script type="text/javascript" src="<c:url value="/static/js/jquery_min_2_1_4.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/static/js/json2.js"/>"></script>
-    <script type="text/javascript" src="<c:url value="/static/js/doT.min.js"/>"></script>
+
+
     <%--引入公共的js脚本，防止页面部分功能冲突--%>
     <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
-    <%--bootstrap页面基础脚本--%>
-    <%--======6.15jquery.min.js 版本问题测试=====--%>
-    <%--<script type="text/javascript" src="<c:url value='/static/js/bootstraptable/jquery.min.js'/>"></script>--%>
-    <%--======6.15jquery.min.js 版本问题测试=====--%>
 
-
-    <%--<script type="text/javascript" src="<c:url value='/static/js/common/jquery.min.js'/>"></script>--%>
     <%--==========以下三种结合 使用第一种jquery.dataTables table表现形式--%>
-    <%--<script type="text/javascript" src="<c:url value='/static/js/select2.min.js'/>"></script>--%>
+    <script type="text/javascript" src="<c:url value='/static/js/select2.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/static/js/jquery.dataTables.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/static/js/matrix.tables.js'/>"></script>
     <%--==========以下三种结合 使用第一种bootstrap-table表现形式--%>

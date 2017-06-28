@@ -72,7 +72,8 @@ public class ActionLogServiceImpl implements ActionLogService {
 	public List<UserActionLog> findAll(int pageNum, int pageSize) {
 		//因为数据库内容是从第一条出的数据，所以我们查询的 起始位置 = 页码 * 条数 + 1；
 		pageNum -= 1;
-		return actionLogDao.findAll(pageNum * pageSize + 1, pageSize);
+		return actionLogDao.findAll(pageNum * pageSize, pageSize);
+		//这里不需要加1，不然从第二条开始展示！
 	}
 
 	public int getAllCount() {

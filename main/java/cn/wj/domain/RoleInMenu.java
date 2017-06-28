@@ -35,7 +35,7 @@ public class RoleInMenu implements Serializable {
 
 	@Override
 	public String toString() {
-		return "{"
+		return "data={"
 					 + '\"' +   "id"    + '\"'+ ":" + '\"' + id + '\"'
 				+"," + '\"' +  "roleId" +'\"' + ":" + '\"'+ roleId +'\"'
 				+"," + '\"' +  "menuId" +'\"' + ":" + '\"'+ menuId  +'\"'

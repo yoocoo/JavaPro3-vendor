@@ -301,11 +301,11 @@
                                     </div>
                                 </div>
                                 <div class="control-group success">
-                                    <label class="control-label span4">家庭住址:</label>
+                                    <label class="control-label span4">通信地址:</label>
                                     <div class="controls">
                                         <input type="text" placeholder="" id="adress" name="postAdress"
                                                data-title=""
-                                               class="span3 tip"
+                                               class="span6 tip"
                                                data-original-title="请输入正确的18位身份证信息">
                                         <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字，方便收寄货品</span>
                                     </div>

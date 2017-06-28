@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/userAction")
-public class UserController extends BaseController {
+public class UserController {
 	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	//HTTP Status 500 - Request processing failed; nested exception is java.lang.NullPointerException
 	private UserServiceImpl userService;//自动载入 用户表格Service对象
@@ -44,6 +44,14 @@ public class UserController extends BaseController {
 	private FactoryServiceImpl factoryService;//载入 生产商Service对象
 	private ResponseObj responseObj;
 
+	/**
+	 * 接受 用户列表的页面
+	 * 创建日期： 2017.06.24
+	 * 创建者： 王娇
+	 * @param request
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value = "listpage")
 	public ModelAndView listpage(HttpServletRequest request, User user) {
 		ModelAndView view = new ModelAndView("user_system/sysuser_list_user");
@@ -52,6 +60,16 @@ public class UserController extends BaseController {
 		return view;
 	}
 
+	/**
+	 * 获得用户列表的 json 数据
+	 * 创建日期： 2017.06.25
+	 * 创建者： 王娇
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @param pageNum
+	 * @param pageSize
+	 */
 	@RequestMapping(value = "/listAllUser",
 			produces = "application/json;cahset=uft-8"
 	)

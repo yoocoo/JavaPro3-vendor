@@ -183,18 +183,18 @@
                 bg: '#AE81FF',
                 time: 3
             });
-            return false;
+            if ($('#passwd6').val() != $('#passwd5').val()) {
+                $('#passwd6').focus();
+                $("#passwd6").tips({
+                    side: 2,
+                    msg: '两次密码不一致',
+                    bg: '#AE81FF',
+                    time: 3
+                });
+                return false;
+            }
         }
-        if ($('#passwd6').val() != $('#passwd5').val()) {
-            $('#passwd6').focus();
-            $("#passwd6").tips({
-                side: 2,
-                msg: '两次密码不一致',
-                bg: '#AE81FF',
-                time: 3
-            });
-            return false;
-        }
+
 
 
         var sqq = /^1[34578]\d{9}$/;
@@ -422,12 +422,12 @@
                                     </div>
                                 </div>
                                 <div class="control-group info">
-                                    <label class="control-label span4">家庭住址:</label>
+                                    <label class="control-label span4">通信地址:</label>
                                     <div class="controls">
                                         <input type="text" placeholder="" id="adress1" name="postAdress"
                                                data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入正确的18位身份证信息">
+                                               class="span6 tip"
+                                               data-original-title="请输入正确的通信地址">
                                         <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字，方便收寄货品</span>
                                     </div>
                                 </div>
@@ -725,11 +725,11 @@
                                     </div>
                                 </div>
                                 <div class="control-group warning">
-                                    <label class="control-label span4">家庭住址:</label>
+                                    <label class="control-label span4">通信地址:</label>
                                     <div class="controls">
                                         <input type="text" placeholder="" id="adress2" name="postAdress"
                                                data-title=""
-                                               class="span3 tip"
+                                               class="span6 tip"
                                                data-original-title="请输入正确的18位身份证信息">
                                         <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字，方便收寄货品</span>
                                     </div>

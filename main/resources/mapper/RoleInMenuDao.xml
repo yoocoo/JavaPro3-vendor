@@ -1,90 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.wj.dao.RoleInMenuDao" >
-  <resultMap id="RoleInMenuMap" type="cn.wj.domain.RoleInMenu" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="role_id" property="roleId" jdbcType="INTEGER" />
-    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="RoleInMenu_Column_List" >
-    id, role_id, menu_id
-  </sql>
+<mapper namespace="cn.wj.dao.RoleInMenuDao">
+    <resultMap id="RoleInMenuMap" type="cn.wj.domain.RoleInMenu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="menu_id" property="menuId" jdbcType="INTEGER"/>
+    </resultMap>
+    <!--<sql id="RoleInMenu_Column_List">-->
+    <!--id, role_id, menu_id-->
+  <!--</sql>-->
 
-  <!--1.1.1  6.10得到菜单-->
-  <select id="getAllRoleMenu" resultMap="RoleInMenuMap">
+    <!--1.1.1  6.10 得到关联菜单表中内容-->
+    <select id="getAllRoleMenu" resultMap="RoleInMenuMap">
     SELECT  id, role_id, menu_id
     FROM role_in_menu
-    WHERE  1=1
+    ORDER BY id
+        ASC
+        LIMIT #{offset}, #{limit};
+  </select>
+    <!--1.1.2 6.26关联菜单表中总记录数字-->
+    <select id="getAllCount" resultType="int">
+    SELECT COUNT(*)
+    FROM role_in_menu;
   </select>
 
 
-
-
-
-
-
-
-
-
-
-  <!--==================自动生成=================================-->
-  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+    <!--==================自动生成=================================-->
+    <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
     <!--select -->
     <!--<include refid="RoleInMenu_Column_List" />-->
     <!--from role_in_menu-->
     <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</select>-->
-  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+    <!--</select>-->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
     <!--delete from role_in_menu-->
     <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</delete>-->
-  <!--<insert id="insert" parameterType="cn.wj.domain.RoleInMenu" >-->
+    <!--</delete>-->
+    <!--<insert id="insert" parameterType="cn.wj.domain.RoleInMenu" >-->
     <!--insert into role_in_menu (id, role_id, menu_id-->
-      <!--)-->
+    <!--)-->
     <!--values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}-->
-      <!--)-->
-  <!--</insert>-->
-  <!--<insert id="insertSelective" parameterType="cn.wj.domain.RoleInMenu" >-->
+    <!--)-->
+    <!--</insert>-->
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.RoleInMenu" >-->
     <!--insert into role_in_menu-->
     <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
-      <!--<if test="id != null" >-->
-        <!--id,-->
-      <!--</if>-->
-      <!--<if test="roleId != null" >-->
-        <!--role_id,-->
-      <!--</if>-->
-      <!--<if test="menuId != null" >-->
-        <!--menu_id,-->
-      <!--</if>-->
+    <!--<if test="id != null" >-->
+    <!--id,-->
+    <!--</if>-->
+    <!--<if test="roleId != null" >-->
+    <!--role_id,-->
+    <!--</if>-->
+    <!--<if test="menuId != null" >-->
+    <!--menu_id,-->
+    <!--</if>-->
     <!--</trim>-->
     <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
-      <!--<if test="id != null" >-->
-        <!--#{id,jdbcType=INTEGER},-->
-      <!--</if>-->
-      <!--<if test="roleId != null" >-->
-        <!--#{roleId,jdbcType=INTEGER},-->
-      <!--</if>-->
-      <!--<if test="menuId != null" >-->
-        <!--#{menuId,jdbcType=INTEGER},-->
-      <!--</if>-->
+    <!--<if test="id != null" >-->
+    <!--#{id,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="roleId != null" >-->
+    <!--#{roleId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="menuId != null" >-->
+    <!--#{menuId,jdbcType=INTEGER},-->
+    <!--</if>-->
     <!--</trim>-->
-  <!--</insert>-->
-  <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.RoleInMenu" >-->
+    <!--</insert>-->
+    <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.RoleInMenu" >-->
     <!--update role_in_menu-->
     <!--<set >-->
-      <!--<if test="roleId != null" >-->
-        <!--role_id = #{roleId,jdbcType=INTEGER},-->
-      <!--</if>-->
-      <!--<if test="menuId != null" >-->
-        <!--menu_id = #{menuId,jdbcType=INTEGER},-->
-      <!--</if>-->
+    <!--<if test="roleId != null" >-->
+    <!--role_id = #{roleId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="menuId != null" >-->
+    <!--menu_id = #{menuId,jdbcType=INTEGER},-->
+    <!--</if>-->
     <!--</set>-->
     <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</update>-->
-  <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.RoleInMenu" >-->
+    <!--</update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.RoleInMenu" >-->
     <!--update role_in_menu-->
     <!--set role_id = #{roleId,jdbcType=INTEGER},-->
-      <!--menu_id = #{menuId,jdbcType=INTEGER}-->
+    <!--menu_id = #{menuId,jdbcType=INTEGER}-->
     <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</update>-->
+    <!--</update>-->
 </mapper>

@@ -724,11 +724,16 @@ hr {
 }
 
 /* Charts & graphs **/
-.chart, .pie, .bars, #donut, #interactive, #placeholder, #placeholder2 {
+
+.chart, .pie,  #donut, #interactive, #placeholder, #placeholder2 {
     height: 300px;
     max-width: 100%;
 }
-
+/*!*6.26 .bar 与 class="bootstrap-table"  的class="fixed-table-toolbar" 引用冲突*!*/
+/*.bars{*/
+                                                                      /*height: 300px;*/
+                                                                      /*max-width: 100%;*/
+/*}*/
 #choices {
     border-top: 1px solid #dcdcdc;
     margin: 10px 0;
@@ -787,12 +792,14 @@ hr {
     border: none;
     margin-top: 0;
     margin-bottom: 0;
+
 }
 
 .widget-title, .modal-header, .table th, div.dataTables_wrapper .ui-widget-header {
     background: #efefef;
     border-bottom: 1px solid #CDCDCD;
-    height: 36px;
+    /*height: 36px;*/
+    height: 26px;
 }
 
 .widget-title .nav-tabs {
@@ -862,7 +869,10 @@ hr {
 }
 
 .widget-content {
-    padding: 15px;
+    /*padding: 15px;*/
+    padding: 10px;
+    /*新增6.26*/
+    font-size: 12px;
     border-bottom: 1px solid #cdcdcd;
 }
 

@@ -93,15 +93,15 @@ public class MainController {
 	//public String getUserList() {
 	//	return "userlist";
 	//}
-	/**
-	 * 跳转的菜单管理
-	 *
-	 * @return
-	 */
-	@RequestMapping(value = "/listMenu/getMenu", method = RequestMethod.GET)
-	public String getMenu() {
-		return "user_system/sysuser_res_menu";
-	}
+	///**
+	// * 跳转的菜单管理
+	// *
+	// * @return
+	// */
+	//@RequestMapping(value = "/listMenu/getMenu", method = RequestMethod.GET)
+	//public String getMenu() {
+	//	return "user_system/sysuser_res_menu";
+	//}
 }
 //package cn.wj.mvc.controller;
 //
