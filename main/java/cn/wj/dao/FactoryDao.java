@@ -1,7 +1,7 @@
 package cn.wj.dao;
 
 import cn.wj.domain.Factory;
-
+import org.apache.ibatis.annotations.Param;
 public interface FactoryDao extends Dao<Factory> {
 	/**
 	 * date： 2017.05.30
@@ -32,7 +32,44 @@ public interface FactoryDao extends Dao<Factory> {
 	 */
 	String findOneByName(String accountName);
 
+	/**
+	 *6.10更新五张表名
+	 * @param cashTableName
+	 * @param orderTableName
+	 * @param saleTableName
+	 * @param alarmTableName
+	 * @param cashSaleTableName
+	 * @return
+	 */
+	int updateFactoryTableName(@Param("cashTableName") String cashTableName,
+							   @Param("orderTableName") String orderTableName,
+							   @Param("saleTableName") String saleTableName,
+							   @Param("alarmTableName") String alarmTableName,
+							   @Param("cashSaleTableName") String cashSaleTableName,
+							   @Param("accountName") String accountName
+	);
+
+	/**
+	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址
+	 * @param factoryLogoPath
+	 * @param accountName
+	 * @return
+	 */
+	int updateFactoryImage(@Param("factoryLogoPath") String factoryLogoPath,@Param("accountName") String accountName);
+
+	/**
+	 * 2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值
+	 * @param accountName
+	 * @return
+	 */
+	 int selectFactoryIdByName(@Param("accountName")  String accountName);
 	//================================自动生成=========================================
+
+	/**
+	 *
+	 * @param factoryId
+	 * @return
+	 */
 	int deleteByPrimaryKey(Integer factoryId);
 
 	int insert(Factory record);

@@ -59,7 +59,8 @@ public class Agency implements Serializable {
 	@Override
 	public String toString() {
 		return "Agency{" +
-				"agencyId='" + agencyId + '\'' + "agencyName='" + agencyName +
-				", accountName='" + accountName + '}';
+				"agencyId='" + agencyId + '\'' + ",agencyName='" + agencyName +
+				", accountName='" + accountName + '\''+
+				'}';
 	}
 }

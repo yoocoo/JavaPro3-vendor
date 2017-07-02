@@ -15,7 +15,7 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
     <ul>
-        <li class="active"><a href="/mvc/home"><i class="icon icon-home"></i>首页</a></li>
+        <li class="active"><a href="/ssm_vendor/mvc/home"><i class="icon icon-home"></i>首页</a></li>
 
         <%--五月中旬 权限菜单标准--%>
         <%--======代码主次菜单参照标准================================--%>
@@ -30,7 +30,10 @@
         <%--</li>--%>
         <%--=============5.20日权限菜单修改完成===========================--%>
         <c:forEach items="${tree}" var="Menu">
-            <li class="submenu" id="lm${Menu.id }"><a href="/mvc/home"><i class="${Menu.iconCls}"></i>
+            <li class="submenu" id="lm${Menu.id }">
+                <%--<a href="${Menu.url}">--%>
+                <a href="/ssm_vendor/mvc/home">
+                    <i class="${Menu.iconCls}"></i>
                 <span>${Menu.text}</span>
                 <span class="label label-important"></span></a>
                 <ul>

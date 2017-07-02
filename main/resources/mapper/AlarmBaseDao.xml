@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.AlarmBaseDao" >
+  <resultMap id="AlarmBaseDaoResultMap" type="cn.wj.domain.AlarmBase" >
+    <id column="alarm_id" property="alarmId" jdbcType="INTEGER" />
+    <result column="vendor_id" property="vendorId" jdbcType="INTEGER" />
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="occur_time" property="occurTime" jdbcType="TIMESTAMP" />
+    <result column="ack_time" property="ackTime" jdbcType="TIMESTAMP" />
+    <result column="alarm_code" property="alarmCode" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="acked" property="acked" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="ack_user" property="ackUser" jdbcType="VARCHAR" />
+    <result column="event_id" property="eventId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="AlarmBaseDao_Column_List" >
+    alarm_id, vendor_id, channel_id, occur_time, ack_time, alarm_code, description, acked, 
+    reason, ack_user, event_id
+  </sql>
+
+
+
+  <!--===========================自动成成======================================-->
+  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+    <!--select -->
+    <!--<include refid="AlarmBaseDao_Column_List" />-->
+    <!--from alarm_base-->
+    <!--where alarm_id = #{alarmId,jdbcType=INTEGER}-->
+  <!--</select>-->
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+    <!--delete from alarm_base-->
+    <!--where alarm_id = #{alarmId,jdbcType=INTEGER}-->
+  <!--</delete>-->
+  <!--<insert id="insert" parameterType="cn.wj.domain.AlarmBase >-->
+    <!--insert into alarm_base (alarm_id, vendor_id, channel_id, -->
+      <!--occur_time, ack_time, alarm_code, -->
+      <!--description, acked, reason, -->
+      <!--ack_user, event_id)-->
+    <!--values (#{alarmId,jdbcType=INTEGER}, #{vendorId,jdbcType=INTEGER}, #{channelId,jdbcType=INTEGER}, -->
+      <!--#{occurTime,jdbcType=TIMESTAMP}, #{ackTime,jdbcType=TIMESTAMP}, #{alarmCode,jdbcType=VARCHAR}, -->
+      <!--#{description,jdbcType=VARCHAR}, #{acked,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, -->
+      <!--#{ackUser,jdbcType=VARCHAR}, #{eventId,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+  <!--<insert id="insertSelective" parameterType="cn.wj.domain.AlarmBase >-->
+    <!--insert into alarm_base-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="alarmId != null" >-->
+        <!--alarm_id,-->
+      <!--</if>-->
+      <!--<if test="vendorId != null" >-->
+        <!--vendor_id,-->
+      <!--</if>-->
+      <!--<if test="channelId != null" >-->
+        <!--channel_id,-->
+      <!--</if>-->
+      <!--<if test="occurTime != null" >-->
+        <!--occur_time,-->
+      <!--</if>-->
+      <!--<if test="ackTime != null" >-->
+        <!--ack_time,-->
+      <!--</if>-->
+      <!--<if test="alarmCode != null" >-->
+        <!--alarm_code,-->
+      <!--</if>-->
+      <!--<if test="description != null" >-->
+        <!--description,-->
+      <!--</if>-->
+      <!--<if test="acked != null" >-->
+        <!--acked,-->
+      <!--</if>-->
+      <!--<if test="reason != null" >-->
+        <!--reason,-->
+      <!--</if>-->
+      <!--<if test="ackUser != null" >-->
+        <!--ack_user,-->
+      <!--</if>-->
+      <!--<if test="eventId != null" >-->
+        <!--event_id,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="alarmId != null" >-->
+        <!--#{alarmId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="vendorId != null" >-->
+        <!--#{vendorId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="channelId != null" >-->
+        <!--#{channelId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="occurTime != null" >-->
+        <!--#{occurTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="ackTime != null" >-->
+        <!--#{ackTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="alarmCode != null" >-->
+        <!--#{alarmCode,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="description != null" >-->
+        <!--#{description,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="acked != null" >-->
+        <!--#{acked,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="reason != null" >-->
+        <!--#{reason,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="ackUser != null" >-->
+        <!--#{ackUser,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="eventId != null" >-->
+        <!--#{eventId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.AlarmBase >-->
+    <!--update alarm_base-->
+    <!--<set >-->
+      <!--<if test="vendorId != null" >-->
+        <!--vendor_id = #{vendorId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="channelId != null" >-->
+        <!--channel_id = #{channelId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="occurTime != null" >-->
+        <!--occur_time = #{occurTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="ackTime != null" >-->
+        <!--ack_time = #{ackTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="alarmCode != null" >-->
+        <!--alarm_code = #{alarmCode,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="description != null" >-->
+        <!--description = #{description,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="acked != null" >-->
+        <!--acked = #{acked,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="reason != null" >-->
+        <!--reason = #{reason,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="ackUser != null" >-->
+        <!--ack_user = #{ackUser,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="eventId != null" >-->
+        <!--event_id = #{eventId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where alarm_id = #{alarmId,jdbcType=INTEGER}-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.AlarmBase >-->
+    <!--update alarm_base-->
+    <!--set vendor_id = #{vendorId,jdbcType=INTEGER},-->
+      <!--channel_id = #{channelId,jdbcType=INTEGER},-->
+      <!--occur_time = #{occurTime,jdbcType=TIMESTAMP},-->
+      <!--ack_time = #{ackTime,jdbcType=TIMESTAMP},-->
+      <!--alarm_code = #{alarmCode,jdbcType=VARCHAR},-->
+      <!--description = #{description,jdbcType=VARCHAR},-->
+      <!--acked = #{acked,jdbcType=VARCHAR},-->
+      <!--reason = #{reason,jdbcType=VARCHAR},-->
+      <!--ack_user = #{ackUser,jdbcType=VARCHAR},-->
+      <!--event_id = #{eventId,jdbcType=VARCHAR}-->
+    <!--where alarm_id = #{alarmId,jdbcType=INTEGER}-->
+  <!--</update>-->
+</mapper>

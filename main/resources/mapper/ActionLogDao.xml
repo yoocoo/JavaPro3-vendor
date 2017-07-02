@@ -36,16 +36,14 @@
         SELECT *
         FROM user_action_log
         ORDER BY id
-        DESC
+        ASC
         LIMIT #{offset}, #{limit};
     </select>
-
-
     <select id="getAllCount" resultType="int">
         SELECT COUNT(*)
         FROM user_action_log;
     </select>
-    <!--5更新session的ID- -->
+    <!--5更新session的ID（暂时未用到）- -->
     <update id="updateLoginSession">
         UPDATE user_action_log
         SET session_id = #{sessionId}

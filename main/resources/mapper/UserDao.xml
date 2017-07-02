@@ -42,7 +42,7 @@
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
     </resultMap>
 
-<!--================================================================================================================-->
+    <!--================================================================================================================-->
     <!-- 知识点：在映射文件中配置很多sql语句 -->
     <!-- 通过select执行数据库查询，
             1.id:标示映射文件中的sql，成为Statement的id
@@ -52,20 +52,23 @@
             5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
             6.resultType：指定sql输出结果的映射的java对象类型，
             7.select指定resultType表示将单条记录映射成java对象-->
-    <!--1.1查找-登录用户，查找用户是否存在-->
+    <!--1.1.1查找-登录用户，查找用户是否存在-->
 
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
         SELECT *
         FROM user
         WHERE account_name = #{accountNname}
     </select>
-    <!--1.1查找-登录用户的所有信息-->
-    <select id="findUserInfo" resultMap="UserMapperMap" parameterType="String">
-         SELECT  *
-     FROM  user
-     WHERE  account_name = #{accountNname}
+
+    <!--1.1.3查找User表中 所有用户  6.12日 加入物理分页（暂时未用到）-->
+    <select id="selectUserByAccountName" resultMap="UserMapperMap" parameterType="String">
+        SELECT *
+        FROM user
+        WHERE 1 = 1
+        AND account_name = #{accountNname,jdbcType=VARCHAR}
+        ORDER BY user_id
     </select>
-    <!--2.1增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <!--2.1 （暂时未用到）增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
@@ -76,31 +79,33 @@
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
         CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
     </insert>
-    <!--2.2.1增加语句-注册管理用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <!--2.2.1增加语句-注册一级管理用户(生产商用户) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="sysuseradd" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
         </selectKey>
-        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
+        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
-        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,#{agencyId},'null',#{email},
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,'null',#{email},
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
     </insert>
-    <!--2.2.2增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
-    <update id="updateAgencyId" parameterType="User">
-        UPDATE  user u    LEFT JOIN  agency a
-         ON u.account_name = a.account_name
-        SET  u.agency_id = a.agency_id
-    </update>
-    <!--2.2.3增加语句-注入factory_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
-    <update id="updateFactoryId" parameterType="User">
-        UPDATE  user u    LEFT JOIN  factory f
-        ON u.account_name = f.account_name
-        SET  u.factory_id = f.factory_id
-    </update>
 
-    <!--2.3.1 系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
+    <!--=================================================-->
+    <!--2.2.2.2.1  (暂时没有用到)增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
+    <select id="selectFactoryIdByName" parameterType="String" resultType="int">
+        SELECT  factory_id
+        FROM  user
+        WHERE account_name = #{accountName}
+    </select>
+    <!--2.2.2.2.2 (暂时没有用到) 增加语句-注入运营商归属的factory_id 到user表中  6.13号  。-->
+    <insert id="addAgencyToFactoryId" parameterType="cn.wj.domain.User">
+    INSERT  into user(factory_id)
+    VALUE (#{factoryId})
+    </insert>
+    <!--=================================================-->
+
+    <!--2.2.2  第一张表 ：系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
     <update id="createOrderTable" parameterType="String">
             create table ${tableName} (
             order_id  int(50) NOT  NULL  AUTO_INCREMENT,
@@ -120,8 +125,9 @@
             channel INT(10) NOT NULL COMMENT '货道数量',
             primary key (order_id)
             )
+            COMMENT=' 自动创建订单表'
         </update>
-    <!--2.3.2系统管理员注册一级管理用户（生产商）动态创建销售表表格 -->
+    <!--2.2.3  第二张表 ：系统管理员注册一级管理用户（生产商）动态创建销售表表格 -->
     <update id="createSaleTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     sale_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '销售ID',
@@ -135,8 +141,9 @@
     agency_id INT(50) NOT NULL COMMENT '运营商或出租商id',
     PRIMARY KEY (sale_id)
     )
+    COMMENT=' 自动创建销售表'
     </update>
-    <!--2.3.3 系统管理员注册一级管理用户（生产商）动态创建金钱表表格 -->
+    <!--2.2.4 第三张表 ：  系统管理员注册一级管理用户（生产商）动态创建金钱表表格 -->
     <update id="createCashTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     cash_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '现金表ID',
@@ -146,8 +153,9 @@
     trans_border TINYINT(2) NULL DEFAULT '0' COMMENT '事物边界，0：开始，1：结束',
     PRIMARY KEY (cash_id)
     )
+    COMMENT=' 自动创建现金表'
     </update>
-    <!--2.34 系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
+    <!--2.2.5 第四张表 ：系统管理员注册一级管理用户（生产商）动态创建现金销售关联表 -->
     <update id="createCashSaleTable" parameterType="String">
     CREATE TABLE ${tableName} (
     cash_id INT(50) NOT NULL COMMENT '现金表id',
@@ -155,15 +163,77 @@
     sale_id INT(50) NULL DEFAULT NULL COMMENT '销售id',
     PRIMARY KEY (id)
     )
+    COMMENT='自动创建现金销售关联表'
     </update>
-    <!--3删除-->
+
+    <!--2.2.6  第五张表 ：系统管理员注册一级管理用户（生产商）动态创建  警告 表 -->
+    <update id="createAlarmTable" parameterType="String">
+    CREATE TABLE ${tableName}  (
+    alarm_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '警告表id值',
+    vendor_id  INT(255) NOT NULL DEFAULT '0' COMMENT '指定的售货机ID',
+    channel_id INT(50) NULL DEFAULT '0' COMMENT '货到ID',
+    occur_time DATETIME NULL DEFAULT NULL COMMENT '发生时间',
+    ack_time DATETIME NULL DEFAULT NULL COMMENT '确认时间',
+    alarm_code VARCHAR(50) NULL DEFAULT '0' COMMENT '报警编码' COLLATE 'utf8_unicode_ci',
+    description VARCHAR(50) NULL DEFAULT '0' COMMENT '故障描述' COLLATE 'utf8_unicode_ci',
+    acked VARCHAR(50) NULL DEFAULT '0' COMMENT '是否已经确认故障' COLLATE 'utf8_unicode_ci',
+    reason VARCHAR(50) NULL DEFAULT '0' COMMENT '确认的原因' COLLATE 'utf8_unicode_ci',
+    ack_user VARCHAR(50) NULL DEFAULT '0' COMMENT '确认用户' COLLATE 'utf8_unicode_ci',
+    event_id VARCHAR(50) NULL DEFAULT '0' COMMENT '事件ID' COLLATE 'utf8_unicode_ci',
+    PRIMARY KEY (`alarm_id`)
+    )
+    COMMENT=' 自动创建警告表'
+    </update>
+
+    <!--2.2.7-注入运营商归属的factory_id 到user表中  6.13号增加语句-注入factory_id 到user表中    -->
+    <update id="updateFactoryId" parameterType="cn.wj.domain.User">
+        UPDATE user SET
+        factory_id = #{factoryId}
+        WHERE  account_name = #{accountName}
+    </update>
+    <!--=================================================-->
+    <!-- 6.10 更新全部factory_id-->
+    <!--<update id="updateFactoryId" parameterType="User">-->
+    <!--UPDATE  user u    LEFT JOIN  factory f-->
+    <!--ON u.account_name = f.account_name-->
+    <!--SET  u.factory_id = f.factory_id-->
+    <!--</update>  -->
+    <!--==========================================-->
+
+    <!--2.3.1  6.13 号增加语句-注册二级管理用户(运营商管理用户) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <insert id="sysuseraddYun" parameterType="cn.wj.domain.User">
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS user_id
+        </selectKey>
+        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
+        nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
+        login_count,post_adress,creat_time,head_image,approved)
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},#{factoryId},0,'null',#{email},
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
+    </insert>
+    <!--2.3.2更新用户表中 agencyId ！增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
+    <update id="updateAgencyId" parameterType="cn.wj.domain.User">
+        UPDATE user SET
+        agency_id = #{agencyId}
+        WHERE  account_name = #{accountName}
+    </update>
+    <!--=================================================-->
+    <!-- 2.3.2更新用户表中 agencyId 6.10号 版本，依据两张表，更新全部的 agency_id-->
+    <!--<update id="updateAgencyId" parameterType="cn.wj.domain.User">-->
+    <!--UPDATE  user u    LEFT JOIN  agency a-->
+    <!--ON u.account_name = a.account_name-->
+    <!--SET  u.agency_id = a.agency_id-->
+    <!--</update>-->
+    <!--=================================================-->
+
+    <!--3.1删除 （物理删除，不建议使用）-->
     <update id="del" parameterType="User">
     UPDATE  user
     SET approved =False
     WHERE  account_name = #{accountName}
   </update>
 
-    <!--4更新用户信息-修改个人资料- 依据用户登录的账户名，来修改个人资料
+    <!--4.1 (全局普通更新) 更新用户信息-修改个人资料- 依据用户登录的账户名，来修改个人资料
      分析:
     1.需要传入用户的accountName，需要传入用户的更新信息.2.parameterType指定user对象，包括accountName和更新信息(注意:accountName必须存在)
     #{accountName}:从输入user对象中获取accountName属性值-->
@@ -181,25 +251,26 @@
    WHERE  account_name = #{accountName}
     </update>
 
-    <!--5查找-该登录用户的头像-->
+    <!--5.1查找-该登录用户的头像(全局普通更新)-->
     <select id="findPathById" resultType="string" parameterType="String">
         SELECT  head_image
         FROM  user
         WHERE  account_name = #{accountNname}
     </select>
-    <!--5更新用户信息-修改个人头像 -->
+    <!--5.2更新用户信息-修改个人头像(全局普通更新) -->
     <update id="updateImage" parameterType="cn.wj.domain.User">
    UPDATE  user
    SET
    head_image =#{headImage}
    WHERE  account_name = #{accountName}
     </update>
-    <!--6.用户列表-->
+
+    <!--6.1 用户列表 查询所有用户-->
     <select id="findAll" resultMap="UserMapperMap">
      SELECT * FROM user
 </select>
 
-    <!--7依据用户名获得菜单~~~~resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西, 而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap 的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。
+    <!--7.1依据用户名获得菜单~~~~resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西, 而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap 的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。
 -->
     <select id="getMenuByUserId" resultMap="MenuMap">
         SELECT
@@ -227,12 +298,32 @@
 		  ORDER BY m.menu_order
     </select>
 
+    <!--//8.1根据用户名获得该用户的ID-->
     <select id="selectUserIdByName" parameterType="String" resultType="int">
         SELECT  user_id
         FROM  user
         WHERE account_name = #{accountName}
     </select>
 
+    <!--9.1  6.20日 物理分页 处理数据  得到所有用户列表 -->
+    <!--<select id="getAllUserList" parameterType="page" resultType="User">-->
+        <!--SELECT *-->
+        <!--FROM user-->
+    <!--</select>-->
+
+    <select id="getAllUserList" resultMap="UserMapperMap" parameterType="cn.wj.domain.User">
+        SELECT *
+        FROM user
+    </select>
+
+    <!--9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0） -->
+    <update id="removeUser" parameterType="cn.wj.domain.User">
+        UPDATE  user
+        SET
+        approved =0
+        WHERE  user_id = #{userId}
+    </update>
+</mapper>
     <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
     <!--insert into user (user_id, account_name, password, -->
     <!--real_name, role_id, factory_id, -->
@@ -376,4 +467,3 @@
     <!--</if>-->
     <!--</trim>-->
     <!--</insert>-->
-</mapper>

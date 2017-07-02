@@ -1,15 +1,19 @@
 package cn.wj.mvc.controller;
 
+import cn.wj.domain.PageSplit;
 import cn.wj.domain.ResponseList;
+import cn.wj.domain.ResponseObj;
 import cn.wj.domain.UserActionLog;
 import cn.wj.service.ActionLogService;
 import cn.wj.utils.GsonUtils;
-import org.apache.ibatis.annotations.Param;
+import cn.wj.utils.PublicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -47,50 +51,81 @@ public class ActionLogController {
 	@Autowired
 	ActionLogService actionLogService;//自动注入ActionLogService
 
+	@RequestMapping(value = "/logMain")
+	public ModelAndView logMain(HttpServletRequest request, UserActionLog userActionLog) throws Exception {
+		ModelAndView mav = new ModelAndView("user_system/list_action_log");
+
+		mav.addObject("logJson", getLogJson(userActionLog,request,1,10));
+		//把首页需要的json数据直接扔到 view里面，在js代码中，可以看到如何使用
+		return mav;
+	}
+
+
 	/**
-	 * 分页查找行为日志，其实druidd里面已经包含了行为日志
+	 * 分页查找行为日志，其实druidd 里面已经包含了行为日志
+	 * 获取日志列表
+	 * 获取日志主页的JSON  按照道理讲这里应该根据页面结构拆分组合的
 	 *
-	 * @param pageNum  页码
-	 * @param pageSize 每一页的条数
-	 * @return
+	 * @param
+	 * @return 返回日志首页JSON
 	 */
-	@RequestMapping(value = "/findLogList",
-			produces = "application/json;charset=utf-8")
+
+	@RequestMapping(value = "/findLogList"
+			, produces = "application/json;charset=utf-8"
+			//, produces = {APPLICATION_JSON_UTF8_VALUE}
+			//, method = {RequestMethod.GET, RequestMethod.POST}
+	)
 	//设置其访问地址形式：http://xxx.cn/actionLog/findLogList,响应请求头 ContentType表明响应是JSON数九，字符编码 utf8
 	@ResponseBody //表明 该方法直接返回的是响应体的内容
-	public Object findLog(@Param("pageNum") int pageNum,@Param("pageSize") int pageSize) {
+	public Object getLogJson(UserActionLog userActionLog, HttpServletRequest request,
+							 int pageNum, int pageSize
+							 //@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
+							 //@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
+							  )
+			throws Exception {
+
+
+		PageSplit page;
+
+		ResponseList<UserActionLog> list = new ResponseList<UserActionLog>();
+		if (PublicUtil.isJsonRequest(request)) {    //确认是否是post的json提交
+			page = new GsonUtils().jsonRequest2Bean(request.getInputStream(), PageSplit.class);  //转换为指定类型的对象
+			pageNum = page.getPageNum();
+			pageSize = page.getPageSize();
+		}
 		if (pageNum <= 0) {
 			pageNum = 1;
 		}
 		if (pageSize == 0) {
 			pageSize = 10;
 		}
-		int toalNum;//总页码
-		ResponseList<UserActionLog> responseObj = new ResponseList<UserActionLog>();
 		try {
+			int toalNum;//总页码
 			toalNum = actionLogService.getAllCount();//先把总条数赋值给总页数，作为缓存变量，减少下面算法的查找次数
-			toalNum = toalNum % pageSize > 0 ? toalNum / pageSize + 1 : toalNum / pageSize;//在每页固定条数下能不能分页完成，有余则加一页码
-			System.out.println("========打印总页码===" + toalNum);
-			List<UserActionLog> result = actionLogService.findAll(pageNum, pageSize);
-			System.out.println("======打印日志结果=====" + result);
-			responseObj.setPageNum(pageNum);
-			responseObj.setTotalNum(toalNum);
-			responseObj.setPageSize(pageSize);
-			if (result == null || result.size() == 0) {
-				responseObj.setCode(responseObj.EMPUTY);
-				responseObj.setMsg("查询结果为空");
-				return new GsonUtils().toJson(responseObj);
+			//toalNum = toalNum % 10 > 0 ? toalNum / 10 + 1 : toalNum / 10;//在每页固定条数下能不能分页完成，有余则加一页码
+			toalNum = toalNum % pageSize > 0 ? toalNum / pageSize + 1 : toalNum / pageSize;     //在每页固定条数下能不能分页完成，有余则加一页码			System.out.println("========打印总页码===" + toalNum);
+			List<UserActionLog> listData = actionLogService.findAll(pageNum, pageSize);//日志页面下，内容
+			System.out.println("======打印日志结果=====" + listData);
+
+
+			if (listData == null || listData.isEmpty()) {
+				list.setCode(ResponseList.EMPUTY);
+				list.setMsg(ResponseList.EMPUTY_STR);
+				return new GsonUtils().toJson(list);
 			}
-			responseObj.setCode(ResponseList.OK);
-			responseObj.setMsg("查询成功");
-			responseObj.setData(result);
-			return new GsonUtils().toJson(responseObj);
+			list.setCode(ResponseList.OK);
+			list.setMsg(ResponseList.OK_STR);
+			list.setTotalNum(toalNum);
+			list.setPageNum(pageNum);
+			list.setPageSize(pageSize);
+			list.setData(listData);
+			return new GsonUtils().toJson(list);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//返回查询失败结果
-			responseObj.setCode(ResponseList.FAILED);
-			responseObj.setMsg("查询失败");
-			return new GsonUtils().toJson(responseObj);
+			//返回查询失败其他结果
+			list.setCode(ResponseObj.FAILED);
+			list.setMsg(ResponseList.FAILED_STR);
+			return new GsonUtils().toJson(list);
 		}
 
 	}

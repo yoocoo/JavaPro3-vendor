@@ -11,7 +11,7 @@
         <result column="sale_table_name" property="saleTableName" jdbcType="VARCHAR"/>
         <result column="alarm_table_name" property="alarmTableName" jdbcType="VARCHAR"/>
         <result column="factory_logo_path" property="factoryLogoPath" jdbcType="VARCHAR"/>
-        <!--<result column="to_factory_id" property="toFactoryId" jdbcType="BIT"/>-->
+        <result column="cash_sale_table_name" property="cashSaleTableName" jdbcType="VARCHAR"/>
         <result column="sFee_return_rate" property="sfeeReturnRate" jdbcType="DOUBLE"/>
         <result column="qR_return_rate" property="qrReturnRate" jdbcType="DOUBLE"/>
         <result column="receive_account" property="receiveAccount" jdbcType="VARCHAR"/>
@@ -20,7 +20,7 @@
     </resultMap>
     <sql id="Factory_Column_List">
     factory_id, factory_name,factory_type,account_name, cash_table_name, order_table_name, sale_table_name, alarm_table_name,
-    factory_logo_path,  sFee_return_rate, qR_return_rate, receive_account,
+    factory_logo_path, cash_sale_table_name, sFee_return_rate, qR_return_rate, receive_account,
     open_bank_name, open_account_name
   </sql>
     <!--1.1.1 用户表新增加 用户，并同时 存入 生产商表格中-->
@@ -29,14 +29,13 @@
             SELECT @@IDENTITY AS factory_id
         </selectKey>
         insert into factory ( factory_name, factory_type,account_name, cash_table_name,
-        order_table_name, sale_table_name, alarm_table_name,
-        factory_logo_path,  sFee_return_rate,
+        order_table_name, sale_table_name,alarm_table_name,
+        factory_logo_path,cash_sale_table_name,sFee_return_rate,
         qR_return_rate, receive_account, open_bank_name,
         open_account_name)
         values ( #{factoryName,jdbcType=VARCHAR}, #{factoryType,jdbcType=VARCHAR},#{accountName,jdbcType=VARCHAR}, '1',
-        '2', '3', '4',
-        #{factoryLogoPath,jdbcType=VARCHAR},  #{sfeeReturnRate,jdbcType=DOUBLE},
-        #{qrReturnRate,jdbcType=DOUBLE}, #{receiveAccount,jdbcType=BIT}, #{openBankName,jdbcType=VARCHAR},
+        '2', '3', '4','/static/images/avatar-0.jpg', '5',#{sfeeReturnRate,jdbcType=DOUBLE},
+        #{qrReturnRate,jdbcType=DOUBLE}, #{receiveAccount,jdbcType=VARCHAR}, #{openBankName,jdbcType=VARCHAR},
         #{openAccountName,jdbcType=VARCHAR})
     </insert>
     <!--1.1.2 查询 当前 生产商的 factoryID-->
@@ -45,6 +44,31 @@
         FROM  factory
         WHERE  account_name =  #{accountName}
     </select>
+    <!--1.1.3 系统管理员注册一级管理用户（生产商） 更新五张表名 -->
+    <update id="updateFactoryTableName" parameterType="String">
+        UPDATE  factory
+        SET
+    cash_table_name=#{cashTableName},
+    order_table_name = #{orderTableName},
+    sale_table_name = #{saleTableName},
+    alarm_table_name = #{alarmTableName},
+    cash_sale_table_name = #{cashSaleTableName}
+   WHERE  account_name = #{accountName}
+    </update>
+    <!--2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址 -->
+    <update id="updateFactoryImage" parameterType="cn.wj.domain.Factory">
+        UPDATE  factory
+        SET
+        factory_logo_path =#{factoryLogoPath}
+        WHERE  account_name = #{accountName}
+    </update>
+    <!--2.2.1 生产商创建运营商账户 更新 所属的 factroy_id值 -->
+    <select id="selectFactoryIdByName" parameterType="String" resultType="int">
+        SELECT  factory_id
+        FROM factory
+        WHERE account_name = #{accountName}
+    </select>
+    <!--====================自动生成================================-->
     <!--SELECT  factory.factory_id-->
     <!--FROM  factory f LEFT  JOIN  user u-->
     <!--WHERE  u.account_name = f.account_name-->

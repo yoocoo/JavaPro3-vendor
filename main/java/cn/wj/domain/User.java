@@ -219,14 +219,15 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User{" +
-				"userId='" + userId + '\'' + "nextUrl='" + nextUrl + '\'' + ", accountName='" + accountName + '\'' +
+				"userId='" + userId + '\'' + ",nextUrl='" + nextUrl + '\'' + ", accountName='" + accountName + '\'' +
 				", password='" + password + '\'' + ", realName='" + realName + '\'' + ", roleId='" + roleId + '\'' +
 				", factoryId=" + factoryId + ", agencyId='" + agencyId + '\'' + ", nickName='" + nickName + '\'' +
 				", email='" + email + '\'' + ", lastLoginTime='" + lastLoginTime + '\'' + ", fixPhone='" + fixPhone + '\'' +
 				", mobilePhone='" + mobilePhone + '\'' + ", qq='" + qq + '\'' + ", postcode='" + postcode + '\'' +
 				", idcard='" + idcard + '\'' + ", loginCount='" + loginCount + '\'' + ", idcard='" + idcard + '\'' +
 				", postAdress='" + postAdress + '\'' + ", creatTime='" + creatTime + '\'' + ", headImage='" + headImage + '\'' +
-				", approved='" + approved + '}';
+				", approved='" + approved + '\''+
+				'}';
 	}
 
 }

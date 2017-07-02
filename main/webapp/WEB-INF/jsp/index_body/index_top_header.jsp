@@ -24,23 +24,28 @@
     //   ============ 修改个人头像 start==========
 
 
-//    var path = $("#path").val();
+    //    var path = $("#path").val();
 
     function upLoadFile() {
+        var loginId1 = $("#loginId1").val();
         fileName = document.getElementById('changeHeadPic').value;
-        alert(fileName)
+        alert("打印新上传的地址"+fileName);
+        alert("打印修改谁的头像地址"+loginId1);
         // var path = $("#headImage").val();
         $.ajaxFileUpload({
             url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",//请求修改个人头像接口地址
-//            data: {
-//                headImage: path
-//            },
+            data: {
+                //                headImage: path,
+                accountName: loginId1
+            },
             secureuri: false,//是否需要安全协议，一般设置为false
             fileElementId: 'changeHeadPic',//文件上传域Id
             dataType: 'json',//返回值类型 一般设置为json
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (data) {
                 alert(data.msg);
+                alert("修改后，请重新登录");
+//                location.reload() //点击按钮刷新页面
 //先根据返回的code确定文件是否上传成功
 //文件上传失败，直接弹出错误提示，根据错误进行相应的事物处理（关闭Loading窗口，弹出提示对话框）
 //文件上传成功后，继续实现loading窗口，接着执行上传表单信息等事物
@@ -97,7 +102,7 @@
                                                    class="dropdown-toggle"><i class="icon icon-envelope"></i> <span
                 class="text">设置</span> <span class="label label-important">3</span> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a class="sAdd" title="" href="/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
+                <li><a class="sAdd" title="" href="/ssm_vendor/static/view/yoocoo.html"><i class="icon-plus"></i> 总结</a></li>
                 <li class="divider"></li>
                 <li><a class="sInbox" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-envelope"></i> 换肤</a>
                 </li>
@@ -105,7 +110,7 @@
                 <li><a class="sOutbox" title="" href="javascript:alert('预留功能，待开发')"><i
                         class="icon-arrow-up"></i> ${userInfo.accountName}</a></li>
                 <li class="divider"></li>
-                <li><a class="sTrash" title="" href="javascript:alert('预留功能，待开发')"><i class="icon-trash"></i> 切换菜单</a>
+                <li><a class="sTrash" title="" href="<%=request.getContextPath()%>/userAction/listAllUser"><i class="icon-trash"></i> 切换菜单</a>
                 </li>
             </ul>
         </li>
@@ -135,8 +140,8 @@
             <%--modal-header end--%>
             <div id="web_update">
                 <div class="modal-body ">
-                    <form id="formId"   class="form-horizontal" >
-                        <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
+                    <form id="formId" class="form-horizontal">
+                        <%--<input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">--%>
                         <div class="control-group">
                             <label class="control-label">用户密码 :</label>
                             <div class="controls"><span>${userMess.password}</span>
@@ -163,8 +168,23 @@
                             <div class="controls">${userMess.postcode}
                             </div>
                         </div>
+                            <%--<div class="control-group">--%>
+                                <%--<label class="control-label">角色ID ：</label>--%>
+                                <%--<div class="controls">${userMess.roleId}--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<div class="control-group">--%>
+                                <%--<label class="control-label">生产商ID ：</label>--%>
+                                <%--<div class="controls">${userMess.factoryId}--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<div class="control-group">--%>
+                                <%--<label class="control-label">运营商ID ：</label>--%>
+                                <%--<div class="controls">${userMess.agencyId}--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
                         <div class="control-group">
-                            <label class="control-label">QQ号码 ：  </label>
+                            <label class="control-label">QQ号码 ： </label>
                             <div class="controls">${userMess.qq}
                             </div>
                         </div>
@@ -174,7 +194,7 @@
                             </div>
                         </div>
                         <div class="control-group ">
-                            <label class="control-label">家庭住址 ：</label>
+                            <label class="control-label">通信地址 ：</label>
                             <div class="controls">${userMess.postAdress}
                             </div>
                         </div>
@@ -218,12 +238,12 @@
                 <%--action=""--%>
                 <%--method="post"--%>
                 >
-
+                    <input type="hidden" id="loginId1" name="accountName" value="${userInfo.accountName}">
                     <div class="modal-prompt-input span5">
                         <div class="control-group ">
                             <label class="control-label">上传头像</label>
                             <ul class="thumbnails">
-                                <li class="span2"><a> <img src="/static/images/avatar-0.jpg" alt=""> </a>
+                                <li class="span2"><a> <img src="/ssm_vendor/static/images/avatar-0.jpg" alt=""> </a>
                                     <div class="actions"><a title="编辑" href="#"><i class="icon-pencil"></i></a> <a
                                             class="lightbox_trigger" title="图片预览" href="${userPath} "><i
                                             class="icon-search"></i></a></div>

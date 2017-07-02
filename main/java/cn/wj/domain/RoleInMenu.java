@@ -1,6 +1,8 @@
 package cn.wj.domain;
 
-public class RoleInMenu {
+import java.io.Serializable;
+
+public class RoleInMenu implements Serializable {
 	private Integer id; // 菜单角色关联ID
 
 	private Integer roleId; //角色ID
@@ -33,8 +35,11 @@ public class RoleInMenu {
 
 	@Override
 	public String toString() {
-		return "RoleInMenu{" +
-				"id='" + id + '\'' + "roleId='" + roleId +
-				", menuId='" + menuId + '}';
+		return "data={"
+					 + '\"' +   "id"    + '\"'+ ":" + '\"' + id + '\"'
+				+"," + '\"' +  "roleId" +'\"' + ":" + '\"'+ roleId +'\"'
+				+"," + '\"' +  "menuId" +'\"' + ":" + '\"'+ menuId  +'\"'
+				+ '}';
+
 	}
 }
