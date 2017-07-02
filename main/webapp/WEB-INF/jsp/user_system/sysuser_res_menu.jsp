@@ -11,8 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>数据表格测试</title>
     <%--引入CSS 样式 start--%>
-
-
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/bootstrap/dist/css/bootstrap.min.css'/>">
     <!-- Font Awesome -->
@@ -33,324 +31,25 @@
           href="<c:url value='/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
-    <%--引入CSS 样式 end --%>
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
+    <%--引入CSS 样式 end --%>
 
-    <!--    ==============修改个人头像版本 模块开始============================-->
-    <script type="text/javascript">
-        //   ============ 修改个人头像 start==========
-        //    var path = $("#path").val();
-        function upLoadFile() {
-            var loginId1 = $("#loginId1").val();
-            fileName = document.getElementById('changeHeadPic').value;
-            alert("打印新上传的地址" + fileName);
-            alert("打印修改谁的头像地址" + loginId1);
-            // var path = $("#headImage").val();
-            $.ajaxFileUpload({
-                url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",//请求修改个人头像接口地址
-                data: {
-                    //                headImage: path,
-                    accountName: loginId1
-                },
-                secureuri: false,//是否需要安全协议，一般设置为false
-                fileElementId: 'changeHeadPic',//文件上传域Id
-                dataType: 'json',//返回值类型 一般设置为json
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                success: function (data) {
-                    alert(data.msg);
-                    alert("修改后，请重新登录");
-//                location.reload() //点击按钮刷新页面
-//先根据返回的code确定文件是否上传成功
-//文件上传失败，直接弹出错误提示，根据错误进行相应的事物处理（关闭Loading窗口，弹出提示对话框）
-//文件上传成功后，继续实现loading窗口，接着执行上传表单信息等事物
-                }
-            });
-        }
-        function onConfirm() {
-            upLoadFile();
-        }
-        function onCancel(e) {
-        }
-        //显示个人修改头像窗口
-        function changeImageInfo() {
-            $('#my-prompt').modal({
-                relateTarge: this,
-//            onConfirm: function () {
-//                upLoadFile();
-//            },
-//            onCancel: function (e) {
-//            }
-            });
-        }
-    </script>
-    <!--========================修改个人头像模块结束===============================-->
 </head>
 
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
-            <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;"><a href="index.html" class="site_title"><i
-                        class="fa fa-paw"></i> <span>Gentelella Alela!</span></a></div>
-                <div class="clearfix"></div>
+        <%--引入左部内容，包括左侧权限菜单，以及修改个人头像模态弹窗--%>
+        <%--引入顶部导航jsp  --%>
+        <%@ include file="/WEB-INF/jsp/index_body/index_left_col.jsp" %>
 
-                <!-- menu profile quick info -->
-                <div class="profile clearfix">
-                    <div class="profile_pic"><img src="${userPath}" alt="。。。" title="点击头像" onClick="changeImageInfo"
-                                                  class="img-circle profile_img">修改头像
-                    </div>
-                    <%--=修改个人头像 模态窗口  start====--%>
-                    <div class="modal hide modal" id="my-prompt" aria-labelledby="myModal-prompt">
-                        <div class="modal-dialog " tabindex="-1">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModal-prompt">修改个人头像</h4>
-                                </div>
-                                <%--modal-header end--%>
-                                <div class="modal-body ">
-                                    <form class="form-horizontal "
-                                          enctype="multipart/form-data"
-                                          accept-charset="utf-8"
-                                    <%--action=""--%>
-                                    <%--method="post"--%>
-                                    >
-                                        <input type="hidden" id="loginId1" name="accountName"
-                                               value="${userInfo.accountName}">
-                                        <div class="modal-prompt-input span5">
-                                            <div class="control-group ">
-                                                <label class="control-label">上传头像</label>
-                                                <ul class="thumbnails">
-                                                    <li class="span2"><a> <img
-                                                            src="/ssm_vendor/static/images/avatar-0.jpg" alt=""> </a>
-                                                        <div class="actions"><a title="编辑" href="#"><i
-                                                                class="icon-pencil"></i></a> <a
-                                                                class="lightbox_trigger" title="图片预览"
-                                                                href="${userPath} "><i
-                                                                class="icon-search"></i></a></div>
-                                                </ul>
-                                                <div class="controls span3 ">
-                                                    <input type="file" name="file" id="changeHeadPic" size="28"/>
-                                                    <%--<input type="text" id="path" name="headImage" value="${file}">--%>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <%--modal-body end--%>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" onclick="onCancel();"
-                                            data-dismiss="modal">返回
-                                    </button>
-                                    <button type="button" class="btn btn-success" onclick="onConfirm();"
-                                            data-dismiss="modal">上传
-                                    </button>
-                                </div>
-                                <%--modal-footer--%>
-                            </div>
-                            <%--modal-content end --%>
-                        </div>
-                        <%--moadal-dialog end--%>
-                    </div>
-                    <%--modal end--%>
-                    <%--=======    修改个人头像模块窗口  end   --%>
-                    <%--查看个人资料  start====--%>
-                    <div class="modal hide modal" id="my-prompt1" aria-labelledby="myModal-prompt1">
-                        <div class="modal-dialog " tabindex="-1">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModal-prompt1">${userInfo.accountName}--个人资料 </h4>
-                                </div>
-                                <%--modal-header end--%>
-                                <div id="web_update">
-                                    <div class="modal-body ">
-                                        <form id="formId" class="form-horizontal">
-                                            <%--<input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">--%>
-                                            <div class="control-group">
-                                                <label class="control-label">用户密码 :</label>
-                                                <div class="controls"><span>${userMess.password}</span></div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">真实姓名 :</label>
-                                                <div class="controls"> ${userMess.realName} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">电子邮箱 ：</label>
-                                                <div class="controls">${userMess.email} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">移动电话 ：</label>
-                                                <div class="controls">${userMess.mobilePhone} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">邮政编码 ：</label>
-                                                <div class="controls">${userMess.postcode} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">角色ID ：</label>
-                                                <div class="controls">${userMess.roleId} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">生产商ID ：</label>
-                                                <div class="controls">${userMess.factoryId} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">运营商ID ：</label>
-                                                <div class="controls">${userMess.agencyId} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">QQ号码 ： </label>
-                                                <div class="controls">${userMess.qq} </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <label class="control-label">身份证号 ：</label>
-                                                <div class="controls">${userMess.idcard} </div>
-                                            </div>
-                                            <div class="control-group ">
-                                                <label class="control-label">家庭住址 ：</label>
-                                                <div class="controls">${userMess.postAdress} </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <%--modal-body end--%>
-                                    <div class="modal-footer">
-                                        <button type="reset" class="btn btn-danger" data-dismiss="modal">返回</button>
-                                    </div>
-                                    <%--modal-footer--%>
-                                </div>
-                                <%--modal-content end --%>
-                            </div>
-                            <%--moadal-dialog end--%>
-                        </div>
-                        <%--modal end--%>
-                    </div>
-                    <%--=======    查看个人资料  end   --%>
-                    <div class="profile_info"><span>欢迎回来</span>
-                        <h2>${userInfo.accountName}</h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
-                <br/>
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>菜单栏</h3>
-                        <ul class="nav side-menu">
-                            <c:forEach items="${tree}" var="Menu">
-                                <li id="lm${Menu.id }"><a><i class="${Menu.iconCls}"></i> ${Menu.text} <span
-                                        class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <c:forEach items="${Menu.children}" var="sub">
-                                            <li id="z${sub.id}"><a href="${sub.attributes.url}"><i
-                                                    class="${sub.iconCls}"></i>${sub.text }</a></li>
-                                        </c:forEach>
-                                    </ul>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                    <div class="menu_section">
-                        <h3>首页菜单</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> 首页 <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="index.html">首页一</a></li>
-                                    <li><a href="index2.html">首页二</a></li>
-                                    <li><a href="index3.html">首页三</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-windows"></i> 错误页 <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="page_403.html">403 Error</a></li>
-                                    <li><a href="page_404.html">404 Error</a></li>
-                                    <li><a href="page_500.html">500 Error</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-sitemap"></i> 多级别菜单 <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="#level1_1">Level One</a>
-                                    <li><a>第二层1<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li class="sub_menu"><a href="level2.html">第三层1</a></li>
-                                            <li><a href="#level2_1">第三层2</a></li>
-                                            <li><a href="#level2_2">第三层3</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#level1_2">第二层2</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 首层菜单 <span
-                                    class="label label-success pull-right">Coming Soon</span></a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <!-- /sidebar menu -->
-
-                <!-- /menu footer 菜单底部的开关开始  buttons -->
-                <div class="sidebar-footer hidden-small"><a data-toggle="tooltip" data-placement="top" title="设置"> <span
-                        class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a> <a data-toggle="tooltip"
-                                                                                           data-placement="top"
-                                                                                           title="全屏"> <span
-                        class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> </a> <a data-toggle="tooltip"
-                                                                                                  data-placement="top"
-                                                                                                  title="锁定"> <span
-                        class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> </a> <a data-toggle="tooltip"
-                                                                                                 data-placement="top"
-                                                                                                 title="退出登录"
-                                                                                                 href="<%=request.getContextPath()%>/mvc/login">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a></div>
-                <!-- /menu footer buttons 结束 -->
-            </div>
-        </div>
-
+        <%--引入顶部导航栏，包括下拉菜单，以及查看个人资料模态弹窗--%>
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle"><a id="menu_toggle"><i class="fa fa-bars"></i></a></div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
-                                        aria-expanded="false"> <img src="${userPath}" alt="">${userInfo.accountName}
-                            <span class=" fa fa-angle-down"></span> </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a data-toggle="modal" data-target="#my-prompt1" href="#"> 个人资料</a></li>
-                                <li><a href="javascript:;"> <span class="badge bg-red pull-right">50%</span>
-                                    <span>设置</span> </a></li>
-                                <li><a href="/ssm_vendor/static/view/yoocoo.html">文档总结</a></li>
-                                <li><a href="javascript:alert('预留功能，待开发')">换肤/a></li>
-                                <li><a href="<%=request.getContextPath()%>/mvc/login"><i
-                                        class="fa fa-sign-out pull-right"></i> 退出登录</a></li>
-                            </ul>
-                        </li>
-                        <li role="presentation" class="dropdown"><a href="javascript:alert('预留功能，待开发')"
-                                                                    class="dropdown-toggle info-number"
-                                                                    data-toggle="dropdown" aria-expanded="false"> <i
-                                class="fa fa-envelope-o"></i> <span class="badge bg-green">6</span> </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li><a> <span class="image"><img src="images/img.jpg" alt="Profile Image"/></span>
-                                    <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span
-                                            class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span>
-                                </a></li>
-                                <li>
-                                    <div class="text-center"><a> <strong>See All Alerts</strong> <i
-                                            class="fa fa-angle-right"></i> </a></div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        <%@ include file="/WEB-INF/jsp/index_body/index_top_nav.jsp" %>
         <!-- /top navigation -->
 
+        <%--右侧Tab主要内容--%>
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="">
@@ -375,8 +74,13 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>菜单管理列表
-                                    <small>说明：1，RABC思想 2，分角色分菜单 3，</small>
+                                <h2>菜单管理列表</h2>
+                                <small>----说明：<br>
+                                    1，RABC(基于角色的访问控制)思想:权限不直接赋予给用户，而是角色，用户在拥有某个角色
+                                    <br>
+                                    2，在逻辑中，只有管理员角色才能分配权限。<br>
+                                    3，目前RABC分四层：RABC0、RABC1、RABC2、RABC3 ，目前该系统达到了简易的RABC2层次，后期可继续完善。<br>
+                                </small>
                                 </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -394,7 +98,7 @@
                             </div>
                             <div class="x_content">
                                 <p class="text-muted font-13 m-b-30"> 菜单列表管理功能：1.查看菜单信息 2. 编辑菜单信息（待增加） 3.清除菜单 </p>
-                                <table id="datatable-buttons" class="table table-striped table-bordered">
+                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
                                     <thead>
                                     <tr>
                                         <th>菜单ID</th>
@@ -419,7 +123,7 @@
                                         <td><i class=" <c:out value="${item.menuIcon}"/> "></i></td>
                                         <td><c:out value="${item.menuType}"/></td>
                                         <td onclick='goEdit(<c:out value="${item.menuId}"/>)'>编辑</td>
-                                        <%--<td onclick='doDelete(<c:out value="${item.menuId}"/>)'>删除</td>--%>
+                                            <%--<td onclick='doDelete(<c:out value="${item.menuId}"/>)'>删除</td>--%>
                                     </tr>
                                     </c:forEach>
                                     </tbody>
@@ -469,7 +173,7 @@
                                         <td><c:out value="${list.roleId}"/></td>
                                         <td><c:out value="${list.menuId}"/></td>
                                         <td onclick='goEdit1(<c:out value="${list.id}"/>)'>查看</td>
-                                        <%--<td onclick='doDelete1(<c:out value="${list.id}"/>)'>删除</td>--%>
+                                            <%--<td onclick='doDelete1(<c:out value="${list.id}"/>)'>删除</td>--%>
                                     </tr>
                                     </c:forEach>
                                     </tbody>
@@ -660,7 +364,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                        <th><input type="checkbox" id="check-all1" class="flat"></th>
+                                        <th><input type="checkbox" class="flat"></th>
                                         </th>
                                         <th>姓名</th>
                                         <th>通信地址</th>
@@ -673,7 +377,7 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                        <th><input type="checkbox" id="check-all2" class="flat"></th>
+                                        <th><input type="checkbox"  class="flat"></th>
                                         </td>
                                         <td>王娇</td>
                                         <td>大中国</td>
@@ -684,7 +388,9 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                        <th><input type="checkbox" id="check-all3" class="flat"></th>
+                                        <th><input type="checkbox"
+                                                   <%--id="check-all" --%>
+                                                   class="flat"></th>
                                         </td>
                                         <td>Garrett Winters</td>
                                         <td>Accountant</td>
@@ -756,10 +462,10 @@
             </div>
         </div>
         <!-- /page content -->
-
+<%--===========================================--%>
         <!-- footer content -->
         <footer>
-            <div class="pull-right"> ZJNU - Bootstrap Admin
+            <div class="pull-right"> ZJNU - Bootstrap Admin -功夫不负有心人
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -808,11 +514,5 @@
 
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
-<script type="text/javascript">
-    <%--var listJsonStr = JSON.stringify(${roleMenuList});--%>
-    <%--alert("获得的listJsonStr：" + listJsonStr);--%>
-    <%--var jsonObj = JSON.parse(listJsonStr);--%>
-    <%--alert("获得的jsonObj：" + jsonObj);--%>
-</script>
 </body>
 </html>

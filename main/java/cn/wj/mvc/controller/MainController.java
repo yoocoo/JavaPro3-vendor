@@ -80,7 +80,7 @@ public class MainController {
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/userAction/sysuserResYun", method = RequestMethod.GET)
+	@RequestMapping(value = "/mvc/userAction/sysuserResYun", method = RequestMethod.GET)
 	public String sysuserRes1() {
 		return "user_sheng/sheng_res_yun";
 	}
@@ -196,16 +196,16 @@ public class MainController {
 //	public String sysuserRes() {
 //		return "user_system/sysuser_res_sheng";
 //	}
-//
-//	/**
-//	 * 生产商管理员  创建 二级管理用户(运营商)
-//	 *
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/userAction/sysuserResYun", method = RequestMethod.GET)
-//	public String sysuserRes1() {
-//		return "user_sheng/sheng_res_yun";
-//	}
+
+	///**
+	// * 生产商管理员  创建 二级管理用户(运营商)
+	// *
+	// * @return
+	// */
+	//@RequestMapping(value = "/userAction/sysuserResYun", method = RequestMethod.GET)
+	//public String sysuserRes1() {
+	//	return "user_sheng/sheng_res_yun";
+	//}
 //
 //	/**
 //	 *

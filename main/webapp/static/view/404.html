@@ -1,28 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>抱歉你找的资源并不存在</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>抱歉您要找的资源未开发 </title>
+
+    <!-- Bootstrap -->
+    <link href="/ssm_vendor/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/ssm_vendor/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/ssm_vendor/static/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/ssm_vendor/static/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="widget-box">
-                <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-                    <h5>Error 404</h5>
-                </div>
-                <div class="widget-content">
-                    <div class="error_ex">
-                        <h1>404</h1>
-                        <h3>Opps, 该功能正在开发。。。。</h3>
-                        <p>您可以翻译一下句子：We can not find the page you're looking for.
-                             ========= 您要找的资源并不存在========</p>
-                        <a class="btn btn-warning btn-big"  href="/mvc/home">返回首页</a> </div>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="col-md-12">
+            <div class="col-middle">
+                <div class="text-center text-center">
+                    <h1 class="error-number">404</h1>
+                    <h2>Sorry ,您要访问的页面暂未开发，或找不到</h2>
+                    <p>你请重新打开 <a href="/ssm_vendor/mvc/home">返回到主页</a>
+                    </p>
+                    <div class="mid_center">
+                        <h3>Search</h3>
+                        <form>
+                            <div class="col-xs-12 form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="请在此处搜索">
+                                    <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">点击</button>
+                          </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
     </div>
 </div>
+
+
+<!-- jQuery -->
+<script src="/ssm_vendor/static/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/ssm_vendor/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/ssm_vendor/static/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/ssm_vendor/static/vendors/nprogress/nprogress.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/ssm_vendor/static/build/js/custom.min.js"></script>
 </body>
 </html>

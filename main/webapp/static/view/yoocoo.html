@@ -1,380 +1,1884 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>项目开发总结</title>
-    <!--bootstrap页面基础CSS-->
-    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <!--页面重要CSS-->
-    <link type="text/css" rel="stylesheet" href="/static/css/matrix-style.css">
-    <!--bootstrap页面基础脚本-->
-    <script type="text/javascript" src="/static/js/common/jquery.min.js"></script>
-    <!--整体UI 界面公用-->
-    <script type="text/javascript" src="/static/js/common/jquery.ui.custom.js"></script>
-    <script type="text/javascript" src="/static/js/common/bootstrap.min.js'"></script>
-    <!--数据表格脚本引用-->
-    <script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/static/js/matrix.tables.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>项目总结</title>
+
+    <!-- Bootstrap -->
+    <link href="/ssm_vendor/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/ssm_vendor/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/ssm_vendor/static/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/ssm_vendor/static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/ssm_vendor/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="/ssm_vendor/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/ssm_vendor/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="/ssm_vendor/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/ssm_vendor/static/build/css/custom.min.css" rel="stylesheet">
 </head>
-<body>
-<div class="container-fluid">
-    <hr>
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="widget-box">
-                <div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
-                    <h2>项目总结</h2>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/ssm_vendor/mvc/home" class="site_title"><i class="fa fa-paw"></i> <span>点击，首页</span></a>
                 </div>
-                <div class="widget-content nopadding">
-                    <table class="table table-bordered data-table table-striped with-check">
-                        <thead>
-                        <tr>
-                            <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox"/></th>
-                            <th>名称</th>
-                            <th>描述</th>
-                        </tr>
-                        </thead>
 
-                        <!-- ------------------ 开始  -->
-                        <tbody>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结-三月--作者王娇</td>
-                            <td>
-                                （一）三月一号，接手项目，挑选一个好的开发环境，研究javaWeb 框架--SSM （拥有Spring4.0 完美超越SSH框架+springMVC+mybatis）<br/>
-                                （二）三月七号，根据已开发项目，登录网站，研究该系统原先的功能<br/>
-                                （三）三月十日，着手数据库设计，和老师一起研究数据库的设计<br/>
-                                （四）三月十五日----三月底，原型设计， 把新设计的系统分不同角色，做了一个全面的覆盖。 细节到每个按钮都有详细代码。<br/>
-                                （五）总结：1.我不是一个专业设计页面的设计师，使用的是全球最受欢迎后台系统纯静态设计页面，通过一些途径，终于下载了。<br/>
-                                2.这里 包括优点就是包含bootstrap所有的页面元素，设计很精良，如果说这个都很粗糙，我只能说，我不是设计师，不可能超越这位大师的团队几年的心血<br/>
-                                3. 原先用.NET 设计的后台页面，我完全可以说，这绝对也是COPY的这位大师的杰作。<br/>
-                                4. 唯一的坑就是，所有JS解说都是英文，需要翻译成中文，按照中国人日历习惯等，经过一些改造，是需要花时间的。<br/>
-                                5.不要想当然，可能一个执着的人，会为了一个元素，花上一个星期，只为最好的效果。<br/>
-                                6.登录界面，也是从网上海量的资源里，挑选的比较精良的设计，经过自己的专研，改动了几个版本（只有登录，或者放大登录界面，结果都不如原版效果最好，时间我花了，我乐意，我快乐）<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----四月（1） ----作者WJ</td>
-                            <td>
-                                (一)框架搭建完成后，打开日志调试来看信息，有这几点原则：<br/>
-                                1.数据库链接正常<br/>
-                                数据库驱动、数据库服务<br/>
-                                数据库配置文件<br/>
-                                数据库测试<br/>
-                                2.网页资源访问正常<br/>
-                                静态html、js、css、font、image、MP3等<br/>
-                                动态的接口<br/>
-                                动态页面如：jsp<br/>
-                                3.提示信息正常<br/>
-                                异常输出<br/>
-                                log输出<br/>
-                                等等···<br/>
-                                （二）四月中上旬，终于把自己的想要的框架搭建好了，<br/>
-                                之前研究（SSM（SpringMVC + Spring + Mybatis）框架的增删改查（含分页）），<br/>
-                                一个大神搭的框架，进群要交五元，自己又默默给他的网站贡献了五元。但是Shiro + Redis 的集成，也提供Ehcache的依赖Jar。<br/>
-                                Shiro 初始权限动态加载，需要框架依赖，配置，工具包，以及各种语句，嵌入到整个系统中，代码解读困难，也有作者自己封装的代码，
-                                学习成果是巨大的，想到自己时间不多，把自己最喜欢的跨平台开发时间都放弃了，索性就另寻他经。<br/>
-                                四月中下旬，进入框架 整体填充，这是整个系统最复杂，虽然要实现的功能较为简单，但是，怎么才能做到整个项目最简单的功能，也符合社会需求，是需要花费功夫和时间的。<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----四月（2） ----作者WJ</td>
-                            <td>
-                                (二)关于web只有大概下面几点：<br/>
-                                1.减少每个页面的请求数。<br/>
-                                2.js方法整合到页面，工具js封装成工具。<br/>
-                                3.js方法一般写在页面头部<br/>
-                                4.web页面除非整体刷新，其他情况考虑异步请求。<br/>
-                                5.页面图片资源整合到一起，然后根据位置取图片<br/>
-                                6.web页面良好体验可以考虑组件引入<br/>
-                                7.页面需要大量重用的地方可以考虑模板完成<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（1） ----作者WJ</td>
-                            <td>框架简介:
-                                项目Maven构建，真实大型互联网架构，做到高并发，大数据处理，整个项目使用定制化服务思想，提供模块化、服务化、原子化的方案，将功能模块进行拆分，可以公用到所有的项目中。架构采用分布式部署架构，所有模块进行拆分，使项目做到绝对解耦，稳定压倒一切
-                                框架整合:[Springmvc] + [Mybatis] + Shiro（权限） + REST(服务) + WebService(服务) + JMS(消息) +
-                                Lucene(搜搜引擎) + Quartz(定时调度) + [Bootstrap
-                                Html5（支持PC、IOS、Android]
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>技术点：</td>
+                <div class="clearfix"></div>
 
-                            <td>1. Springmvc + Mybatis集成、SpringSecurity权限控制、Spring AOP事务处理。<br/>
-                                2. Wink Rest服务、Webservice服务：jaxws、CXF等<br/>
-                                3. IO 流上传下载文件，多线程操作<br/>
-                                4. 发送邮件，配置邮件服务器，发基于html、纯文本格式的邮件（可以免费赠送网络爬虫，使其群发邮件，做到广告推送等）<br/>
-                                5. MD5加密（登陆密码校验加密等），用户统一Session、Cookie管理，统一验证码校验等。<br/>
-                                6. 数据库连接池统一配置<br/>
-                                7. Quartz定时调度任务集成（直接通过配置即可）<br/>
-                                8. Httpclient破解验证码，登陆联通充值平台<br/>
-                                9. 汉字、英文拆分、可以用作文档关键字搜索等。<br/>
-                                10. Base64图片处理，支持PC，Android，IOS<br/>
-                                11. Service Socket 、Client Socket 通信技术(已经做过GPRS数据获取，并用到了项目中)<br/>
-                                12. 提供大量工具类，可以直接使用<br/>
-                                13. Maven项目构建，您可以直接做架构，可以提升自己的学习能力，使您成为真正的架构师。<br/>
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>欢迎</span>
+                        <h2>窦骁</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
 
-                                以上项目只实现了部分功能，后续待开发，fighting.....<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（2） ----作者WJ</td>
-                            <td>（1）
-                                BootStrap-table客户端分页（模板网页：http://issues.wenzhixin.net.cn/bootstrap-table/）：后台一次性将数据推送到前台，由前台代码负责分页、排序等；（针对数据庞大的数据，不适用）
-                                服务端分页：一次只传当前页的数据，点上一页或下一页时再以ajax方式获取所对应的数据；<br/>
-                                1）. 可以考考虑 把用户表（数据较少的）使用 Bootstrap-table模板分页，功能实现简单，方便，样式更多，更好看<br/>
-                                2）.记录日志行为：---- 记录基本主机信息<br/>
-                                1.操作系统<br/>
-                                2.IP地址<br/>
-                                3.访问的浏览器内核<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结--五月（3） 5.7-5.10-研究页面跳转--</td>
-                            <td>(1) 关于页面跳转： 目前知道的有两种：<br/>
-                                一种是 利用easyui tab.js<br/>
-                                一种是在每个页面 复写头部文件和底部文件<br/>
-                                页面 总结：目前使用每个页面 调用头部和底部，这样能更好加载和分开样式，有些 主页主内容需要不同的样式
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（4）5.14 --研究版本控制器--</td>
-                            <td> (1)Github是一个集成了git的服务。它可以以网页或者客户端的形式，帮助用户把git本地的数据提交到远程的服务器里。</td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结裁剪插件用的是jcrop,</td>
-                            <td>
-                                用于头像上传，进行一个预览和剪切到，该系统需要的大小的插件<br/>
-                                1.使用到的技术插件<br/>
-                                Jcrop：用于前端“裁剪”图片<br/>
-                                bootstrap-fileinput：用于前端优化上传控件样式<br/>
-                                ARTtemplate：JS版的JSTL？反正就是一个腾讯的模板化插件，很好用，真心。<br/>
-                                bootstrap-sco.modal.js：这个是bootstrap的一个模态插件<br/>
-                                SpringMVC：使用框架自带的MultipartFile来获取文件（效率能够大大的提高）<br/>
-                                Image：这个是Java的内置类，用于处理图片很方便。<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（5)-5.17</td>
-                            <td> 1.Bootstrap CSS 的四个 class - modal、hide、fade 和 in，用于设置 modal（模态框）的布局。<br/>
-                                2.五月中旬之前，所有的模态的弹窗都是class='fade',需要靠z-index的值把握元素的fade到的层面，
-                                有时候元素多的，容易覆盖到某些按钮和页面，比较麻烦，后来改成class='hide',免去了麻烦<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（6)-5.18</td>
-                            <td> 今天研究：
-                                1.使用模版进行网页数据的加载。在这里我们需要引入模版的js，js名称是：doT.min.js。
-                                模版官方文档：http://dotjs.cn/<br/>
-                                2.<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（7)-5.18</td>
-                            <td> 1.常见浏览器兼容性问题与解决方案：http://blog.csdn.net/chuyuqing/article/details/37561313#comments<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（8)-5.24</td>
-                            <td> (一 )myBatis 文档http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html<br/>
-                                1. 如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。<br/>
-                                2.resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西,
-                                而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap
-                                的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。<br/>
-                                3.Mapper XML 文件:MyBatis 的真正强大在于它的映射语句，也是它的魔力所在。由于它的异常强大，映射器的 XML 文件就显得相对简单。如果拿它跟具有相同功能的
-                                JDBC 代码进行对比，你会立即发现省掉了将近 95% 的代码。MyBatis 就是针对 SQL 构建的，并且比普通的方法做的更好。
-                                4.事实上，在Java代码中来动态生成SQL代码就是一场噩梦。<br/>
-                                5.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。<br/>
-                                6.mybatis有没有自动创建表结构的功能？因为有的项目之前一直使用hibernate用习惯了，理所当然的认为，在实体类上配置下注解或者写写映射文件，系统启动后就可以自动创建表。
-                                我只能很遗憾的告诉他，mybatis并没有这个功能<br/>
-                                7.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。程序员甚至不需要对SQL 的熟练掌握，
-                                Hibernate/OJB 会根据制定的存储逻辑，自动生成对应的SQL 并调用JDBC
-                                接口加以执行。但是MyBaits可以通过特殊的SQL语句编写来减少对SQL的依赖<br/>
-                                8.执行非预编译sql 会导致sql硬解析，如果这个语句执行的比较频繁 会导致数据库性能下降:$: 直接显示当前值，不会处理的
-                                #：当成字符串处理<br/>
-                                9:MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis
-                                使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的
-                                Java对象）映射成数据库中的记录。<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（9)-5.28</td>
-                            <td> (一 )myBatis和hibernate 比较 文档https://www.zhihu.com/question/21104468<br/>
-                                1.运行速度，hibernate是在jdbc上进行了一次封装，而mybatis基于原生的jdbc，因此mybatis天生就有运行速度上的优势<br/>
-                                2.mybatis可以很容易做到不规范的映射对象和规范的映射对象共存，如果这种系统中再需要增加个需要复杂sql的功能，
-                                mybatis只需要把sql手写出来，先把功能运行起来后再看看能不能变成自动生成的sql，而对hibernate来说就很困难了。<br/>
-                                3.我的经验是主要看这3个指标来确定，第一个因素权重最大。<br/>
-                                1）、数据量、有以下情况的最好就用MyBatis<br/>
-                                如果有超过千万级别的表，<br/>
-                                如果有单次业务大批量数据提交的需求(百万条及其以上的)，这个尤其不建议用hibernate<br/>
-                                如果有单次业务大批量数据读取需求(百万条及其以上的)<br/>
-                                2）、表关联复杂度<br/>
-                                如果主要业务表的关联表超过20个的(大概数量，根据表的大小不同有差异)不建议用hibernate<br/>
-                                3）、人员 如果开发成员多数不是多年使用hibernate的情况(一般开发水平评估)，建议使用MyBatis<br/>
-                                来源：知乎
-                                4.Hibernate理念不错，完全的ORMapping，MyBatis只是个SQL Mapper理想和现实是有差距的，把不是object的数据库结构映射，是一种leak
-                                abstractionHibernate用来做学校项目级别的不错，
-                                真正的项目一般都用mybatis，毕竟控制能力，调优成本更重要
-                                来源：知乎<br/>
-                                5. Hibernate与MyBatis的比较?https://www.zhihu.com/question/25753928<br/>
-                                MyBatis，动态传入表名，字段名的解决办法
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（10)-5.29</td>
-                            <td> (一 )myBatis "动态知识点"<br/>
-                                1. MyBatis，动态传入表名，字段名的解决办法：http://luoyu-ds.iteye.com/blog/1517607<br/>
-                                2.mybatis3动态创建表，判断表是否存在，删除表示例http://www.phperz.com/article/15/0123/47902.html
-                                3.如何使用 MyBatis 执行任意 SQL:http://blog.csdn.net/isea533/article/details/52368341<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----五月（11)-5.31</td>
-                            <td> (一 )myBatis "动态知识点"<br/>
-                                1.以前都是指定了实体类，然后写好sql语句直接套用就可以了。但是现在有个问题，万一你的物理模型不确定，
-                                也即是你的表结构不确定，可以不用设定参数和返回类型的实体类，
-                                只需要形成一个动态的表名和字段名的列表类。就可以动态对那些未知的物理模型进行操作<br/>
-                                2.mybatis中一个属性：statementType。这个属性的作用是告诉mybatis我们写的这个sql到底是
-                                预编译（PRESTATEMENT）还是非预编译（STATEMENT）的。<br/>
-                                3.mybatis3中mapper文件中 #{...} 和 ${...}有什么不同．<br/>
-                                MyBatis interprets #{...} as a parameter marker in a JDBC prepared statement. MyBatis
-                                interprets ${...} as<br/>
-                                mybatis3对于#{...}是JDBC prepared statement参数的占位符标志，其值会有对应typehandler针对不同类型设值．<br/>
-                                string substitution. It is important to know the difference because parameter markers
-                                cannot be used in certain places<br/>
-                                而${...}在mybatis3中仅仅是字符串替换，这也是以前web编程sql注入发生的地发．<br/>
-                            </td>
-                        </tr>
+                <br />
 
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（1)-6.4</td>
-                            <td> (一 )bootStrap table "动态知识点"<br/>
-                                1. bootStrap table 是一个轻量级的table插件，使用AJAX获取JSON格式的数据，其分页和数据填充很方便，支持国际化<br/>
-                                2.table数据填充：<br/>
-                                bootStrap table获取数据有两种方式，一是通过table 的data-url属性指定数据源，二是通过JavaScript初始化表格时指定url来获取数据<br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（2)-6.8</td>
-                            <td> (二 )事务（Transaction）<br/>
-                                1.
-                                事务（Transaction），基本上会就往Spring事务靠。其实Spring事务管理基于底层数据库本身的事务处理机制。数据库事务的基础，是掌握Spring事务管理的基础。<br/>
-                                2.它最终的目标：数据不会被破坏。即事务操作成功，数据的结果和业务期待的结果是一致的。这也就是ACID中的一致性（Consistency）<br/>
-                                3.Spring的AOP技术能很好的将事物隔离出来。
-                                Spring声明式事务让我们从复杂的事务处理中得到解脱。使得我们再也无需要去处理获得连接、关闭连接、
-                                事务提交和回滚等这些操作。再也无需要我们在与事务相关的方法中处理大量的try…catch…finally代码。<br/>
-                                4.在 spring-service中 配置了Spring Framework，它是一个基于IOC和AOP的构架多层j2ee系统的框架，
-                                但它不强迫你必须在每一层 中必须使用Spring，因为它模块化的很好，允许你根据自己的需要选择使用它的某一个模块;它实现了很优雅的MVC，对不同的数据访问技术提供了统一的接口，
-                                采用IOC使得可以很容易的实现bean的装配，提供了简洁的AOP并据此实现Transaction Management，<br/>
-                                5.http://blog.csdn.net/u011199063/article/details/54578139 ---配置mybatis的事务管理说明
-                                6.MyBatis集成Spring事务管理
-                                在SSM框架中，使用的是spring的事务管理机制。Spring可以使用编程式实现事务，声明式实现事务以及注解式实现事务。
-                                本文主要说一下如何使用注解式@Transanctional实现实现事务管理。<br/>
-                                7.http://blog.csdn.net/xiaoerduo123x/article/details/51387203-----SSM 三大框架---事务处理<br/>
-                                8.SSM框架中使用Spring的@Transactional注解进行事务管理---https://www.zifangsky.cn/479.html<br/>
-                                9. 知识点：<br/>
-                                1）在使用了Spring框架的应用中，我们可以使用@Transactional 注解方便地进行事务操作，如事务的回滚等。<br/>
-                                2） 业务中场景中，调用多个service，事务处理中要注意的问题---http://blog.csdn.net/fyxxq/article/details/41544685
-                                3) spring中的事物传播------http://blog.csdn.net/dknypxt/article/details/5626161s
-                                4) 事物传播需要区分service间的调用和service内部调用。
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（3)-6.10</td>
-                            <td> (三)制作头像上传。
-                                前端页面设计使用bootstrap ，头像预览和剪裁工具使用cropper，后台使用springmvc。<br/>
-                                1.头像预览和剪裁工具使用cropper: http://blog.csdn.net/u012441887/article/details/51027012<br/>
-                                2.头像上传以及之前预览再以及剪裁——javaweb版本-http://blog.csdn.net/linshao512/article/details/8078722<br/>
-                                3.java web 网站头像上传处理 (springmvc
-                                +bootstrap+cropper):http://www.2cto.com/kf/201604/496824.html<br/>
-                                4.jQuery简单且功能强大的图片剪裁插件:http://www.htmleaf.com/jQuery/Image-Effects/201504211716.html<br>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（4)-6.12</td>
-                            <td> ( 四)bootStrap table "动态知识点二"<br/>
-                                1. 对于bootstrap table 可以通过data 属性或者JavaScript 来启用bootstrap table 插件，显示丰富的功能。<br/>
-                                2.//通过bootstrap Table方法refresh重新加载数据 <br/>
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（5)-6.19</td>
-                            (六) Mybatis分页插件 - PageHelper<br/>
-                            配置分页拦截器<br/>
-                            PageHelper的原理是基于拦截器实现的。<br/>拦截器的配置有两种方法，一种是在mybatis的配置文件中配置，一种是直接在spring的配置文件中进行：<br/>
-                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
-                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 <br/>
-                                3.我用的版本是PageHelper-4.1.1、Mybatis-3.3.0<br/>
-                                PageHelper 依赖于 jsqlparser-0.9.4.jar<br/>
-                               4.当你想在实体类中使用Java.util.Date类型，而且还想在数据库中保存时分秒时，你可以在xml中修改为：#{xxdate,jdbcType=TIMESTAMP}<br/>
-                                就是将#{}中的jdbcType属性设置成TIMESTAMP，这样在保存的时候就会将时分秒也包含进去。<br/>
-                                如果你xml中使用了< resultMap>，为了防止意外，最好将相应的字段也修改：<br/>
-                                    < result column="XXDATE" jdbcType="TIMESTAMP" property="xxdate"/><br/>
-                            5.使用方法: http://www.360doc.com/content/15/0728/15/12642656_487954693.shtml<br/>
-                            pageHelper会使用ThreadLocal获取到同一线程中的变量信息，各个线程之间的Threadlocal不会相互干扰，<br/>
-                            也就是Thread1中的ThreadLocal1之后获取到Tread1中的变量的信息，不会获取到Thread2中的信息<br/>
-                            所以在多线程环境下，各个Threadlocal之间相互隔离，可以实现，<br/>
-                            不同thread使用不同的数据源或不同的Thread中执行不同的SQL语句<br/>
-                            所以，PageHelper利用这一点通过拦截器获取到同一线程中的预编译好的SQL语句之后<br/>
-                            将SQL语句包装成具有分页功能的SQL语句，并将其再次赋值给下一步操作，所以实际执行的SQL语句就是有了分页功能的SQL语句<br/>
-                            PageHelper只对紧跟着的第一个SQL语句起作用<br/>
-                            如上：所以若一个方法中涉及到多个查询，需要小心，避免为不需要分页的添加了分页，而真正需要分页的却没有被分页<br/>
-                            6.首先该分页插件支持以下两种调用方式：<br/>
-                            //第一种，RowBounds方式的调用List list = sqlSession.selectList("x.y.selectIf", null, new RowBounds(1, 10));//<br/>
-                            第二种，Mapper接口方式的调用，推荐这种使用方式。<br/>
-                            PageHelper.startPage(1, 10);List list = countryMapper.selectIf(1);<br/>
-                            下面分别对这两种方式进行详细介绍：<br/>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="index.html">Dashboard</a></li>
+                                    <li><a href="index2.html">Dashboard2</a></li>
+                                    <li><a href="index3.html">Dashboard3</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
 
 
-                            </td>
-                        </tr>
-                        <tr class="gradeX">
-                            <td><input type="checkbox"/></td>
-                            <td>项目总结----六月（5)-6.19</td>
-                            <td> (七) Spring Boot<br/>
-                                学习网址：http://www.oschina.net/p/mybatis_pagehelper<br/>
-                                http://blog.csdn.net/joker_zhou/article/details/50418005</br>
-                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
-                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 、<br/>
-                                3.
-                                4.
-                                5.
-                            </td>
-                        </tr>
+                </div>
+                <!-- /sidebar menu -->
 
-                        </tbody>
-                    </table>
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="设置">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="全屏">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="锁定">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="返回首页" href="/ssm_vendor/mvc/home">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/img.jpg" alt="">John Doe
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;">Help</a></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>项目进展</h3>
+                    </div>
+
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请在此处搜索">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">开始</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i> 项目三月总结 <small>总结</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+
+                                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">3.1</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">3.7</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">3.10</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">3.15</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-tab4" data-toggle="tab" aria-expanded="false">3.20</a>
+                                        </li>
+
+                                    </ul>
+                                    <div id="myTabContent" class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                            <p>（一）三月一号，接手项目，挑选一个好的开发环境，研究javaWeb 框架--SSM （拥有Spring4.0 完美超越SSH框架+springMVC+mybatis）<br/></p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                            <p>（二）三月七号，根据已开发项目，登录网站，研究该系统原先的功能<br/>
+                                            </p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                            <p> （三）三月十日，着手数据库设计，和老师一起研究数据库的设计<br/></p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                            <p> （四）三月十五日----三月底，原型设计， 把新设计的系统分不同角色，做了一个全面的覆盖。 细节到每个按钮都有详细代码。</p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
+                                            <p> （五）总结：1.我不是一个专业设计页面的设计师，使用的是全球最受欢迎后台系统纯静态设计页面，通过一些途径，终于下载了。<br/>
+                                                2.这里 包括优点就是包含bootstrap所有的页面元素，设计很精良，如果说这个都很粗糙，我只能说，我不是设计师，不可能超越这位大师的团队几年的心血<br/>
+                                                3. 原先用.NET 设计的后台页面。。。。。。。的杰作。<br/>
+                                                4. 唯一的坑就是，所有JS解说都是英文，需要翻译成中文，按照中国人日历习惯等，经过一些改造，是需要花时间的。<br/>
+                                                5.不要想当然，可能一个执着的人，会为了一个元素，花上一个星期，只为最好的效果。<br/>
+                                                6.登录界面，也是从网上海量的资源里，挑选的比较精良的设计，经过自己的专研，改动了几个版本（只有登录，或者放大登录界面，结果都不如原版效果最好，时间我花了，我乐意，我快乐）<br/></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i> 项目四月总结 <small>Float right</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                    <ul id="myTab1" class="nav nav-tabs bar_tabs right" role="tablist">
+                                        <li role="presentation" class="active"><a href="#tab_content11" id="home-tabb" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">4.1</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content22" role="tab" id="profile-tabb" data-toggle="tab" aria-controls="profile" aria-expanded="false">4.15</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#tab_content33" role="tab" id="profile-tabb3" data-toggle="tab" aria-controls="profile" aria-expanded="false">4.20</a>
+                                        </li>
+                                    </ul>
+                                    <div id="myTabContent2" class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+                                            <p>(一)框架搭建完成后，打开日志调试来看信息，有这几点原则：<br/>
+                                                1.数据库链接正常<br/>
+                                                数据库驱动、数据库服务<br/>
+                                                数据库配置文件<br/>
+                                                数据库测试<br/>
+                                                2.网页资源访问正常<br/>
+                                                静态html、js、css、font、image、MP3等<br/>
+                                                动态的接口<br/>
+                                                动态页面如：jsp<br/>
+                                                3.提示信息正常<br/>
+                                                异常输出<br/>
+                                                log输出<br/>
+                                                等等···<br/></p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
+                                            <p> （二）四月中上旬，终于把自己的想要的框架搭建好了，<br/>
+                                                之前研究（SSM（SpringMVC + Spring + Mybatis）框架的增删改查（含分页）），<br/>
+                                                一个大神搭的框架，进群要交五元，自己又默默给他的网站贡献了五元。但是Shiro + Redis 的集成，也提供Ehcache的依赖Jar。<br/>
+                                                Shiro 初始权限动态加载，需要框架依赖，配置，工具包，以及各种语句，嵌入到整个系统中，代码解读困难，也有作者自己封装的代码，
+                                                学习成果是巨大的，想到自己时间不多，把自己最喜欢的跨平台开发时间都放弃了，索性就另寻他经。<br/>
+                                                四月中下旬，进入框架 整体填充，这是整个系统最复杂，虽然要实现的功能较为简单，但是，怎么才能做到整个项目最简单的功能，也符合社会需求，是需要花费功夫和时间的。<br/></p>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="tab_content33" aria-labelledby="profile-tab">
+                                            <p>    (三)关于web只有大概下面几点：<br/>
+                                                1.减少每个页面的请求数。<br/>
+                                                2.js方法整合到页面，工具js封装成工具。<br/>
+                                                3.js方法一般写在页面头部<br/>
+                                                4.web页面除非整体刷新，其他情况考虑异步请求。<br/>
+                                                5.页面图片资源整合到一起，然后根据位置取图片<br/>
+                                                6.web页面良好体验可以考虑组件引入<br/>
+                                                7.页面需要大量重用的地方可以考虑模板完成<br/></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i> 项目五月总结 <small>-----</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="col-xs-3">
+                                    <!-- required for floating -->
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs tabs-left">
+                                        <li class="active">
+                                            <a href="#50" data-toggle="tab">5.1</a>
+                                        </li>
+                                        <li><a href="#51" data-toggle="tab">5.3</a>
+                                        </li>
+                                        <li><a href="#52" data-toggle="tab">5.5</a>
+                                        </li>
+                                        <li><a href="#53" data-toggle="tab">5.7</a>
+                                        </li>
+                                        <li><a href="#53" data-toggle="tab">5.14</a>
+                                        </li>
+                                        <li><a href="#54" data-toggle="tab">5.17</a>
+                                        </li>
+                                        <li><a href="#55" data-toggle="tab">5.18</a>
+                                        </li>
+                                        <li><a href="#56" data-toggle="tab">5.24</a>
+                                        </li>
+                                        <li><a href="#57" data-toggle="tab">5.28</a>
+                                        </li>
+                                        <li><a href="#58" data-toggle="tab">5.28</a>
+                                        </li>
+                                        <li><a href="#59" data-toggle="tab">5.28</a>
+                                        </li>
+                                        <li><a href="#510" data-toggle="tab">5.29</a>
+                                        </li>
+                                        <li><a href="#511" data-toggle="tab">5.29</a>
+                                        </li>
+                                        <li><a href="#512" data-toggle="tab">5.31</a>
+                                        </li>
+                                        <li><a href="#51" data-toggle="tab">5.31</a>
+                                        </li>
+                                        <li><a href="#52" data-toggle="tab">5.31</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-xs-9">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="50">
+                                            <p class="lead">5.1</p>
+                                            <p>框架简介:
+                                                项目Maven构建，真实大型互联网架构，做到高并发，大数据处理，整个项目使用定制化服务思想，提供模块化、服务化、原子化的方案，将功能模块进行拆分，可以公用到所有的项目中。架构采用分布式部署架构，所有模块进行拆分，使项目做到绝对解耦，稳定压倒一切
+                                                框架整合:[Springmvc] + [Mybatis] + Shiro（权限） + REST(服务) + WebService(服务) + JMS(消息) +
+                                                Lucene(搜搜引擎) + Quartz(定时调度) + [Bootstrap
+                                                Html5（支持PC、IOS、Android]</p>
+                                        </div>
+                                        <div class="tab-pane" id="51">
+                                            <p>1. Springmvc + Mybatis集成、SpringSecurity权限控制、Spring AOP事务处理。<br/>
+                                                2. Wink Rest服务、Webservice服务：jaxws、CXF等<br/>
+                                                3. IO 流上传下载文件，多线程操作<br/>
+                                                4. 发送邮件，配置邮件服务器，发基于html、纯文本格式的邮件（可以免费赠送网络爬虫，使其群发邮件，做到广告推送等）<br/>
+                                                5. MD5加密（登陆密码校验加密等），用户统一Session、Cookie管理，统一验证码校验等。<br/>
+                                                6. 数据库连接池统一配置<br/>
+                                                7. Quartz定时调度任务集成（直接通过配置即可）<br/>
+                                                8. Httpclient破解验证码，登陆联通充值平台<br/>
+                                                9. 汉字、英文拆分、可以用作文档关键字搜索等。<br/>
+                                                10. Base64图片处理，支持PC，Android，IOS<br/>
+                                                11. Service Socket 、Client Socket 通信技术(已经做过GPRS数据获取，并用到了项目中)<br/>
+                                                12. 提供大量工具类，可以直接使用<br/>
+                                                13. Maven项目构建，您可以直接做架构，可以提升自己的学习能力，使您成为真正的架构师。<br/>
+
+                                                以上项目只实现了部分功能，后续待开发，fighting.....<br/>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane" id="52">
+                                            <p>
+                                                BootStrap-table客户端分页（模板网页：http://issues.wenzhixin.net.cn/bootstrap-table/）：后台一次性将数据推送到前台，由前台代码负责分页、排序等；（针对数据庞大的数据，不适用）
+                                                服务端分页：一次只传当前页的数据，点上一页或下一页时再以ajax方式获取所对应的数据；<br/>
+                                                1）. 可以考考虑 把用户表（数据较少的）使用 Bootstrap-table模板分页，功能实现简单，方便，样式更多，更好看<br/>
+                                                2）.记录日志行为：---- 记录基本主机信息<br/>
+                                                1.操作系统<br/>
+                                                2.IP地址<br/>
+                                                3.访问的浏览器内核<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="53">
+                                            <p>
+                                                (1) 关于页面跳转： 目前知道的有两种：<br/>
+                                                一种是 利用easyui tab.js<br/>
+                                                一种是在每个页面 复写头部文件和底部文件<br/>
+                                                页面 总结：目前使用每个页面 调用头部和底部，这样能更好加载和分开样式，有些 主页主内容需要不同的样式</p>
+                                        </div>
+                                        <div class="tab-pane" id="54">
+                                            <p>
+                                                (1)Github是一个集成了git的服务。它可以以网页或者客户端的形式，帮助用户把git本地的数据提交到远程的服务器里。</p>
+                                        </div>
+                                        <div class="tab-pane" id="55">
+                                            <p>
+                                                用于头像上传，进行一个预览和剪切到，该系统需要的大小的插件<br/>
+                                                1.使用到的技术插件<br/>
+                                                Jcrop：用于前端“裁剪”图片<br/>
+                                                bootstrap-fileinput：用于前端优化上传控件样式<br/>
+                                                ARTtemplate：JS版的JSTL？反正就是一个腾讯的模板化插件，很好用，真心。<br/>
+                                                bootstrap-sco.modal.js：这个是bootstrap的一个模态插件<br/>
+                                                SpringMVC：使用框架自带的MultipartFile来获取文件（效率能够大大的提高）<br/>
+                                                Image：这个是Java的内置类，用于处理图片很方便。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="56">
+                                            <p> 1.Bootstrap CSS 的四个 class - modal、hide、fade 和 in，用于设置 modal（模态框）的布局。<br/>
+                                                2.五月中旬之前，所有的模态的弹窗都是class='fade',需要靠z-index的值把握元素的fade到的层面，
+                                                有时候元素多的，容易覆盖到某些按钮和页面，比较麻烦，后来改成class='hide',免去了麻烦<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="57">
+                                            <p>
+                                                今天研究：
+                                                1.使用模版进行网页数据的加载。在这里我们需要引入模版的js，js名称是：doT.min.js。
+                                                模版官方文档：http://dotjs.cn/<br/>
+                                                2.<br/></p>
+                                        </div> <div class="tab-pane" id="58">
+                                        <p>
+                                            1.常见浏览器兼容性问题与解决方案：http://blog.csdn.net/chuyuqing/article/details/37561313#comments<br/></p>
+                                    </div> <div class="tab-pane" id="59">
+                                        <p>(一 )myBatis 文档http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html<br/>
+                                            1. 如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。<br/>
+                                            2.resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西,
+                                            而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap
+                                            的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。<br/></p>
+                                    </div>
+                                        <div class="tab-pane" id="510">
+                                            <p>
+                                                3.Mapper XML 文件:MyBatis 的真正强大在于它的映射语句，也是它的魔力所在。由于它的异常强大，映射器的 XML 文件就显得相对简单。如果拿它跟具有相同功能的
+                                                JDBC 代码进行对比，你会立即发现省掉了将近 95% 的代码。MyBatis 就是针对 SQL 构建的，并且比普通的方法做的更好。
+                                                4.事实上，在Java代码中来动态生成SQL代码就是一场噩梦。<br/>
+                                                5.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。<br/>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane" id="511">
+                                            <p>
+                                                6.mybatis有没有自动创建表结构的功能？因为有的项目之前一直使用hibernate用习惯了，理所当然的认为，在实体类上配置下注解或者写写映射文件，系统启动后就可以自动创建表。
+                                                我只能很遗憾的告诉他，mybatis并没有这个功能<br/>
+                                                7.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。程序员甚至不需要对SQL 的熟练掌握，
+                                                Hibernate/OJB 会根据制定的存储逻辑，自动生成对应的SQL 并调用JDBC
+                                                接口加以执行。但是MyBaits可以通过特殊的SQL语句编写来减少对SQL的依赖<br/>
+                                                8.执行非预编译sql 会导致sql硬解析，如果这个语句执行的比较频繁 会导致数据库性能下降:$: 直接显示当前值，不会处理的
+                                                #：当成字符串处理<br/>
+                                                9:MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis
+                                                使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的
+                                                Java对象）映射成数据库中的记录。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="512">
+                                            <p>
+                                                6.mybatis有没有自动创建表结构的功能？因为有的项目之前一直使用hibernate用习惯了，理所当然的认为，在实体类上配置下注解或者写写映射文件，系统启动后就可以自动创建表。
+                                                我只能很遗憾的告诉他，mybatis并没有这个功能<br/>
+                                                7.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。程序员甚至不需要对SQL 的熟练掌握，
+                                                Hibernate/OJB 会根据制定的存储逻辑，自动生成对应的SQL 并调用JDBC
+                                                接口加以执行。但是MyBaits可以通过特殊的SQL语句编写来减少对SQL的依赖<br/>
+                                                8.执行非预编译sql 会导致sql硬解析，如果这个语句执行的比较频繁 会导致数据库性能下降:$: 直接显示当前值，不会处理的
+                                                #：当成字符串处理<br/>
+                                                9:MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis
+                                                使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的
+                                                Java对象）映射成数据库中的记录。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="513">
+                                            <p>
+                                                6.mybatis有没有自动创建表结构的功能？因为有的项目之前一直使用hibernate用习惯了，理所当然的认为，在实体类上配置下注解或者写写映射文件，系统启动后就可以自动创建表。
+                                                我只能很遗憾的告诉他，mybatis并没有这个功能<br/>
+                                                7.Mybatis需要手动编写SQL语句，以及ResultMap，而Hibernate 提供的方法完成持久层操作。程序员甚至不需要对SQL 的熟练掌握，
+                                                Hibernate/OJB 会根据制定的存储逻辑，自动生成对应的SQL 并调用JDBC
+                                                接口加以执行。但是MyBaits可以通过特殊的SQL语句编写来减少对SQL的依赖<br/>
+                                                8.执行非预编译sql 会导致sql硬解析，如果这个语句执行的比较频繁 会导致数据库性能下降:$: 直接显示当前值，不会处理的
+                                                #：当成字符串处理<br/>
+                                                9:MyBatis 是支持普通 SQL查询，存储过程和高级映射的优秀持久层框架。MyBatis 消除了几乎所有的JDBC代码和参数的手工设置以及结果集的检索。MyBatis
+                                                使用简单的 XML或注解用于配置和原始映射，将接口和 Java 的POJOs（Plain Old Java Objects，普通的
+                                                Java对象）映射成数据库中的记录。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="514">
+                                            <p>
+                                                1. MyBatis，动态传入表名，字段名的解决办法：http://luoyu-ds.iteye.com/blog/1517607<br/>
+                                                2.mybatis3动态创建表，判断表是否存在，删除表示例http://www.phperz.com/article/15/0123/47902.html
+                                                3.如何使用 MyBatis 执行任意 SQL:http://blog.csdn.net/isea533/article/details/52368341<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="settings">
+                                            <p> 1.以前都是指定了实体类，然后写好sql语句直接套用就可以了。但是现在有个问题，万一你的物理模型不确定，
+                                                也即是你的表结构不确定，可以不用设定参数和返回类型的实体类，<br/>
+                                                只需要形成一个动态的表名和字段名的列表类。就可以动态对那些未知的物理模型进行操作<br/>
+                                                2.mybatis中一个属性：statementType。这个属性的作用是告诉mybatis我们写的这个sql到底是
+                                                预编译（PRESTATEMENT）还是非预编译（STATEMENT）的。<br/>
+                                                3.mybatis3中mapper文件中 #{...} 和 ${...}有什么不同．<br/>
+                                                MyBatis interprets #{...} as a parameter marker in a JDBC prepared statement. MyBatis
+                                                interprets ${...} as<br/>
+                                                mybatis3对于#{...}是JDBC prepared statement参数的占位符标志，其值会有对应typehandler针对不同类型设值．<br/>
+                                                string substitution. It is important to know the difference because parameter markers
+                                                cannot be used in certain places<br/>
+                                                而${...}在mybatis3中仅仅是字符串替换，这也是以前web编程sql注入发生的地发．<br/></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i> 项目六月总结 <small>Float right</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="col-xs-9">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="61">
+                                            <p class="lead">bootStrap table "动态知识点"</p>
+                                            <p>
+                                                1. bootStrap table 是一个轻量级的table插件，使用AJAX获取JSON格式的数据，其分页和数据填充很方便，支持国际化<br/>
+                                                2.table数据填充：<br/>
+                                                bootStrap table获取数据有两种方式，一是通过table 的data-url属性指定数据源，二是通过JavaScript初始化表格时指定url来获取数据<br/>
+                                                </td></p>
+                                        </div>
+                                        <div class="tab-pane" id="62">
+                                            <p class="lead">1.事务（Transaction）</p>
+                                            <p>
+                                                1.
+                                                事务（Transaction），基本上会就往Spring事务靠。其实Spring事务管理基于底层数据库本身的事务处理机制。数据库事务的基础，是掌握Spring事务管理的基础。<br/>
+                                                2.它最终的目标：数据不会被破坏。即事务操作成功，数据的结果和业务期待的结果是一致的。这也就是ACID中的一致性（Consistency）<br/>
+                                                3.Spring的AOP技术能很好的将事物隔离出来。
+                                                Spring声明式事务让我们从复杂的事务处理中得到解脱。使得我们再也无需要去处理获得连接、关闭连接、
+                                                事务提交和回滚等这些操作。再也无需要我们在与事务相关的方法中处理大量的try…catch…finally代码。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="63">
+                                            <p class="lead">2.事务（Transaction）</p>
+                                            <p>
+                                                .在 spring-service中 配置了Spring Framework，它是一个基于IOC和AOP的构架多层j2ee系统的框架，
+                                                但它不强迫你必须在每一层 中必须使用Spring，因为它模块化的很好，允许你根据自己的需要选择使用它的某一个模块;它实现了很优雅的MVC，对不同的数据访问技术提供了统一的接口，
+                                                采用IOC使得可以很容易的实现bean的装配，提供了简洁的AOP并据此实现Transaction Management，<br/>
+                                                5.http://blog.csdn.net/u011199063/article/details/54578139<br/> ---配置mybatis的事务管理说明
+                                                6.MyBatis集成Spring事务管理
+                                                在SSM框架中，使用的是spring的事务管理机制。Spring可以使用编程式实现事务，声明式实现事务以及注解式实现事务。
+                                                本文主要说一下如何使用注解式@Transanctional实现实现事务管理。<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="64">
+                                            <p class="lead">3.事务（Transaction）</p>
+                                            <p>
+                                                7.http://blog.csdn.net/xiaoerduo123x/article/details/51387203-----SSM 三大框架---事务处理<br/>
+                                                8.SSM框架中使用Spring的@Transactional注解进行事务管理---https://www.zifangsky.cn/479.html<br/>
+                                                9. 知识点：<br/>
+                                                1）在使用了Spring框架的应用中，我们可以使用@Transactional 注解方便地进行事务操作，如事务的回滚等。<br/>
+                                                2） 业务中场景中，调用多个service，事务处理中要注意的问题---http://blog.csdn.net/fyxxq/article/details/41544685
+                                                3) spring中的事物传播------http://blog.csdn.net/dknypxt/article/details/5626161s
+                                                4) 事物传播需要区分service间的调用和service内部调用。</p>
+                                        </div>
+                                        <div class="tab-pane" id="65">
+                                            <p class="lead">制作头像上传。</p>
+                                            <p>
+                                                前端页面设计使用bootstrap ，头像预览和剪裁工具使用cropper，后台使用springmvc。<br/>
+                                                1.头像预览和剪裁工具使用cropper:<br/> http://blog.csdn.net/u012441887/article/details/51027012<br/>
+                                                2.头像上传以及之前预览再以及剪裁——javaweb版本<br/>-http://blog.csdn.net/linshao512/article/details/8078722<br/>
+                                                3.java web 网站头像上传处理
+                                                <br/> (springmvc
+                                                +bootstrap+cropper):http://www.2cto.com/kf/201604/496824.html<br/>
+                                                4.jQuery简单且功能强大的图片剪裁插件:http://www.htmleaf.com/jQuery/Image-Effects/201504211716.html<br></p>
+                                        </div>
+                                        <div class="tab-pane" id="66">
+                                            <p class="lead">bootStrap table "动态知识点二"</p>
+                                            <p>
+                                                1. 对于bootstrap table 可以通过data 属性或者JavaScript 来启用bootstrap table 插件，显示丰富的功能。<br/>
+                                                2.//通过bootstrap Table方法refresh重新加载数据 <br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="67">
+                                            <p class="lead">Mybatis分页插件 - PageHelper</p>
+                                            <p>
+                                                PageHelper的原理是基于拦截器实现的。<br/>拦截器的配置有两种方法，一种是在mybatis的配置文件中配置，一种是直接在spring的配置文件中进行：<br/>
+                                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
+                                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 <br/>
+                                                3.我用的版本是PageHelper-4.1.1、Mybatis-3.3.0<br/>
+                                                PageHelper 依赖于 jsqlparser-0.9.4.jar<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="68">
+                                            <p class="lead">Mybatis分页插件 - PageHelper</p>
+                                            <p>
+                                                5.使用方法: http://www.360doc.com/content/15/0728/15/12642656_487954693.shtml<br/>
+                                                pageHelper会使用ThreadLocal获取到同一线程中的变量信息，各个线程之间的Threadlocal不会相互干扰，<br/>
+                                                也就是Thread1中的ThreadLocal1之后获取到Tread1中的变量的信息，不会获取到Thread2中的信息<br/>
+                                                所以在多线程环境下，各个Threadlocal之间相互隔离，可以实现，<br/>
+                                                不同thread使用不同的数据源或不同的Thread中执行不同的SQL语句<br/>
+                                                所以，PageHelper利用这一点通过拦截器获取到同一线程中的预编译好的SQL语句之后<br/>
+                                                将SQL语句包装成具有分页功能的SQL语句，并将其再次赋值给下一步操作，所以实际执行的SQL语句就是有了分页功能的SQL语句<br/>
+                                                PageHelper只对紧跟着的第一个SQL语句起作用<br/>
+                                                如上：所以若一个方法中涉及到多个查询，需要小心，避免为不需要分页的添加了分页，而真正需要分页的却没有被分页<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="69">
+                                            <p class="lead">Mybatis分页插件 - PageHelper</p>
+                                            <p>
+                                                4.当你想在实体类中使用Java.util.Date类型，而且还想在数据库中保存时分秒时，你可以在xml中修改为：#{xxdate,jdbcType=TIMESTAMP}<br/>
+                                                就是将#{}中的jdbcType属性设置成TIMESTAMP，这样在保存的时候就会将时分秒也包含进去。<br/>
+                                                如果你xml中使用了< resultMap>，为了防止意外，最好将相应的字段也修改：<br/>
+                                                < result column="XXDATE" jdbcType="TIMESTAMP" property="xxdate"/><br/>
+                                                6.首先该分页插件支持以下两种调用方式：<br/>
+                                                //第一种，RowBounds方式的调用List list = sqlSession.selectList("x.y.selectIf", null, new RowBounds(1, 10));//<br/>
+                                                第二种，Mapper接口方式的调用，推荐这种使用方式。<br/>
+                                                PageHelper.startPage(1, 10);List list = countryMapper.selectIf(1);<br/>
+                                                下面分别对这两种方式进行详细介绍：<br/></p>
+                                        </div>
+                                        <div class="tab-pane" id="610">
+                                            <p class="lead">Spring Boot</p>
+                                            <p>
+                                                学习网址：http://www.oschina.net/p/mybatis_pagehelper<br/>
+                                                http://blog.csdn.net/joker_zhou/article/details/50418005</br>
+                                                1. 如果你也在用Mybatis，建议尝试该分页插件，这一定是最方便使用的分页插件。<br/>
+                                                2.该插件目前支持以下数据库的物理分页:Oracle、Mysql、MariaDB、SQLite、Hsqldb、PostgreSQL、DB2、SqlServer(2005+)、Informix、H2 、<br/>
+                                                3.
+                                                4.
+                                                5.</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <!-- required for floating -->
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs tabs-right">
+                                        <li class="active"><a href="#61" data-toggle="tab">6.1</a>
+                                        </li>
+                                        <li><a href="#62" data-toggle="tab">6.4</a>
+                                        </li>
+                                        <li><a href="#63" data-toggle="tab">6.8</a>
+                                        </li>
+                                        <li><a href="#64" data-toggle="tab">6.10</a>
+                                        </li>
+                                        <li><a href="#65" data-toggle="tab">6.12</a>
+                                        </li>
+                                        <li><a href="#66" data-toggle="tab">6.13</a>
+                                        </li>
+                                        <li><a href="#67" data-toggle="tab">6.15</a>
+                                        </li>
+                                        <li><a href="#68" data-toggle="tab">6.19</a>
+                                        </li>
+                                        <li><a href="#69" data-toggle="tab">6.22</a>
+                                        </li>
+                                        <li><a href="#610" data-toggle="tab">6.25</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-align-left"></i> Collapsible / Accordion <small>Sessions</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!-- start accordion -->
+                                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel">
+                                        <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="panel-title">Collapsible Group Items #1</h4>
+                                        </a>
+                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Username</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <h4 class="panel-title">Collapsible Group Items #2</h4>
+                                        </a>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                <p><strong>Collapsible Item 2 data</strong>
+                                                </p>
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <h4 class="panel-title">Collapsible Group Items #3</h4>
+                                        </a>
+                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body">
+                                                <p><strong>Collapsible Item 3 data</strong>
+                                                </p>
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of accordion -->
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-align-left"></i> Collapsible / Accordion <small>Sessions</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!-- start accordion -->
+                                <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                                    <div class="panel">
+                                        <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="panel-title">Collapsible Group Item #1</h4>
+                                        </a>
+                                        <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>First Name</th>
+                                                        <th>Last Name</th>
+                                                        <th>Username</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Mark</td>
+                                                        <td>Otto</td>
+                                                        <td>@mdo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Jacob</td>
+                                                        <td>Thornton</td>
+                                                        <td>@fat</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <a class="panel-heading collapsed" role="tab" id="headingTwo1" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
+                                            <h4 class="panel-title">Collapsible Group Item #2</h4>
+                                        </a>
+                                        <div id="collapseTwo1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                <p><strong>Collapsible Item 2 data</strong>
+                                                </p>
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel">
+                                        <a class="panel-heading collapsed" role="tab" id="headingThree1" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree1" aria-expanded="false" aria-controls="collapseThree">
+                                            <h4 class="panel-title">Collapsible Group Item #3</h4>
+                                        </a>
+                                        <div id="collapseThree1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                            <div class="panel-body">
+                                                <p><strong>Collapsible Item 3 data</strong>
+                                                </p>
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of accordion -->
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="">
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Tooltips <small>Hover to view</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <p>Add small overlays of content for housing secondary information.</p>
+                                <!-- start pop-over -->
+                                <div class="bs-example-popovers">
+                                    <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">
+                                        Left
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">
+                                        Top
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                                        Bottom
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                                        Right
+                                    </button>
+                                </div>
+                                <!-- end pop-over -->
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Tooltips <small>Hover to view</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Settings 1</a>
+                                            </li>
+                                            <li><a href="#">Settings 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <p>Hover over the links below to see tooltips:</p>
+
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip left">Tooltip left</button>
+
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip top">Tooltip top</button>
+
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip bottom">Tooltip bottom</button>
+
+                                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip right">Tooltip right</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Daily active users <small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <ul class="list-unstyled timeline">
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            <a href="" class="tag">
+                                                <span>Entertainment</span>
+                                            </a>
+                                        </div>
+                                        <div class="block_content">
+                                            <h2 class="title">
+                                                <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                            </h2>
+                                            <div class="byline">
+                                                <span>13 hours ago</span> by <a>Jane Smith</a>
+                                            </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            <a href="" class="tag">
+                                                <span>Entertainment</span>
+                                            </a>
+                                        </div>
+                                        <div class="block_content">
+                                            <h2 class="title">
+                                                <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                            </h2>
+                                            <div class="byline">
+                                                <span>13 hours ago</span> by <a>Jane Smith</a>
+                                            </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="block">
+                                        <div class="tags">
+                                            <a href="" class="tag">
+                                                <span>Entertainment</span>
+                                            </a>
+                                        </div>
+                                        <div class="block_content">
+                                            <h2 class="title">
+                                                <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                            </h2>
+                                            <div class="byline">
+                                                <span>13 hours ago</span> by <a>Jane Smith</a>
+                                            </div>
+                                            <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Daily active users <small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <div class="bs-example" data-example-id="simple-jumbotron">
+                                <div class="jumbotron">
+                                    <h1>Hello, world!</h1>
+                                    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-chevron-down"></i> Dropdowns <small>Multiple dropdown designs</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <p>Gentelella provides you with several dropdown designs for your choosing.</p>
+                            <ul class="nav nav-pills" role="tablist">
+                                <li role="presentation"><a href="#">Regular link</a>
+                                </li>
+                                <li role="presentation" class="dropdown">
+                                    <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                        Dropdown
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul id="menu6" class="dropdown-menu animated fadeInDown" role="menu">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li role="presentation" class="dropdown">
+                                    <a id="drop5" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                        Dropdown
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul id="menu2" class="dropdown-menu animated fadeInDown" role="menu" aria-labelledby="drop5">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li role="presentation" class="dropdown">
+                                    <a id="drop6" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                        Dropdown
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul id="menu3" class="dropdown-menu animated fadeInDown" role="menu" aria-labelledby="drop6">
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Another action</a>
+                                        </li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Something else here</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="https://twitter.com/fat">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-square-o"></i> Modals</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <!-- modals -->
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Text in a modal</h4>
+                                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Small modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+
+                            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Text in a modal</h4>
+                                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /modals -->
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-bell"></i> Notifications <small>Styled & Custom notifications</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <p>Regular notifications</p>
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Regular Success',
+                                  text: 'That thing that you were trying to do worked!',
+                                  type: 'success',
+                                  styling: 'bootstrap3'
+                              });">Success</button>
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'New Thing',
+                                  text: 'Just to let you know, something happened.',
+                                  type: 'info',
+                                  styling: 'bootstrap3'
+                              });">Info</button>
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Regular Notice',
+                                  text: 'Check me out! I\'m a notice.',
+                                  styling: 'bootstrap3'
+                              });">Notice</button>
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Oh No!',
+                                  text: 'Something terrible happened.',
+                                  type: 'error',
+                                  styling: 'bootstrap3'
+                              });">Error</button>
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Oh No!',
+                                  text: 'Something terrible happened.',
+                                  type: 'info',
+                                  styling: 'bootstrap3',
+                                  addclass: 'dark'
+                              });">Dark</button>
+
+                            <hr />
+
+                            <p>Sticky notifications.. these wont close unless user closes them.</p>
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Sticky Success',
+                                  text: 'Sticky success... I\'m not even gonna make a joke.',
+                                  type: 'success',
+                                  hide: false,
+                                  styling: 'bootstrap3'
+                              });">Success</button>
+
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Sticky Info',
+                                  text: 'Sticky Info... I\'m not even gonna make a joke.',
+                                  type: 'info',
+                                  hide: false,
+                                  styling: 'bootstrap3'
+                              });">Info</button>
+
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Sticky Warning',
+                                  text: 'Sticky Warning... I\'m not even gonna make a joke.',
+                                  hide: false,
+                                  styling: 'bootstrap3'
+                              });">Warning</button>
+
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Sticky Danger',
+                                  text: 'Sticky Danger... I\'m not even gonna make a joke.',
+                                  type: 'error',
+                                  hide: false,
+                                  styling: 'bootstrap3'
+                              });">Error</button>
+
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Sticky Success',
+                                  text: 'Sticky success... I\'m not even gonna make a joke.',
+                                  type: 'info',
+                                  hide: false,
+                                  styling: 'bootstrap3',
+                                  addclass: 'dark'
+                              });">Dark</button>
+
+                            <hr/>
+
+                            <button class="btn btn-default source" onclick="new PNotify({
+                                  title: 'Non-Blocking Notice',
+                                  type: 'info',
+                                  text: 'When you hover over me I\'ll fade to show the elements underneath. Feel free to click any of them just like I wasn\'t even here.',
+                                  nonblock: {
+                                      nonblock: true
+                                  },
+                                  styling: 'bootstrap3',
+                                  addclass: 'dark'
+                              });">Non-Blocking Notice</button>
+
+                            <hr />
+
+                            <div id="antoox">
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-default source" onclick="new TabbedNotification({
+                                  title: 'Tabbed Notificat',
+                                  text: 'Sticky success... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',
+                                  type: 'success',
+                                  sound: false
+                              })">Success</button>
+
+                            <button class="btn btn-default source" onclick="new TabbedNotification({
+                                  title: 'Tabbed Notificat',
+                                  text: 'Custom Info... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.',
+                                  type: 'info',
+                                  sound: false
+                              })">Info</button>
+
+                            <button class="btn btn-default source" onclick="new TabbedNotification({
+                                  title: 'Tabbed Notificat',
+                                  text: 'Custom Warning... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',
+                                  type: 'warning',
+                                  sound: false
+                              })">Warning</button>
+
+                            <button class="btn btn-default source" onclick="new TabbedNotification({
+                                  title: 'Custom Notification error',
+                                  text: 'Custom Error... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',
+                                  type: 'error',
+                                  sound: false
+                              })">Error</button>
+
+                            <button class="btn btn-default source" onclick="new TabbedNotification({
+                                  title: 'Tabbed notification dark',
+                                  text: 'Custom Dark... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',
+                                  type: 'dark',
+                                  sound: false
+                              })">Dark</button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Pop Overs <small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content bs-example-popovers">
+
+                            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                            </div>
+                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-align-left"></i> Progress bar<small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <p>Bootstrap progress bar with animated loading bar, add right to .progress to align right</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="progress right">
+                                        <div class="progress-bar progress-bar-danger" data-transitiongoal="25"></div>
+                                    </div>
+                                    <div class="progress right">
+                                        <div class="progress-bar progress-bar-warning" data-transitiongoal="45"></div>
+                                    </div>
+                                    <div class="progress right">
+                                        <div class="progress-bar progress-bar-info" data-transitiongoal="65"></div>
+                                    </div>
+                                    <div class="progress right">
+                                        <div class="progress-bar progress-bar-success" data-transitiongoal="95"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger" data-transitiongoal="25"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-warning" data-transitiongoal="45"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-info" data-transitiongoal="65"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" data-transitiongoal="95"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <ul class="verticle_bars list-inline">
+                                        <li>
+                                            <div class="progress progress-striped vertical progress_wide bottom">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="25"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress progress-striped vertical progress_wide bottom">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="45"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical progress_wide bottom">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="65"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical progress_wide bottom">
+                                                <div class="progress-bar  progress-bar-success" role="progressbar" data-transitiongoal="85"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-sm-12 fixed_height_200">
+                                    <ul class="verticle_bars list-inline">
+                                        <li>
+                                            <div class="progress vertical bottom">
+                                                <div class="progress-bar  progress-bar-success" role="progressbar" data-transitiongoal="85"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical bottom">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="65"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical bottom">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="45"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical bottom">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="25"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <ul class="verticle_bars list-inline">
+                                        <li>
+                                            <div class="progress vertical progress_wide">
+                                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" data-transitiongoal="25"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical progress_wide">
+                                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" data-transitiongoal="45"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical progress_wide">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="65"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical progress_wide">
+                                                <div class="progress-bar  progress-bar-success" role="progressbar" data-transitiongoal="85"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-sm-12 fixed_height_200">
+                                    <ul class="verticle_bars list-inline">
+                                        <li>
+                                            <div class="progress vertical">
+                                                <div class="progress-bar  progress-bar-success" role="progressbar" data-transitiongoal="85"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="65"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical">
+                                                <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="45"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="progress vertical">
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="25"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Start to do list -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>To Do List <small>Sample tasks</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <div class="">
+                                <ul class="to_do">
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Schedule meeting with new client </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Create email address for new intern</p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Have IT fix the network printer</p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Copy backups to offsite location</p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End to do list -->
+
+
+                <div class="col-md-6">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Daily active users <small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <ul class="list-unstyled msg_list">
+                                <li>
+                                    <a>
+                        <span class="image">
+                          <img src="images/img.jpg" alt="img" />
+                        </span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                        <span class="image">
+                          <img src="images/img.jpg" alt="img" />
+                        </span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                        <span class="image">
+                          <img src="images/img.jpg" alt="img" />
+                        </span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                        <span class="image">
+                          <img src="images/img.jpg" alt="img" />
+                        </span>
+                                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
+                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--widget-box end-->
+            <div class="clearfix"></div>
         </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                ZJNU - Bootstrap Admin
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-    <!-- row-fluid-->
 </div>
-<!--container-fluid end-->
+
+<div id="custom_notifications" class="custom-notifications dsp_none">
+    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+    </ul>
+    <div class="clearfix"></div>
+    <div id="notif-group" class="tabbed_notifications"></div>
 </div>
-<!--content  end-->
+
+<!-- jQuery -->
+<script src="/ssm_vendor/static/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/ssm_vendor/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/ssm_vendor/static/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/ssm_vendor/static/vendors/nprogress/nprogress.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="/ssm_vendor/static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="/ssm_vendor/static/vendors/iCheck/icheck.min.js"></script>
+<!-- PNotify -->
+<script src="/ssm_vendor/static/vendors/pnotify/dist/pnotify.js"></script>
+<script src="/ssm_vendor/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+<script src="/ssm_vendor/static/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/ssm_vendor/static/build/js/custom.min.js"></script>
+
 </body>
 </html>

@@ -1,772 +1,882 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ThinkPad
-  Date: 2017/5/21
-  Time: 11:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <title>系统用户sysuser-res</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <%--引入公共CSS 样式--%>
-    <%@ include file="/WEB-INF/jsp/common/common_css.jsp" %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
-<%--=====创建生产商管理 用户======--%>
-<script type="text/javascript">
-    function webRes() {
-        if ($('#user1').val() == "") {
-            $('#user1').focus();
-            $('#user1').tips({
-                side: 2,
-                msg: '用户名不能为空',
-                bg: '#AE81FF',
-                time: 3,
-            });
-            return false;
-        }
-        if ($('#user1').val().length < 4 || $('#user1').val().length > 10) {
-            $('#user1').focus();
-            $('#user1').tips({
-                side: 2,
-                msg: '用户名位数建议4-10位',
-                bg: '#AE81FF',
-                time: 3,
-            });
-            return false;
-        }
-        if ($('#passwd3').val().length < 6) {
-            $('#passwd3').focus();
-            $("#passwd3").tips({
-                side: 2,
-                msg: '密码不能小于6位',
-                bg: '#AE81FF',
-                time: 3
-            });
-            return false;
-        }
-        if ($('#passwd4').val() != $('#passwd3').val()) {
-            $('#passwd4').focus();
-            $("#passwd4").tips({
-                side: 2,
-                msg: '两次密码不一致',
-                bg: '#AE81FF',
-                time: 3
-            });
-            return false;
-        }
+    <title> 创建一级用户管理 </title>
+    <%--引入CSS 样式 start--%>
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/bootstrap/dist/css/bootstrap.min.css'/>">
+    <!-- Font Awesome -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/font-awesome/css/font-awesome.min.css'/>">
+    <!-- NProgress -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
+    <!-- Custom Theme Style -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
+    <%--引入CSS 样式 end --%>
+
+    <%--=======创建系统管理员开始=======--%>
+    <script type="text/javascript">
+        function webSysreg() {
+//            if ($('#user2').val() == "") {
+//                $('#user2').focus();
+//                $('#user2').tips({
+//                    side: 2,
+//                    msg: '用户名不能为空',
+//                    bg: '#AE81FF',
+//                    time: 3,
+//                });
+//                return false;
+//            }
+//            if ($('#user2').val().length < 4 || $('#user2').val().length > 10) {
+//                $('#user2').focus();
+//                $('#user2').tips({
+//                    side: 2,
+//                    msg: '用户名位数建议4-10位',
+//                    bg: '#AE81FF',
+//                    time: 3,
+//                });
+//                return false;
+//            }
+//            if ($('#passwd5').val().length < 6) {
+//                $('#passwd5').focus();
+//                $("#passwd5").tips({
+//                    side: 2,
+//                    msg: '密码不能小于6位',
+//                    bg: '#AE81FF',
+//                    time: 3
+//                });
+//                if ($('#passwd6').val() != $('#passwd5').val()) {
+//                    $('#passwd6').focus();
+//                    $("#passwd6").tips({
+//                        side: 2,
+//                        msg: '两次密码不一致',
+//                        bg: '#AE81FF',
+//                        time: 3
+//                    });
+//                    return false;
+//                }
+//            }
 
 
-        var sqq = /^1[34578]\d{9}$/;
-        if (!sqq.test($('#cellnumber1').val())
-            || $('#cellnumber1').val().length < 11
-            || $('#cellnumber1').val().length > 14
-            || $('#cellnumber1').val() == "") {
+            var sqq = /^1[34578]\d{9}$/;
+            if (!sqq.test($('#telephone1').val())
+                || $('#telephone1').val().length < 11
+                || $('#telephone1').val().length > 14
+                || $('#telephone1').val() == "") {
 
-            $('#cellnumber1').focus();
-            $("#cellnumber1").tips({
-                side: 2,
-                msg: '手机号不正确',
-                bg: '#AE81FF',
-                time: 3
-            });
-            return false;
-        }
-        var loginname = $("#user1").val();
-        var password = $("#passwd3").val();
-        var cellnumber = $("#cellnumber1").val();
-        var realname = $("#realname1").val();
-
-//        var roleid = $("select option:selected").val();
-        //        alert($(":selected","#sel").attr("id"));
-        alert("生产商 贸易商 管理员roleid=  6 和10 ");
-        alert($(":selected", "#sel1").val());
-//        alert($("select option:selected").attr("id"));//弹出Id的值
-//        alert($("select option:selected").val());//弹出  存入数据库的值
-//        var roleid = $(":selected","#sel").val();
-//        var roleid = $("#roleid").val();
-//  测试用
-        var roleid = $(":selected", "#sel1").val();
-
-        var Email = $("#Email1").val();
-        var QQ = $("#QQ1").val();
-        var code = $("#code1").val();
-        var card = $("#card1").val();
-        var adress = $("#adress1").val();
-        //        ==========================生产商信息=========================
-
-        var factoryname = $("#factoryname").val();
-        alert($(":selected", "#sel2").val());
-        var factorytype = $(":selected", "#sel2").val()
-//        var factorytype = $("select option:selected").val();
-//        var factorylogopath = $("#factorylogopath").val();
-        var sfeereturnrate = $("#sfeereturnrate").val();
-        var qrreturnrate = $("#qrreturnrate").val();
-        var receiveaccount = $("#receiveaccount").val();
-        var openbankname = $("#openbankname").val();
-        var openaccountname = $("#openaccountname").val();
-        $.ajax({
-            type: "POST",
-            url: "<%=request.getContextPath()%>/userAction/sysuserResSheng",
-            data: {
-                accountName: loginname,
-                password: password,
-                mobilePhone: cellnumber,
-                roleId: roleid,
-                realName: realname,
-                email: Email,
-                qq: QQ,
-                postcode: code,
-                idcard: card,
-                postAdress: adress,
-                factoryName: factoryname,
-                factoryType: factorytype,
-//                factoryLogoPath: factorylogopath,
-                sfeeReturnRate: sfeereturnrate,
-                qrReturnRate: qrreturnrate,
-                receiveAccount: receiveaccount,
-                openBankName: openbankname,
-                openAccountName: openaccountname
-            },
-            dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
-            cache: false,
-            success: function (data) {
-                if (data.code == 1) {
-//                    window.location.href = data.data.nextUrl;
-                    alert(data.msg);
-                    window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
-                } else {
-                    alert(data.msg);
-                    $("#user").focus();
-                    $("#factory").focus();
-                }
-            }
-        })
-        ;
-    }
-</script>
-<%--=======创建系统管理员开始=======--%>
-<script type="text/javascript">
-    function webSysreg() {
-        if ($('#user2').val() == "") {
-            $('#user2').focus();
-            $('#user2').tips({
-                side: 2,
-                msg: '用户名不能为空',
-                bg: '#AE81FF',
-                time: 3,
-            });
-            return false;
-        }
-        if ($('#user2').val().length < 4 || $('#user2').val().length > 10) {
-            $('#user2').focus();
-            $('#user2').tips({
-                side: 2,
-                msg: '用户名位数建议4-10位',
-                bg: '#AE81FF',
-                time: 3,
-            });
-            return false;
-        }
-        if ($('#passwd5').val().length < 6) {
-            $('#passwd5').focus();
-            $("#passwd5").tips({
-                side: 2,
-                msg: '密码不能小于6位',
-                bg: '#AE81FF',
-                time: 3
-            });
-            if ($('#passwd6').val() != $('#passwd5').val()) {
-                $('#passwd6').focus();
-                $("#passwd6").tips({
+                $('#telephone1').focus();
+                $("#telephone1").tips({
                     side: 2,
-                    msg: '两次密码不一致',
+                    msg: '手机号不正确',
                     bg: '#AE81FF',
                     time: 3
                 });
                 return false;
             }
-        }
-
-
-
-        var sqq = /^1[34578]\d{9}$/;
-        if (!sqq.test($('#cellnumber2').val())
-            || $('#cellnumber2').val().length < 11
-            || $('#cellnumber2').val().length > 14
-            || $('#cellnumber2').val() == "") {
-
-            $('#cellnumber2').focus();
-            $("#cellnumber2").tips({
-                side: 2,
-                msg: '手机号不正确',
-                bg: '#AE81FF',
-                time: 3
-            });
-            return false;
-        }
-        var loginname = $("#user2").val();
-        var password = $("#passwd5").val();
-        var cellnumber = $("#cellnumber2").val();
-        var realname = $("#realname2").val();
-        alert("检查系统管理员roleid 的值 =  1 ,而不是弹出来的值是 id= 001等");
-        alert($(":selected", "#sel5").val());
-        var roleid = $(":selected", "#sel5").val();
+            var loginname = $("#name").val();
+            alert("检查系统管理员name 的值 =  " + loginname);
+            var password = $("#password5").val();
+            alert("检查系统管理员password 的值 =  " + password);
+            var cellnumber = $("#telephone1").val();
+            var realname = $("#name2").val();
+            alert("检查系统管理员roleid 的值 =  1 ,而不是弹出来的值是 id= 001等");
+            alert($(":selected", "#sel5").val());
+            var roleid = $(":selected", "#sel5").val();
 //        var roleid = $("select option:selected").val();
-        var Email = $("#Email2").val();
-        var QQ = $("#QQ2").val();
-        var code = $("#code2").val();
-        var card = $("#card2").val();
-        var adress = $("#adress2").val();
-        $.ajax({
-            type: "POST",
-            url: '<%=request.getContextPath()%>/userAction/sysuserResXi',
-            data: {
-                accountName: loginname,
-                password: password,
-                mobilePhone: cellnumber,
-                roleId: roleid,
-                realName: realname,
-                email: Email,
-                qq: QQ,
-                postcode: code,
-                idcard: card,
-                postAdress: adress,
-            },
-            dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
-            cache: false,
-            success: function (data) {
-                if (data.code == 1) {
+            var Email = $("#email1").val();
+            var QQ = $("#telephone2").val();
+            var code = $("#telephone3").val();
+            var card = $("#telephone4").val();
+            var adress = $("#name3").val();
+            $.ajax({
+                type: "POST",
+                url: '<%=request.getContextPath()%>/userAction/sysuserResXi',
+                data: {
+                    accountName: loginname,
+                    password: password,
+                    mobilePhone: cellnumber,
+                    roleId: roleid,
+                    realName: realname,
+                    email: Email,
+                    qq: QQ,
+                    postcode: code,
+                    idcard: card,
+                    postAdress: adress,
+                },
+                dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                cache: false,
+                success: function (data) {
+                    if (data.code == 1) {
 //                    window.location.href = data.data.nextUrl;
-                    alert(data.msg);
-                    window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
-                } else {
-                    alert(data.msg);
-                    $("#user").focus();
+                        alert(data.msg);
+                        window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
+                    } else {
+                        alert(data.msg);
+                        $("#user").focus();
+                    }
                 }
+            })
+            ;
+        }
+    </script>
+
+
+    <%--=====创建生产商管理 用户======--%>
+    <script type="text/javascript">
+        function webRes() {
+//            if ($('#user1').val() == "") {
+//                $('#user1').focus();
+//                $('#user1').tips({
+//                    side: 2,
+//                    msg: '用户名不能为空',
+//                    bg: '#AE81FF',
+//                    time: 3,
+//                });
+//                return false;
+//            }
+//            if ($('#user1').val().length < 4 || $('#user1').val().length > 10) {
+//                $('#user1').focus();
+//                $('#user1').tips({
+//                    side: 2,
+//                    msg: '用户名位数建议4-10位',
+//                    bg: '#AE81FF',
+//                    time: 3,
+//                });
+//                return false;
+//            }
+//            if ($('#passwd3').val().length < 6) {
+//                $('#passwd3').focus();
+//                $("#passwd3").tips({
+//                    side: 2,
+//                    msg: '密码不能小于6位',
+//                    bg: '#AE81FF',
+//                    time: 3
+//                });
+//                return false;
+//            }
+//            if ($('#passwd4').val() != $('#passwd3').val()) {
+//                $('#passwd4').focus();
+//                $("#passwd4").tips({
+//                    side: 2,
+//                    msg: '两次密码不一致',
+//                    bg: '#AE81FF',
+//                    time: 3
+//                });
+//                return false;
+//            }
+
+
+            var sqq = /^1[34578]\d{9}$/;
+            if (!sqq.test($('#telephone5').val())
+                || $('#telephone5').val().length < 11
+                || $('#telephone5').val().length > 14
+                || $('#telephone5').val() == "") {
+
+                $('#telephone5').focus();
+                $("#telephone5").tips({
+                    side: 2,
+                    msg: '手机号不正确',
+                    bg: '#AE81FF',
+                    time: 3
+                });
+                return false;
             }
-        })
-        ;
-    }
-</script>
+            var loginname = $("#name4").val();
+            var password = $("#password3").val();
+            var cellnumber = $("#telephone5").val();
+            var realname = $("#name5").val();
 
+//        var roleid = $("select option:selected").val();
+            //        alert($(":selected","#sel").attr("id"));
+            alert("生产商 贸易商 管理员roleid=  6 和10 ");
+            alert($(":selected", "#sel1").val());
+//        alert($("select option:selected").attr("id"));//弹出Id的值
+//        alert($("select option:selected").val());//弹出  存入数据库的值
+//        var roleid = $(":selected","#sel").val();
+//        var roleid = $("#roleid").val();
+//  测试用
+            var roleid = $(":selected", "#sel1").val();
 
-<body>
-<%--引入顶部导航jsp  --%>
-<%@ include file="/WEB-INF/jsp/index_body/index_top_header.jsp" %>
+            var Email = $("#email2").val();
+            var QQ = $("#telephone6").val();
+            var code = $("#telephone7").val();
+            var card = $("#telephone8").val();
+            var adress = $("#name6").val();
+            //        ==========================生产商信息=========================
 
-<%--引入左侧菜单栏--%>
-<%@ include file="../index_body/index_siderbar.jsp" %>
-<%--页面功能箱子--%>
-<div id="content">
-    <div id="content-header">
-        <div id="breadcrumb"><a href="<%=request.getContextPath()%>/mvc/home" title="欢迎回来" class="tip-bottom"><i
-                class="icon-home"></i> 首页</a> <a href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"
-                                                 class="current">一级用户管理</a>
-        </div>
-        <div class="container-fluid">
-            <hr>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="widget-box">
-                <div class="widget-title">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab1">生产商管理用户</a></li>
-                        <li><a data-toggle="tab" href="#tab2">系统管理用户</a></li>
-                        <li><a data-toggle="tab" href="#tab3">待开发</a></li>
+            var factoryname = $("#name7").val();
+            alert($(":selected", "#sel2").val());
+            var factorytype = $(":selected", "#sel2").val()
+//        var factorytype = $("select option:selected").val();
+//        var factorylogopath = $("#factorylogopath").val();
+            var sfeereturnrate = $("#telephone9").val();
+            var qrreturnrate = $("#telephone10").val();
+            var receiveaccount = $("#telephone11").val();
+            var openbankname = $("#name8").val();
+            var openaccountname = $("#name9").val();
+            $.ajax({
+                type: "POST",
+                url: "<%=request.getContextPath()%>/userAction/sysuserResSheng",
+                data: {
+                    accountName: loginname,
+                    password: password,
+                    mobilePhone: cellnumber,
+                    roleId: roleid,
+                    realName: realname,
+                    email: Email,
+                    qq: QQ,
+                    postcode: code,
+                    idcard: card,
+                    postAdress: adress,
+                    factoryName: factoryname,
+                    factoryType: factorytype,
+//                factoryLogoPath: factorylogopath,
+                    sfeeReturnRate: sfeereturnrate,
+                    qrReturnRate: qrreturnrate,
+                    receiveAccount: receiveaccount,
+                    openBankName: openbankname,
+                    openAccountName: openaccountname
+                },
+                dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                cache: false,
+                success: function (data) {
+                    if (data.code == 1) {
+//                    window.location.href = data.data.nextUrl;
+                        alert(data.msg);
+                        window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
+                    } else {
+                        alert(data.msg);
+                        $("#user").focus();
+                        $("#factory").focus();
+                    }
+                }
+            })
+            ;
+        }
+    </script>
+</head>
 
-                    </ul>
-                </div>
-                <div class="widget-content tab-content">
-                    <%--==========================tab 5.29  加长版本===========================================--%>
-                    <div id="tab1" class="tab-pane active">
-                        <%--<div class="alert alert-error alert-block">--%>
-                        <%--<a class="close" data-miss="alert" href="">×</a>--%>
-                        <%--<h4 class="alert-heading">新建生产商用户</h4>--%>
-                        <%--1生产商角色概述：************** 2：生产商职责：********* 3：生产商权限：********** 4 ：生产商工作范围：***********--%>
-                        <%--</div>--%>
-                        <div class="alert alert-error">
-                            <button class="close" data-dismiss="alert">×</button>
-                            <strong>新建生产商用户 </strong>
-                            用户必须同意，其提供的真实的、准确的、合法的帐号
-                            ，这是作为认定用户与售货机的关联性以及确认用户身
-                            份的唯一证据。 用户在享用售货机提供的各项服务的
-                            同时， 同意接受售货机后台管理系统提供的各类信息服务。<br>
-                            1生产商角色概述：************** 2：生产商职责：********* 3：生产商权限：********** 4
-                            ：生产商工作范围：***********
-                        </div>
-                        <div id="web_res">
-                            <form name="resform" id="resUser" class="form-horizontal"
-                                  action=""
-                                  accept-charset="utf-8"
-                                  method="post">
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <%--引入左部内容，包括左侧权限菜单，以及修改个人头像模态弹窗--%>
+        <%--引入顶部导航jsp  --%>
+        <%@ include file="/WEB-INF/jsp/index_body/index_left_col.jsp" %>
 
-                                <div class="control-group info ">
-                                    <label class="control-label span4">账户名:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="user1" name="accountName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入6-10位有效数字或字母">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;建立生产商管理用户，账户名唯一，可唯一识别身份</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">用户密码:</label>
-                                    <div class="controls">
-                                        <input type="password" placeholder="" id="passwd3" name="password"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入小于6位密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入小于6位密码，并保管好密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">确认密码:</label>
-                                    <div class="controls">
-                                        <input type="password" placeholder="" id="passwd4" name="password"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入小于6位密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入小于6位密码，同上，并保管好密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">联系电话:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="cellnumber1" name="mobilePhone"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入正确的电话号码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;正确的联系的方式，方便及时通知信息</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">真实姓名:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="realname1" name="realName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请填写真实姓名">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写真实姓名，建议不超过四个字</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label">角色类型</label>
-                                    <div class="controls">
-                                        <div class="form-group span4 ">
-                                            <select class="form-control" id="sel1" name="roleId" placeholder="请选择角色种类"
-                                                    aria-describedby="basic-addon1">
-                                                <%--<option value="1" id="1"> 系统管理员</option>--%>
-                                                <%--<option value="1" id="1"> 系统管理员</option>--%>
-                                                <%--<option value="2"> 系统操作员</option>--%>
-                                                <%--<option value="3" id="2">运营商管理员</option>--%>
-                                                <%--<option value="4">运营商配货员</option>--%>
-                                                <%--<option value="5">运营商仓库员</option>--%>
-                                                <%--<option value="7">生产商操作员</option>--%>
-                                                <option value="8">出租商管理员</option>
-                                                <option value="6">生产商管理员</option>
-                                                <option value="10"> 贸易商管理员</option>
-                                            </select>
-                                        </div>
-                                        <span class="help-inline">*1生产商管理员：负责管理生产商组织<br/> *2.出租商管理员：负责管理出租商组织 <br/> *3.贸易商管理员：负责负责管理贸易商组织，非生产商<br/></span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">用户邮箱:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="Email1" name="email"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效邮箱，方便找回密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;填写邮箱，可有效管理账户密码，方便找回密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">QQ账号:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="QQ1" name="qq"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效QQ号码，方便联系">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;QQ号码，方便信息交流，建议填写</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">邮政编码:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="code1" name="postcode"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入6位有效邮编">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;邮政编码 如：3897790</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">身份证号:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="card1" name="idcard"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入正确的18位身份证信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写有效身份证号信息</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">通信地址:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="adress1" name="postAdress"
-                                               data-title=""
-                                               class="span6 tip"
-                                               data-original-title="请输入正确的通信地址">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字，方便收寄货品</span>
-                                    </div>
-                                </div>
-                                <%--=============================5.30填入生产商表内容============================--%>
-                                <div class="alert alert-error">
-                                    <button class="close" data-dismiss="alert">×</button>
-                                    <strong>生产商信息表 </strong> 1生产商角色概述：************** 2：生产商职责：*********
-                                    3：生产商权限：********** 4 ：生产商工作范围：***********
-                                </div>
-                                <%--<div class="alert alert-error alert-block">--%>
-                                <%--<a class="close" data-miss="alert" href="">×</a>--%>
-                                <%--<h4 class="alert-heading">生产商信息表</h4>--%>
-                                <%--1生产商角色概述：************** 2：生产商职责：********* 3：生产商权限：********** 4 ：生产商工作范围：*********** --%>
-                                <%--</div>--%>
-                                <div class="control-group info">
-                                    <label class="control-label span4">生产商名称:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="factoryname" name="factoryName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;生产商角色直接填写名称，贸易商角色请填写上一级生产商的名称，方便管理</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label">生产商类型</label>
-                                    <div class="controls">
-                                        <div class="form-group span4 ">
-                                            <select class="form-control" id="sel2" name="factoryType"
-                                                    placeholder="请选择生产商类型" aria-describedby="basic-addon1">
-                                                <option value="生产商" id="0">生产商</option>
-                                                <option value="贸易商" id="1">贸易商</option>
-                                            </select>
-                                        </div>
-                                        <span class="help-inline">*如果您是专门的生产商，请选择生产商。<br>如果您是贸易商，不负责生产，请选择贸易商</span>
-                                    </div>
-                                </div>
-                                <%--==============================================6.10增加上传头像功能==========================--%>
-                                <%--<div class="control-group info">--%>
-                                <%--<label class="control-label span4">&emsp;&emsp;&emsp;&emsp;&emsp;生产商logo路径:</label>--%>
-                                <%--<div class="controls">--%>
-                                <%--<input type="text" placeholder="" id="factorylogopath" name="factoryLogoPath"--%>
-                                <%--data-title=""--%>
-                                <%--class="span3 tip"--%>
-                                <%--data-original-title="请输路径/static/images/****.jpg..."/>--%>
-                                <%--<span class="add-on"></span>--%>
-                                <%--<span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;体现公司形象的logo，提升公司文化素养</span>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
-                                <%--================================模态变动==================================--%>
-                                <%--<div class="modal fade modal" id="my-prompt9" aria-labelledby="myModal-prompt">--%>
-                                <%--<div class="modal-dialog " tabindex="-1">--%>
-                                <%--<div class="modal-content">--%>
+        <%--引入顶部导航栏，包括下拉菜单，以及查看个人资料模态弹窗--%>
+        <!-- top navigation -->
+        <%@ include file="/WEB-INF/jsp/index_body/index_top_nav.jsp" %>
+        <!-- /top navigation -->
 
-                                <%--<div class="modal-header">--%>
-                                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span--%>
-                                <%--aria-hidden="true">&times;</span></button>--%>
-                                <%--<h4 class="modal-title" id="myModal-prompt">修改个人头像</h4>--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;modal-header end&ndash;%&gt;--%>
+        <%--右侧Tab主要内容--%>
+        <!-- page content -->
+        <div class="right_col" role="main">
 
-                                <%--<div class="modal-body ">--%>
-                                <%--<form class="form-horizontal " enctype="multipart/form-data" accept-charset="utf-8">--%>
-                                <%--&lt;%&ndash;===============================================&ndash;%&gt;--%>
-                                <%--<div class="modal-prompt-input span5">--%>
-                                <%--<div class="control-group ">--%>
-                                <%--<label class="control-label">上传头像</label>--%>
-                                <%--<ul class="thumbnails">--%>
-                                <%--<li class="span2"><a> <img src="/static/images/avatar-1.jpg" alt=""> </a>--%>
-                                <%--<div class="actions">--%>
-                                <%--&lt;%&ndash;<a title="编辑" href="#"><i class="icon-pencil"></i></a>&ndash;%&gt;--%>
-                                <%--<a class="lightbox_trigger" title="预览" href="/static/images/avatar-1.jpg"><i class="icon-search"></i></a>--%>
-                                <%--</div>--%>
-                                <%--</ul>--%>
-                                <%--<div class="controls span3 ">--%>
-                                <%--<input type="hidden" id="loginId1" name="accountName" value="${userInfo.accountName}">--%>
-                                <%--<input type="file" name="file" id="changeHeadPic" size="28"/>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<hr>--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;================================&ndash;%&gt;--%>
-
-                                <%--</form>--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;modal-body end&ndash;%&gt;--%>
-                                <%--<div class="modal-footer">--%>
-                                <%--<button type="button" class="btn btn-danger" onclick="onCancel9();" data-dismiss="modal">返回--%>
-                                <%--</button>--%>
-                                <%--<button type="button" class="btn btn-success" onclick="onConfirm9();" data-dismiss="modal">上传--%>
-                                <%--</button>--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;modal-footer&ndash;%&gt;--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;modal-content end &ndash;%&gt;--%>
-                                <%--</div>--%>
-                                <%--&lt;%&ndash;moadal-dialog end&ndash;%&gt;--%>
-                                <%--</div>--%>
-
-                                <%--==============================================6.10增加上传头像功能==========================--%>
-
-                                <div class="control-group info ">
-                                    <label class="control-label span4">服务费返回率:</label>
-                                    <div class="controls">
-                                        <div class="input-append">
-                                            <input type="text" placeholder="" id="sfeereturnrate" name="sfeeReturnRate"
-                                                   data-title=""
-                                                   class="span3 tip"
-                                                   data-original-title="请输入有效的小数位">
-                                            <span class="add-on">请输入有效小数位</span></div>
-                                        <span class="help-inline">请填写小数位，如：0.10,0.20等有效位数</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">非现金返回率:</label>
-                                    <div class="controls">
-                                        <div class="input-append">
-                                            <input type="text" placeholder="" id="qrreturnrate" name="qrReturnRate"
-                                                   data-title=""
-                                                   class="span3 tip"
-                                                   data-original-title="请输入有效的小数位"/>
-                                            <span class="add-on">请输入有效小数位</span></div>
-                                        <span class="help-inline">请填写小数位，如：0.10,0.20等有效位数</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">开户账号:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="receiveaccount" name="receiveAccount"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效银行">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;**银行卡有效帮助您收取定向款，也方便您收款</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">开户行:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="openbankname" name="openBankName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效银行">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;*请选择正确国内银行，填写全称，如中国建设银行，方便后期核实</span>
-                                    </div>
-                                </div>
-                                <div class="control-group info">
-                                    <label class="control-label span4">开户名:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="openaccountname" name="openAccountName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效银行卡信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;*银行卡有效帮助您收取定向款，也方便您收款</span>
-                                    </div>
-                                </div>
-                                <label class="control-label center"></label>
-                                <div class="controls">
-                                    <%--<button type="reset" class="btn btn-danger" >重置</button>--%>
-                                    <input type="button" class="btn btn-success" id="reg" onclick="webRes();"
-                                           value="提交创建生产商用户"/>
-
-                                </div>
-                            </form>
-
-                        </div>
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>新增用户</h3>
                     </div>
-                    <%--==================================================================--%>
-                    <div id="tab2" class="tab-pane">
-                        <div class="alert alert-error">
-                            <button class="close" data-dismiss="alert">×</button>
-                            <strong>新建系统用户 </strong> 1：系统用户概述：************** 2：系统用户职责：********* 3：系统用户权限：********** 4
-                            ：系统用户工作范围：***********
+
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入内容">
+                                <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">开始</button>
+                          </span>
+                            </div>
                         </div>
-                        <%--<div class="alert alert-error alert-block">--%>
-                        <%--<a class="close" data-miss="alert" href="">×</a>--%>
-                        <%--<h4 class="alert-heading">新建系统用户</h4>--%>
-                        <%--1：系统用户概述：************** 2：系统用户职责：********* 3：系统用户权限：********** 4 ：系统用户工作范围：*********** </div>--%>
-                        <div id="web_sysreg">
-                            <form name="regform" id="sysresUser" class="form-horizontal"
-                                  action=""
-                                  accept-charset="utf-8"
-                                  method="post">
-                                <div class="control-group warning ">
-                                    <label class="control-label span4">账户名:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="user2" name="accountName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入6-10位有效数字或字母">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;建立系统管理用户，账户名唯一，可唯一识别身份</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">用户密码:</label>
-                                    <div class="controls">
-                                        <input type="password" placeholder="" id="passwd5" name="password"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入小于6位密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入小于6位密码，并保管好密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">确认密码:</label>
-                                    <div class="controls">
-                                        <input type="password" placeholder="" id="passwd6" name="password"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入小于6位密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请输入小于6位密码，同上，并保管好密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">联系电话:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="cellnumber2" name="mobilePhone"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入正确的电话号码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;正确的联系的方式，方便及时通知信息</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">真实姓名:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="realname2" name="realName"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入6-10位有效数字或字母">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写真实姓名，建议不超过四个字</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label">角色类型</label>
-                                    <div class="controls">
-                                        <div class="form-group span4 ">
-                                            <select class="form-control" id="sel5" name="roleId" placeholder="请选择角色种类"
-                                                    aria-describedby="basic-addon1">
-                                                <option value="1" id="00"> 系统管理员A</option>
-                                                <option value="1" id="001"> 系统管理员B</option>
-                                                <%--<option value="2"> 系统操作员</option>--%>
-                                                <%--<option value="3" id="2">运营商管理员</option>--%>
-                                                <%--<option value="4">运营商配货员</option>--%>
-                                                <%--<option value="5">运营商仓库员</option>--%>
-                                                <%--<option value="6" id="3">生产商管理员</option>--%>
-                                                <%--<option value="7">生产商操作员</option>--%>
-                                                <%--<option value="8" id="4">出租商管理员</option>--%>
-                                                <%--<option value="9">出租商操作员</option>--%>
-                                                <%--<option value="10" id="5"> 贸易商管理员</option>--%>
-                                            </select>
-                                        </div>
-                                        <span class="help-inline">*1系统管理员管理员A：负责整个系统维护和管理<br/> *2.系统管理员管理员A：辅助管理整个系统</span>
-
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">用户邮箱:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="Email2" name="email"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效邮箱，方便找回密码">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;填写邮箱，可有效管理账户密码，方便找回密码</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">QQ账号:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="QQ2" name="qq"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入有效QQ号码，方便联系">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;QQ号码，方便信息交流，建议填写</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">邮政编码:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="code2" name="postcode"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入6位有效邮编">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;邮政编码 如：100100</span>
-
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">身份证号:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="card2" name="idcard"
-                                               data-title=""
-                                               class="span3 tip"
-                                               data-original-title="请输入正确的18位身份证信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;请填写有效身份证号信息</span>
-                                    </div>
-                                </div>
-                                <div class="control-group warning">
-                                    <label class="control-label span4">通信地址:</label>
-                                    <div class="controls">
-                                        <input type="text" placeholder="" id="adress2" name="postAdress"
-                                               data-title=""
-                                               class="span6 tip"
-                                               data-original-title="请输入正确的18位身份证信息">
-                                        <span class="help-inline">&emsp;&emsp;&emsp;&emsp;&emsp;用户地址，建议不超过50个字，方便收寄货品</span>
-                                    </div>
-                                </div>
-
-                                <label class="control-label center"></label>
-                                <div class="controls">
-                                    <%--<button type="reset" class="btn btn-danger" >重置</button>--%>
-                                    <input type="button" class="btn btn-success" id="reg" onclick="webSysreg();"
-                                           value="申请创建系统用户"/>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <%--==================================================================================--%>
-                    <div id="tab3" class="tab-pane">
-                        <h1>该功能等待开发</h1>
-
                     </div>
                 </div>
+                <div class="clearfix"></div>
 
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>系统管理员
+                                    <small>系统管理员职责：1. 2. 3.</small>
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">设置 1</a>
+                                            </li>
+                                            <li><a href="#">设置 2</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!-- Smart Wizard -->
+                                <p> 1：系统用户概述：是本系统最高统治者&nbsp; 2：系统用户职责：管理该系统的所有用户 <br>
+                                    3：系统用户权限：拥有该系统最高权限&nbsp; 4：系统用户工作范围：覆盖全系统。
+                                </p>
+                                <form name="regform" id="sysresUser" action=""
+                                      accept-charset="utf-8"
+                                      method="post"
+                                      class="form-horizontal form-label-left">
+                                    <div id="wizard" class="form_wizard wizard_horizontal">
+
+                                        <ul class="wizard_steps">
+                                            <li>
+                                                <a href="#step-1">
+                                                    <span class="step_no">1</span>
+                                                    <span class="step_descr">
+                                              步骤 1<br/>
+                                              <small>用户协议</small>
+                                          </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-2">
+                                                    <span class="step_no">2</span>
+                                                    <span class="step_descr">
+                                              步骤 2<br/>
+                                              <small>系统管理员拥有的权限</small>
+                                          </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-3">
+                                                    <span class="step_no">3</span>
+                                                    <span class="step_descr">
+                                              步骤 3<br/>
+                                              <small>系统管理员基本信息（一）</small>
+                                          </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-4">
+                                                    <span class="step_no">4</span>
+                                                    <span class="step_descr">
+                                              步骤 4<br/>
+                                              <small>系统管理员基本信息（二）</small>
+                                          </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div id="step-1">
+                                            <h2 class="StepTitle">步骤 1 详情</h2>
+                                            <p>
+                                                <strong> 特别提示：</strong>
+                                                您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。
+                                                <br>一、总则
+                                            </p>
+                                            <p>
+                                                1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。
+                                            </p>
+                                            <p>
+                                                1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。
+                                            </p>
+                                            <p>
+                                                1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。
+                                            </p>
+                                            <p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由百度公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。
+                                            </p>
+                                        </div>
+                                        <div id="step-2">
+                                            <h2 class="StepTitle">步骤 2 详情</h2>
+                                            <p>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                1.创建系统管理员用户
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                2.创建生产商管理员用户
+                                            </p>
+                                            <br/>
+                                            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                3.系统版本升级、维护
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                4.用户的增删改查
+                                            </p>
+                                            <br/>
+                                            <p>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                5. 权限菜单的管理
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                6.对所有用户监控权限，对可疑账号进行冻结封号处理。
+                                            </p>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        <div id="step-3">
+                                            <%--==========开始填写系统管理员的基本信息==========--%>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">账户名
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="3,10" name="accountName"
+                                                           placeholder="" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label for="password5" class="control-label col-md-3">账户密码*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="password5" type="password" name="password"
+                                                           placeholder="请输入小于6位密码" data-validate-length-range="3,6"
+                                                           class="form-control col-md-7 col-xs-12" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label for="password6"
+                                                       class="control-label col-md-3 col-sm-3 col-xs-12">确认密码*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="password6" type="password" name="password"
+                                                           placeholder="请输入小于6位密码" data-validate-linked="password"
+                                                           class="form-control col-md-7 col-xs-12" required="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone1">联系电话<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone1" name="mobilePhone"
+                                                           placeholder="请输入正确的电话号码" required="required"
+                                                           data-validate-length-range="11,11"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name2">真实姓名
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name2" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="4" data-validate-words="4"
+                                                           name="accountName" placeholder="建议不超过四个字" required="required"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">角色*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="sel5" name="roleId" class="form-control">
+                                                        <option value="1" id="00"> 系统管理员A</option>
+                                                        <option value="1" id="001"> 系统管理员B</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step-4">
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email1">用户邮箱
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="email1" name="email" placeholder=""
+                                                           required="required" class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone2">QQ号码 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone2" name="qq" placeholder=""
+                                                           required="required" data-validate-length-range="1,15"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone3">邮政编码 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone3" name="postcode" placeholder=""
+                                                           required="required" data-validate-length-range="1,6"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone4">身份证号码<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone4" name="idcard"
+                                                           placeholder="二代身份证号"
+                                                           required="required" data-validate-length-range="18,18"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="name3">通信地址<span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" id="name3" required name="postAdress"
+                                                           placeholder=""
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary"> 取消</button>
+                                                    <button id="reg" type="button" class="btn btn-success"
+                                                            onClick="webSysreg();">提交
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- End SmartWizard Content -->
+                                <h2>生产商管理员
+                                    <small>生产商管理员职责：1. 2. 3.</small>
+                                </h2>
+                                <p> 1：生产商用户概述：系统的一级用户组织管理者&nbsp; 2：生产商用户职责：管理所属二级运营商账户<br>
+                                    3：生产商用户权限：拥有该系统一级用户的权限&nbsp; 4：生产商用户工作范围：覆盖系统一级用户所有权限范围。
+                                </p>
+                                <!-- Tabs -->
+                                <form class="form-horizontal form-label-left">
+                                    <div id="wizard_verticle" class="form_wizard wizard_verticle">
+                                        <ul class="list-unstyled wizard_steps">
+                                            <li>
+                                                <a href="#step-11">
+                                                    <span class="step_no"> 1</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-22">
+                                                    <span class="step_no"> 2</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-33">
+                                                    <span class="step_no"> 3</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#step-44">
+                                                    <span class="step_no"> 4</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div id="step-11">
+                                            <h2 class="StepTitle">步骤 1详情</h2>
+
+
+                                            <span class="section">用户协议</span>
+                                            <p>
+                                                <strong> 特别提示：</strong>
+                                                您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。
+                                                <br>一、总则
+                                            </p>
+                                            <p>
+                                                1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。
+                                            </p>
+                                            <p>
+                                                1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。
+                                            </p>
+                                            <p>
+                                                1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。
+                                            </p>
+                                            <p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由本公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。
+                                            </p>
+
+
+                                        </div>
+                                        <div id="step-22">
+                                            <h2 class="StepTitle">步骤 2详情</h2>
+                                            <span class="section">权限范围</span>
+                                            <p>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                1.创建生产商管理员用户，属于系统的一级管理员用户
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                2.生产商管理员用户可以创建自己所属的运营商账户
+                                            </p>
+                                            <br/>
+                                            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                3.所属管辖范围内运营商账户增删改查，以及新增的运营商账户信息审核
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                4.所属管辖范围内所有的售货机数据信息的管理
+                                            </p>
+                                            <br/>
+                                            <p>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                5.对所属管辖范围内二级用户拥有监控权限，对可疑二级用户账号进行冻结封号处理
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                            </p>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        <div id="step-33">
+                                            <h2 class="StepTitle">步骤 3详情</h2>
+                                            <span class="section">用户信息</span>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name4">账户名
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name4" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="3,10" name="accountName"
+                                                           placeholder="" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label for="password3" class="control-label col-md-3">账户密码*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="password3" type="password" name="password"
+                                                           placeholder="请输入小于6位密码" data-validate-length-range="3,6"
+                                                           class="form-control col-md-7 col-xs-12" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label for="password4"
+                                                       class="control-label col-md-3 col-sm-3 col-xs-12">确认密码*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="password4" type="password" name="password"
+                                                           placeholder="请输入小于6位密码" data-validate-linked="password"
+                                                           class="form-control col-md-7 col-xs-12" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone5">联系电话<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone5" name="mobilePhone"
+                                                           placeholder="请输入正确的电话号码" required="required"
+                                                           data-validate-length-range="11,11"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name5">真实姓名
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name5" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="4" data-validate-words="4"
+                                                           name="accountName" placeholder="建议不超过四个字" required="required"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">角色*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="sel1" name="roleId" class="form-control">
+                                                        <option value="8">出租商管理员</option>
+                                                        <option value="6">生产商管理员</option>
+                                                        <option value="10"> 贸易商管理员</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email2">用户邮箱
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="email2" name="email" placeholder=""
+                                                           required="required" class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone6">QQ号码 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone6" name="qq" placeholder=""
+                                                           required="required" data-validate-length-range="1,15"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone7">邮政编码 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone7" name="postcode" placeholder=""
+                                                           required="required" data-validate-length-range="1,6"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone8">身份证号码<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone8" name="idcard"
+                                                           placeholder="二代身份证号"
+                                                           required="required" data-validate-length-range="18,18"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="name6">通信地址<span
+                                                        class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" id="name6" required name="postAdress"
+                                                           placeholder=""
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step-44">
+                                            <h2 class="StepTitle">步骤 4详情</h2>
+                                            <span class="section">生产商信息</span>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name7">生产商名称
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name7" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="4" data-validate-words="4"
+                                                           name="factoryName" placeholder="建议不超过四个字" required="required"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">生产商类型*</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="sel2" name="factoryType" class="form-control">
+                                                        <option value="生产商" id="0">生产商</option>
+                                                        <option value="贸易商" id="1">贸易商</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone9">服务费返回率 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone9" name="sfeeReturnRate"
+                                                           placeholder="请输入有效小数位"
+                                                           required="required" data-validate-length-range="0,6"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone10">非现金返回率 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone10" name="qrReturnRate"
+                                                           placeholder="请输入有效小数位"
+                                                           required="required" data-validate-length-range="0,6"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                                       for="telephone11">开户账号 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="telephone11" name="receiveAccount"
+                                                           placeholder=""
+                                                           required="required" data-validate-length-range="10,25"
+                                                           class="form-control col-md-7 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name8">开户行
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name8" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="4,10"
+                                                           name="openBankName" placeholder="输入银行全称" required="required"
+                                                           type="text">
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name9">开户名
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name9" class="form-control col-md-7 col-xs-12"
+                                                           data-validate-length-range="2,4"
+                                                           name="openAccountName" placeholder="输入持卡人姓名"
+                                                           required="required"
+                                                           type="text">
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <div class="col-md-6 col-md-offset-3">
+                                                    <button type="reset" class="btn btn-primary"> 取消</button>
+                                                    <button id="reg1" type="button" class="btn btn-success"
+                                                            onClick="webRes();">提交注册
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <!-- End SmartWizard Content -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            <!-- span12-->
         </div>
+        <!-- /page content end-->
 
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                ZJNU- Bootstrap Admin
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-
 </div>
-</div>
-<!-- 引入页面底部文件Footer-part-->
-<%@ include file="/WEB-INF/jsp/index_body/index_footer.jsp" %>
-<!--end-Footer-part-->
 
-<%--引入公共的js脚本，防止页面部分功能冲突--%>
-<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
-<!--end-javascript-part-->
+<!-- jQuery -->
+<script type="text/javascript" src="<c:url value='/static/vendors/jquery/dist/jquery.min.js'/>"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" src="<c:url value='/static/vendors/bootstrap/dist/js/bootstrap.min.js'/>"></script>
+<!-- FastClick -->
+<script type="text/javascript" src="<c:url value='/static/vendors/fastclick/lib/fastclick.js'/>"></script>
+<!-- NProgress -->
+<script type="text/javascript" src="<c:url value='/static/vendors/nprogress/nprogress.js'/>"></script>
+<!-- jQuery Smart Wizard -->
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
+<!-- validator -->
+<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>
+<!-- Custom Theme Scripts -->
+<script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+
+
 </body>
-
 </html>
