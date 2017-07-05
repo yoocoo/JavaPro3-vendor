@@ -58,8 +58,8 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Tab主题：用户系统管理列表
-                            <small> ---------</small>
+                        <h3>用户系统管理列表
+                            <%--<small> ---------</small>--%>
                         </h3>
                     </div>
                     <div class="title_right">
@@ -75,79 +75,131 @@
                 <div class="clearfix"></div>
                 <div class="row">
 
+                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                            <%--<div class="x_title">--%>
+                                <%--&lt;%&ndash;<h2>系统用户列表&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<small>说明：</small>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</h2>&ndash;%&gt;--%>
+                                <%--<div class="fontawesome-icon-list">--%>
+                                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i--%>
+                                            <%--class="fa fa-eye"></i> 审核用户信息</a>--%>
+                                    <%--</div>--%>
+                                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a--%>
+                                            <%--href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i--%>
+                                            <%--class="fa fa-user"></i> 新增一级用户</a>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<ul class="nav navbar-right panel_toolbox">--%>
+                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
+                                    <%--&lt;%&ndash;<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;role="button" aria-expanded="false"><i&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;class="fa fa-wrench"></i></a>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<ul class="dropdown-menu" role="menu">&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<li><a href="#">设置 1</a></li>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<li><a href="#">设置 2</a></li>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;</ul>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;</li>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;<li><a class="close-link"><i class="fa fa-close"></i></a></li>&ndash;%&gt;--%>
+                                <%--</ul>--%>
+                                <%--<div class="clearfix"></div>--%>
+                            <%--</div>--%>
+                            <%--<div class="x_content">--%>
+                                <%--&lt;%&ndash;<div class="fontawesome-icon-list" >&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i class="fa fa-eye"></i> 审核用户信息</a>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i class="fa fa-user"></i> 新增一级用户</a>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+
+                                <%--<table id="mytable" class="table table-striped table-bordered">--%>
+                                    <%--<thead>--%>
+                                    <%--<tr>--%>
+                                        <%--<th>用户ID</th>--%>
+                                        <%--<th>账户名</th>--%>
+                                        <%--<th>真实姓名</th>--%>
+                                        <%--<th>角色</th>--%>
+                                        <%--<th>电子邮箱</th>--%>
+                                        <%--<th>手机</th>--%>
+                                        <%--<th>QQ号码</th>--%>
+                                        <%--<th>邮编</th>--%>
+                                        <%--<th>身份证</th>--%>
+                                        <%--<th>创建时间</th>--%>
+                                        <%--<th>是否冻结</th>--%>
+                                        <%--<th>操作</th>--%>
+                                    <%--</tr>--%>
+                                    <%--</thead>--%>
+                                    <%--<tbody>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>1王娇</td>--%>
+                                        <%--<td>上海虹桥</td>--%>
+                                        <%--<td>销售部</td>--%>
+                                        <%--<td>1</td>--%>
+                                        <%--<td>343@qq.com</td>--%>
+                                        <%--<td>1877800</td>--%>
+                                        <%--<td>34574385</td>--%>
+                                        <%--<td>272200</td>--%>
+                                        <%--<td>1234578997778877855</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>1</td>--%>
+                                        <%--<td>--%>
+                                            <%--<button type="button" class="btn btn-round btn-default btn-sm">编辑</button>--%>
+                                            <%--<button type="button" class="btn btn-round btn-default btn-sm">冻结</button>--%>
+                                        <%--</td>--%>
+                                    <%--</tr>--%>
+                                    <%--</tbody>--%>
+                                <%--</table>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <%--<h2>系统用户列表--%>
-                                <%--<small>说明：</small>--%>
-                                <%--</h2>--%>
-                                <div class="fontawesome-icon-list">
-                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i
-                                            class="fa fa-eye"></i> 审核用户信息</a>
-                                    </div>
-                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
-                                            href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i
-                                            class="fa fa-user"></i> 新增一级用户</a>
-                                    </div>
-                                </div>
+                                <h2>测试table
+                                    <small>-----</small>
+                                </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                    <%--role="button" aria-expanded="false"><i--%>
+                                    <%--class="fa fa-wrench"></i></a>--%>
+                                    <%--<ul class="dropdown-menu" role="menu">--%>
+                                    <%--<li><a href="#">设置 1</a></li>--%>
+                                    <%--<li><a href="#">设置 2</a></li>--%>
+                                    <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <%--<div class="fontawesome-icon-list" >--%>
-                                <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i class="fa fa-eye"></i> 审核用户信息</a>--%>
-                                <%--</div>--%>
-                                <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i class="fa fa-user"></i> 新增一级用户</a>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
+                                <p class="text-muted font-13 m-b-30"> 基于 by the Bootstrap CSS framework设计的静态表格 </p>
 
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="listtable" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>用户ID</th>
+
+                                        <th>ID</th>
+                                        <th>下一</th>
                                         <th>账户名</th>
-                                        <th>真实姓名</th>
+                                        <th>密码</th>
+                                        <th>姓名</th>
                                         <th>角色</th>
+                                        <th>昵称</th>
                                         <th>电子邮箱</th>
+                                        <th>最近一次登录</th>
+                                        <th>电话</th>
                                         <th>手机</th>
-                                        <th>QQ号码</th>
+                                        <th>QQ</th>
                                         <th>邮编</th>
                                         <th>身份证</th>
+                                        <th>次数</th>
+                                        <th>地址</th>
                                         <th>创建时间</th>
-                                        <th>是否冻结</th>
-                                        <th>操作</th>
+                                        <th>头像地址</th>
+                                        <th>是否删除</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1王娇</td>
-                                        <td>上海虹桥</td>
-                                        <td>销售部</td>
-                                        <td>1</td>
-                                        <td>343@qq.com</td>
-                                        <td>1877800</td>
-                                        <td>34574385</td>
-                                        <td>272200</td>
-                                        <td>1234578997778877855</td>
-                                        <td>2011/04/25</td>
-                                        <td>1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-round btn-default btn-sm">编辑</button>
-                                            <button type="button" class="btn btn-round btn-default btn-sm">冻结</button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -160,7 +212,7 @@
 
         <!-- footer content -->
         <footer>
-            <div class="pull-right"> ZJNU - Bootstrap Admin -功夫不负有心人
+            <div class="pull-right"> ZJNU
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -182,6 +234,48 @@
         src="<c:url value='/static/vendors/datatables.net/js/jquery.dataTables.min.js'/>"></script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'/>"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#listtable').DataTable({
+            "serverSide": true,//开启服务器处理模式
+            "paging": true,//是否分页
+            "pagingType": "full_numbers",//除首页、上一页、下一页、末页四个按钮还有页数按钮
+            "sAjaxSource": '<%=request.getContextPath()%>/userAction/listAllUser',
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                $.ajax({
+                    'type': "POST",
+                    "url": sSource,
+                    "dataType": 'json',
+                    "data": {"aoData": JSON.stringify(aoData)},
+                    "success": function (resp) {
+                        fnCallback(resp);
+                    }
+                });
+            },
+            "columns": [
+                {data: "userId"},
+                {data: "accountName"},
+                {data: "nextUrl"},
+                {data: "password"},
+                {data: "realName"},
+                {data: "roleId"},
+                {data: "nickName"},
+                {data: "email"},
+                {data: "lastLoginTime"},
+                {data: "fixPhone"},
+                {data: "mobilePhone"},
+                {data: "qq"},
+                {data: "postcode"},
+                {data: "idcard"},
+                {data: "loginCount"},
+                {data: "postAdress"},
+                {data: "headImage"},
+                {data: "approved"}
+            ]
+        });
+    })
+</script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js'/>"></script>
 <script type="text/javascript"
@@ -208,5 +302,54 @@
 
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+
+
+
+<%--<script type="text/javascript">--%>
+    <%--var tbl;--%>
+    <%--$(function () {--%>
+        <%--tbl = $('#listtable').dataTable({--%>
+            <%--"bServerSide": true,--%>
+            <%--"sAjaxSource": "<%=request.getContextPath()%>/userAction/listAllUser",      //mvc后台ajax调用接口。--%>
+            <%--'bPaginate': true,                      //是否分页。--%>
+<%--//            "bProcessing": true,                    //当datatable获取数据时候是否显示正在处理提示信息。--%>
+            <%--'bFilter': true,                       //是否使用内置的过滤功能。--%>
+<%--//            'bLengthChange': false,                  //是否允许用户自定义每页显示条数。--%>
+            <%--'sPaginationType': 'full_numbers',      //分页样式--%>
+            <%--"bLengthChange": true,// 每行显示记录数--%>
+            <%--"iDisplayLength": 10,// 每页显示行数--%>
+            <%--"aoColumns": [--%>
+                <%--{"sName": "userId"},--%>
+                <%--{"sName": "accountName"},--%>
+                <%--{"sName": "nextUrl"},--%>
+                <%--{"sName": "password"},--%>
+                <%--{"sName": "realName"},--%>
+                <%--{"sName": "roleId"},--%>
+                <%--{"sName": "nickName"},--%>
+                <%--{"sName": "email"},--%>
+                <%--{"sName": "lastLoginTime"},--%>
+                <%--{"sName": "fixPhone"},--%>
+                <%--{"sName": "mobilePhone"},--%>
+                <%--{"sName": "qq"},--%>
+                <%--{"sName": "postcode"},--%>
+                <%--{"sName": "idcard"},--%>
+                <%--{"sName": "loginCount"},--%>
+                <%--{"sName": "postAdress"},--%>
+                <%--{"sName": "headImage"},--%>
+                <%--{"sName": "approved"}--%>
+            <%--]--%>
+        <%--});--%>
+
+<%--//Ajax重新load控件数据。（server端）--%>
+        <%--$("#btnTest").click(function () {--%>
+            <%--var oSettings = tbl.fnSettings();--%>
+            <%--oSettings.sAjaxSource = "<%=request.getContextPath()%>/userAction/listAllUser";--%>
+            <%--alert(oSettings.sAjaxSource);--%>
+            <%--tbl.fnClearTable(0);--%>
+            <%--tbl.fnDraw();--%>
+
+        <%--});--%>
+    <%--});--%>
+<%--</script>--%>
 </body>
 </html>

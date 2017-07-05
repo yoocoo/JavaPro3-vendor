@@ -50,6 +50,14 @@ public interface UserService extends BaseService<User> {
 	void updateAgencyId(int agencyId, String accountName) throws Exception;
 
 	/**
+	 * 2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员)
+	 *
+	 * @param user
+	 * @throws Exception
+	 */
+	void sysuseraddYunPei(User user) throws Exception;
+
+	/**
 	 * （暂时未用到） 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
 	 *
 	 * @param accountName
@@ -193,9 +201,10 @@ public interface UserService extends BaseService<User> {
 	//List<User> getAllUserList(User user);
 
 	/**
-	 * 	9.2  6.20日 物理分页 处理数据
-	 * 	在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 * 9.2  6.20日 物理分页 处理数据
+	 * 在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 *
 	 * @param userId
 	 */
-	void removeUser(int userId)throws Exception;
+	void removeUser(int userId) throws Exception;
 }

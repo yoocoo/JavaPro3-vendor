@@ -119,7 +119,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Tab主题： 更新资料
+                    <h3> 更新资料
                         <small> ---------</small>
                     </h3>
                 </div>
@@ -144,18 +144,18 @@
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">设置 1</a>
-                                        </li>
-                                        <li><a href="#">设置 2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
+                                <%--<li class="dropdown">--%>
+                                    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"--%>
+                                       <%--aria-expanded="false"><i class="fa fa-wrench"></i></a>--%>
+                                    <%--<ul class="dropdown-menu" role="menu">--%>
+                                        <%--<li><a href="#">设置 1</a>--%>
+                                        <%--</li>--%>
+                                        <%--<li><a href="#">设置 2</a>--%>
+                                        <%--</li>--%>
+                                    <%--</ul>--%>
+                                <%--</li>--%>
+                                <%--<li><a class="close-link"><i class="fa fa-close"></i></a>--%>
+                                <%--</li>--%>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -186,6 +186,15 @@
                                                placeholder="请输入小于6位密码" data-validate-length-range="3,6"
                                                class="form-control col-md-7 col-xs-12" required="required"
                                                value="${userMess.password}">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="password4"
+                                           class="control-label col-md-3 col-sm-3 col-xs-12">确认密码*</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="password4" type="password" name="password"
+                                               placeholder="请输入小于6位密码" data-validate-linked="password" value="${userMess.password}"
+                                               class="form-control col-md-7 col-xs-12" required="required">
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -264,10 +273,13 @@
                                 </div>
                                 <div class="item form-group">
                                     <div class="col-md-6 col-md-offset-3">
-                                        <button type="reset" class="btn btn-primary"> 取消</button>
+                                        <button type="reset" class="btn btn-primary" > 重置</button>
                                         <button id="update" type="button" class="btn btn-success"
                                                 onClick="webUpdate();">提交更新
                                         </button>
+
+                                            <a class="btn btn-primary submit" href="<%=request.getContextPath()%>/mvc/home">返回</a>
+
                                     </div>
                                 </div>
 

@@ -109,6 +109,26 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+
+	/**
+	 * 2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员) ,记住  agency_id 是生产商用户登录的 记录的 agency_id 值，可自动填入
+	 *
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void sysuseraddYunPei(User user) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.sysuseraddYunPei(user);
+		} catch (Exception e) {
+			System.out.println("添加二级运营商管理员用户失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("添加二级运营商管理员用户成功！");
+		}
+	}
 	/**
 	 * 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号(暂时没有用到)
 	 *

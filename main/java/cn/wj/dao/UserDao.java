@@ -63,6 +63,9 @@ public interface UserDao extends Dao<User> {
 	//2.3.2 更新用户表中 agencyId
 	int updateAgencyId(@Param("agencyId") int agencyId, @Param("accountName") String accountName);
 
+	//2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员)
+	int sysuseraddYunPei(User user);
+
 	//（暂时未用到）2.1.1.1-注入运营商归属的factory_id 到user表中  6.13号
 	int addAgencyToFactoryId(User user);
 
@@ -103,9 +106,6 @@ public interface UserDao extends Dao<User> {
 
 	//增加用户sessionId（暂时未用到）
 	void addSessionId(String id);
-
-
-
 
 
 }

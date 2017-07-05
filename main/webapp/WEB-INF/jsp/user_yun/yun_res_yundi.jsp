@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ThinkPad
-  Date: 2017/6/30
-  Time: 16:32
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>新建二级用户</title>
+    <title>新建三级用户</title>
     <%--引入CSS 样式 start--%>
 
     <!-- Bootstrap -->
@@ -99,11 +92,11 @@
 //        =========================
             var agencyname = $("#name4").val();
 
-            var factoryid = $("#factoryid").val();
-            alert("打印要提交 归属的生产商用户的id值" + factoryid);
+            var agencyid = $("#agencyid").val();
+            alert("打印要提交 归属的生产商用户的id值" + agencyid);
             $.ajax({
                 type: "POST",
-                url: '<%=request.getContextPath()%>/userAction/sysuserResYun',
+                url: '<%=request.getContextPath()%>/userAction/sysuserResYunPei',
                 data: {
                     accountName: loginname,
                     password: password,
@@ -116,7 +109,7 @@
                     idcard: card,
                     postAdress: adress,
                     agencyName: agencyname,
-                    factoryId: factoryid
+                    agencyId: agencyid
                 },
                 dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
                 cache: false,
@@ -128,7 +121,7 @@
                     } else {
                         alert(data.msg);
                         $("#user").focus();
-                        $("#agency").focus();
+//                        $("#agency").focus();
                     }
                 }
             })
@@ -175,8 +168,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>运营商管理员
-                                        <small>运营商管理员职责：1. 2. 3.</small>
+                                    <h2>运营商二级用户
+                                        <small>运营商二级用户职责：1. 2. 3.</small>
                                     </h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -199,8 +192,8 @@
                                 <div class="x_content">
 
                                     <!-- Smart Wizard -->
-                                    <p> 1：运营商管理员用户概述：是本系统的二级用户&nbsp; 2：运营商管理员用户职责：管理所属的售货机数据，账户 <br>
-                                        3：运营商管理员用户权限：拥有该系统二级权限&nbsp; 4：运营商管理员用户工作范围：覆盖二级用户。
+                                    <p> 1：运营商管理员用户概述：是本系统的三级用户&nbsp; 2：运营商仓库用户职责：管理货品，运营商配货员：负责配货 <br>
+                                        3：运营商管理员用户权限：拥有该系统三级权限&nbsp; 4：运营商管理员用户工作范围：覆盖三级用户。
                                     </p>
                                     <form name="regform" id="sysresUser" action=""
                                           accept-charset="utf-8"
@@ -223,7 +216,7 @@
                                                         <span class="step_no">2</span>
                                                         <span class="step_descr">
                                               步骤 2<br/>
-                                              <small>运营商管理员拥有的权限</small>
+                                              <small>运营商二级用户拥有的权限</small>
                                           </span>
                                                     </a>
                                                 </li>
@@ -232,7 +225,7 @@
                                                         <span class="step_no">3</span>
                                                         <span class="step_descr">
                                               步骤 3<br/>
-                                              <small>运营商管理员基本信息（一）</small>
+                                              <small>运营商二级用户基本信息（一）</small>
                                           </span>
                                                     </a>
                                                 </li>
@@ -241,7 +234,7 @@
                                                         <span class="step_no">4</span>
                                                         <span class="step_descr">
                                               步骤 4<br/>
-                                              <small>运营商管理员基本信息（二）</small>
+                                              <small>运营商二级用户基本信息（二）</small>
                                           </span>
                                                     </a>
                                                 </li>
@@ -271,15 +264,15 @@
                                                 <h2 class="StepTitle">步骤 2 详情</h2>
                                                 <p>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    1.创建运营商仓库员账户
+                                                    1.运营商仓库员：查看售货机数据信息，管理货品
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    2.创建运营商配货员账户
+                                                    2.运营商配货员账户：查看商品缺货状态，负责配货
                                                 </p>
                                                 <br/>
                                                 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     3.对所属范围内售货机管理
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    4.运营商所属用户的增删改查
+
                                                 </p>
                                                 <br/>
                                                 <br/>
@@ -348,9 +341,8 @@
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">角色*</label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <select id="sel5" name="roleId" class="form-control">
-
-                                                            <option value="3">运营商管理员</option>
-                                                            <option value="3">运营商操作员</option>
+                                                            <option value="4">运营商配货员</option>
+                                                            <option value="5">运营商仓库员</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -410,27 +402,27 @@
                                                                class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
+                                                <%--<div class="item form-group">--%>
+                                                <%--<label class="control-label col-md-3 col-sm-3 col-xs-12"--%>
+                                                <%--for="name4">运营商单位名称--%>
+                                                <%--<span class="required">*</span>--%>
+                                                <%--</label>--%>
+                                                <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
+                                                <%--<input id="name4" class="form-control col-md-7 col-xs-12"--%>
+                                                <%--data-validate-length-range="3,10" name="agencyName"--%>
+                                                <%--placeholder="" required="required" type="text">--%>
+                                                <%--</div>--%>
+                                                <%--</div>--%>
                                                 <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                                           for="name4">运营商单位名称
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input id="name4" class="form-control col-md-7 col-xs-12"
-                                                               data-validate-length-range="3,10" name="agencyName"
-                                                               placeholder="" required="required" type="text">
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">归属的生产商ID
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">归属的运营商ID
                                                         <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input class="form-control col-md-7 col-xs-12"
-                                                               name="factoryId" readonly="readonly"
-                                                               id="factoryid"
+                                                               name="agencyId" readonly="readonly"
+                                                               id="agencyid"
                                                                placeholder="" required="required" type="text"
-                                                               value="${userMess.factoryId}">
+                                                               value="${userMess.agencyId}">
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">
@@ -444,29 +436,28 @@
                                             </div>
 
 
+                                        </div>
+                                    </form>
+                                    <!-- End SmartWizard Content -->
+                                </div>
 
                             </div>
-                            </form>
-                            <!-- End SmartWizard Content -->
                         </div>
-
                     </div>
+
                 </div>
             </div>
-
+            <!-- /page content end-->
         </div>
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                ZJNU
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-    <!-- /page content end-->
-</div>
-<!-- footer content -->
-<footer>
-    <div class="pull-right">
-        ZJNU
-    </div>
-    <div class="clearfix"></div>
-</footer>
-<!-- /footer content -->
-</div>
 </div>
 
 
@@ -488,3 +479,4 @@
 
 </body>
 </html>
+

@@ -11,54 +11,7 @@
 <head>
     <title>Title</title>
 </head>
-<!--    ==============修改个人头像版本 模块开始============================-->
-<script type="text/javascript">
-    //   ============ 修改个人头像 start==========
-    //    var path = $("#path").val();
-    function upLoadFile() {
-        var loginId1 = $("#loginId1").val();
-        fileName = document.getElementById('changeHeadPic').value;
-        alert("打印新上传的地址" + fileName);
-        alert("打印修改谁的头像地址" + loginId1);
-        // var path = $("#headImage").val();
-        $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",//请求修改个人头像接口地址
-            data: {
-                //                headImage: path,
-                accountName: loginId1
-            },
-            secureuri: false,//是否需要安全协议，一般设置为false
-            fileElementId: 'changeHeadPic',//文件上传域Id
-            dataType: 'json',//返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function (data) {
-                alert(data.msg);
-                alert("修改后，请重新登录");
-//                location.reload() //点击按钮刷新页面
-//先根据返回的code确定文件是否上传成功
-//文件上传失败，直接弹出错误提示，根据错误进行相应的事物处理（关闭Loading窗口，弹出提示对话框）
-//文件上传成功后，继续实现loading窗口，接着执行上传表单信息等事物
-            }
-        });
-    }
-    function onConfirm() {
-        upLoadFile();
-    }
-    function onCancel(e) {
-    }
-    //显示个人修改头像窗口
-    function changeImageInfo() {
-        $('#my-prompt').modal({
-            relateTarge: this,
-//            onConfirm: function () {
-//                upLoadFile();
-//            },
-//            onCancel: function (e) {
-//            }
-        });
-    }
-</script>
-<!--========================修改个人头像模块结束===============================-->
+
 <body>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
@@ -79,10 +32,10 @@
         <!-- /menu profile quick info -->
         <!-- menu profile quick info -->
         <div class="profile clearfix">
-            <div class="profile_pic"><img src="${userPath}" alt="哎呀，缺失啦" title="点击头像，修改图像"
-                                          class="img-circle profile_img">
-            </div>
-            <div class="profile_info"><span>两个头像合成一个大的</span>
+            <%--<div class="profile_pic"><img src="${userPath}" alt="哎呀，缺失啦" title="点击头像，修改图像"--%>
+                                          <%--class="img-circle profile_img">--%>
+            <%--</div>--%>
+            <div class="profile_info"><span></span>
                 <h2>待更新</h2>
             </div>
         </div>

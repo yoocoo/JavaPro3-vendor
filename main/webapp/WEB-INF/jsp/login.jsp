@@ -23,8 +23,8 @@
     <meta charset="UTF-8">
     <title>售货机系统账户登录</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <%--<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">--%>
+    <%--<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>--%>
     <link rel="shortcut icon" href="${path}/static/img/favicon.ico"/>
     <link type="text/css" rel="stylesheet" href="${path}/static/css/login/login.css">
 

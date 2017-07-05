@@ -197,8 +197,8 @@
 
 //        var roleid = $("select option:selected").val();
             //        alert($(":selected","#sel").attr("id"));
-            alert("生产商 贸易商 管理员roleid=  6 和10 ");
-            alert($(":selected", "#sel1").val());
+//            alert("生产商 贸易商 管理员roleid=  6 和10 ");
+//            alert($(":selected", "#sel1").val());
 //        alert($("select option:selected").attr("id"));//弹出Id的值
 //        alert($("select option:selected").val());//弹出  存入数据库的值
 //        var roleid = $(":selected","#sel").val();
@@ -214,7 +214,7 @@
             //        ==========================生产商信息=========================
 
             var factoryname = $("#name7").val();
-            alert($(":selected", "#sel2").val());
+//            alert($(":selected", "#sel2").val());
             var factorytype = $(":selected", "#sel2").val()
 //        var factorytype = $("select option:selected").val();
 //        var factorylogopath = $("#factorylogopath").val();
@@ -305,22 +305,22 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>系统管理员
-                                    <small>系统管理员职责：1. 2. 3.</small>
+                                    <%--<small>系统管理员职责：1. 2. 3.</small>--%>
                                 </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                           aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a>
-                                            </li>
-                                            <li><a href="#">设置 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    <%--<li class="dropdown">--%>
+                                        <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"--%>
+                                           <%--aria-expanded="false"><i class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a>--%>
+                                            <%--</li>--%>
+                                            <%--<li><a href="#">设置 2</a>--%>
+                                            <%--</li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a>--%>
                                     </li>
                                 </ul>
                                 <div class="clearfix"></div>
@@ -338,63 +338,63 @@
                                     <div id="wizard" class="form_wizard wizard_horizontal">
 
                                         <ul class="wizard_steps">
+                                            <%--<li>--%>
+                                                <%--<a href="#step-1">--%>
+                                                    <%--<span class="step_no">1</span>--%>
+                                                    <%--<span class="step_descr">--%>
+                                              <%--步骤 1<br/>--%>
+                                              <%--<small>用户协议</small>--%>
+                                          <%--</span>--%>
+                                                <%--</a>--%>
+                                            <%--</li>--%>
                                             <li>
-                                                <a href="#step-1">
+                                                <a href="#step-2">
                                                     <span class="step_no">1</span>
                                                     <span class="step_descr">
                                               步骤 1<br/>
-                                              <small>用户协议</small>
-                                          </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#step-2">
-                                                    <span class="step_no">2</span>
-                                                    <span class="step_descr">
-                                              步骤 2<br/>
                                               <small>系统管理员拥有的权限</small>
                                           </span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#step-3">
-                                                    <span class="step_no">3</span>
+                                                    <span class="step_no">2</span>
                                                     <span class="step_descr">
-                                              步骤 3<br/>
+                                              步骤 2<br/>
                                               <small>系统管理员基本信息（一）</small>
                                           </span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#step-4">
-                                                    <span class="step_no">4</span>
+                                                    <span class="step_no">3</span>
                                                     <span class="step_descr">
-                                              步骤 4<br/>
+                                              步骤 3<br/>
                                               <small>系统管理员基本信息（二）</small>
                                           </span>
                                                 </a>
                                             </li>
                                         </ul>
 
-                                        <div id="step-1">
-                                            <h2 class="StepTitle">步骤 1 详情</h2>
-                                            <p>
-                                                <strong> 特别提示：</strong>
-                                                您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。
-                                                <br>一、总则
-                                            </p>
-                                            <p>
-                                                1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。
-                                            </p>
-                                            <p>
-                                                1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。
-                                            </p>
-                                            <p>
-                                                1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。
-                                            </p>
-                                            <p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由百度公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。
-                                            </p>
-                                        </div>
+                                        <%--<div id="step-1">--%>
+                                            <%--<h2 class="StepTitle">步骤 1 详情</h2>--%>
+                                            <%--<p>--%>
+                                                <%--<strong> 特别提示：</strong>--%>
+                                                <%--您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。--%>
+                                                <%--<br>一、总则--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。--%>
+                                            <%--</p>--%>
+                                            <%--<p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由百度公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。--%>
+                                            <%--</p>--%>
+                                        <%--</div>--%>
                                         <div id="step-2">
                                             <h2 class="StepTitle">步骤 2 详情</h2>
                                             <p>
@@ -550,7 +550,7 @@
                                 </form>
                                 <!-- End SmartWizard Content -->
                                 <h2>生产商管理员
-                                    <small>生产商管理员职责：1. 2. 3.</small>
+                                    <%--<small>生产商管理员职责：1. 2. 3.</small>--%>
                                 </h2>
                                 <p> 1：生产商用户概述：系统的一级用户组织管理者&nbsp; 2：生产商用户职责：管理所属二级运营商账户<br>
                                     3：生产商用户权限：拥有该系统一级用户的权限&nbsp; 4：生产商用户工作范围：覆盖系统一级用户所有权限范围。
@@ -559,54 +559,54 @@
                                 <form class="form-horizontal form-label-left">
                                     <div id="wizard_verticle" class="form_wizard wizard_verticle">
                                         <ul class="list-unstyled wizard_steps">
+                                            <%--<li>--%>
+                                                <%--<a href="#step-11">--%>
+                                                    <%--<span class="step_no"> 1</span>--%>
+                                                <%--</a>--%>
+                                            <%--</li>--%>
                                             <li>
-                                                <a href="#step-11">
+                                                <a href="#step-22">
                                                     <span class="step_no"> 1</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#step-22">
+                                                <a href="#step-33">
                                                     <span class="step_no"> 2</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#step-33">
-                                                    <span class="step_no"> 3</span>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="#step-44">
-                                                    <span class="step_no"> 4</span>
+                                                    <span class="step_no"> 3</span>
                                                 </a>
                                             </li>
                                         </ul>
 
-                                        <div id="step-11">
-                                            <h2 class="StepTitle">步骤 1详情</h2>
+                                        <%--<div id="step-11">--%>
+                                            <%--<h2 class="StepTitle">步骤 1详情</h2>--%>
 
 
-                                            <span class="section">用户协议</span>
-                                            <p>
-                                                <strong> 特别提示：</strong>
-                                                您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。
-                                                <br>一、总则
-                                            </p>
-                                            <p>
-                                                1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。
-                                            </p>
-                                            <p>
-                                                1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。
-                                            </p>
-                                            <p>
-                                                1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。
-                                            </p>
-                                            <p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由本公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。
-                                            </p>
+                                            <%--<span class="section">用户协议</span>--%>
+                                            <%--<p>--%>
+                                                <%--<strong> 特别提示：</strong>--%>
+                                                <%--您在使用该系统提供的各项服务之前，请您务必审慎阅读、充分理解本协议各条款内容，特别是以粗体标注的部分，包括但不限于免除或者限制责任的条款。如您不同意本服务协议及/或随时对其的修改，您可以主动停止使用该系统提供的服务；您一旦使用系统服务，即视为您已了解并完全同意本服务协议各项内容，包括系统对服务协议随时所做的任何修改，并成为该系统用户。--%>
+                                                <%--<br>一、总则--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．1　用户应当同意本协议的条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击"提交"按钮即表示用户与该公司达成协议，完全接受本协议项下的全部条款。--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．2　用户注册成功后，本公司将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。--%>
+                                            <%--</p>--%>
+                                            <%--<p>--%>
+                                                <%--1．3　用户一经注册本公司帐号，除非子频道要求单独开通权限，用户有权利用该帐号使用本系统各个频道的单项服务，当用户使用各单项服务时，用户的使用行为视为其对该单项服务的服务条款以及百度在该单项服务中发出的各类公告的同意。--%>
+                                            <%--</p>--%>
+                                            <%--<p>1．4　系统会员服务协议以及各个频道单项服务条款和公告可由本公司定时更新，并予以公示。您在使用相关服务时,应关注并遵守其所适用的相关条款。--%>
+                                            <%--</p>--%>
 
 
-                                        </div>
+                                        <%--</div>--%>
                                         <div id="step-22">
-                                            <h2 class="StepTitle">步骤 2详情</h2>
+                                            <h2 class="StepTitle">步骤 1详情</h2>
                                             <span class="section">权限范围</span>
                                             <p>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -633,7 +633,7 @@
                                             <br/>
                                         </div>
                                         <div id="step-33">
-                                            <h2 class="StepTitle">步骤 3详情</h2>
+                                            <h2 class="StepTitle">步骤 2详情</h2>
                                             <span class="section">用户信息</span>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name4">账户名
@@ -747,7 +747,7 @@
                                             </div>
                                         </div>
                                         <div id="step-44">
-                                            <h2 class="StepTitle">步骤 4详情</h2>
+                                            <h2 class="StepTitle">步骤 3详情</h2>
                                             <span class="section">生产商信息</span>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name7">生产商名称
@@ -853,7 +853,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                ZJNU- Bootstrap Admin
+                ZJNU
             </div>
             <div class="clearfix"></div>
         </footer>

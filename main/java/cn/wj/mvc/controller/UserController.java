@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import sun.security.util.Length;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +49,7 @@ public class UserController {
 	 * 接受 用户列表的页面
 	 * 创建日期： 2017.06.24
 	 * 创建者： 王娇
+	 *
 	 * @param request
 	 * @param user
 	 * @return
@@ -64,6 +66,7 @@ public class UserController {
 	 * 获得用户列表的 json 数据
 	 * 创建日期： 2017.06.25
 	 * 创建者： 王娇
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
@@ -75,10 +78,12 @@ public class UserController {
 	)
 	private void PageInfo(HttpServletRequest request, HttpServletResponse response, User user,
 						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
-						  @RequestParam(value = "limit", defaultValue = "5") Integer pageSize) {
-		Datagrid datagrid = userService.getAllUserList(user, pageNum, pageSize);
+						  @RequestParam(value = "limit", defaultValue = "10") Integer length
+						  //@RequestParam(value = "draw", defaultValue = "1") Integer draw
+	) {
+		Datagrid datagrid = userService.getAllUserList(user, pageNum, length);
 		System.out.println("======控制台打印=====pageNum==========" + pageNum);
-		System.out.println("=======控制台打印====pageSize=========" + pageSize);
+		System.out.println("=======控制台打印====length=========" + length);
 		System.out.println("=======控制台打印====== result =datagrid============" + new GsonUtils().toJson(datagrid));
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -207,6 +212,13 @@ public class UserController {
 		User user1 = userService.findUser(user);
 		//int user2 = userService.findUserInfo(user.getAccountName());
 		//System.out.println("=====user 2" + user2);
+		if (user1.getApproved() == 0) {
+			responseObj = new ResponseObj<User>();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("账号信息正在审核中");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
 		if (null == user1) {
 			responseObj = new ResponseObj<User>();
 			responseObj.setCode(ResponseObj.EMPUTY);
@@ -281,7 +293,7 @@ public class UserController {
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 				//session.setAttribute("menu", menuList);
 				session.setAttribute("tree", treeList);
-				System.out.println("===存入session信息,userController里面，tree===" + treeList);
+				//System.out.println("===存入session信息,userController里面，tree===" + treeList);
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
@@ -486,6 +498,68 @@ public class UserController {
 		session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
 		System.out.println("======查看 新注册的 添加运营商表里的记录：agencyInfo==" + agency);
 		System.out.println("======查看 新注册的 运营商ID,另外一种更新id方式 6.4号" + agency.getAgencyId());
+		result = new GsonUtils().toJson(responseObj);
+		result = result;
+		return result;
+	}
+
+	/**
+	 * value = "/sysuserResYunPei"  创建三级用户的 统一入口
+	 * 系统管理员 创建三级管理用户(运营商配货员，运营商仓库员），
+	 * 受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
+	 * 时间：5月25日
+	 *
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/sysuserResYunPei"
+			, method = RequestMethod.POST
+			, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object sysuserRes1(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<User>();
+		if (null == user) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户信息不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户名或密码不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		if (null != userService.findUser(user)) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("用户已存在");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		try {
+			userService.sysuseraddYunPei(user);
+			//userService.updateAgencyId(aId, aName);
+			//userService.addAgencyToFactoryId(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他错误====!!");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("注册运营商管理用户成功");
+		user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		responseObj.setData(user);// 只有注册时输入表单项数（用户ID 自增的，用户名，用户密码（加密），电话）
+		System.out.println("===注册管理用户信息=====" + user);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
+		//responseObj.setData(agency);
+		//session.setAttribute("agencyInfo", agency);//只有注册时输入表单项数
+		//System.out.println("======查看 新注册的 添加运营商表里的记录：agencyInfo==" + agency);
+		//System.out.println("======查看 新注册的 运营商ID,另外一种更新id方式 6.4号" + agency.getAgencyId());
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;

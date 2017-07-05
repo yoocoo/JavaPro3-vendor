@@ -60,7 +60,7 @@ public class MenuController {
 							  //@Param("pageNum") int pageNum, @Param("pageSize") int pageSize,
 							  Menu menu) throws Exception {
 		List<Menu> allMenuList = menuService.getAllMenu(menu);
-		System.out.println("===控制台打印setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
+		//System.out.println("===控制台打印setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
 		return allMenuList;
 	}
 
