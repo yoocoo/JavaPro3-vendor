@@ -1,14 +1,16 @@
 package cn.wj.mvc.controller;
 
+import cn.wj.dao.UserDao;
 import cn.wj.domain.*;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
+import cn.wj.utils.DataTablePageUtil;
 import cn.wj.utils.Datagrid;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
-import com.sun.tools.internal.ws.processor.model.Model;
-import com.sun.tools.internal.ws.processor.model.Request;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import sun.security.util.Length;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +55,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "listpage")
+	@RequestMapping(value = "listUserPage")
 	public ModelAndView listpage(HttpServletRequest request, User user) {
 		ModelAndView view = new ModelAndView("user_system/sysuser_list_user");
 		//view.addObject("listpage", PageInfo(request, user, 1, 5));
@@ -63,28 +64,155 @@ public class UserController {
 	}
 
 	/**
+	 * 时间： 2017 年 7 月 7 日
+	 * 说明： 删除用户列表中用户
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/listAllUserRemove",method = RequestMethod.POST)
+	public  Object Remove(HttpServletRequest request,
+						  HttpServletResponse response,
+						  User user)throws Exception{
+		Object result;
+		responseObj = new ResponseObj<User>();
+
+		//冻结 异常账户
+		try {
+			int userId = user.getUserId();
+			System.out.println("-=====7.7打印要冻结账户ID:"+userId);
+			userService.removeUser(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("冻结异常账户失败，其他错误");
+			result = new GsonUtils().toJson(responseObj);
+
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("冻结异常账户成功");
+		//user.setPassword(session.getId());//单独设置
+		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		responseObj.setData(user);
+		//session.setAttribute("userInfo", user);
+		System.out.println("====7.7 打印冻结可疑账户后 userInfo===" + user);
+		result = new GsonUtils().toJson(responseObj);
+		System.out.println("=====打印result ="+result);
+		result = result;
+		return result;
+
+	}
+
+	/**
+	 * 时间： 2017 年 7 月 7 日
+	 * 说明： 删除用户列表中用户
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/listAllUserPass",method = RequestMethod.POST)
+	public  Object PassUser(HttpServletRequest request,
+						  HttpServletResponse response,
+						  User user)throws Exception{
+		Object result;
+		responseObj = new ResponseObj<User>();
+
+		//冻结 异常账户
+		try {
+			int userId = user.getUserId();
+			System.out.println("-=====7.7打印要冻结账户ID:"+userId);
+			userService.passUser(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("审核新注册账户失败，其他错误");
+			result = new GsonUtils().toJson(responseObj);
+
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("审核新注册账户成功");
+		//user.setPassword(session.getId());//单独设置
+		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		responseObj.setData(user);
+		//session.setAttribute("userInfo", user);
+		System.out.println("====7.7 打印审核的账户后 userInfo===" + user);
+		result = new GsonUtils().toJson(responseObj);
+		System.out.println("=====打印result ="+result);
+		result = result;
+		return result;
+
+	}
+
+	/**
+	 * 基于jquery DataTable API 插件 的分页
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/listAllUser", method = RequestMethod.POST)
+	public void PageInfo1(HttpServletRequest request,
+						  HttpServletResponse response,
+						  User user,
+						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+						  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+		//使用DataTables的属性接收分页数据
+		DataTablePageUtil<User> dataTable = new DataTablePageUtil<User>(request);
+		//开始分页：PageHelper会处理接下来的第一个查询
+		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
+		//还是使用List，方便后期用到
+		List<User> userList = userService.findAll(1, 10);
+		System.out.println("===打印得到的=userList=="+userList);
+		//用PageInfo对结果进行包装
+		PageInfo<User> pageInfo = new PageInfo<User>(userList);
+		System.out.println("===打印封装的 pageInfo==="+pageInfo);
+		//封装数据给DataTables
+		dataTable.setDraw(dataTable.getDraw());
+		dataTable.setData(pageInfo.getList());
+		dataTable.setRecordsTotal(userService.getAllCount());
+		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
+		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
+
+
+		//返回数据到页面
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/json");
+			response.getWriter().write(new GsonUtils().toJson(dataTable));
+			System.out.println("list页面接受检测=====" + new GsonUtils().toJson(dataTable));
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
 	 * 获得用户列表的 json 数据
 	 * 创建日期： 2017.06.25
 	 * 创建者： 王娇
-	 *
+	 * 基于 BootStrap 版本的物理分页（暂时不用）
 	 * @param request
 	 * @param response
 	 * @param user
 	 * @param pageNum
 	 * @param pageSize
 	 */
-	@RequestMapping(value = "/listAllUser",
+	@RequestMapping(value = "/listAllUser1",
 			produces = "application/json;cahset=uft-8"
 	)
 	private void PageInfo(HttpServletRequest request, HttpServletResponse response, User user,
 						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 						  @RequestParam(value = "limit", defaultValue = "10") Integer length
-						  //@RequestParam(value = "draw", defaultValue = "1") Integer draw
 	) {
 		Datagrid datagrid = userService.getAllUserList(user, pageNum, length);
 		System.out.println("======控制台打印=====pageNum==========" + pageNum);
 		System.out.println("=======控制台打印====length=========" + length);
 		System.out.println("=======控制台打印====== result =datagrid============" + new GsonUtils().toJson(datagrid));
+
 		try {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/json");
@@ -94,7 +222,6 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -121,24 +248,18 @@ public class UserController {
 			responseObj.setMsg("用户信息不能为空");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户信息不能为空！");//加入提示信息
-			//return mav;//返回页面
 		}
 		if (StringUtils.isEmpty(user.getAccountName()) || StringUtils.isEmpty(user.getPassword())) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户名或密码不能为空");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户名或密码不能为空！");
-			//return  mav;
 		}
 		if (null != userService.findUser(user)) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户已存在");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
-			//mav.addObject("message","用户名已存在！");
-			//return  mav;
 		}
 		try {
 			userService.add(user);
@@ -165,11 +286,6 @@ public class UserController {
 
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
-		//mav.addObject("code",110);
-		//mav.addObject("message","恭喜注册成功！");
-		//req.getSession().setAttribute("user",user);
-		//return  mav;
-
 		return result;
 	}
 

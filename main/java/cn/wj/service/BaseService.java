@@ -23,4 +23,7 @@ public interface BaseService<T extends Serializable> {
 	 * @return     返回受影响的行数
 	 */
 	List<T> findAll(int pageNum, int pageSize);
+
+
+
 }

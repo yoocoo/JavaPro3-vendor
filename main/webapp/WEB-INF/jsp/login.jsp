@@ -38,7 +38,7 @@
                 $("#u").tips({ // .tips 是js提示标签的调用方法，具体的轮廓如上面的登陆页面的提示标签
                     side: 2,
                     msg: '用户名不得为空',//提示信息
-                    bg: '#AE81FF',//提示的背景颜色
+                    bg: '#B22222',//提示的背景颜色
                     time: 3//提示呈现的时间
                 });
                 $("#u").focus();  //让u标签获取输入焦点
@@ -49,7 +49,7 @@
                 $("#p").tips({
                     side: 2,
                     msg: '密码不得为空',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 $("#p").focus();
@@ -89,7 +89,7 @@
                 $('#user').tips({
                     side: 2,
                     msg: '用户名不能为空',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3,
                 });
                 return false;
@@ -99,7 +99,7 @@
                 $('#user').tips({
                     side: 2,
                     msg: '用户名位数建议4-10位',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3,
                 });
                 return false;
@@ -109,7 +109,7 @@
                 $("#passwd").tips({
                     side: 2,
                     msg: '密码不能小于6位',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -119,7 +119,7 @@
                 $("#passwd2").tips({
                     side: 2,
                     msg: '两次密码不一致',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -136,7 +136,7 @@
                 $("#cellnumber").tips({
                     side: 2,
                     msg: '手机号不正确',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;

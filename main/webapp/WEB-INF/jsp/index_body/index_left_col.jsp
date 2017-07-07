@@ -167,6 +167,6 @@
     </div>
 </div>
 <%--文件上传和下载 脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>--%>
 </body>
 </html>

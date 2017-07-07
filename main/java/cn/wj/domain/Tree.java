@@ -3,7 +3,7 @@ package cn.wj.domain;
 import java.util.List;
 
 /**
- * EasyUI tree模型
+ * EasyUI tree模型（页面的权限菜单用到这些）
  */
 public class Tree {
 

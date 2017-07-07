@@ -15,10 +15,11 @@ public class ResponseList<T> {
 	private int pageNum;//显示页码
 	private int pageSize;//每页多少行
 	private int totalNum;//总条数
+//====================================================================
+	private int sEcho;//记录操作的次数，每次加一，相当于页码
+	private int iDisplayStart;//数据总条数
 
-	public int getsEcho() {
-		return sEcho;
-	}
+	public int getsEcho() {return sEcho;}
 
 	public void setsEcho(int sEcho) {
 		this.sEcho = sEcho;
@@ -32,9 +33,7 @@ public class ResponseList<T> {
 		this.iDisplayStart = iDisplayStart;
 	}
 
-	private  int sEcho;//记录操作的次数，每次加一，相当于页码
-	private int  iDisplayStart;//数据总条数
-
+//=============================================================================
 	public int getTotalNum() {
 		return totalNum;
 	}

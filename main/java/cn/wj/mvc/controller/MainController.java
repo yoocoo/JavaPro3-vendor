@@ -63,12 +63,21 @@ public class MainController {
 	}
 
 	/**
+	 * 系统管理员  创建 系统管理员
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/mvc/userAction/sysuserResXi", method = RequestMethod.GET)
+	public String sysuserRes() {
+		return "user_system/sysuser_res";
+	}
+	/**
 	 * 系统管理员  创建 一级管理用户(生产商)
 	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/mvc/userAction/sysuserResSheng", method = RequestMethod.GET)
-	public String sysuserRes() {
+	public String sysuserResSheng() {
 		return "user_system/sysuser_res_sheng";
 	}
 

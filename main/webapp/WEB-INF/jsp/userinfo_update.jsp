@@ -69,18 +69,47 @@
         }
     }
     function onChangeInfo() {
-        //    判断修改的个人资料是否符合条件
-//        if ($('#username').val().length < 2 || $('#username').val().length > 4 || $('#username').val() == "") {
-//            $('#username').focus();
-//            $('#username').tips({
+//            判断修改的个人资料是否符合条件
+//        if ($('#name5').val().length < 2 || $('#name5').val().length > 4 || $('#name5').val() == "") {
+//            $('#name5').focus();
+//            $('#name5').tips({
 //                side: 2,
 //                msg: "用户真实姓名必须为2-4个字符",
-//                bg: '#AE81FF',
+//                bg: '#B22222',
 //                time: 3
 //            });
 //            return false;
 //        }
-
+        if ($('#password3').val().length < 6 ) {
+            $('#password3').focus();
+            $("#password3").tips({
+                side: 2,
+                msg: '密码不能小于6位',
+                bg: '#B22222',
+                time: 3
+            });
+            return false;
+        }
+        if ($('#password3').val().length >10 ) {
+            $('#password3').focus();
+            $("#password3").tips({
+                side: 2,
+                msg: '密码不能大于10位',
+                bg: '#B22222',
+                time: 3
+            });
+            return false;
+        }
+        if ($('#password4').val() != $('#password3').val()) {
+            $('#password4').focus();
+            $("#password4").tips({
+                side: 2,
+                msg: '两次密码不一致',
+                bg: '#B22222',
+                time: 3
+            });
+            return false;
+        }
 //          判断新修改的手机号 是否符合手机号码规则
         var sqq = /^1[34578]\d{9}$/;
         if (!sqq.test($('#telephone5').val())
@@ -92,7 +121,17 @@
             $("#telephone5").tips({
                 side: 2,
                 msg: '手机号不正确',
-                bg: '#AE81FF',
+                bg: '#B22222',
+                time: 3
+            });
+            return false;
+        }
+        if ($('#telephone8').val().length !== 18) {
+            $('#telephone8').focus();
+            $("#telephone8").tips({
+                side: 2,
+                msg: '请输入正确的18位二代身份号',
+                bg: '#B22222',
                 time: 3
             });
             return false;
@@ -115,187 +154,201 @@
 
         <%--右侧Tab主要内容--%>
         <!-- page content -->
-            <div class="right_col" role="main">
-        <div class="">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3> 更新资料
-                        <small> ---------</small>
-                    </h3>
-                </div>
-                <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="请输入内容">
-                            <span class="input-group-btn">
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3> 更新资料
+                            <small> ---------</small>
+                        </h3>
+                    </div>
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入内容">
+                                <span class="input-group-btn">
                 <button class="btn btn-default" type="button">开始</button>
                 </span></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
 
-                        <div class="x_title">
-                            <h2>${userInfo.accountName}个人信息卡
-                            </h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <%--<li class="dropdown">--%>
+                            <div class="x_title">
+                                <h2>${userInfo.accountName}个人信息卡
+                                </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <%--<li class="dropdown">--%>
                                     <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"--%>
-                                       <%--aria-expanded="false"><i class="fa fa-wrench"></i></a>--%>
+                                    <%--aria-expanded="false"><i class="fa fa-wrench"></i></a>--%>
                                     <%--<ul class="dropdown-menu" role="menu">--%>
-                                        <%--<li><a href="#">设置 1</a>--%>
-                                        <%--</li>--%>
-                                        <%--<li><a href="#">设置 2</a>--%>
-                                        <%--</li>--%>
+                                    <%--<li><a href="#">设置 1</a>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a href="#">设置 2</a>--%>
+                                    <%--</li>--%>
                                     <%--</ul>--%>
-                                <%--</li>--%>
-                                <%--<li><a class="close-link"><i class="fa fa-close"></i></a>--%>
-                                <%--</li>--%>
-                            </ul>
-                            <div class="clearfix"></div>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a>--%>
+                                    <%--</li>--%>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <%--x_title end--%>
+                            <div class="x_content">
+                                <form
+                                        enctype="multipart/form-data"
+                                        id="formId"
+                                        action=""
+                                        accept-charset="utf-8"
+                                        method="post"
+                                        class="form-horizontal form-label-left">
+                                    <input type="hidden" id="loginId" name="accountName"
+                                           value="${userInfo.accountName}">
+                                    <%--<div class="item form-group">--%>
+                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name4">账户名--%>
+                                    <%--<span class="required">*</span>--%>
+                                    <%--</label>--%>
+                                    <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
+                                    <%--<input id="name4" class="form-control col-md-7 col-xs-12"--%>
+                                    <%--data-validate-length-range="3,10" name="accountName"--%>
+                                    <%--placeholder="" required="required" type="text" value="${userMess.password}">--%>
+                                    <%--</div>--%>
+                                    <%--</div>--%>
+                                    <div class="item form-group">
+                                        <label for="password3" class="control-label col-md-3">账户密码*</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="password3" type="password" name="password"
+                                                   placeholder="请输入小于6位密码" data-validate-length-range="3,6"
+                                                   class="form-control col-md-7 col-xs-12" required="required"
+                                                   value="${userMess.password}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label for="password4"
+                                               class="control-label col-md-3 col-sm-3 col-xs-12">确认密码*</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="password4" type="password" name="password"
+                                                   placeholder="请输入小于6位密码" data-validate-linked="password"
+                                                   value="${userMess.password}"
+                                                   class="form-control col-md-7 col-xs-12" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="telephone5">联系电话<span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="telephone5" name="mobilePhone"
+                                                   placeholder="请输入正确的电话号码" required="required"
+                                                   data-validate-length-range="11,11"
+                                                   class="form-control col-md-7 col-xs-12"
+                                                   value="${userMess.mobilePhone}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name5">真实姓名
+                                            <%--<span class="required">*</span>--%>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="name5" class="form-control col-md-7 col-xs-12"
+                                            <%--data-validate-length-range="4" data-validate-words="4"--%>
+                                                   name="realName" placeholder="建议不超过四个字"
+                                            <%--required="required"--%>
+                                                   type="text" value="${userMess.realName}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email2">用户邮箱
+                                            <%--<span class="required">*</span>--%>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="email" id="email2" name="email" placeholder=""
+                                            <%--required="required" --%>
+                                                   class="form-control col-md-7 col-xs-12"
+                                                   value="${userMess.email}">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="telephone6">QQ号码 <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="telephone6" name="qq" placeholder=""
+                                                   required="required" data-validate-length-range="1,15"
+                                                   class="form-control col-md-7 col-xs-12" value="${userMess.qq}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="telephone7">邮政编码
+                                            <%--<span class="required">*</span>--%>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="telephone7" name="postcode" placeholder=""
+                                            <%--required="required" data-validate-length-range="1,6"--%>
+                                                   class="form-control col-md-7 col-xs-12" value="${userMess.postcode}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="telephone8">身份证号码
+                                            <%--<span class="required">*</span>--%>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="telephone8" name="idcard"
+                                                   placeholder="二代身份证号"
+                                            <%--required="required" --%>
+                                                   data-validate-length-range="18,18"
+                                                   class="form-control col-md-7 col-xs-12" value="${userMess.idcard}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="name6">通信地址<span
+                                        <%--class="required"--%>
+                                        ></span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="name6"
+                                            <%--required--%>
+                                                   name="postAdress"
+                                                   placeholder=""
+                                                   class="form-control col-md-7 col-xs-12"
+                                                   value="${userMess.postAdress}">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <button type="reset" class="btn btn-primary"> 重置</button>
+                                            <button id="update" type="button" class="btn btn-success"
+                                                    onClick="webUpdate();">提交更新
+                                            </button>
+
+                                            <a class="btn btn-primary submit"
+                                               href="<%=request.getContextPath()%>/mvc/home">返回</a>
+
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                            <%--x_content end--%>
                         </div>
-                        <%--x_title end--%>
-                        <div class="x_content">
-                            <form
-                                    enctype="multipart/form-data"
-                                    id="formId"
-                                    action=""
-                                    accept-charset="utf-8"
-                                    method="post"
-                                    class="form-horizontal form-label-left">
-                                <input type="hidden" id="loginId" name="accountName" value="${userInfo.accountName}">
-                                <%--<div class="item form-group">--%>
-                                <%--<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name4">账户名--%>
-                                <%--<span class="required">*</span>--%>
-                                <%--</label>--%>
-                                <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
-                                <%--<input id="name4" class="form-control col-md-7 col-xs-12"--%>
-                                <%--data-validate-length-range="3,10" name="accountName"--%>
-                                <%--placeholder="" required="required" type="text" value="${userMess.password}">--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
-                                <div class="item form-group">
-                                    <label for="password3" class="control-label col-md-3">账户密码*</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="password3" type="password" name="password"
-                                               placeholder="请输入小于6位密码" data-validate-length-range="3,6"
-                                               class="form-control col-md-7 col-xs-12" required="required"
-                                               value="${userMess.password}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label for="password4"
-                                           class="control-label col-md-3 col-sm-3 col-xs-12">确认密码*</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="password4" type="password" name="password"
-                                               placeholder="请输入小于6位密码" data-validate-linked="password" value="${userMess.password}"
-                                               class="form-control col-md-7 col-xs-12" required="required">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                           for="telephone5">联系电话<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="telephone5" name="mobilePhone"
-                                               placeholder="请输入正确的电话号码" required="required"
-                                               data-validate-length-range="11,11"
-                                               class="form-control col-md-7 col-xs-12" value="${userMess.mobilePhone}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name5">真实姓名
-                                        <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input id="name5" class="form-control col-md-7 col-xs-12"
-                                               data-validate-length-range="4" data-validate-words="4"
-                                               name="accountName" placeholder="建议不超过四个字" required="required"
-                                               type="text" value="${userMess.realName}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email2">用户邮箱
-                                        <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="email2" name="email" placeholder=""
-                                               required="required" class="form-control col-md-7 col-xs-12"
-                                               value="${userMess.email}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                           for="telephone6">QQ号码 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="telephone6" name="qq" placeholder=""
-                                               required="required" data-validate-length-range="1,15"
-                                               class="form-control col-md-7 col-xs-12" value="${userMess.qq}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                           for="telephone7">邮政编码 <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="telephone7" name="postcode" placeholder=""
-                                               required="required" data-validate-length-range="1,6"
-                                               class="form-control col-md-7 col-xs-12" value="${userMess.postcode}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                           for="telephone8">身份证号码<span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="telephone8" name="idcard"
-                                               placeholder="二代身份证号"
-                                               required="required" data-validate-length-range="18,18"
-                                               class="form-control col-md-7 col-xs-12" value="${userMess.idcard}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                           for="name6">通信地址<span
-                                            class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9 col-xs-12">
-                                        <input type="text" id="name6" required name="postAdress"
-                                               placeholder=""
-                                               class="form-control col-md-7 col-xs-12" value="${userMess.postAdress}">
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    <div class="col-md-6 col-md-offset-3">
-                                        <button type="reset" class="btn btn-primary" > 重置</button>
-                                        <button id="update" type="button" class="btn btn-success"
-                                                onClick="webUpdate();">提交更新
-                                        </button>
 
-                                            <a class="btn btn-primary submit" href="<%=request.getContextPath()%>/mvc/home">返回</a>
-
-                                    </div>
-                                </div>
-
-
-                            </form>
-                        </div>
-                        <%--x_content end--%>
+                        <%--x_panel end--%>
                     </div>
-
-                    <%--x_panel end--%>
+                    <%--col-md-12 col-sm-12 col-xs-12 end--%>
                 </div>
-                <%--col-md-12 col-sm-12 col-xs-12 end--%>
+                <!-- row end -->
             </div>
-            <!-- row end -->
         </div>
-            </div>
         <!-- /page content -->
         <!-- footer content -->
         <footer>
@@ -317,11 +370,14 @@
 <!-- NProgress -->
 <script type="text/javascript" src="<c:url value='/static/vendors/nprogress/nprogress.js'/>"></script>
 <!-- jQuery Smart Wizard -->
+<%--比较有利用价值的系统后台模板的表单验证--%>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
 <!-- validator -->
-<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+<%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
 </body>
 </html>

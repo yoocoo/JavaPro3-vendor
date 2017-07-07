@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * pageHelper
- * Created by ThinkPad on 2017/6/20.
+ * 基于 Mybatside pageHelper 物理分页插件 工具类
+ * 时间：2017/6/20.
+ * 作者： 王娇
+ *
  */
 public class Datagrid {
 	private long total;
 
 
-
+//=================================================================
 	private int length =10;
 	private int draw =1;
 
@@ -22,7 +24,14 @@ public class Datagrid {
 	public void setDraw(int draw) {
 		this.draw = draw;
 	}
+	public int getLength() {
+		return length;
+	}
 
+	public void setLength(int length) {
+		this.length = length;
+	}
+	//===============================================================
 	private List rows = new ArrayList();
 
 	public Datagrid() {
@@ -50,12 +59,6 @@ public class Datagrid {
 	public void setRows(List rows) {
 		this.rows = rows;
 	}
-	public int getLength() {
-		return length;
-	}
 
-	public void setLength(int length) {
-		this.length = length;
-	}
 }
 

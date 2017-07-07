@@ -10,6 +10,11 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
+	 * 10.1.1 jquery DataTable +PageHelper  服务器端分页
+	 * @return
+	 */
+	int getAllCount();
+	/**
 	 * 2.1 注册普通用户(暂时未用到，注册页面可以套用)
 	 *
 	 * @param user
@@ -207,4 +212,13 @@ public interface UserService extends BaseService<User> {
 	 * @param userId
 	 */
 	void removeUser(int userId) throws Exception;
+
+
+	/**
+	 * 9.3 7.7 日 物理分页 处理数据  在用户列表中，审核某个用户（操作：把user表中approve字段设置1）
+	 * 说明：系统管理员：审核 新注册用户
+	 * @param userId
+	 * @throws Exception
+	 */
+	void passUser(int userId) throws Exception;
 }

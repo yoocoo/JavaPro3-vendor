@@ -23,7 +23,8 @@ import java.util.List;
 
 
 public interface UserDao extends Dao<User> {
-
+	//10.1.1 jquery DataTable +PageHelper  服务器端分页
+	int getAllCount();
 
 	//1.1.1 查找数据库中的用户，查找用户是否存在
 	User findOneById(Serializable Id);
@@ -100,6 +101,11 @@ public interface UserDao extends Dao<User> {
 
 	//9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
 	int removeUser(@Param("userId") int userId);
+
+	//9.3 7.7 日 物理分页 处理数据  在用户列表中，审核某个用户（操作：把user表中approve字段设置1）
+	//	说明：系统管理员：审核 新注册用户
+
+	int passUser(@Param("userId") int userId);
 
 	//用户 sessionId（暂时未用到）
 	void updateLoginSession(@Param("sessionId") String sessionId, @Param("accountName") String accountName);
