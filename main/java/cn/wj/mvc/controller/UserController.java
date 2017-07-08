@@ -47,8 +47,8 @@ public class UserController {
 	private ResponseObj responseObj;
 
 	/**
-	 * 接受 用户列表的页面
-	 * 创建日期： 2017.06.24
+	 * 说明：接受 用户列表数据的页面
+	 * 创建日期： 2017 年 06 月 24 日
 	 * 创建者： 王娇
 	 *
 	 * @param request
@@ -65,30 +65,34 @@ public class UserController {
 
 	/**
 	 * 时间： 2017 年 7 月 7 日
-	 * 说明： 删除用户列表中用户
+	 * 说明：  冻结新注册用户列表中用户
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/listAllUserRemove",method = RequestMethod.POST)
-	public  Object Remove(HttpServletRequest request,
-						  HttpServletResponse response,
-						  User user)throws Exception{
+	@RequestMapping(value = "/listAllUserRemove", method = RequestMethod.POST)
+	public Object Remove(HttpServletRequest request,
+						 HttpServletResponse response,
+						 User user) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
-
 		//冻结 异常账户
 		try {
+
 			int userId = user.getUserId();
-			System.out.println("-=====7.7打印要冻结账户ID:"+userId);
+			//if (userId !=  1) {
+			//	System.out.println("-=====7.7打印要冻结账户ID:" + userId);
+			//	userService.removeUser(userId);
+			//}
+			System.out.println("-=====7.7打印要冻结账户ID:" + userId);
 			userService.removeUser(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("冻结异常账户失败，其他错误");
 			result = new GsonUtils().toJson(responseObj);
-
 			return result;
 		}
 		responseObj.setCode(ResponseObj.OK);
@@ -99,7 +103,7 @@ public class UserController {
 		//session.setAttribute("userInfo", user);
 		System.out.println("====7.7 打印冻结可疑账户后 userInfo===" + user);
 		result = new GsonUtils().toJson(responseObj);
-		System.out.println("=====打印result ="+result);
+		System.out.println("=====打印result =" + result);
 		result = result;
 		return result;
 
@@ -107,48 +111,46 @@ public class UserController {
 
 	/**
 	 * 时间： 2017 年 7 月 7 日
-	 * 说明： 删除用户列表中用户
+	 * 说明：  通过 新注册用户的信息审核
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/listAllUserPass",method = RequestMethod.POST)
-	public  Object PassUser(HttpServletRequest request,
-						  HttpServletResponse response,
-						  User user)throws Exception{
+	@RequestMapping(value = "/listAllUserPass", method = RequestMethod.POST)
+	public Object PassUser(HttpServletRequest request,
+						   HttpServletResponse response,
+						   User user) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
-
-		//冻结 异常账户
+		// 通过新注册账户信息 审核
 		try {
 			int userId = user.getUserId();
-			System.out.println("-=====7.7打印要冻结账户ID:"+userId);
+			System.out.println("-=====7.7打印要冻结账户ID:" + userId);
 			userService.passUser(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("审核新注册账户失败，其他错误");
 			result = new GsonUtils().toJson(responseObj);
-
 			return result;
 		}
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("审核新注册账户成功");
-		//user.setPassword(session.getId());//单独设置
-		//user.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		responseObj.setData(user);
-		//session.setAttribute("userInfo", user);
 		System.out.println("====7.7 打印审核的账户后 userInfo===" + user);
 		result = new GsonUtils().toJson(responseObj);
-		System.out.println("=====打印result ="+result);
+		System.out.println("=====打印result =" + result);
 		result = result;
 		return result;
 
 	}
 
 	/**
-	 * 基于jquery DataTable API 插件 的分页
+	 * 时间： 2017 年 7 月  5  日
+	 * 作者： 王娇
+	 * 说明：基于jquery DataTable API 插件 的分页
 	 *
 	 * @return
 	 */
@@ -164,18 +166,16 @@ public class UserController {
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
 		List<User> userList = userService.findAll(1, 10);
-		System.out.println("===打印得到的=userList=="+userList);
+		System.out.println("===打印得到的=userList==" + userList);
 		//用PageInfo对结果进行包装
 		PageInfo<User> pageInfo = new PageInfo<User>(userList);
-		System.out.println("===打印封装的 pageInfo==="+pageInfo);
+		System.out.println("===打印封装的 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
 		dataTable.setRecordsTotal(userService.getAllCount());
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-
-
 		//返回数据到页面
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -195,6 +195,7 @@ public class UserController {
 	 * 创建日期： 2017.06.25
 	 * 创建者： 王娇
 	 * 基于 BootStrap 版本的物理分页（暂时不用）
+	 *
 	 * @param request
 	 * @param response
 	 * @param user
@@ -426,7 +427,9 @@ public class UserController {
 	}
 
 	/**
-	 * 修改个人资料统一入口，修改个人资料
+	 * 说明：修改个人资料统一入口，修改个人资料
+	 * 时间： 2017 年 04 月
+	 * 作者：王娇
 	 *
 	 * @param request
 	 * @param response
@@ -435,7 +438,6 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-
 	@RequestMapping(value = "/update",
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
@@ -472,20 +474,19 @@ public class UserController {
 		responseObj.setData(user);
 		session.setAttribute("userInfo", user);
 		System.out.println("====更改资料后userInfo===" + user);
-
 		result = new GsonUtils().toJson(responseObj);
 		result = result;
 		return result;
 
 	}
 
-
 	/**
-	 * 修改个人头像
+	 * 说明： 统一修改个人头像入口
 	 * 创建上传头像接口
 	 * 在登录的窗口已经实现 动态显示用户头像
 	 * 注册时使用 初始头像
-	 * 更新完善日期：6.11
+	 * 更新完善日期： 2017 年 6 月 11 日
+	 * 作者： 王娇
 	 *
 	 * @param file
 	 * @param session
@@ -552,7 +553,7 @@ public class UserController {
 	 * value = "/sysuserResYun"  创建二级用户的 统一入口， 也是创建运营商管理员的入口
 	 * 系统管理员 创建一级管理用户(运营商），
 	 * 受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
-	 * 时间：5月25日
+	 * 时间： 2017 年 5 月 25 日
 	 *
 	 * @param request
 	 * @param response
@@ -567,7 +568,6 @@ public class UserController {
 	public Object sysuserRes(HttpServletRequest request, HttpServletResponse response, User user, Agency agency, HttpSession session) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<User>();
-
 		if (null == user) {
 			responseObj.setCode(ResponseObj.FAILED);
 			responseObj.setMsg("用户信息不能为空");
@@ -588,7 +588,6 @@ public class UserController {
 		}
 		try {
 			//int factoryId = factoryService.selectFactoryIdByName(accounName);
-
 			agencyService.add(agency);
 			String aName = agency.getAccountName();
 			int aId = agency.getAgencyId();
@@ -597,7 +596,6 @@ public class UserController {
 			userService.sysuseraddYun(user);
 			userService.updateAgencyId(aId, aName);
 			//userService.addAgencyToFactoryId(user);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -623,7 +621,7 @@ public class UserController {
 	 * value = "/sysuserResYunPei"  创建三级用户的 统一入口
 	 * 系统管理员 创建三级管理用户(运营商配货员，运营商仓库员），
 	 * 受影响表格（用户表user表，运营商表格agency表，agencyId,账户名account_name唯一）
-	 * 时间：5月25日
+	 * 时间：2017  年 5 月 25 日
 	 *
 	 * @param request
 	 * @param response
@@ -682,9 +680,9 @@ public class UserController {
 	}
 
 	/**
-	 * 系统管理员  创建一级管理员用户（系统用户）,
-	 * 受影响的表格 用户表
-	 * date:2017.06.03
+	 * 说明：系统管理员  创建一级管理员用户（系统用户）,受影响的表格 用户表
+	 * 时间 :2017 年 06 月 03 日
+	 * 作者 ： 王娇
 	 *
 	 * @param request
 	 * @param response
@@ -735,10 +733,10 @@ public class UserController {
 	}
 
 	/**
-	 * 系统管理员 创建一级管理用户（生产商），
-	 * 受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
-	 * 时间：5月29日
-	 * 更新日期 6.10
+	 * 说明：系统管理员 创建一级管理用户（生产商），受影响表格（用户表user表，运营商表格factory表，Id,账户名account_name唯一）
+	 * 作者： 王娇
+	 * 创建时间：2017 年 5 月29 日
+	 * 更新日期： 2017 年  6 月 10 日
 	 *
 	 * @param request
 	 * @param response
@@ -748,7 +746,6 @@ public class UserController {
 	 * @return result
 	 * @throws Exception
 	 */
-
 	@RequestMapping(value = "/sysuserResSheng"
 			, method = RequestMethod.POST
 			, produces = "application/json;charset=utf-8")

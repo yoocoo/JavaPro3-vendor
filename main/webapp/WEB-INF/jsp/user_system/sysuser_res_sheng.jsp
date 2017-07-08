@@ -134,8 +134,9 @@
             var realname = $("#name5").val();
 //            ===检测单选值==========================================
 //        var roleid = $("select option:selected").val();
-//            alert($(":selected", "#sel1").val());
-//        alert($("select option:selected").attr("id"));//弹出Id的值
+//
+            console.log("弹出来的选择存入数据库中的roleid值：" + $(":selected", "#sel1").val());
+            console.log("弹出来的设定的id值：" + $("select option:selected").attr("id"));
 //        alert($("select option:selected").val());//弹出  存入数据库的值
 //        var roleid = $(":selected","#sel").val();
 //        var roleid = $("#roleid").val();
@@ -146,7 +147,7 @@
             var code = $("#telephone7").val();
             var card = $("#telephone8").val();
             var adress = $("#name6").val();
-            //        ==========================生产商信息=========================
+            //==========================生产商信息=========================
 
             var factoryname = $("#name7").val();
             var factorytype = $(":selected", "#sel2").val()
@@ -171,7 +172,6 @@
                     postAdress: adress,
                     factoryName: factoryname,
                     factoryType: factorytype,
-//                factoryLogoPath: factorylogopath,
                     sfeeReturnRate: sfeereturnrate,
                     qrReturnRate: qrreturnrate,
                     receiveAccount: receiveaccount,
@@ -218,7 +218,6 @@
                     <div class="title_left">
                         <h3>新增生产商用户</h3>
                     </div>
-
                     <div class="title_right">
                         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                             <div class="input-group">

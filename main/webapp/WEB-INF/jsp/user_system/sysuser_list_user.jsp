@@ -60,9 +60,9 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>用户系统管理列表
-                            <%--<small> ---------</small>--%>
+                        <h3>用户系统管理列表<%--<small> ---------</small>--%>
                         </h3>
+
                     </div>
                     <div class="title_right">
                         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -76,91 +76,28 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
-
-                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
-                    <%--<div class="x_panel">--%>
-                    <%--<div class="x_title">--%>
-                    <%--&lt;%&ndash;<h2>系统用户列表&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<small>说明：</small>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</h2>&ndash;%&gt;--%>
-                    <%--<div class="fontawesome-icon-list">--%>
-                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i--%>
-                    <%--class="fa fa-eye"></i> 审核用户信息</a>--%>
-                    <%--</div>--%>
-                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a--%>
-                    <%--href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i--%>
-                    <%--class="fa fa-user"></i> 新增一级用户</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<ul class="nav navbar-right panel_toolbox">--%>
-                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
-                    <%--&lt;%&ndash;<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;role="button" aria-expanded="false"><i&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;class="fa fa-wrench"></i></a>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<ul class="dropdown-menu" role="menu">&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<li><a href="#">设置 1</a></li>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<li><a href="#">设置 2</a></li>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</ul>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</li>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<li><a class="close-link"><i class="fa fa-close"></i></a></li>&ndash;%&gt;--%>
-                    <%--</ul>--%>
-                    <%--<div class="clearfix"></div>--%>
-                    <%--</div>--%>
-                    <%--<div class="x_content">--%>
-                    <%--&lt;%&ndash;<div class="fontawesome-icon-list" >&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i class="fa fa-eye"></i> 审核用户信息</a>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i class="fa fa-user"></i> 新增一级用户</a>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-                    <%--<table id="mytable" class="table table-striped table-bordered">--%>
-                    <%--<thead>--%>
-                    <%--<tr>--%>
-                    <%--<th>用户ID</th>--%>
-                    <%--<th>账户名</th>--%>
-                    <%--<th>真实姓名</th>--%>
-                    <%--<th>角色</th>--%>
-                    <%--<th>电子邮箱</th>--%>
-                    <%--<th>手机</th>--%>
-                    <%--<th>QQ号码</th>--%>
-                    <%--<th>邮编</th>--%>
-                    <%--<th>身份证</th>--%>
-                    <%--<th>创建时间</th>--%>
-                    <%--<th>是否冻结</th>--%>
-                    <%--<th>操作</th>--%>
-                    <%--</tr>--%>
-                    <%--</thead>--%>
-                    <%--<tbody>--%>
-                    <%--<tr>--%>
-                    <%--<td>1王娇</td>--%>
-                    <%--<td>上海虹桥</td>--%>
-                    <%--<td>销售部</td>--%>
-                    <%--<td>1</td>--%>
-                    <%--<td>343@qq.com</td>--%>
-                    <%--<td>1877800</td>--%>
-                    <%--<td>34574385</td>--%>
-                    <%--<td>272200</td>--%>
-                    <%--<td>1234578997778877855</td>--%>
-                    <%--<td>2011/04/25</td>--%>
-                    <%--<td>1</td>--%>
-                    <%--<td>--%>
-                    <%--<button type="button" class="btn btn-round btn-default btn-sm">编辑</button>--%>
-                    <%--<button type="button" class="btn btn-round btn-default btn-sm">冻结</button>--%>
-                    <%--</td>--%>
-                    <%--</tr>--%>
-                    <%--</tbody>--%>
-                    <%--</table>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>系统用户数据表格<br/>
                                     <small> 1.对新注册用户，信息审核，审核通过后，可登陆。
-                                        2.冻结过期，可疑账户。</small>
+                                        2.冻结过期，可疑账户。
+                                        <br/>
+                                    </small>
                                 </h2>
+                                <p class="text-muted font-13 m-b-30">
+
+                                <div class="fontawesome-icon-list ">
+                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
+                                            href="<%=request.getContextPath()%>/mvc/userAction/sysuserResXi"><i
+                                            class="fa fa-eye"></i>&nbsp;&nbsp;新增系统管理员</a>
+                                    </div>
+                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
+                                            href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i
+                                            class="fa fa-user"></i> 新增一级生产商用户</a>
+                                    </div>
+                                </div>
+                                </p>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                                     <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
@@ -175,46 +112,38 @@
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
+
                             <div class="x_content">
-                                <p class="text-muted font-13 m-b-30">
+                                <%--<p class="text-muted font-13 m-b-30">--%>
+                                    <%--&lt;%&ndash;基于 by the Bootstrap CSS framework设计的静态表格 &ndash;%&gt;--%>
+                                <%--</p>--%>
 
-                                <div class="fontawesome-icon-list">
-                                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#/ambulance"><i--%>
-                                            <%--class="fa fa-eye"></i> 审核用户信息</a>--%>
-                                    <%--</div>--%>
-                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
-                                            href="<%=request.getContextPath()%>/mvc/userAction/sysuserResSheng"><i
-                                            class="fa fa-user"></i> 新增一级用户</a>
-                                    </div>
-                                </div>
-                                    <%--基于 by the Bootstrap CSS framework设计的静态表格 --%>
-                                </p>
 
-                                <table id="table_id"
+                                <table id="datatable-buttons"
+                                <%--id="table_id"--%>
                                        class="table table-striped table-bordered ">
-                                    <%--class="table table-striped table-bordered">--%>
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th class="text-center">ID</th>
                                         <%--<th>下一</th>--%>
-                                        <th>账户名</th>
+                                        <th class="text-left">账户</th>
                                         <th>密码</th>
-                                        <th>姓名</th>
-                                        <th>角色</th>
+                                        <th>真实姓名</th>
+                                        <th class="text-center">角色</th>
                                         <%--<th>昵称</th>--%>
-                                        <th>电子邮箱</th>
+                                        <th class="text-left">邮箱</th>
                                         <%--<th>最近一次登录</th>--%>
                                         <%--<th>电话</th>--%>
                                         <th>手机</th>
                                         <th>QQ</th>
                                         <%--<th>邮编</th>--%>
-                                        <th>身份证</th>
+                                        <th class="text-left">身份证</th>
                                         <%--<th>次数</th>--%>
                                         <%--<th>创建时间</th>--%>
                                         <th>地址</th>
                                         <%--<th>头像地址</th>--%>
-                                        <th>是否删除</th>
-                                        <th>操作</th>
+                                        <th>状态</th>
+                                        <th class="text-center">用户的权限操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -224,6 +153,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>
@@ -254,8 +185,6 @@
         src="<c:url value='/static/vendors/datatables.net/js/jquery.dataTables.min.js'/>"></script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'/>"></script>
-
-
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js'/>"></script>
 <script type="text/javascript"
@@ -285,7 +214,36 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var tables = $('#table_id').DataTable({
+        var tables = $('#datatable-buttons').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: '复制数据 <i class="glyphicon glyphicon-copy"> </i>',
+                    className: 'btn bg-green',
+                    key: {
+                        key: 'c',
+                        altKey: true
+                    }
+                }, {
+                    extend: 'csv',
+                    text: '下载CSV <i class="fa fa-cloud-download"> </i>',
+                    className: 'btn bg-olive'
+                }, {
+                    extend: 'excel',
+                    text: '下载Excel <i class="fa fa-cloud-download"> </i>',
+                    className: 'btn bg-green'
+                }, {
+                    extend: 'pdf',
+                    text: '生成PDF <i class="fa fa-file-pdf-o"> </i>',
+                    className: 'btn bg-olive'
+                }, {
+                    extend: 'print',
+                    text: '<i class="fa fa-table"> </i> 打印表格',
+                    className: 'btn bg-green'
+                }],
+//                'copy', 'excel', 'pdf'
+//            ],
 //    var oTable = $("#listtable")
 //        .DataTable({
             ajax: {
@@ -298,18 +256,20 @@
             },
             serverSide: true,//开启服务器模式:启用服务器分页
             lengthChange: false,//是否允许用户改变表格每页显示的记录数
-//            ordering: true,//是否允许用户排序
+            ordering: false,//是否允许用户排序
             paging: true,//是否分页
 //            pagingType: "full_numbers",//首页，上一页、中间数字下一页、尾页四个按钮还有页数按钮
             pagingType: "simple_numbers",//上一页、中间数字下一页、四个按钮还有页数按钮
             processing: true,//是否显示处理状态
-          scrollX: true,//允许水平滚动
+            scrollX: false,//允许水平滚动
 //          scrollY: "200px",
 //          scrollCollapse: true,
             searching: true,//是否开始本地搜索
 //         'bStateSave': true,//配置好这个,刷新页面会让页面停留在之前的页码
             stateSave: true,//刷新时是否保存状态
 //          autoWidth: true,//自动计算宽度
+//            retrieve:true,//检索已存在的Datatables实例(retrieve)
+            destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
             //deferRender : true,//延迟渲染
             columns: [
                 {data: "userId"},
@@ -328,7 +288,7 @@
                 {data: "idcard"},
                 <%--{data: "loginCount"},--%>
                 <%--{data: "creatTime"},--%>
-                 {data: "postAdress"},
+                {data: "postAdress"},
 //                {data: "headImage"},
                 {data: "approved"},
                 {data: null}
@@ -336,8 +296,8 @@
             columnDefs: [{
                 "targets": 11,//编辑
                 "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn btn-primary btn-sm' type='button' style='margin-right:10px;'>审核</button>" +
-                "<button id='delrow' class='btn btn-primary btn-sm' type='button'>冻结</button>"
+                "defaultContent": "<button id='editrow' class='btn bg-green  btn-sm' type='button' style='margin-right:10px;'>审核</button>" +
+                "<button id='delrow' class='btn  bg-red  btn-sm' type='button'>冻结</button>"
             }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
@@ -347,48 +307,54 @@
         });
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
-        $('#table_id tbody').on('click', 'button#delrow', function () {
-            var oTable = $('#table_id').dataTable();
+        $('#datatable-buttons tbody').on('click', 'button#delrow', function () {
+            var oTable = $('#datatable-buttons').dataTable();
             var data = oTable.fnGetData($(this).parent().parent());
             var datastr = JSON.stringify(data);
             var dataObj = JSON.parse(datastr);
             console.log("====JsonObj中userid :" + dataObj.userId);
-//            var data = tables.rows($(this).parents("tr")).data();
-//            alert("=========" +tables.rows('.selected').data().length +' row(s) selected' );
             //tables.ajax.reload();重新获取数据
             //tables.draw(false);重新刷新页面
             if (confirm("是否确认冻结该账户")) {
                 var userid = dataObj.userId;
-                console.log("====  确认选择 冻结账户的userid===:" + userid);
-                $.ajax({
-                    type: "POST",  //http请求方式为POST
-                    url: '<%=request.getContextPath()%>/userAction/listAllUserRemove',
+                if (userid == 1) {
+                    confirm("超级系统管理员 不可冻结，无效操作！")
+                }
+                else if (dataObj.approved == 0) {
+                    confirm("该用户已被冻结，无需重复操作！")
+                }
+                else {
+                    console.log("====  确认选择 冻结账户的userid===:" + userid);
+                    $.ajax({
+                        type: "POST",  //http请求方式为POST
+                        url: '<%=request.getContextPath()%>/userAction/listAllUserRemove',
 //                type:'delete',
 //                type : 'json',
-                    dataType: 'json',//返回值类型 一般设置为json
+                        dataType: 'json',//返回值类型 一般设置为json
 //                    timeout: "3000",
-                    cache: "false",
-                    data: {userId: userid},
-                    success: function (data) {
-                        if (data.code == 1) {
-                            alert(data.msg);
+                        cache: "false",
+                        data: {userId: userid},
+                        success: function (data) {
+                            if (data.code == 1) {
+                                alert(data.msg);
+                                window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
+                            } else {
+                                alert(data.msg);
+                                $("#user").focus();
+                            }
+                        },
+                        error: function (err) {
+                            alert("冻结成功");
                             window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-                        } else {
-                            alert(data.msg);
-                            $("#user").focus();
-                        }
-                    },
-                    error: function (err) {
-                        alert("冻结成功");
-                        window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
 //        ===========================审核用户信息======================================
-        $('#table_id tbody').on('click', 'button#editrow', function () {
-            var oTable1 = $('#table_id').dataTable();
+        $('#datatable-buttons tbody').on('click', 'button#editrow', function () {
+            var oTable1 = $('#datatable-buttons').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);
@@ -400,30 +366,35 @@
             if (confirm("是否确认通过该账户信息")) {
                 var userid = dataObj1.userId;
                 console.log("====  确认选择 冻结账户的userid===:" + userid);
-                $.ajax({
-                    type: "POST",  //http请求方式为POST
-                    url: '<%=request.getContextPath()%>/userAction/listAllUserPass',
+                if (dataObj1.approved == 1) {
+                    confirm("该用户已通过审核，无需重复操作！")
+                }
+                else {
+                    $.ajax({
+                        type: "POST",  //http请求方式为POST
+                        url: '<%=request.getContextPath()%>/userAction/listAllUserPass',
 //                type:'delete',
 //                type : 'json',
-                    dataType: 'json',//返回值类型 一般设置为json
+                        dataType: 'json',//返回值类型 一般设置为json
 //                    timeout: "3000",
-                    cache: "false",
-                    data: {userId: userid},
-                    success: function (data) {
-                        if (data.code == 1) {
-                            alert(data.msg);
+                        cache: "false",
+                        data: {userId: userid},
+                        success: function (data) {
+                            if (data.code == 1) {
+                                alert(data.msg);
+                                window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
+                            } else {
+                                alert(data.msg);
+                                $("#user").focus();
+                            }
+                        },
+                        error: function (err) {
+                            alert("用户信息，通过审核");
                             window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-                        } else {
-                            alert(data.msg);
-                            $("#user").focus();
-                        }
-                    },
-                    error: function (err) {
-                        alert("新用户信息，通过审核");
-                        window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
 //            $('#table_id tbody i').css({"fontStyle": "normal"});

@@ -99,12 +99,10 @@ public interface UserDao extends Dao<User> {
 	//List<User> getAllUserList(PageObject page);
 	List<User> getAllUserList(User user);
 
-	//9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	//9.2  6.20日  冻结可疑账户在用户列表中，删除某个用户（操作：把user表中approve字段设置为0），说明：系统管理员：冻结 新注册用户
 	int removeUser(@Param("userId") int userId);
 
-	//9.3 7.7 日 物理分页 处理数据  在用户列表中，审核某个用户（操作：把user表中approve字段设置1）
-	//	说明：系统管理员：审核 新注册用户
-
+	//9.3 7.7 日 审核通过在用户列表中，审核某个用户（操作：把user表中approve字段设置1）,说明：系统管理员：审核 新注册用户
 	int passUser(@Param("userId") int userId);
 
 	//用户 sessionId（暂时未用到）
