@@ -805,9 +805,9 @@ public class UserController {
 		//String tableName = "order_"+factory.getFactoryId();
 		//userService.createOrderTable(tableName);
 		userService.createOrderTable("order_" + factory.getFactoryId().toString());//订单表名
-		userService.createOrderTable("sale_" + factory.getFactoryId().toString());//销售表名
-		userService.createOrderTable("cash_" + factory.getFactoryId().toString());//金钱表名
-		userService.createOrderTable("cash_sale_" + factory.getFactoryId().toString());//金钱销售关联表名
+		userService.createSaleTable("sale_" + factory.getFactoryId().toString());//销售表名
+		userService.createCashTable("cash_" + factory.getFactoryId().toString());//金钱表名
+		userService.createCashSaleTable("cash_sale_" + factory.getFactoryId().toString());//金钱销售关联表名
 		userService.createAlarmTable("alarm_" + factory.getFactoryId().toString());//金钱销售关联表名
 		factoryService.updateFactoryTableName("order_" + factory.getFactoryId().toString(),
 				"sale_" + factory.getFactoryId().toString(),
