@@ -100,6 +100,16 @@ public class MainController {
 	public String sysuserRes2() {
 		return "user_yun/yun_res_yundi";
 	}
+//========================售货机业务逻辑开始====================================================
+	/**
+	 * 生产商管理员 注册售货机
+	 * @return
+	 */
+	@RequestMapping(value = "/mvc/vendorAction/shengRegVendor", method = RequestMethod.GET)
+	public String shengRegVendor() {
+		return "vendor/vendor_res";
+	}
+
 
 }
 //package cn.wj.mvc.controller;

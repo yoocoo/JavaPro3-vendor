@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.VendorDao">
+    <resultMap id="VendorMap" type="cn.wj.domain.Vendor">
+        <id column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
+        <result column="vendor_name" property="vendorName" jdbcType="VARCHAR"/>
+        <result column="factory_id" property="factoryId" jdbcType="INTEGER"/>
+        <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
+        <result column="checked" property="checked" jdbcType="INTEGER"/>
+        <result column="check_user" property="checkUser" jdbcType="VARCHAR"/>
+        <result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+        <result column="registered_time" property="registeredTime" jdbcType="TIMESTAMP"/>
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
+        <result column="mdbBill_alarm_code" property="mdbbillAlarmCode" jdbcType="INTEGER"/>
+        <result column="mdbChanger_alarm_code" property="mdbchangerAlarmCode" jdbcType="INTEGER"/>
+        <result column="temperature" property="temperature" jdbcType="INTEGER"/>
+        <result column="leaved_bill" property="leavedBill" jdbcType="INTEGER"/>
+        <result column="leaved_coin" property="leavedCoin" jdbcType="INTEGER"/>
+        <result column="soft_version" property="softVersion" jdbcType="VARCHAR"/>
+        <result column="hardware_version" property="hardwareVersion" jdbcType="VARCHAR"/>
+        <result column="max_channel_num" property="maxChannelNum" jdbcType="INTEGER"/>
+        <result column="board_temperature" property="boardTemperature" jdbcType="VARCHAR"/>
+        <result column="timestamps" property="timestamps" jdbcType="TIMESTAMP"/>
+        <result column="last_sale_time" property="lastSaleTime" jdbcType="TIMESTAMP"/>
+        <result column="actived" property="actived" jdbcType="INTEGER"/>
+        <result column="inactive_reason" property="inactiveReason" jdbcType="VARCHAR"/>
+        <result column="total_saled" property="totalSaled" jdbcType="INTEGER"/>
+        <result column="total_money" property="totalMoney" jdbcType="DECIMAL"/>
+        <result column="total_bill" property="totalBill" jdbcType="DECIMAL"/>
+        <result column="total_coin" property="totalCoin" jdbcType="DECIMAL"/>
+        <result column="total_change" property="totalChange" jdbcType="DECIMAL"/>
+        <result column="total_cashless" property="totalCashless" jdbcType="DECIMAL"/>
+        <result column="total_extra_income" property="totalExtraIncome" jdbcType="DECIMAL"/>
+        <result column="current_saled" property="currentSaled" jdbcType="INTEGER"/>
+        <result column="current_money" property="currentMoney" jdbcType="DECIMAL"/>
+        <result column="current_bill" property="currentBill" jdbcType="DECIMAL"/>
+        <result column="current_coin" property="currentCoin" jdbcType="DECIMAL"/>
+        <result column="current_change" property="currentChange" jdbcType="DECIMAL"/>
+        <result column="current_cashless" property="currentCashless" jdbcType="DECIMAL"/>
+        <result column="current_extra_income" property="currentExtraIncome" jdbcType="DECIMAL"/>
+        <result column="model_number" property="modelNumber" jdbcType="VARCHAR"/>
+        <result column="thirdpay_id" property="thirdpayId" jdbcType="VARCHAR"/>
+        <result column="thirdpay_key" property="thirdpayKey" jdbcType="VARCHAR"/>
+        <result column="wireless_pay_enabled" property="wirelessPayEnabled" jdbcType="INTEGER"/>
+        <result column="date_of_product" property="dateOfProduct" jdbcType="TIMESTAMP"/>
+        <result column="gprs_level" property="gprsLevel" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="AgencyResultMap" type="cn.wj.domain.Agency">
+        <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
+        <result column="agency_name" property="agencyName" jdbcType="VARCHAR"/>
+        <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--<sql id="Vendor_Column_List">-->
+    <!--vendor_id, vendor_name, factory_id, agency_id, check, check_user, last_update_time,-->
+    <!--registered_time, expire_date, mdbBill_alarm_code, mdbChanger_alarm_code, temperature,-->
+    <!--leaved_bill, leaved_coin, soft_version, hardware_version, max_channel_num, board_temperature,-->
+    <!--timestamps, last_sale_time, actived, inactive_reason, total_saled, total_money, total_bill,-->
+    <!--total_coin, total_change, total_cashless, total_extra_income, current_saled, current_money,-->
+    <!--current_bill, current_coin, current_change, current_cashless, current_extra_income,-->
+    <!--model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product, gprs_level-->
+    <!--</sql>-->
+
+    <!--1.1 功能说明： 生产商用户 ：注册新的售货机 -->
+    <insert id="shengAddVendor" parameterType="cn.wj.domain.Vendor">
+    insert into vendor (vendor_id, vendor_name, factory_id,
+    agency_id, checked, check_user,
+    last_update_time, registered_time, expire_date,
+    mdbBill_alarm_code, mdbChanger_alarm_code,
+    temperature, leaved_bill, leaved_coin,
+    soft_version, hardware_version, max_channel_num,
+    board_temperature, timestamps, last_sale_time,
+    actived, inactive_reason, total_saled,
+    total_money, total_bill, total_coin,
+    total_change, total_cashless, total_extra_income,
+    current_saled, current_money, current_bill,
+    current_coin, current_change, current_cashless,
+    current_extra_income, model_number, thirdpay_id,
+    thirdpay_key, wireless_pay_enabled, date_of_product,
+    gprs_level)
+    values (#{vendorId,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},
+    #{agencyId,jdbcType=INTEGER}, 0, #{checkUser,jdbcType=VARCHAR},
+    #{lastUpdateTime,jdbcType=TIMESTAMP}, #{registeredTime,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP},
+    #{mdbbillAlarmCode,jdbcType=INTEGER}, #{mdbchangerAlarmCode,jdbcType=INTEGER},
+    #{temperature,jdbcType=INTEGER}, #{leavedBill,jdbcType=INTEGER}, #{leavedCoin,jdbcType=INTEGER},
+    #{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR}, #{maxChannelNum,jdbcType=INTEGER},
+    #{boardTemperature,jdbcType=VARCHAR}, #{timestamps,jdbcType=TIMESTAMP}, #{lastSaleTime,jdbcType=TIMESTAMP},
+    #{actived,jdbcType=INTEGER}, #{inactiveReason,jdbcType=VARCHAR}, #{totalSaled,jdbcType=INTEGER},
+    #{totalMoney,jdbcType=DECIMAL}, #{totalBill,jdbcType=DECIMAL}, #{totalCoin,jdbcType=DECIMAL},
+    #{totalChange,jdbcType=DECIMAL}, #{totalCashless,jdbcType=DECIMAL}, #{totalExtraIncome,jdbcType=DECIMAL},
+    #{currentSaled,jdbcType=INTEGER}, #{currentMoney,jdbcType=DECIMAL}, #{currentBill,jdbcType=DECIMAL},
+    #{currentCoin,jdbcType=DECIMAL}, #{currentChange,jdbcType=DECIMAL}, #{currentCashless,jdbcType=DECIMAL},
+    #{currentExtraIncome,jdbcType=DECIMAL}, #{modelNumber,jdbcType=VARCHAR}, #{thirdpayId,jdbcType=VARCHAR},
+    #{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},
+    #{gprsLevel,jdbcType=INTEGER})
+  </insert>
+
+    <!--2.1.1 生产商售货机 列表-->
+    <select id="getAllShengVendor" resultMap="VendorMap">
+SELECT
+    v.vendor_id, v.vendor_name, v.factory_id,
+    v.agency_id, v.checked, v.check_user,
+    v.last_update_time, v.registered_time, v.expire_date,
+    v.mdbBill_alarm_code, v.mdbChanger_alarm_code,
+    v.temperature, v.leaved_bill, v.leaved_coin,
+    v.soft_version, v.hardware_version, v.max_channel_num,
+    v.board_temperature, v.timestamps, v.last_sale_time,
+    v.actived, v.inactive_reason, v.total_saled,
+    v.total_money, v.total_bill, v.total_coin,
+    v.total_change, v.total_cashless, v.total_extra_income,
+    v.current_saled, v.current_money, v.current_bill,
+    v.current_coin, v.current_change, v.current_cashless,
+    v.current_extra_income, v.model_number, v.thirdpay_id,
+    v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
+    v.gprs_level,a.agency_name
+    FROM  vendor v
+     LEFT JOIN agency a
+     ON  v.agency_id= a.agency_id
+     WHERE  v.factory_id =#{factoryId}
+    </select>
+    <!--2.1.2 jquery DataTable +PageHelper  服务器端分页-->
+    <select id="getAllCount" resultType="int">
+        SELECT COUNT(*)
+        FROM vendor
+        WHERE factory_id =#{factoryId}
+    </select>
+    <!--2.2.2   生产商用户 冻结新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  冻结可疑售货机，过期售货机-->
+    <update id="ShengRemoveVendor" parameterType="cn.wj.domain.Vendor">
+    UPDATE  vendor
+    SET checked =0
+    WHERE  vendor_id = #{vendorId}
+  </update>
+    <!--2.2.3   生产商用户 通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
+    <update id="shengPassVendor" parameterType="cn.wj.domain.Vendor">
+    UPDATE  vendor SET
+   checked =1
+    WHERE  vendor_id = #{vendorId,jdbcType=INTEGER}
+  </update>
+    <!--2.3.1 系统管理员的售货机 列表-->
+    <select id="getAllXiVendor" resultMap="VendorMap">
+    SELECT *
+    FROM vendor
+    </select>
+    <!--2.3.2 系统管理员jquery DataTable +PageHelper  服务器端分页-->
+    <select id="getAllXiCount" resultType="int">
+    SELECT COUNT(*)
+    FROM vendor
+    </select>
+
+    <!--=================================自动生成================================================================-->
+    <!--<select id="selectByPrimaryKey" resultMap="VendorMap" parameterType="java.lang.Integer">-->
+    <!--select-->
+    <!--<include refid="Vendor_Column_List"/>-->
+    <!--from vendor-->
+    <!--where vendor_id = #{vendorId,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from vendor-->
+    <!--where vendor_id = #{vendorId,jdbcType=INTEGER}-->
+    <!--</delete>-->
+    <!--<insert id="insert" parameterType="cn.wj.domain.Vendor">-->
+    <!--insert into vendor (vendor_id, vendor_name, factory_id,-->
+    <!--agency_id, checked, check_user,-->
+    <!--last_update_time, registered_time, expire_date,-->
+    <!--mdbBill_alarm_code, mdbChanger_alarm_code,-->
+    <!--temperature, leaved_bill, leaved_coin,-->
+    <!--soft_version, hardware_version, max_channel_num,-->
+    <!--board_temperature, timestamps, last_sale_time,-->
+    <!--actived, inactive_reason, total_saled,-->
+    <!--total_money, total_bill, total_coin,-->
+    <!--total_change, total_cashless, total_extra_income,-->
+    <!--current_saled, current_money, current_bill,-->
+    <!--current_coin, current_change, current_cashless,-->
+    <!--current_extra_income, model_number, thirdpay_id,-->
+    <!--thirdpay_key, wireless_pay_enabled, date_of_product,-->
+    <!--gprs_level)-->
+    <!--values (#{vendorId,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},-->
+    <!--#{agencyId,jdbcType=INTEGER}, #{checked,jdbcType=INTEGER}, #{checkUser,jdbcType=VARCHAR},-->
+    <!--#{lastUpdateTime,jdbcType=TIMESTAMP}, #{registeredTime,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP},-->
+    <!--#{mdbbillAlarmCode,jdbcType=INTEGER}, #{mdbchangerAlarmCode,jdbcType=INTEGER},-->
+    <!--#{temperature,jdbcType=INTEGER}, #{leavedBill,jdbcType=INTEGER}, #{leavedCoin,jdbcType=INTEGER},-->
+    <!--#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR}, #{maxChannelNum,jdbcType=INTEGER},-->
+    <!--#{boardTemperature,jdbcType=VARCHAR}, #{timestamps,jdbcType=TIMESTAMP}, #{lastSaleTime,jdbcType=TIMESTAMP},-->
+    <!--#{actived,jdbcType=INTEGER}, #{inactiveReason,jdbcType=VARCHAR}, #{totalSaled,jdbcType=INTEGER},-->
+    <!--#{totalMoney,jdbcType=DECIMAL}, #{totalBill,jdbcType=DECIMAL}, #{totalCoin,jdbcType=DECIMAL},-->
+    <!--#{totalChange,jdbcType=DECIMAL}, #{totalCashless,jdbcType=DECIMAL}, #{totalExtraIncome,jdbcType=DECIMAL},-->
+    <!--#{currentSaled,jdbcType=INTEGER}, #{currentMoney,jdbcType=DECIMAL}, #{currentBill,jdbcType=DECIMAL},-->
+    <!--#{currentCoin,jdbcType=DECIMAL}, #{currentChange,jdbcType=DECIMAL}, #{currentCashless,jdbcType=DECIMAL},-->
+    <!--#{currentExtraIncome,jdbcType=DECIMAL}, #{modelNumber,jdbcType=VARCHAR}, #{thirdpayId,jdbcType=VARCHAR},-->
+    <!--#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},-->
+    <!--#{gprsLevel,jdbcType=INTEGER})-->
+    <!--</insert>-->
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.Vendor">-->
+    <!--insert into vendor-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--<if test="vendorId != null">-->
+    <!--vendor_id,-->
+    <!--</if>-->
+    <!--<if test="vendorName != null">-->
+    <!--vendor_name,-->
+    <!--</if>-->
+    <!--<if test="factoryId != null">-->
+    <!--factory_id,-->
+    <!--</if>-->
+    <!--<if test="agencyId != null">-->
+    <!--agency_id,-->
+    <!--</if>-->
+    <!--<if test="checked != null">-->
+    <!--checked,-->
+    <!--</if>-->
+    <!--<if test="checkUser != null">-->
+    <!--check_user,-->
+    <!--</if>-->
+    <!--<if test="lastUpdateTime != null">-->
+    <!--last_update_time,-->
+    <!--</if>-->
+    <!--<if test="registeredTime != null">-->
+    <!--registered_time,-->
+    <!--</if>-->
+    <!--<if test="expireDate != null">-->
+    <!--expire_date,-->
+    <!--</if>-->
+    <!--<if test="mdbbillAlarmCode != null">-->
+    <!--mdbBill_alarm_code,-->
+    <!--</if>-->
+    <!--<if test="mdbchangerAlarmCode != null">-->
+    <!--mdbChanger_alarm_code,-->
+    <!--</if>-->
+    <!--<if test="temperature != null">-->
+    <!--temperature,-->
+    <!--</if>-->
+    <!--<if test="leavedBill != null">-->
+    <!--leaved_bill,-->
+    <!--</if>-->
+    <!--<if test="leavedCoin != null">-->
+    <!--leaved_coin,-->
+    <!--</if>-->
+    <!--<if test="softVersion != null">-->
+    <!--soft_version,-->
+    <!--</if>-->
+    <!--<if test="hardwareVersion != null">-->
+    <!--hardware_version,-->
+    <!--</if>-->
+    <!--<if test="maxChannelNum != null">-->
+    <!--max_channel_num,-->
+    <!--</if>-->
+    <!--<if test="boardTemperature != null">-->
+    <!--board_temperature,-->
+    <!--</if>-->
+    <!--<if test="timestamps != null">-->
+    <!--timestamps,-->
+    <!--</if>-->
+    <!--<if test="lastSaleTime != null">-->
+    <!--last_sale_time,-->
+    <!--</if>-->
+    <!--<if test="actived != null">-->
+    <!--actived,-->
+    <!--</if>-->
+    <!--<if test="inactiveReason != null">-->
+    <!--inactive_reason,-->
+    <!--</if>-->
+    <!--<if test="totalSaled != null">-->
+    <!--total_saled,-->
+    <!--</if>-->
+    <!--<if test="totalMoney != null">-->
+    <!--total_money,-->
+    <!--</if>-->
+    <!--<if test="totalBill != null">-->
+    <!--total_bill,-->
+    <!--</if>-->
+    <!--<if test="totalCoin != null">-->
+    <!--total_coin,-->
+    <!--</if>-->
+    <!--<if test="totalChange != null">-->
+    <!--total_change,-->
+    <!--</if>-->
+    <!--<if test="totalCashless != null">-->
+    <!--total_cashless,-->
+    <!--</if>-->
+    <!--<if test="totalExtraIncome != null">-->
+    <!--total_extra_income,-->
+    <!--</if>-->
+    <!--<if test="currentSaled != null">-->
+    <!--current_saled,-->
+    <!--</if>-->
+    <!--<if test="currentMoney != null">-->
+    <!--current_money,-->
+    <!--</if>-->
+    <!--<if test="currentBill != null">-->
+    <!--current_bill,-->
+    <!--</if>-->
+    <!--<if test="currentCoin != null">-->
+    <!--current_coin,-->
+    <!--</if>-->
+    <!--<if test="currentChange != null">-->
+    <!--current_change,-->
+    <!--</if>-->
+    <!--<if test="currentCashless != null">-->
+    <!--current_cashless,-->
+    <!--</if>-->
+    <!--<if test="currentExtraIncome != null">-->
+    <!--current_extra_income,-->
+    <!--</if>-->
+    <!--<if test="modelNumber != null">-->
+    <!--model_number,-->
+    <!--</if>-->
+    <!--<if test="thirdpayId != null">-->
+    <!--thirdpay_id,-->
+    <!--</if>-->
+    <!--<if test="thirdpayKey != null">-->
+    <!--thirdpay_key,-->
+    <!--</if>-->
+    <!--<if test="wirelessPayEnabled != null">-->
+    <!--wireless_pay_enabled,-->
+    <!--</if>-->
+    <!--<if test="dateOfProduct != null">-->
+    <!--date_of_product,-->
+    <!--</if>-->
+    <!--<if test="gprsLevel != null">-->
+    <!--gprs_level,-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--<if test="vendorId != null">-->
+    <!--#{vendorId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="vendorName != null">-->
+    <!--#{vendorName,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="factoryId != null">-->
+    <!--#{factoryId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="agencyId != null">-->
+    <!--#{agencyId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="checked != null">-->
+    <!--#{checked,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="checkUser != null">-->
+    <!--#{checkUser,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="lastUpdateTime != null">-->
+    <!--#{lastUpdateTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="registeredTime != null">-->
+    <!--#{registeredTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="expireDate != null">-->
+    <!--#{expireDate,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="mdbbillAlarmCode != null">-->
+    <!--#{mdbbillAlarmCode,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="mdbchangerAlarmCode != null">-->
+    <!--#{mdbchangerAlarmCode,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="temperature != null">-->
+    <!--#{temperature,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="leavedBill != null">-->
+    <!--#{leavedBill,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="leavedCoin != null">-->
+    <!--#{leavedCoin,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="softVersion != null">-->
+    <!--#{softVersion,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="hardwareVersion != null">-->
+    <!--#{hardwareVersion,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="maxChannelNum != null">-->
+    <!--#{maxChannelNum,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="boardTemperature != null">-->
+    <!--#{boardTemperature,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="timestamps != null">-->
+    <!--#{timestamp,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="lastSaleTime != null">-->
+    <!--#{lastSaleTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="actived != null">-->
+    <!--#{actived,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="inactiveReason != null">-->
+    <!--#{inactiveReason,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="totalSaled != null">-->
+    <!--#{totalSaled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="totalMoney != null">-->
+    <!--#{totalMoney,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalBill != null">-->
+    <!--#{totalBill,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalCoin != null">-->
+    <!--#{totalCoin,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalChange != null">-->
+    <!--#{totalChange,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalCashless != null">-->
+    <!--#{totalCashless,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalExtraIncome != null">-->
+    <!--#{totalExtraIncome,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentSaled != null">-->
+    <!--#{currentSaled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="currentMoney != null">-->
+    <!--#{currentMoney,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentBill != null">-->
+    <!--#{currentBill,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentCoin != null">-->
+    <!--#{currentCoin,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentChange != null">-->
+    <!--#{currentChange,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentCashless != null">-->
+    <!--#{currentCashless,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentExtraIncome != null">-->
+    <!--#{currentExtraIncome,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="modelNumber != null">-->
+    <!--#{modelNumber,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="thirdpayId != null">-->
+    <!--#{thirdpayId,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="thirdpayKey != null">-->
+    <!--#{thirdpayKey,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="wirelessPayEnabled != null">-->
+    <!--#{wirelessPayEnabled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="dateOfProduct != null">-->
+    <!--#{dateOfProduct,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="gprsLevel != null">-->
+    <!--#{gprsLevel,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--</insert>-->
+    <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.Vendor">-->
+    <!--update vendor-->
+    <!--<set>-->
+    <!--<if test="vendorName != null">-->
+    <!--vendor_name = #{vendorName,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="factoryId != null">-->
+    <!--factory_id = #{factoryId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="agencyId != null">-->
+    <!--agency_id = #{agencyId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="checked != null">-->
+    <!--checked = #{checked,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="checkUser != null">-->
+    <!--check_user = #{checkUser,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="lastUpdateTime != null">-->
+    <!--last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="registeredTime != null">-->
+    <!--registered_time = #{registeredTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="expireDate != null">-->
+    <!--expire_date = #{expireDate,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="mdbbillAlarmCode != null">-->
+    <!--mdbBill_alarm_code = #{mdbbillAlarmCode,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="mdbchangerAlarmCode != null">-->
+    <!--mdbChanger_alarm_code = #{mdbchangerAlarmCode,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="temperature != null">-->
+    <!--temperature = #{temperature,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="leavedBill != null">-->
+    <!--leaved_bill = #{leavedBill,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="leavedCoin != null">-->
+    <!--leaved_coin = #{leavedCoin,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="softVersion != null">-->
+    <!--soft_version = #{softVersion,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="hardwareVersion != null">-->
+    <!--hardware_version = #{hardwareVersion,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="maxChannelNum != null">-->
+    <!--max_channel_num = #{maxChannelNum,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="boardTemperature != null">-->
+    <!--board_temperature = #{boardTemperature,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="timestamps != null">-->
+    <!--timestamp = #{timestamps,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="lastSaleTime != null">-->
+    <!--last_sale_time = #{lastSaleTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="actived != null">-->
+    <!--actived = #{actived,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="inactiveReason != null">-->
+    <!--inactive_reason = #{inactiveReason,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="totalSaled != null">-->
+    <!--total_saled = #{totalSaled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="totalMoney != null">-->
+    <!--total_money = #{totalMoney,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalBill != null">-->
+    <!--total_bill = #{totalBill,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalCoin != null">-->
+    <!--total_coin = #{totalCoin,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalChange != null">-->
+    <!--total_change = #{totalChange,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalCashless != null">-->
+    <!--total_cashless = #{totalCashless,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="totalExtraIncome != null">-->
+    <!--total_extra_income = #{totalExtraIncome,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentSaled != null">-->
+    <!--current_saled = #{currentSaled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="currentMoney != null">-->
+    <!--current_money = #{currentMoney,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentBill != null">-->
+    <!--current_bill = #{currentBill,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentCoin != null">-->
+    <!--current_coin = #{currentCoin,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentChange != null">-->
+    <!--current_change = #{currentChange,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentCashless != null">-->
+    <!--current_cashless = #{currentCashless,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="currentExtraIncome != null">-->
+    <!--current_extra_income = #{currentExtraIncome,jdbcType=DECIMAL},-->
+    <!--</if>-->
+    <!--<if test="modelNumber != null">-->
+    <!--model_number = #{modelNumber,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="thirdpayId != null">-->
+    <!--thirdpay_id = #{thirdpayId,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="thirdpayKey != null">-->
+    <!--thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="wirelessPayEnabled != null">-->
+    <!--wireless_pay_enabled = #{wirelessPayEnabled,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="dateOfProduct != null">-->
+    <!--date_of_product = #{dateOfProduct,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="gprsLevel != null">-->
+    <!--gprs_level = #{gprsLevel,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--</set>-->
+    <!--where vendor_id = #{vendorId,jdbcType=INTEGER}-->
+    <!--</update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.Vendor">-->
+    <!--update vendor-->
+    <!--set vendor_name = #{vendorName,jdbcType=VARCHAR},-->
+    <!--factory_id = #{factoryId,jdbcType=INTEGER},-->
+    <!--agency_id = #{agencyId,jdbcType=INTEGER},-->
+    <!--checked = #{check,jdbcType=INTEGER},-->
+    <!--check_user = #{checkUser,jdbcType=VARCHAR},-->
+    <!--last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},-->
+    <!--registered_time = #{registeredTime,jdbcType=TIMESTAMP},-->
+    <!--expire_date = #{expireDate,jdbcType=TIMESTAMP},-->
+    <!--mdbBill_alarm_code = #{mdbbillAlarmCode,jdbcType=INTEGER},-->
+    <!--mdbChanger_alarm_code = #{mdbchangerAlarmCode,jdbcType=INTEGER},-->
+    <!--temperature = #{temperature,jdbcType=INTEGER},-->
+    <!--leaved_bill = #{leavedBill,jdbcType=INTEGER},-->
+    <!--leaved_coin = #{leavedCoin,jdbcType=INTEGER},-->
+    <!--soft_version = #{softVersion,jdbcType=VARCHAR},-->
+    <!--hardware_version = #{hardwareVersion,jdbcType=VARCHAR},-->
+    <!--max_channel_num = #{maxChannelNum,jdbcType=INTEGER},-->
+    <!--board_temperature = #{boardTemperature,jdbcType=VARCHAR},-->
+    <!--timestamps = #{timestamps,jdbcType=TIMESTAMP},-->
+    <!--last_sale_time = #{lastSaleTime,jdbcType=TIMESTAMP},-->
+    <!--actived = #{actived,jdbcType=INTEGER},-->
+    <!--inactive_reason = #{inactiveReason,jdbcType=VARCHAR},-->
+    <!--total_saled = #{totalSaled,jdbcType=INTEGER},-->
+    <!--total_money = #{totalMoney,jdbcType=DECIMAL},-->
+    <!--total_bill = #{totalBill,jdbcType=DECIMAL},-->
+    <!--total_coin = #{totalCoin,jdbcType=DECIMAL},-->
+    <!--total_change = #{totalChange,jdbcType=DECIMAL},-->
+    <!--total_cashless = #{totalCashless,jdbcType=DECIMAL},-->
+    <!--total_extra_income = #{totalExtraIncome,jdbcType=DECIMAL},-->
+    <!--current_saled = #{currentSaled,jdbcType=INTEGER},-->
+    <!--current_money = #{currentMoney,jdbcType=DECIMAL},-->
+    <!--current_bill = #{currentBill,jdbcType=DECIMAL},-->
+    <!--current_coin = #{currentCoin,jdbcType=DECIMAL},-->
+    <!--current_change = #{currentChange,jdbcType=DECIMAL},-->
+    <!--current_cashless = #{currentCashless,jdbcType=DECIMAL},-->
+    <!--current_extra_income = #{currentExtraIncome,jdbcType=DECIMAL},-->
+    <!--model_number = #{modelNumber,jdbcType=VARCHAR},-->
+    <!--thirdpay_id = #{thirdpayId,jdbcType=VARCHAR},-->
+    <!--thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+    <!--wireless_pay_enabled = #{wirelessPayEnabled,jdbcType=INTEGER},-->
+    <!--date_of_product = #{dateOfProduct,jdbcType=TIMESTAMP},-->
+    <!--gprs_level = #{gprsLevel,jdbcType=INTEGER}-->
+    <!--where vendor_id = #{vendorId,jdbcType=INTEGER}-->
+    <!--</update>-->
+</mapper>

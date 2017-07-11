@@ -203,7 +203,7 @@ public class UserController {
 	 * @param pageSize
 	 */
 	@RequestMapping(value = "/listAllUser1",
-			produces = "application/json;cahset=uft-8"
+			produces = "application/json;charset=utf-8"
 	)
 	private void PageInfo(HttpServletRequest request, HttpServletResponse response, User user,
 						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
@@ -237,7 +237,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/reg",
 			method = RequestMethod.POST,
-			produces = "application/json;cahset=uft-8")
+			produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Object reg(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) throws Exception {
 		Object result;

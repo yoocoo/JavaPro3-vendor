@@ -6,7 +6,9 @@ import cn.wj.domain.User;
 import java.util.List;
 
 /**
- * Created by ThinkPad on 2017/4/8.
+ * 说明： 售货机实时数据
+ * 作者： 王娇
+ * 时间： 2017 年 07 月 10 日
  */
 public interface UserService extends BaseService<User> {
 	/**
