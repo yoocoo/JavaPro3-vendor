@@ -132,6 +132,31 @@ public class VendorServiceImpl implements VendorService {
 		return vendorDao.getAllXiCount();
 	}
 
+
+
+	/**
+	 * 功能说明：2.4.1 运营商管理员的 售货机 列表
+	 * 时间：2017 年 07 月 12 日
+	 *
+	 * @param pageNum  页码
+	 * @param pageSize 每页的查询数量
+	 * @return
+	 */
+	public List<Vendor> getAllYunVendor( int agencyId,int pageNum, int pageSize) {
+		List<Vendor> vendorYunList = vendorDao.getAllYunVendor(agencyId,1, 10);
+		return vendorYunList;
+	}
+
+	/**
+	 * 功能说明：2.4.2  运营商管理员的 所有的售货机 数量(jquery DataTable +PageHelper  服务器端分页)
+	 * 时间：2017 年 07 月 12 日
+	 *
+	 * @return
+	 */
+	public int getAllYunCount( int agencyId) {
+		return vendorDao.getAllYunCount(agencyId);
+	}
+
 	//=======================自动生成======================================
 	@Override
 	public void add(Vendor vendor) throws Exception {

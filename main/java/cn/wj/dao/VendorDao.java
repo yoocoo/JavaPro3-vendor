@@ -34,6 +34,12 @@ public interface VendorDao extends Dao<VendorDao> {
 	//2.3.2 系统管理员的jquery DataTable +PageHelper  服务器端分页
 	int getAllXiCount();
 
+	//2.4.1  运营商管理员的售货机 列表
+	List<Vendor> getAllYunVendor(@Param("agencyId") int agencyId, @Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
+
+	//2.4.2 运营商管理员jquery DataTable +PageHelper  服务器端分页
+	int getAllYunCount(@Param("agencyId") int agencyId);
+
 	//====================自动生成==================
 	int deleteByPrimaryKey(Integer vendorId);
 
