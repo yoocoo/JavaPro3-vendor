@@ -309,8 +309,8 @@
             columnDefs: [{
                 "targets": 18,//编辑
                 "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn bg-green  btn-sm' type='button' style='margin-right:10px;'>审核</button>" +
-                "<button id='delrow' class='btn  bg-red  btn-sm' type='button'>冻结</button>"
+                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
             }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数

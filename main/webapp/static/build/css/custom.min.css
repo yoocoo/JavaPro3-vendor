@@ -298,7 +298,9 @@
 }
 
 .profile_pic {
-    width: 35%;
+    /*width: 35%;*/
+    /*为了修改头像显示的大小*/
+    width: 85%;
     float: left
 }
 

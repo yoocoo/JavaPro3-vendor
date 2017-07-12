@@ -1,6 +1,5 @@
 package cn.wj.mvc.controller;
 
-import cn.wj.dao.UserDao;
 import cn.wj.domain.*;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
@@ -20,10 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -515,10 +518,13 @@ public class UserController {
 
 		//获取新上传头像地址
 		String fileName = file.getOriginalFilename();
+		System.out.println("新上传文件原始文件名==" + fileName);
+
 		// 获取图片的扩展名
 		String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
 		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
 		String newFileName = "/ssm_vendor/" + "static" + "/" + "images" + "/" + fileName;
+		//String saveFileName=
 		System.out.println("新上传文件组合出来的文件名字==" + newFileName);
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("头像上传成功");
@@ -530,9 +536,49 @@ public class UserController {
 		session.setAttribute("file", fileName);
 		System.out.println("===存入session信息,新上传的新头像地址===" + fileName);
 		System.out.println("===存入session信息,修改头像后userinfo===" + user);
-		//更新用户头像
-		//String userImagePath = userService.findPathById(accountName);
-		//更新用户资料
+		//获得项目的路径
+		ServletContext servletContext = request.getSession().getServletContext();
+		System.out.println("====打印要获取项目路径==" + servletContext);
+
+		//设定上传的位置，设定文件保存的目录
+		String path = servletContext.getRealPath("/static/images/" + fileName);
+		System.out.println("====打印要存的路径==" + path);
+
+		//创建文件目录
+		File f = new File(path);
+		//如果目录不存在就在创建
+		if (!f.exists()){
+			f.mkdirs();
+		}if (!file.isEmpty()){
+			try{
+				FileOutputStream fos = new FileOutputStream(path+"/"+fileName);
+				System.out.println("====打印要存的try里路径==" + fos);
+				InputStream in = file.getInputStream();
+				int b = 0;
+				while ((b = in.read())!= -1){
+					fos.write(b);
+				}
+				fos.close();
+				in.close();
+				responseObj.setCode(ResponseObj.OK);
+				responseObj.setMsg("=========上传文件成功=====");
+				//Materialdir materialdir = new Materialdir();
+				//materialdir.setMaterialdirid(materialdirid);
+				//materialdir.setMaterialname(fName);
+				//materialdir.setMaterialurl(path);
+				//materialdir.setUploadtime(new DateUtil().DateToString(new Date()));
+				//materialdirService.add(materialdir);
+				//System.out.println("=========上传文件成功======");
+				//this.write(response,true);
+			}catch (Exception e) {
+				e.printStackTrace();
+				responseObj.setCode(ResponseObj.FAILED);
+				responseObj.setMsg("=========上传文件失败=====");
+				result = new GsonUtils().toJson(responseObj);
+				return result;
+
+			}
+		}
 		try {
 			String name1 = user.getAccountName();
 			System.out.println("得到用户名==" + name1);

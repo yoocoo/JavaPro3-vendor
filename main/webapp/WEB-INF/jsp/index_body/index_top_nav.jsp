@@ -22,7 +22,7 @@
                                 aria-expanded="false"> <img src="${userPath}" alt="">${userInfo.accountName}
                     <span class=" fa fa-angle-down"></span> </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a data-toggle="modal" data-target=".bsuserinfo"> 个人资料</a></li>
+                        <li><a data-toggle="modal" data-target=".bs-example-modal-sm"> 个人资料</a></li>
                         <%--<li><a href="javascript:;"> <span class="badge bg-red pull-right">50%</span>--%>
                             <%--<span>设置</span> </a></li>--%>
                         <li><a href="/ssm_vendor/static/view/yoocoo.html">文档总结</a></li>
@@ -51,9 +51,9 @@
     </div>
 </div>
 <%--查看个人资料  start====--%>
-<div class="modal fade bsuserinfo">
-    <div class="modal-dialog " tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+
+    <div class="modal fade bs-example-modal-sm  " tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
@@ -142,7 +142,7 @@
         <%--moadal-dialog end--%>
     </div>
     <%--modal end--%>
-</div>
+
 <%--=======    查看个人资料  end   --%>
 <!-- /top navigation -->
 </body>

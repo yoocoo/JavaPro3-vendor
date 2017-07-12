@@ -53,6 +53,15 @@ public class MainController {
 	}
 
 	/**
+	 * 修改个人头像
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/mvc/userAction/updateImg", method = RequestMethod.GET)
+	public String updateImg() {
+		return "userinfo_img";
+	}
+	/**
 	 * 修改个人资料
 	 *
 	 * @return

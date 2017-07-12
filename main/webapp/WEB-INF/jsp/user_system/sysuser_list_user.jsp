@@ -119,7 +119,7 @@
                                 <%--</p>--%>
 
 
-                                <table id="datatable-buttons"
+                                <table id="datatable"
                                 <%--id="table_id"--%>
                                        class="table table-striped table-bordered ">
                                     <thead>
@@ -214,7 +214,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var tables = $('#datatable-buttons').DataTable({
+        var tables = $('#datatable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -293,8 +293,8 @@
             columnDefs: [{
                 "targets": 11,//编辑
                 "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn bg-green  btn-sm' type='button' style='margin-right:10px;'>审核</button>" +
-                "<button id='delrow' class='btn  bg-red  btn-sm' type='button'>冻结</button>"
+                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
             }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
@@ -304,8 +304,8 @@
         });
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
-        $('#datatable-buttons tbody').on('click', 'button#delrow', function () {
-            var oTable = $('#datatable-buttons').dataTable();
+        $('#datatable tbody').on('click', 'button#delrow', function () {
+            var oTable = $('#datatable').dataTable();
             var data = oTable.fnGetData($(this).parent().parent());
             var datastr = JSON.stringify(data);
             var dataObj = JSON.parse(datastr);
@@ -350,8 +350,8 @@
             }
         });
 //        ===========================审核用户信息======================================
-        $('#datatable-buttons tbody').on('click', 'button#editrow', function () {
-            var oTable1 = $('#datatable-buttons').dataTable();
+        $('#datatable tbody').on('click', 'button#editrow', function () {
+            var oTable1 = $('#datatable').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);
