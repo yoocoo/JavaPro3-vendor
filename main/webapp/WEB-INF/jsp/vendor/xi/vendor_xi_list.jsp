@@ -1,10 +1,9 @@
-
 <%--
   Created by IntelliJ IDEA.
-  User: 王娇
-  Date: 2017/7/12
-  Time: 18:55
-   运营商管理员----售货机业务逻辑页面
+  User: ThinkPad
+  Date: 2017/7/11
+  Time: 22:08
+    售货机业务逻辑页面----系统管理员
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +16,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>运营商售货机列表</title>
+    <title>系统管理员售货机管理列表</title>
 
     <link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>
     <!-- Bootstrap -->
@@ -30,8 +29,8 @@
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
     <!-- bootstrap-progressbar -->
-    <link type="text/css" rel="stylesheet"
-          href="<c:url value='/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'/>">
+    <%--<link type="text/css" rel="stylesheet"--%>
+    <%--href="<c:url value='/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'/>">--%>
     <!-- Datatables -->
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css'/>">
@@ -84,24 +83,25 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>运营商用户售货机数据表格<br/>
+                                <h2>系统用户售货机数据表格<br/>
                                     <small> 1.对新注册售货机，信息审核，审核通过后，方可使用。
                                         2.冻结过期售货机，冻结损坏售货机使用。
+                                        3.系统管理员无特殊情况，不用使用该功能
                                         <br/>
                                     </small>
                                 </h2>
                                 <p class="text-muted font-13 m-b-30">
 
-                                <div class="fontawesome-icon-list ">
+                                    <%--<div class="fontawesome-icon-list ">--%>
+                                    <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;href="<%=request.getContextPath()%>/mvc/userAction/sysuserResXi"><i&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;class="fa fa-eye"></i>&nbsp;&nbsp;新增系统管理员</a>&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
                                     <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a--%>
-                                    <%--href="<%=request.getContextPath()%>/mvc/userAction/sysuserResXi"><i--%>
-                                    <%--class="fa fa-eye"></i>&nbsp;&nbsp;新增系统管理员</a>--%>
+                                    <%--href="<%=request.getContextPath()%>/mvc/vendorAction/shengRegVendor"><i--%>
+                                    <%--class="fa fa-cc-amex"></i> 注册售货机</a>--%>
                                     <%--</div>--%>
-                                    <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
-                                            href="<%=request.getContextPath()%>/mvc/vendorAction/shengRegVendor"><i
-                                            class="fa fa-cc-amex"></i> 注册售货机</a>
-                                    </div>
-                                </div>
+                                    <%--</div>--%>
                                 </p>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
@@ -118,8 +118,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <input type="hidden" id="factoryid" name="factoryId"
-                                       value="${userMess.agencyId}">
+
                                 <table id="datatable-buttons"
                                        class="table table-striped table-bordered ">
                                     <thead>
@@ -167,7 +166,7 @@
 
         <!-- footer content -->
         <footer>
-            <div class="pull-right"> ZJNU ---- ${userMess.agencyId}
+            <div class="pull-right"> ZJNU
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -225,8 +224,6 @@
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
 <script type="text/javascript">
-    var agencyid = ${userMess.agencyId};
-    console.log("打印筛选的参数运营商id" + agencyid);
     $(document).ready(function () {
         var tables = $('#datatable-buttons').DataTable({
             dom: 'Bfrtip',
@@ -254,11 +251,10 @@
                     className: 'btn bg-olive'
                 }],
             ajax: {
-                url: "<%=request.getContextPath()%>/vendorAction/listAllYVendor",
+                url: "<%=request.getContextPath()%>/vendorAction/listAllXVendor",
                 type: "POST",
 //dataSrc : "list",//这个参数是自己封装的json里面的key
                 data: {
-                    agencyId: agencyid
 //args1: "我是固定传参的值，在服务器接收参数[args1]"
                 }
             },
@@ -297,12 +293,35 @@
                 {data: "mdbchangerAlarmCode"},
 
                 {data: "temperature"},
-                {data: "gprsLevel"},
-                {data: "lastSaleTime"},
+                {data: "gprsLevel",
+                    class: "project_progress",
+//                    width: "200px",
+                    "render": function (data, type, full, meta) {
+                        return'<div class="progress progress_sm ">' +
+                            '<div class="progress-bar bg-green"' +
+                            ' role="progressbar" ' +'style="width: '+data+'%;"'+
+                            'data-transitiongoal=' + '"' + data +
+                            '"></div> </div> <small>'+data+'% </small>'
+                    }
+                },
+                {data: "lastSaleTime"
+                    ,
+                    "render": function ( data, type, full, meta ) {
+                        var dataStr = Date.parse(data);
+                        return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                    }},
 
-                {data: "checked"},
+                {data: "checked",
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<span class="badge badge-danger">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                        }else{
+                            return '<span class="badge badge-success">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                        }
+
+                    }},
                 {data: "factoryId"},
-                {data: "agencyName"},
+                {data: "agencyId",width: "80px"},
                 {data: null}
 
             ],
@@ -327,6 +346,22 @@
                 return row;
             }
         });
+//        ============================日期格式化=======================================================================
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
         $('#datatable-buttons tbody').on('click', 'button#delrow', function () {
@@ -377,7 +412,7 @@
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);
-            console.log("====JsonObj中vendorid :" + dataObj1.vendorId);
+            console.log("====JsonObj中userid :" + dataObj1.vendorId);
 //            var data = tables.rows($(this).parents("tr")).data();
 //            alert("=========" +tables.rows('.selected').data().length +' row(s) selected' );
             //tables.ajax.reload();重新获取数据
@@ -418,5 +453,9 @@
         });
     });
 </script>
+</body>
+</html>
+
+
 </body>
 </html>

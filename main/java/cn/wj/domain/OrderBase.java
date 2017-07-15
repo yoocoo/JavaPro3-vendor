@@ -1,8 +1,13 @@
 package cn.wj.domain;
 
+import java.io.Serializable;
 import java.util.Date;
-
-public class OrderBase {
+/**
+ * 说明： 售货机订单实时数据
+ * 作者： 王娇
+ * 时间： 2017 年 07 月 14 日
+ */
+public class OrderBase implements Serializable {
     private Integer orderId;
 
     private Integer saleId;
@@ -33,6 +38,18 @@ public class OrderBase {
 
     private Integer channel;
 
+    //================================================
+    private String vendorName;
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    //======================================================
     public Integer getOrderId() {
         return orderId;
     }

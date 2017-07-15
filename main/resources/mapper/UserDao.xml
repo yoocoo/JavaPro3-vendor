@@ -124,7 +124,7 @@
             paid_money INT(50) NULL DEFAULT NULL COMMENT '支付金额',
             paid_source VARCHAR(50) NULL DEFAULT NULL COMMENT '支付来源（微信或支付宝）' COLLATE 'utf8_unicode_ci',
             status VARCHAR(50) NULL DEFAULT NULL COMMENT '支付状态' COLLATE 'utf8_unicode_ci',
-            pay_url VARCHAR(50) NULL DEFAULT NULL COMMENT '支付二维码' COLLATE 'utf8_unicode_ci',
+            pay_url VARCHAR(200) NULL DEFAULT NULL COMMENT '支付二维码' COLLATE 'utf8_unicode_ci',
             discount DOUBLE NULL DEFAULT NULL COMMENT '支付优惠',
             refound INT(50) NULL DEFAULT NULL COMMENT '退款',
             cube_creat_result TINYINT(2) NULL DEFAULT NULL COMMENT '是否创建第三方？？？？',

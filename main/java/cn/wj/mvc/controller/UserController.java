@@ -332,19 +332,19 @@ public class UserController {
 		User user1 = userService.findUser(user);
 		//int user2 = userService.findUserInfo(user.getAccountName());
 		//System.out.println("=====user 2" + user2);
-		if (user1.getApproved() == 0) {
-			responseObj = new ResponseObj<User>();
-			responseObj.setCode(ResponseObj.FAILED);
-			responseObj.setMsg("账号信息正在审核中");
-			result = new GsonUtils().toJson(responseObj);
-			return result;
-		}
+
 		if (null == user1) {
 			responseObj = new ResponseObj<User>();
 			responseObj.setCode(ResponseObj.EMPUTY);
 			responseObj.setMsg("未找到该用户");
 			result = new GsonUtils().toJson(responseObj);
-		} else {
+		}else if(user1.getApproved() == 0) {
+			responseObj = new ResponseObj<User>();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("账号信息正在审核中");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}else{
 			//==================(1)获取该登录用户的头像===============
 			String userImagePath = userService.findPathById(accountName);
 			//System.out.println("===测试打印图片原始路径======" + userImagePath);
@@ -524,7 +524,7 @@ public class UserController {
 		String extensionName = fileName.substring(fileName.lastIndexOf(".") + 1);
 		// 新的图片文件名 = 本地静态资源目录+上传的文件原名
 		String newFileName = "/ssm_vendor/" + "static" + "/" + "images" + "/" + fileName;
-		//String saveFileName=
+
 		System.out.println("新上传文件组合出来的文件名字==" + newFileName);
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("头像上传成功");
@@ -545,40 +545,40 @@ public class UserController {
 		System.out.println("====打印要存的路径==" + path);
 
 		//创建文件目录
-		File f = new File(path);
+		//File f = new File(path);
 		//如果目录不存在就在创建
-		if (!f.exists()){
-			f.mkdirs();
-		}if (!file.isEmpty()){
-			try{
-				FileOutputStream fos = new FileOutputStream(path+"/"+fileName);
-				System.out.println("====打印要存的try里路径==" + fos);
-				InputStream in = file.getInputStream();
-				int b = 0;
-				while ((b = in.read())!= -1){
-					fos.write(b);
-				}
-				fos.close();
-				in.close();
-				responseObj.setCode(ResponseObj.OK);
-				responseObj.setMsg("=========上传文件成功=====");
-				//Materialdir materialdir = new Materialdir();
-				//materialdir.setMaterialdirid(materialdirid);
-				//materialdir.setMaterialname(fName);
-				//materialdir.setMaterialurl(path);
-				//materialdir.setUploadtime(new DateUtil().DateToString(new Date()));
-				//materialdirService.add(materialdir);
-				//System.out.println("=========上传文件成功======");
-				//this.write(response,true);
-			}catch (Exception e) {
-				e.printStackTrace();
-				responseObj.setCode(ResponseObj.FAILED);
-				responseObj.setMsg("=========上传文件失败=====");
-				result = new GsonUtils().toJson(responseObj);
-				return result;
-
-			}
-		}
+		//if (!f.exists()){
+		//	f.mkdirs();
+		//}if (!file.isEmpty()){
+		//	try{
+		//		FileOutputStream fos = new FileOutputStream(path+"/"+fileName);
+		//		System.out.println("====打印要存的try里路径==" + fos);
+		//		InputStream in = file.getInputStream();
+		//		int b = 0;
+		//		while ((b = in.read())!= -1){
+		//			fos.write(b);
+		//		}
+		//		fos.close();
+		//		in.close();
+		//		responseObj.setCode(ResponseObj.OK);
+		//		responseObj.setMsg("=========上传文件成功=====");
+		//		//Materialdir materialdir = new Materialdir();
+		//		//materialdir.setMaterialdirid(materialdirid);
+		//		//materialdir.setMaterialname(fName);
+		//		//materialdir.setMaterialurl(path);
+		//		//materialdir.setUploadtime(new DateUtil().DateToString(new Date()));
+		//		//materialdirService.add(materialdir);
+		//		//System.out.println("=========上传文件成功======");
+		//		//this.write(response,true);
+		//	}catch (Exception e) {
+		//		e.printStackTrace();
+		//		responseObj.setCode(ResponseObj.FAILED);
+		//		responseObj.setMsg("=========上传文件失败=====");
+		//		result = new GsonUtils().toJson(responseObj);
+		//		return result;
+		//
+		//	}
+		//}
 		try {
 			String name1 = user.getAccountName();
 			System.out.println("得到用户名==" + name1);

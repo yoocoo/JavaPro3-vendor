@@ -173,6 +173,7 @@ SELECT
         FROM vendor
          WHERE  agency_id =#{agencyId}
     </select>
+
     <!--=================================自动生成================================================================-->
     <!--<select id="selectByPrimaryKey" resultMap="VendorMap" parameterType="java.lang.Integer">-->
     <!--select-->

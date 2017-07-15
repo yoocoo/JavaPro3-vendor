@@ -116,30 +116,15 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/mvc/vendorAction/shengRegVendor", method = RequestMethod.GET)
 	public String shengRegVendor() {
-		return "vendor/vendor_res";
+		return "vendor/sheng/vendor_sheng_res";
+	}
+	/**
+	 * 运营商管理员 注册售货机
+	 * @return
+	 */
+	@RequestMapping(value = "/mvc/vendorAction/yunRegVendor", method = RequestMethod.GET)
+	public String yunRegVendor() {
+		return "vendor/yun/vendor_yun_res";
 	}
 
-
 }
-//package cn.wj.mvc.controller;
-//
-//
-//		import org.springframework.stereotype.Controller;
-//		import org.springframework.web.bind.annotation.RequestMapping;
-//		import org.springframework.web.bind.annotation.RequestMethod;
-//
-///**
-// * Created by ThinkPad on 2017/4/8.
-// */
-//@Controller
-//@RequestMapping("/mvc")
-//public class MainController {
-//	/**
-//	 * 行为日志列表
-//	 *
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/logMain", method = RequestMethod.GET)
-//	public String logMain() {
-//		return "user_system/list_action_log";
-//	}

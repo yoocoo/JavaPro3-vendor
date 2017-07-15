@@ -105,9 +105,9 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-md-12">
                         <div class="x_panel">
-
+                            1.头像功能待开发完整，不要修改头像。
                             <div class="x_title">
                                 <h2>${userInfo.accountName}头像资料卡片
                                 </h2>
@@ -121,14 +121,14 @@
                             <div class="x_content">
                                 <div class="row">
                                     <p>头像上传与修改</p>
-                                    <%--<div class="col-md-55">--%>
-                                        <%--<form class="form-horizontal "--%>
-                                              <%--enctype="multipart/form-data"--%>
-                                              <%--accept-charset="utf-8">--%>
+                                    <div class="col-md-55">
+                                        <form class="form-horizontal "
+                                              enctype="multipart/form-data"
+                                              accept-charset="utf-8">
                                             <div class="thumbnail">
                                                 <div class="image view view-first">
-                                                    <%--<input type="hidden" id="loginId1" name="accountName"--%>
-                                                           <%--value="${userInfo.accountName}">--%>
+                                                    <input type="hidden" id="loginId1" name="accountName"
+                                                           value="${userInfo.accountName}">
                                                     <img style="width: 100%; height: 100%;  display: block;"
                                                          src="${userPath}" alt="image"/>
                                                     <div class="mask">
@@ -140,114 +140,114 @@
                                                         </div>
 
                                                     </div>
-                                                    <%--<button id="update" type="button" class="btn btn-info btn-xs"--%>
-                                                            <%--onClick="onConfirm();">提交更新--%>
-                                                    <%--</button>--%>
+
                                                 </div>
                                             </div>
-                                            <%--<input type="file" name="file" id="changeHeadPic" size="28"/>--%>
+                                            <input type="file" name="file" id="changeHeadPic" size="28"/>
                                             <div class="caption">
                                                 <p>头像范围--生产商机器商标</p>
-
+                                                <button id="update" type="button" class="btn btn-info btn-xs"
+                                                        onClick="onConfirm();">提交更新
+                                                </button>
                                                 <%--<div class="btn-group">--%>
-                                                    <%--<a class="btn" title="插入图片" id="pictureBtn"><i class="fa fa-picture-o"></i></a>--%>
-                                                    <%--<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" name="file" id="changeHeadPic1" size="28"/>--%>
+                                                <%--<a class="btn" title="插入图片" id="pictureBtn"><i class="fa fa-picture-o"></i></a>--%>
+                                                <%--<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" name="file" id="changeHeadPic1" size="28"/>--%>
 
                                                 <%--</div>--%>
                                             </div>
 
-                                    <%--</form>--%>
-                                <%--</div>--%>
+                                        </form>
+                                        <%--</div>--%>
 
 
-                            </div>
-                        </div>
-                        <%--x_content end--%>
-                    </div>
-
-                    <%--x_panel end--%>
-                </div>
-                <%--col-md-12 col-sm-12 col-xs-12 end--%>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>头像上传二版<small>-----</small></h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <form class="form-horizontal "
-                                      enctype="multipart/form-data"
-                                      accept-charset="utf-8">
-
-                                <div id="alerts"></div>
-
-                                <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">
-                                    <div class="btn-group">
-                                        <a class="btn" title="插入图片" id="pictureBtn1"><i class="fa fa-picture-o"></i></a>
-                                        <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" name="file" id="changeHeadPic" size="28"/>
-                                        <input type="hidden" id="loginId1" name="accountName"
-                                               value="${userInfo.accountName}">
                                     </div>
-
-                                    <div class="btn-group">
-                                        <a class="btn" data-edit="undo" title="撤销 (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                                        <a class="btn" data-edit="redo" title="返回 (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
-                                    </div>
-
-
-                                <div id="editor-one" class="editor-wrapper">
                                 </div>
-                                    <textarea name="descr" id="descr" style="display:none;"></textarea>
-                                <br />
-                                <div class="ln_solid"></div>
-                                    <button id="update" type="button" class="btn btn-info btn-xs"
-                                            onClick="onConfirm();">提交更新
-                                    </button>
+                                <%--x_content end--%>
                             </div>
-                                </form>
+
+                            <%--x_panel end--%>
                         </div>
+                        <%--col-md-12 col-sm-12 col-xs-12 end--%>
+                        <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                        <%--<div class="x_title">--%>
+                        <%--<h2>头像上传二版<small>-----</small></h2>--%>
+                        <%--<ul class="nav navbar-right panel_toolbox">--%>
+                        <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--%>
+                        <%--</li>--%>
+                        <%--</ul>--%>
+                        <%--<div class="clearfix"></div>--%>
+                        <%--</div>--%>
+                        <%--<div class="x_content">--%>
+                        <%--<form class="form-horizontal "--%>
+                        <%--enctype="multipart/form-data"--%>
+                        <%--accept-charset="utf-8">--%>
+
+                        <%--<div id="alerts"></div>--%>
+
+                        <%--<div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one">--%>
+                        <%--<div class="btn-group">--%>
+                        <%--<a class="btn" title="插入图片" id="pictureBtn1"><i class="fa fa-picture-o"></i></a>--%>
+                        <%--<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" name="file" id="changeHeadPic" size="28"/>--%>
+                        <%--<input type="hidden" id="loginId1" name="accountName"--%>
+                        <%--value="${userInfo.accountName}">--%>
+                        <%--</div>--%>
+
+                        <%--<div class="btn-group">--%>
+                        <%--<a class="btn" data-edit="undo" title="撤销 (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>--%>
+                        <%--<a class="btn" data-edit="redo" title="返回 (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>--%>
+                        <%--</div>--%>
+
+
+                        <%--<div id="editor-one" class="editor-wrapper">--%>
+                        <%--</div>--%>
+                        <%--<textarea name="descr" id="descr" style="display:none;"></textarea>--%>
+                        <%--<br />--%>
+                        <%--<div class="ln_solid"></div>--%>
+                        <%--<button id="update" type="button" class="btn btn-info btn-xs"--%>
+                        <%--onClick="onConfirm();">提交更新--%>
+                        <%--</button>--%>
+                        <%--</div>--%>
+                        <%--</form>--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <%--</div>--%>
+                        <!-- row end -->
                     </div>
+                </div>
+                <!-- /page content -->
+                <!-- footer content -->
+                <footer>
+                    <div class="pull-right">
+                        ZJNU- Bootstrap Admin
+                    </div>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
             </div>
-            <!-- row end -->
         </div>
-    </div>
-    <!-- /page content -->
-    <!-- footer content -->
-    <footer>
-        <div class="pull-right">
-            ZJNU- Bootstrap Admin
-        </div>
-        <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-</div>
-</div>
 
-<%--</div>--%>
+        <%--</div>--%>
 
-<!-- jQuery -->
-<script type="text/javascript" src="<c:url value='/static/vendors/jquery/dist/jquery.min.js'/>"></script>
-<!-- Bootstrap -->
-<script type="text/javascript" src="<c:url value='/static/vendors/bootstrap/dist/js/bootstrap.min.js'/>"></script>
-<!-- FastClick -->
-<script type="text/javascript" src="<c:url value='/static/vendors/fastclick/lib/fastclick.js'/>"></script>
-<!-- NProgress -->
-<script type="text/javascript" src="<c:url value='/static/vendors/nprogress/nprogress.js'/>"></script>
-<!-- jQuery Smart Wizard -->
-<%--比较有利用价值的系统后台模板的表单验证--%>
-<script type="text/javascript"
-        src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
-<!-- validator -->
-<%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
-<!-- Custom Theme Scripts -->
-<script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
-<%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
-<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
-<%--文件上传和下载 脚本引用--%>
-<script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
+        <!-- jQuery -->
+        <script type="text/javascript" src="<c:url value='/static/vendors/jquery/dist/jquery.min.js'/>"></script>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="<c:url value='/static/vendors/bootstrap/dist/js/bootstrap.min.js'/>"></script>
+        <!-- FastClick -->
+        <script type="text/javascript" src="<c:url value='/static/vendors/fastclick/lib/fastclick.js'/>"></script>
+        <!-- NProgress -->
+        <script type="text/javascript" src="<c:url value='/static/vendors/nprogress/nprogress.js'/>"></script>
+        <!-- jQuery Smart Wizard -->
+        <%--比较有利用价值的系统后台模板的表单验证--%>
+        <script type="text/javascript"
+                src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
+        <!-- validator -->
+        <%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
+        <!-- Custom Theme Scripts -->
+        <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+        <%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
+        <script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
+        <%--文件上传和下载 脚本引用--%>
+        <script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
 </body>
 </html>

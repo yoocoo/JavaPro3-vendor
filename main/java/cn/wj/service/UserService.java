@@ -6,9 +6,9 @@ import cn.wj.domain.User;
 import java.util.List;
 
 /**
- * 说明： 售货机实时数据
+ * 说明： 用户管理业务逻辑
  * 作者： 王娇
- * 时间： 2017 年 07 月 10 日
+ * 时间： 2017 年 06 月 10 日
  */
 public interface UserService extends BaseService<User> {
 	/**

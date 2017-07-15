@@ -80,7 +80,7 @@ public class VendorController {
 	@RequestMapping(value = "listSvendorPage")
 	public ModelAndView listsvendorpage(HttpServletRequest request, Vendor vendor) {
 
-		ModelAndView view = new ModelAndView("vendor/vendor_sheng_list");
+		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_list");
 		//view.addObject("listpage", PageInfo(request, user, 1, 5));
 		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
 		return view;
@@ -222,7 +222,7 @@ public class VendorController {
 	@RequestMapping(value = "listXvendorPage")
 	public ModelAndView listxvendorpage(HttpServletRequest request, Vendor vendor) {
 
-		ModelAndView view1 = new ModelAndView("vendor/vendor_xi_list");
+		ModelAndView view1 = new ModelAndView("vendor/xi/vendor_xi_list");
 		//view.addObject("listpage", PageInfo(request, user, 1, 5));
 		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
 		return view1;
@@ -288,7 +288,7 @@ public class VendorController {
 	@RequestMapping(value = "listYvendorPage")
 	public ModelAndView listyvendorpage(HttpServletRequest request, Vendor vendor) {
 
-		ModelAndView view2 = new ModelAndView("vendor/vendor_yun_list");
+		ModelAndView view2 = new ModelAndView("vendor/yun/vendor_yun_list");
 		//view.addObject("listpage", PageInfo(request, user, 1, 5));
 		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
 		return view2;
@@ -313,6 +313,7 @@ public class VendorController {
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
+
 		int aId = user.getAgencyId();
 		System.out.println("===打印分页请求运营商的 aId===" + aId);
 		List<Vendor> yunVendorList = vendorService.getAllYunVendor(aId,1, 10);
