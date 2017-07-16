@@ -25,31 +25,31 @@
             <div class="profile_pic"><a href="<%=request.getContextPath()%>/mvc/userAction/updateImg" > <img src="${userPath}" alt="哎呀，缺失啦" title="点击头像，修改图像"
                                                                                                            class="img-circle profile_img"></a>
             </div>
-            <div class="profile_info">
-                <span>欢迎回来:${userInfo.accountName}</span><br/>
-                <%--<h2>账户名：${userInfo.accountName}</h2> <br/>--%>
-                <c:if test="${userMess.roleId ==1}">
-                    <span>角色：系统管理员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==3}">
-                    <span>角色：运营商管理员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==4}">
-                    <span>角色：运营商配货员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==5}">
-                    <span>角色：运营商仓库员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==6}">
-                    <span>角色：生产商管理员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==8}">
-                    <span>角色：出租商管理员</span>
-                </c:if>
-                <c:if test="${userMess.roleId ==10}">
-                    <span>角色：贸易商管理员</span>
-                </c:if>
-            </div>
+            <%--<div class="profile_info">--%>
+                <%--<span>欢迎回来:${userInfo.accountName}</span><br/>--%>
+                <%--&lt;%&ndash;<h2>账户名：${userInfo.accountName}</h2> <br/>&ndash;%&gt;--%>
+                <%--<c:if test="${userMess.roleId ==1}">--%>
+                    <%--<span>角色：系统管理员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==3}">--%>
+                    <%--<span>角色：运营商管理员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==4}">--%>
+                    <%--<span>角色：运营商配货员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==5}">--%>
+                    <%--<span>角色：运营商仓库员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==6}">--%>
+                    <%--<span>角色：生产商管理员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==8}">--%>
+                    <%--<span>角色：出租商管理员</span>--%>
+                <%--</c:if>--%>
+                <%--<c:if test="${userMess.roleId ==10}">--%>
+                    <%--<span>角色：贸易商管理员</span>--%>
+                <%--</c:if>--%>
+            <%--</div>--%>
         </div>
 
         <!-- /menu profile quick info -->

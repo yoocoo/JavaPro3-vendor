@@ -10,9 +10,16 @@ import java.util.List;
  * 作者： 王娇
  * 时间： 2017 年 07 月 14 日
  */
-public interface  OrderBaseService  extends BaseService<OrderBase>{
+public interface OrderBaseService extends BaseService<OrderBase> {
 	//1.1.1 生产商管理员，查看订单表详情
 	List<OrderBase> getAllShengOrder(@Param("ordertName") String ordertName, int pageNum, int pageSize) throws Exception;
+
 	//1.1.2 生产商管理员，查看订单表总记录数
 	int getShengOrderCount(@Param("ordertName") String ordertName);
+
+	//2.1.1 生产商管理员，查看订单表详情 条件（1）：按 选择售货机名称段查询
+	List<OrderBase> getAllShengOrderName(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("pageNum") int pageNum, @Param("pageSize") int pageSize) throws Exception;
+
+	//2.1.2 生产商管理员，查看订单表总记录数 条件（1）：按选择售货机名称段查询
+	int getShengOrderCountName(@Param("tableName") String tableName, @Param("vendorName") String vendorName);
 }

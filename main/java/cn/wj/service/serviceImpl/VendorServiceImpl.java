@@ -49,8 +49,8 @@ public class VendorServiceImpl implements VendorService {
 	 * @param pageSize 每页的查询数量
 	 * @return
 	 */
-	public List<Vendor> getAllShengVendor( int factoryId,int pageNum, int pageSize) {
-		List<Vendor> vendorShengList = vendorDao.getAllShengVendor(factoryId,1, 10);
+	public List<Vendor> getAllShengVendor(int factoryId, int pageNum, int pageSize) {
+		List<Vendor> vendorShengList = vendorDao.getAllShengVendor(factoryId, 1, 10);
 		return vendorShengList;
 	}
 
@@ -60,7 +60,7 @@ public class VendorServiceImpl implements VendorService {
 	 *
 	 * @return
 	 */
-	public int getAllCount( int factoryId) {
+	public int getAllCount(int factoryId) {
 		return vendorDao.getAllCount(factoryId);
 	}
 
@@ -109,6 +109,7 @@ public class VendorServiceImpl implements VendorService {
 		}
 
 	}
+
 	/**
 	 * 功能说明：2.3.1 生产商售货机 列表
 	 * 时间：2017 年 07 月 11 日
@@ -117,8 +118,8 @@ public class VendorServiceImpl implements VendorService {
 	 * @param pageSize 每页的查询数量
 	 * @return
 	 */
-	public List<Vendor> getAllXiVendor( int pageNum, int pageSize) {
-		List<Vendor> vendorXiList = vendorDao.getAllXiVendor(1,10);
+	public List<Vendor> getAllXiVendor(int pageNum, int pageSize) {
+		List<Vendor> vendorXiList = vendorDao.getAllXiVendor(1, 10);
 		return vendorXiList;
 	}
 
@@ -128,10 +129,9 @@ public class VendorServiceImpl implements VendorService {
 	 *
 	 * @return
 	 */
-	public int getAllXiCount( ) {
+	public int getAllXiCount() {
 		return vendorDao.getAllXiCount();
 	}
-
 
 
 	/**
@@ -142,8 +142,8 @@ public class VendorServiceImpl implements VendorService {
 	 * @param pageSize 每页的查询数量
 	 * @return
 	 */
-	public List<Vendor> getAllYunVendor( int agencyId,int pageNum, int pageSize) {
-		List<Vendor> vendorYunList = vendorDao.getAllYunVendor(agencyId,1, 10);
+	public List<Vendor> getAllYunVendor(int agencyId, int pageNum, int pageSize) {
+		List<Vendor> vendorYunList = vendorDao.getAllYunVendor(agencyId, 1, 10);
 		return vendorYunList;
 	}
 
@@ -153,8 +153,45 @@ public class VendorServiceImpl implements VendorService {
 	 *
 	 * @return
 	 */
-	public int getAllYunCount( int agencyId) {
+	public int getAllYunCount(int agencyId) {
 		return vendorDao.getAllYunCount(agencyId);
+	}
+
+	/**
+	 * 2.5.1  条件查询一： 按生产商所拥有的售货机名称列表 查询
+	 *
+	 * @param factoryId
+	 * @throws OtherThingsException
+	 */
+	public List<Vendor> getAllSvendorName(int factoryId,int roleId) {
+
+		//try {
+			List<Vendor> svendorNameList = vendorDao.getAllSvendorName(factoryId,roleId);
+			System.out.println(" 得到 生产商的售货机名称列表 成功！");
+			return svendorNameList;
+		//} catch (Exception e) {
+		//	System.out.println(" 得到 生产商的售货机名称列表 失败");
+		//	//其他用户添加失败异常
+		//	throw new OtherThingsException(e);
+		//}
+	}
+	/**
+	 * 2.5.1  条件查询一： 按生产商所拥有的售货机名称列表 查询
+	 *
+	 * @param agencyId
+	 * @throws OtherThingsException
+	 */
+	public List<Vendor> getAllYvendorName(int agencyId,int roleId) {
+
+		//try {
+		List<Vendor> yvendorNameList = vendorDao.getAllYvendorName(agencyId,roleId);
+		System.out.println(" 得到 运营商的售货机名称列表 成功！");
+		return yvendorNameList;
+		//} catch (Exception e) {
+		//	System.out.println(" 得到 生产商的售货机名称列表 失败");
+		//	//其他用户添加失败异常
+		//	throw new OtherThingsException(e);
+		//}
 	}
 
 	//=======================自动生成======================================

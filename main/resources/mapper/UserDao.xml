@@ -354,7 +354,13 @@
         approved =1
         WHERE  user_id = #{userId}
     </update>
-
+    <!--10.1.1(暂时用不到，因为 findUser 可以得到该用户的所有的信息，不用在写SQL语句了) 7.16日  首先根据 用户登录时，得到的用户名，得到该用户的 角色id 说明： 生厂商管理员： 条件查询（一）获得 该生产商的所有的 售货机列表-->
+    <!--<select id="getAllShengVname" -->
+    <select id="getUserRoleId" resultType="int" parameterType="String">
+        SELECT  role_id
+        FROM  user
+        WHERE  account_name = #{accountNname}
+    </select>
 </mapper>
         <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
         <!--insert into user (user_id, account_name, password, -->

@@ -51,15 +51,19 @@ public class OrderBaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "listSorderPage")
-	public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase) {
+	public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase) throws Exception {
+	//public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase,Vendor vendor,Factory factory) throws Exception {
 		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_ordercount");
+		//view.addObject("listvendorName", getvendorName(request,vendor,factory));
 		return view;
 	}
 
+
+
 	/**
-	 * 时间： 2017 年 7 月  10  日
+	 * 时间： 2017 年 7 月  14  日
 	 * 作者： 王娇
-	 * 说明： 生产商管理员请求 所属的售货机列表
+	 * 说明： 生产商管理员请求 所属的所有的 售货机列表
 	 * 基于jquery DataTable API 插件 的分页
 	 *
 	 * @return
@@ -69,7 +73,7 @@ public class OrderBaseController {
 							   HttpServletResponse response,
 							   Vendor vendor, OrderBase orderBase, Factory factory,
 							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
-							   @RequestParam(value = "limit", defaultValue = "20") Integer pageSize) throws Exception {
+							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
 		//使用DataTables的属性接收分页数据
 		DataTablePageUtil<OrderBase> dataTable = new DataTablePageUtil<OrderBase>(request);
 		//开始的分页：PageHelper会处理接下来的第一个查询
@@ -78,43 +82,93 @@ public class OrderBaseController {
 
 		String tableName = factory.getOrderTableName();
 		System.out.println("===打印分页请求生产商的售货机订单表名的===:" + tableName);
-		//int vId = vendor.getVendorId();
-		//System.out.println("===打印分页请求生产商的售货机名称的  vId===" + vId);
 		try {
-			List<OrderBase> shengOrderList = orderBaseService.getAllShengOrder(tableName, 1, 20);
+			List<OrderBase> shengOrderList = orderBaseService.getAllShengOrder(tableName, 1, 10);
 			//System.out.println("===打印分页请求=shengVendorList==" + shengVendorList);
 			//用PageInfo对结果进行包装
 			PageInfo<OrderBase> pageInfo = new PageInfo<OrderBase>(shengOrderList);
-			System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
+			//System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
 			//封装数据给DataTables
 			dataTable.setDraw(dataTable.getDraw());
-			System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
+			//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 			dataTable.setData(pageInfo.getList());
-			System.out.println("===打印打印分页请求的 封装订单数据页面 pageInfo.getList()===" + pageInfo.getList());
+			//System.out.println("===打印打印分页请求的 封装订单数据页面 pageInfo.getList()===" + pageInfo.getList());
 			dataTable.setRecordsTotal(orderBaseService.getShengOrderCount(tableName));
-			System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
+			//System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
 			//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 			dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-			System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
+			//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
 			//返回数据到页面
 			try {
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("text/json");
 				response.getWriter().write(new GsonUtils().toJson(dataTable));
-				System.out.println("sheng-order-list 页面显示的数据=====" + new GsonUtils().toJson(dataTable));
+				System.out.println("生产商 显示的订单列表中的数据页面显示的数据=====" + new GsonUtils().toJson(dataTable));
 				response.getWriter().flush();
 				response.getWriter().close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 
 	}
 
+
+	/**
+	 * 时间： 2017 年 7 月  15 日
+	 * 作者： 王娇
+	 * 说明： 生产商管理员请求 所属的所有的 售货机列表
+	 * 基于jquery DataTable API 插件 的分页
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/shengOrderName", method = RequestMethod.POST)
+	public void PageInfoSname(HttpServletRequest request,
+							  HttpServletResponse response,
+							  Vendor vendor, OrderBase orderBase, Factory factory,
+							  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+							  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
+
+		//使用DataTables的属性接收分页数据
+		DataTablePageUtil<OrderBase> dataTable = new DataTablePageUtil<OrderBase>(request);
+		//开始的分页：PageHelper会处理接下来的第一个查询
+		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
+		//还是使用List，方便后期用到
+		String tableName = factory.getOrderTableName();
+		System.out.println("===打印分页请求生产商的售货机订单表名的===:" + tableName);
+		String vendorName = vendor.getVendorName();
+		System.out.println("===打印页面传进来的vendorName ==" + vendorName);
+		List<OrderBase> shengOrdernameList = orderBaseService.getAllShengOrderName(tableName, vendorName, 1, 10);
+		System.out.println("===打印分页请求=shengVendorList==" + shengOrdernameList);
+		//用PageInfo对结果进行包装
+		PageInfo<OrderBase> pageInfo = new PageInfo<OrderBase>(shengOrdernameList);
+		//System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
+		//封装数据给DataTables
+		dataTable.setDraw(dataTable.getDraw());
+		//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
+		dataTable.setData(pageInfo.getList());
+		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
+		dataTable.setRecordsTotal(orderBaseService.getShengOrderCountName(tableName, vendorName));
+		//System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
+		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
+		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
+		//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
+		//返回数据到页面
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/json");
+			response.getWriter().write(new GsonUtils().toJson(dataTable));
+			System.out.println("生产商订单条件查询一的结果=====" + new GsonUtils().toJson(dataTable));
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
 
 }

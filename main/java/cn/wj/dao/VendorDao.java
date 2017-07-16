@@ -40,6 +40,11 @@ public interface VendorDao extends Dao<VendorDao> {
 	//2.4.2 运营商管理员jquery DataTable +PageHelper  服务器端分页
 	int getAllYunCount(@Param("agencyId") int agencyId);
 
+	//2.5.1 生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
+	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId,@Param("roleId") int roleId);
+
+	//2.5.2 运营商售货机 数据查询统计的准备条件： 按指定运营商售货机名称列表 查询
+	List<Vendor> getAllYvendorName(@Param("agencyId") int agencyId,@Param("roleId") int roleId);
 	//====================自动生成==================
 	int deleteByPrimaryKey(Integer vendorId);
 

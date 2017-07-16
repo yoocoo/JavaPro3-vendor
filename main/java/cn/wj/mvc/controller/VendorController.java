@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,6 +42,26 @@ public class VendorController {
 	private UserServiceImpl userService;//自动载入 用户表格Service对象
 	private ResponseObj responseObj;//封装 放到前端页面 数据
 
+	/**
+	 * 说明：放到页面上的 生产商所拥有的 所有的售货机的名称
+	 * 时间： 2017 年 7 月 15 日（暂时未用到）
+	 * 作者：王娇
+	 * @param request
+	 * @return
+	 */
+	//@RequestMapping(value = "/getVendorNameList",
+	//		//, method = RequestMethod.POST,
+	//		produces = "application/json;charset=utf-8")
+	//private Object getvendorName(HttpServletRequest request,Vendor vendor,Factory factory) throws Exception {
+	//	int fId = factory.getFactoryId();
+	//	System.out.println("===打印放到页面传过来的factory_id==" + fId);
+	//	//try {
+	//	//List<Vendor> vendorNameList = vendorService.getAllSvendorName(fId,);
+	//	//System.out.println("===打印放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
+	//	//session.setAttribute("nameList", new GsonUtils().toJson(vendorNameList));
+	//	//System.out.println("===打印session中放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
+	//	//return new GsonUtils().toJson(vendorNameList);
+	//}
 
 	@RequestMapping(value = "/shengRegVendor",
 			method = RequestMethod.POST,
@@ -79,10 +100,7 @@ public class VendorController {
 	 */
 	@RequestMapping(value = "listSvendorPage")
 	public ModelAndView listsvendorpage(HttpServletRequest request, Vendor vendor) {
-
 		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_list");
-		//view.addObject("listpage", PageInfo(request, user, 1, 5));
-		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
 		return view;
 	}
 
@@ -96,17 +114,24 @@ public class VendorController {
 	 */
 	@RequestMapping(value = "/listAllSVendor", method = RequestMethod.POST)
 	public void PageInfoVendor(HttpServletRequest request,
-							   HttpServletResponse response,
+							   HttpServletResponse response,HttpSession session,
 							   Vendor vendor,User user,
 							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+		int fId = user.getFactoryId();
+		//List<Vendor> vendorNameList = vendorService.getAllSvendorName(fId);
+		//System.out.println("===打印放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
+		//session.setAttribute("nameList", new GsonUtils().toJson(vendorNameList));
+		//System.out.println("===打印session中放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
+		//return new GsonUtils().toJson(vendorNameList);
+
 		//使用DataTables的属性接收分页数据
 		DataTablePageUtil<Vendor> dataTable = new DataTablePageUtil<Vendor>(request);
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
-		int fId = user.getFactoryId();
-		//System.out.println("===打印分页请求生产商的 fId===" + fId);
+		//int fId = user.getFactoryId();
+		System.out.println("===打印即将用于生产商的所有售货机的 fId===" + fId);
 		List<Vendor> shengVendorList = vendorService.getAllShengVendor(fId,1, 10);
 		//System.out.println("===打印分页请求=shengVendorList==" + shengVendorList);
 		//用PageInfo对结果进行包装

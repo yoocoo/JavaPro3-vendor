@@ -173,6 +173,23 @@ SELECT
         FROM vendor
          WHERE  agency_id =#{agencyId}
     </select>
+    <!--2.5.1  生产商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称： 查询-->
+    <select id="getAllSvendorName" resultMap="VendorMap">
+        SELECT  vendor_name,vendor_id
+        FROM  vendor v
+         LEFT JOIN user u
+         ON  u.factory_id= v.factory_id
+         WHERE u.factory_id =#{factoryId} and u.role_id= #{roleId}
+
+    </select>
+    <!--2.5.2  运营商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称： 查询-->
+    <select id="getAllYvendorName" resultMap="VendorMap">
+        SELECT  vendor_name,vendor_id
+        FROM  vendor v
+        LEFT JOIN user u
+        ON  u.agency_id= v.agency_id
+         WHERE u.agency_id=#{agencyId} and u.role_id= #{roleId}
+    </select>
 
     <!--=================================自动生成================================================================-->
     <!--<select id="selectByPrimaryKey" resultMap="VendorMap" parameterType="java.lang.Integer">-->

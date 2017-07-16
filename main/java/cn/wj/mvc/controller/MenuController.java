@@ -47,6 +47,7 @@ public class MenuController {
 		view.addObject("listMenuJson", getMenu(request, menu));
 		view.addObject("listRoleInMenuJson", getRoleInMenu(request,session, 1, 10));
 		System.out.println("页面接受检测=====" + getRoleInMenu(request,session, 1, 10));
+		System.out.println("页面接受检测=====" + getMenu(request, menu));
 		return view;
 	}
 
@@ -69,7 +70,7 @@ public class MenuController {
 							  //@Param("pageNum") int pageNum, @Param("pageSize") int pageSize,
 							  Menu menu) throws Exception {
 		List<Menu> allMenuList = menuService.getAllMenu(menu);
-		//System.out.println("===控制台打印setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
+		System.out.println("===控制台打印setAllmenulist,allmenu===" + allMenuList);//重新组装的权限菜单
 		return allMenuList;
 	}
 

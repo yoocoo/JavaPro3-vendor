@@ -4,12 +4,14 @@ import cn.wj.domain.*;
 import cn.wj.service.serviceImpl.AgencyServiceImpl;
 import cn.wj.service.serviceImpl.FactoryServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
+import cn.wj.service.serviceImpl.VendorServiceImpl;
 import cn.wj.utils.DataTablePageUtil;
 import cn.wj.utils.Datagrid;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +49,8 @@ public class UserController {
 	private AgencyServiceImpl agencyService;//载入 运营商Service对象
 	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
 	private FactoryServiceImpl factoryService;//载入 生产商Service对象
+	@Autowired
+	private VendorServiceImpl vendorService;//自动载入 售货机表格Service对象
 	private ResponseObj responseObj;
 
 	/**
@@ -305,7 +309,7 @@ public class UserController {
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object login(HttpServletRequest request, @RequestParam(value = "accountName", required = true) String accountName, HttpServletResponse response, User user, HttpSession session) throws Exception {
+	public Object login(HttpServletRequest request, @RequestParam(value = "accountName", required = true) String accountName, HttpServletResponse response, User user,HttpSession session) throws Exception {
 		Object result;
 		//ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
 		//mav.setViewName("home");//设置Jsp页面文件名
@@ -330,8 +334,7 @@ public class UserController {
 
 		//查找用户
 		User user1 = userService.findUser(user);
-		//int user2 = userService.findUserInfo(user.getAccountName());
-		//System.out.println("=====user 2" + user2);
+		System.out.println("用户登录时候，能得到该用户的信息中的 userId："+user1.getRoleId());
 
 		if (null == user1) {
 			responseObj = new ResponseObj<User>();
@@ -347,7 +350,26 @@ public class UserController {
 		}else{
 			//==================(1)获取该登录用户的头像===============
 			String userImagePath = userService.findPathById(accountName);
-			//System.out.println("===测试打印图片原始路径======" + userImagePath);
+			System.out.println("===测试获取该登录用户的头像打印图片原始路径======" + userImagePath);
+             //int roleId=
+			//if(user.getRoleId()==6){
+			//	int fId= user.getFactoryId();
+			//	System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
+			//	List<Vendor> vendorNameSList= vendorService.getAllSvendorName(fId);
+			//	System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
+			//	//================================7.16 号增加新内容====================
+			//	session.setAttribute("sVnameList", new GsonUtils().toJson(vendorNameSList));
+			//	//================================7.16号增加新内容================-==
+			//
+			//}
+			//if(user.getRoleId()==3){
+			//	int aId = user.getAgencyId();
+			//	System.out.println("打印放到首页的用户登录的时候得到 运营商Id"+aId);
+			//	List<Vendor> vendorNameYList = vendorService.getAllYvendorName(aId);
+			//	System.out.println("打印放到首页的用户登录的时候得到 运营商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameYList));
+			//	session.setAttribute("yVnameList", new GsonUtils().toJson(vendorNameYList));
+			//
+			//}
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
 				//================(2)5.12  做权限菜单=================
@@ -391,28 +413,52 @@ public class UserController {
 						}
 					}
 				}
+
+				//==============================================================================================
+				int roleId=user1.getRoleId();
+				if(roleId==6){
+					int fId= user1.getFactoryId();
+
+					System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
+					List<Vendor> vendorNameSList= vendorService.getAllSvendorName(fId,roleId);
+					//responseObj.setTreelist(vendorNameSList);
+					System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
+					//================================7.16 号增加新内容====================
+					//session.setAttribute("sVnameList", new GsonUtils().toJson(vendorNameSList));
+					session.setAttribute("sVnameList",vendorNameSList);
+					//================================7.16号增加新内容================-==
+
+				}
+				if(roleId==3){
+					int aId = user1.getAgencyId();
+					System.out.println("打印放到首页的用户登录的时候得到 运营商Id"+aId);
+					List<Vendor> vendorNameYList = vendorService.getAllYvendorName(aId,roleId);
+					//responseObj.setTreelist(vendorNameYList);
+					System.out.println("打印放到首页的用户登录的时候得到 运营商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameYList));
+					//session.setAttribute("yVnameList", new GsonUtils().toJson(vendorNameYList));//不能转json
+					session.setAttribute("yVnameList", vendorNameYList);
+
+				}
 //				=========================================分主次的权限菜单==五月十四日============================================================================================
 				user1.setNextUrl(request.getContextPath() + "/mvc/home");
 				responseObj = new ResponseObj<User>();
 				responseObj.setCode(ResponseObj.OK);
 				responseObj.setMsg(ResponseObj.OK_STR);
 				responseObj.setPath(userImagePath);
-				//responseObj.setMenulist(menuList);//主要是从后台数据库中筛选出来的该用户的权限菜单 ，未拼接的
 				//============================分主次的权限菜单=======================================
 				responseObj.setTreelist(treeList);
-				//System.out.println("===存入setTreelist,tree===" + treeList);//重新组装的权限菜单
 				//============================分主次的权限菜单=======================================
 				System.out.println("===打印登录时数据库中图片原始路径======" + userImagePath);
-				//System.out.println("====打印出来该用户所有要显示的权限菜单menuList=======" + menuList);
 				responseObj.setData(user1);//提取到数据库中该用户登录的所有的信息，（密码是加密）
 				//userService.updateLoginSession(request.getSession().getId(), user.getAccountName());
-				responseObj.setuserMessage(userService.findUser(user));
+				//responseObj.setuserMessage(userService.findUser(user));
 				System.out.println("====查找的用户的信息setData====" + user1);  //能打印用户所有信息（密码是加密）
 				System.out.println("====查找的用户的信息setuserMessage====" + user1);  //能打印用户所有信息（密码是加密）
 				session.setAttribute("userMess", userService.findUser(user));
 				session.setAttribute("userInfo", user);//登录成功，将用户数据放入到Session中(只有用户名和密码)
 				//session.setAttribute("menu", menuList);
 				session.setAttribute("tree", treeList);
+
 				//System.out.println("===存入session信息,userController里面，tree===" + treeList);
 				session.setAttribute("userPath", userImagePath);
 				System.out.println("===存入session头像路径======" + userImagePath);
