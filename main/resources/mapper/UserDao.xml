@@ -119,7 +119,7 @@
             vendor_id INT(200) NULL DEFAULT NULL COMMENT '售货机ID',
             cube_partner_id VARCHAR(50) NULL DEFAULT NULL COMMENT '第三方身份id' COLLATE 'utf8_unicode_ci',
             price INT(10) NULL DEFAULT NULL COMMENT '商品价格吧',
-            creat_time DATETIME NULL DEFAULT NULL COMMENT '创建时间',
+            create_time DATETIME NULL DEFAULT NULL COMMENT '创建时间',
             paid_time DATETIME NULL DEFAULT NULL COMMENT '支付时间',
             paid_money INT(50) NULL DEFAULT NULL COMMENT '支付金额',
             paid_source VARCHAR(50) NULL DEFAULT NULL COMMENT '支付来源（微信或支付宝）' COLLATE 'utf8_unicode_ci',

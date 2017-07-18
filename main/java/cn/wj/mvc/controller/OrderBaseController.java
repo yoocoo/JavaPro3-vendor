@@ -21,7 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
+
+//import java.util.Date;
+
+//import java.sql.Date;
 
 /**
  * 说明： 售货机订单实时数据
@@ -52,12 +57,11 @@ public class OrderBaseController {
 	 */
 	@RequestMapping(value = "listSorderPage")
 	public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase) throws Exception {
-	//public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase,Vendor vendor,Factory factory) throws Exception {
+		//public ModelAndView listsorderpage(HttpServletRequest request, OrderBase orderBase,Vendor vendor,Factory factory) throws Exception {
 		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_ordercount");
 		//view.addObject("listvendorName", getvendorName(request,vendor,factory));
 		return view;
 	}
-
 
 
 	/**
@@ -129,6 +133,8 @@ public class OrderBaseController {
 	public void PageInfoSname(HttpServletRequest request,
 							  HttpServletResponse response,
 							  Vendor vendor, OrderBase orderBase, Factory factory,
+							  //@RequestParam(value = "startTime") Date startTime,
+							  //@RequestParam(value = "endTime") Date endTime,
 							  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
 
@@ -137,11 +143,20 @@ public class OrderBaseController {
 		//开始的分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
+		//
+		Timestamp startTime = orderBase.getCreatTime();
+		Timestamp endTime = orderBase.getEndTime();
+		//Date startTime = orderBase.getCreatTime();
+		//Date endTime = orderBase.getEndTime();
+
+
+		System.out.println("===打印前台传过来时间 开始===:" + startTime);
+		System.out.println("===打印前台传过来时间 结束===:" + endTime);
 		String tableName = factory.getOrderTableName();
 		System.out.println("===打印分页请求生产商的售货机订单表名的===:" + tableName);
 		String vendorName = vendor.getVendorName();
 		System.out.println("===打印页面传进来的vendorName ==" + vendorName);
-		List<OrderBase> shengOrdernameList = orderBaseService.getAllShengOrderName(tableName, vendorName, 1, 10);
+		List<OrderBase> shengOrdernameList = orderBaseService.getAllShengOrderName(tableName, vendorName, startTime, endTime, 1, 10);
 		System.out.println("===打印分页请求=shengVendorList==" + shengOrdernameList);
 		//用PageInfo对结果进行包装
 		PageInfo<OrderBase> pageInfo = new PageInfo<OrderBase>(shengOrdernameList);
@@ -151,7 +166,7 @@ public class OrderBaseController {
 		//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
 		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
-		dataTable.setRecordsTotal(orderBaseService.getShengOrderCountName(tableName, vendorName));
+		dataTable.setRecordsTotal(orderBaseService.getShengOrderCountName(tableName, vendorName, startTime, endTime));
 		//System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());

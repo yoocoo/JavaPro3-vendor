@@ -106,33 +106,31 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="row x_title">
-                                <div class="col-md-6">
-                                    <%--<h3>条件查询：<br/></h3>--%>
+                                <div class="col-md-10 pull-right">
+                                    <div id="reportrange" value="" type="text" class="pull-left" name="reportrange"
+                                         style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        <span></span>
+                                        <b class="caret"></b>
+                                        <input type="hidden" name="startTime" class="from" id="beginTime" value="">
+                                        <input type="hidden" name="endTime" class="to" id="endTime" value="">
+                                    </div>
 
-                                    <small>按售货机名称查询</small>
-                                    <select id="vendorname" name="vendorName" class="select2_single form-control"
-                                            tabindex="-1">
+                                <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
+                                <%--</div>--%>
+
+                                    <select id="vendorname" name="vendorName"
+                                            <%--class="select2_single form-control"--%>
+                                         style="background: #fff; font-size:13px; margin-left:5px;cursor: pointer; padding: 5px 10px; border: 1px solid #ccc"
+                                            tabindex="-1"> <i class="fa fa-empire"></i>
                                         <c:forEach items="${sVnameList}" var="slist">
                                             <option value="${slist.vendorName}">${slist.vendorName} </option>
                                         </c:forEach>
                                     </select>
-                                    <button type="submit" id="count" class="btn btn-success" onclick="webNameCount();">
+                                    <button type="submit" id="count" class="btn-sm btn-success" onclick="webNameCount();">
                                         搜索
                                     </button>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="reportrange" value="" type="text" class="pull-right"
-                                         style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <%--<span>December 30, 2014 - January 28, 2015</span>--%>
-                                        <small>按选择日期查询</small>
-                                        <span></span>
-                                        <b class="caret"></b>
-                                        <input type="hidden" name="beginTime" id="baginTime" value="">
-                                        <input type="hidden" name="endTime" id="endTime" value="">
                                     </div>
-                                    <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
-                                </div>
                             </div>
                             <div class="x_content">
                                 <input type="hidden" id="factoryid" name="factoryId"
@@ -231,7 +229,9 @@
             src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+    <script type="text/javascript">
 
+    </script>
     <script type="text/javascript">
         var fantoryid = ${userMess.factoryId};
         var orderTablename = "order_" + fantoryid;
@@ -290,7 +290,7 @@
                 deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                 columns: [
                     {
-                        data: "creatTime",
+                        data: "createTime",
                         "render": function (data, type, full, meta) {
                             var dataStr = Date.parse(data);
                             return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
@@ -309,7 +309,13 @@
                         data: "paidTime",
                         "render": function (data, type, full, meta) {
                             var dataStr = Date.parse(data);
-                            return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+//                            2001-01-01 00:00:00
+                            var newDate =new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                            if(newDate == '2001-01-01 00:00:00'){
+                                return'<span class="badge badge-success">无效时间</span>';
+                            }else {
+                                return newDate;
+                            }
                         }
                     },
                     {data: "price"},
@@ -380,13 +386,107 @@
                 return fmt;
             }
         });
+        $(document).ready(function () {
+            //时间插件
+            $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD HH:mm:ss') + ' - ' + moment().format('YYYY-MM-DD HH:mm:ss'));
+//            $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD ') + ' - ' + moment().format('YYYY-MM-DD '));
+            $('#reportrange').daterangepicker(
+                {
+                    // startDate: moment().startOf('day'),
+                    //endDate: moment(),
+                    //minDate: '01/01/2012',  //最小时间
+                    maxDate: moment(), //最大时间
+                    dateLimit: {
+                        days: 30
+                    }, //起止时间的最大间隔
+                    showDropdowns: true,//原代码中的showDropdowns必须为true，否则会默认为当天日期
+                    showWeekNumbers: false, //是否显示第几周
+//                    timePicker : true, //是否显示小时和分钟
+                    timePicker: false, //是否显示小时和分钟
+                    timePickerIncrement: 60, //时间的增量，单位为分钟
+                    timePicker12Hour: false, //是否使用12小时制来显示时间
+                    ranges: {
+                        //'最近1小时': [moment().subtract('hours',1), moment()],
+                        '今日': [moment().startOf('day'), moment()],
+                        '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
+                        '最近7日': [moment().subtract('days', 6), moment()],
+                        '最近30日': [moment().subtract('days', 29), moment()]
+                    },
+                    opens: 'left', //日期选择框的弹出位置
+                    buttonClasses: ['btn btn-default'],
+                    applyClass: 'btn-small btn-primary blue',
+                    cancelClass: 'btn-small',
+                    format : 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
+                    separator: ' to ',
+                    locale: {
+                        applyLabel: '确定',
+                        cancelLabel: '取消',
+                        fromLabel: '起始时间',
+                        toLabel: '结束时间',
+                        customRangeLabel: '自定义',
+                        daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+                            '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                        firstDay: 1
+                    }
+                },
+                function(start, end, label) {//格式化日期显示框,就是给你选中的值 填进去表单里去
+                    $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' - ' + end.format('YYYY-MM-DD HH:mm:ss'));
+                    console.log("您 选 择 的 时 间 为: "+ start.format('YYYY-MM-DD HH:mm:ss') + ' to ' + end.format('YYYY-MM-DD HH:mm:ss') + ' (predefined range: ' + label + ')');
+                    var startTime = start.format('YYYY-MM-DD HH:mm:ss');
+                    var endTime = end.format('YYYY-MM-DD HH:mm:ss');
+                    console.log("自定义时间选择器startTime"+startTime);
+                    console.log("自定义时间选择器endTime"+ endTime);
+
+//
+                    document.getElementById('beginTime').value=startTime;
+                    document.getElementById('endTime').value=endTime;
+                    console.log("时间选择器中赋值的开始时间"+document.getElementById('beginTime').value);
+                    console.log("时间选择器中赋值的开始时间"+ document.getElementById('endTime').value);
+                    alert("您选择的时间是为"+ start.format('YYYY-MM-DD HH:mm:ss') + "~" + end.format('YYYY-MM-DD HH:mm:ss') + ' (时间选择类型: ' + label + ')');
+                });
+            //设置日期菜单被选项 --开始--
+            var dateOption;
+            if ("${riqi}" == 'day') {
+                dateOption = "今日";
+            } else if ("${riqi}" == 'yday') {
+                dateOption = "昨日";
+            } else if ("${riqi}" == 'week') {
+                dateOption = "最近7日";
+            } else if ("${riqi}" == 'month') {
+                dateOption = "最近30日";
+            } else if ("${riqi}" == 'year') {
+                dateOption = "最近一年";
+            } else {
+                dateOption = "自定义";
+            }
+            $(".daterangepicker").find("li").each(function () {
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                }
+                if (dateOption == $(this).html()) {
+                    $(this).addClass("active");
+                }
+            });
+        });
 
         function webNameCount() {
             //获取得到要查询  生产商家的 订单表名 传到后台 进行筛查
             var vendorname = $(":selected", "#vendorname").val();
             var fantoryid = ${userMess.factoryId};
             var orderTablename = "order_" + fantoryid;
+            var starttime=  document.getElementById('beginTime').value;
+            var endtime = document.getElementById('endTime').value;
+//            var starttime= $('#beginTime').val(start.format('YYYY-MM-DD'));
+//            var endtime =$('#endTime').val(end.format('YYYY-MM-DD'));
+//            var starttime =  '2017-02-11 00:00:00'; //测试时间
+//            var endtime ='2017-02-11 23:00:00';//测试时间
+
+            alert("能否传递 选中的开始时间："+starttime);
+            alert("能否传递 选中的开始时间："+endtime);
             console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
+
             $(document).ready(function () {
                 var tables = $('#list').DataTable({
                     dom: 'Bfrtip',
@@ -419,8 +519,9 @@
 //dataSrc : "list",//这个参数是自己封装的json里面的key
                         data: {
                             orderTableName: orderTablename,
-//                            factoryId:fantoryid,
-                            vendorName: vendorname
+                            vendorName: vendorname,
+                            creatTime:starttime,
+                            endTime:endtime
 //args1: "我是固定传参的值，在服务器接收参数[args1]"
                         }
                     },
@@ -443,7 +544,7 @@
                     deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                     columns: [
                         {
-                            data: "creatTime",
+                            data: "createTime",
                             "render": function (data, type, full, meta) {
                                 var dataStr = Date.parse(data);
                                 return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
@@ -462,8 +563,19 @@
                             data: "paidTime",
                             "render": function (data, type, full, meta) {
                                 var dataStr = Date.parse(data);
-                                return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+//                            2001-01-01 00:00:00
+                                var newDate =new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                                if(newDate == '2001-01-01 00:00:00'){
+                                    return'<span class="badge badge-success">无效时间</span>';
+                                }else {
+                                    return newDate;
+                                }
                             }
+//
+//                            "render": function (data, type, full, meta) {
+//                                var dataStr = Date.parse(data);
+//                                return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+//                            }
                         },
                         {data: "price"},
                         {data: "paidMoney"},
@@ -509,7 +621,7 @@
                         "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
                         "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待定</button>"
                     }],
-                    "createdRow": function (row, data, dataIndex) {
+                    "createdRow": function (row, data, dataIndex) {//行回调
                         //每加载完一行的回调函数
                         $('td', row).eq(5).css("color", "green");//获取到具体行具体格的元素
                         $('td', row).eq(6).css("color", "red");//获取到具体行具体格的元素
@@ -521,127 +633,8 @@
 
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            //时间插件
-//            $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD HH:mm:ss') + ' - ' + moment().format('YYYY-MM-DD HH:mm:ss'));
-            $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD ') + ' - ' + moment().format('YYYY-MM-DD '));
-
-            $('#reportrange').daterangepicker(
-                {
-                    applyClass: 'btn-sm btn-success',
-                    cancelClass: 'btn-sm btn-default',
-                    // startDate: moment().startOf('day'),
-                    //endDate: moment(),
-                    //minDate: '01/01/2012',  //最小时间
-                    maxDate: moment(), //最大时间
-                    dateLimit: {
-                        days: 30
-                    }, //起止时间的最大间隔
-                    showDropdowns: true,
-                    showWeekNumbers: false, //是否显示第几周
-//                    timePicker : true, //是否显示小时和分钟
-                    timePicker: false, //是否显示小时和分钟
-                    timePickerIncrement: 60, //时间的增量，单位为分钟
-                    timePicker12Hour: false, //是否使用12小时制来显示时间
-                    ranges: {
-                        //'最近1小时': [moment().subtract('hours',1), moment()],
-                        '今日': [moment().startOf('day'), moment()],
-                        '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
-                        '最近7日': [moment().subtract('days', 6), moment()],
-                        '最近30日': [moment().subtract('days', 29), moment()]
-                    },
-                    opens: 'right', //日期选择框的弹出位置
-                    buttonClasses: ['btn btn-default'],
-                    applyClass: 'btn-small btn-primary blue',
-                    cancelClass: 'btn-small',
-//                    format : 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式
-                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式
-                    separator: ' to ',
-                    locale: {
-                        applyLabel: '确定',
-                        cancelLabel: '取消',
-                        fromLabel: '起始时间',
-                        toLabel: '结束时间',
-                        customRangeLabel: '自定义',
-                        daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
-                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
-                            '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                        firstDay: 1
-                    }
-                }, function (start, end, label) {//格式化日期显示框
-
-//                    $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' - ' + end.format('YYYY-MM-DD HH:mm:ss'));
-                    $('#reportrange span').html(start.format('YYYY-MM-DD ') + ' - ' + end.format('YYYY-MM-DD '));
-                });
-
-            //设置日期菜单被选项 --开始--
-            //设置日期菜单被选项  --开始--
-            var dateOption;
-            if ("${riqi}" == 'day') {
-                dateOption = "今日";
-            } else if ("${riqi}" == 'yday') {
-                dateOption = "昨日";
-            } else if ("${riqi}" == 'week') {
-                dateOption = "最近7日";
-            } else if ("${riqi}" == 'month') {
-                dateOption = "最近30日";
-            } else if ("${riqi}" == 'year') {
-                dateOption = "最近一年";
-            } else {
-                dateOption = "自定义";
-            }
-            $(".daterangepicker").find("li").each(function () {
-                if ($(this).hasClass("active")) {
-                    $(this).removeClass("active");
-                }
-                if (dateOption == $(this).html()) {
-                    $(this).addClass("active");
-                }
-            });
-            //设置日期菜单被选项  --结束--
 
 
-            //选择时间后触发重新加载的方法
-            $("#reportrange").on('apply.daterangepicker', function () {
-                //当选择时间后，出发dt的重新加载数据的方法
-                tables.ajax.reload();
-                //获取dt请求参数
-                var args = tables.ajax.params();
-                alert("额外传到后台的参数值extra_search为：" + args.extra_search);
-                console.log("额外传到后台的参数值extra_search为：" + args.extra_search);
-            });
-
-            function getParam(url) {
-                var data = decodeURI(url).split("?")[1];
-                var param = {};
-                var strs = data.split("&");
-
-                for (var i = 0; i < strs.length; i++) {
-                    param[strs[i].split("=")[0]] = strs[i].split("=")[1];
-                }
-                return param;
-            }
-
-        });
-    </script>
-    <script type="text/javascript">
-        //给搜索按钮绑定点击事件
-
-        $(document).on("click", "#list button.applyClass", function () {
-            //自己定义的搜索框，可以是时间控件，或者checkbox 等等
-
-            var args1 = $("#baginTime").val();
-            console.log("开始时间：" + args1)
-            var args2 = $("#endTime").val();
-            console.log("开始时间：" + args2)
-            //用空格隔开，达到多条件搜索的效果，相当于两个关键字
-
-//    table.search(args1+" "+args2).draw();
-            //table.search(args1+" "+args2).draw(false);//保留分页，排序状态
-
-        });
-    </script>
 
 </body>
 </html>

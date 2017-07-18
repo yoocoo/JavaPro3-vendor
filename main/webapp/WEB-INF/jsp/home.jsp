@@ -165,70 +165,7 @@
                     </div>
                 </div>
 
-                <%--<div class="row">--%>
-                    <%--<div class="col-md-12">--%>
-                        <%--<div class="x_panel">--%>
-                            <%--<div class="x_title">--%>
-                                <%--<h2>用户系统结构--%>
-                                    <%--<small>界面展示</small>--%>
-                                <%--</h2>--%>
-                                <%--<ul class="nav navbar-right panel_toolbox">--%>
-                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>--%>
-                                    <%--</li>--%>
-                                <%--</ul>--%>
-                                <%--<div class="clearfix"></div>--%>
-                            <%--</div>--%>
-                            <%--<div class="x_content">--%>
-                                <%--&lt;%&ndash;=========================================&ndash;%&gt;--%>
-                                <%--<article class="media event">--%>
-                                    <%--<a class="pull-left date">--%>
-                                        <%--<p class="month">1</p>--%>
-                                        <%--<p class="day">23</p>--%>
-                                    <%--</a>--%>
-                                    <%--<div class="media-body">--%>
-                                        <%--<a class="title" href="#">样式展示</a>--%>
-                                        <%--<p>段落样本</p>--%>
-                                    <%--</div>--%>
-                                <%--</article>--%>
-                                <%--<c:if test="${userMess.roleId ==3}">--%>
-                                    <%--<c:forEach items="${yVnameList}" var="ylist">--%>
-                                        <%--<article class="media event">--%>
 
-                                            <%--<a class="pull-left date">--%>
-                                                <%--<p class="month">名称</p>--%>
-                                            <%--</a>--%>
-                                            <%--<div class="media-body">--%>
-                                                <%--<a class="title" href="#">${ylist.vendorId}</a>--%>
-                                                <%--<p>${ylist.vendorName} </p>--%>
-                                            <%--</div>--%>
-
-                                        <%--</article>--%>
-                                    <%--</c:forEach>--%>
-                                <%--</c:if>--%>
-                                <%--&lt;%&ndash;===========================================================&ndash;%&gt;--%>
-
-
-                                <%--<c:if test="${userMess.roleId ==6}">--%>
-                                    <%--<c:forEach items="${sVnameList}" var="slist">--%>
-                                        <%--<article class="media event">--%>
-                                            <%--<a class="pull-left date">--%>
-                                                <%--<p class="month">名称</p>--%>
-                                            <%--</a>--%>
-                                            <%--<div class="media-body">--%>
-                                                    <%--&lt;%&ndash;<a class="title" href="#">售货机名称列表</a>&ndash;%&gt;--%>
-                                                <%--<span class="title">${slist.vendorId}</span>--%>
-                                                    <%--&lt;%&ndash;<span class="title">${userInfo.accountName}</span>&ndash;%&gt;--%>
-                                                <%--<p>${slist.vendorName} </p>--%>
-                                            <%--</div>--%>
-                                        <%--</article--%>
-                                    <%--</c:forEach>--%>
-                                <%--</c:if>--%>
-
-
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
                 <div class="clearfix"></div>
 
                 <div class="row">

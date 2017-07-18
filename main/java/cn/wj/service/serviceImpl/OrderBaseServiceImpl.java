@@ -7,7 +7,11 @@ import cn.wj.service.OrderBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
+
+//import java.sql.Date;
+//import java.util.Date;
 
 /**
  * 说明： 售货机订单实时数据
@@ -52,8 +56,11 @@ public class OrderBaseServiceImpl implements OrderBaseService {
 	 * @return
 	 * @throws OtherThingsException
 	 */
-	public List<OrderBase> getAllShengOrderName(String tableName, String vendorName,int pageNum, int pageSize) throws OtherThingsException{
-		List<OrderBase> sonList = orderBaseDao.getAllShengOrderName(tableName,vendorName,1,10);
+	public List<OrderBase> getAllShengOrderName(String tableName, String vendorName,
+												//Date startTime , Date endTime ,
+												Timestamp startTime , Timestamp endTime ,
+												int pageNum, int pageSize) throws OtherThingsException{
+		List<OrderBase> sonList = orderBaseDao.getAllShengOrderName(tableName,vendorName,startTime,endTime,1,10);
 		return sonList;
 	}
 
@@ -65,8 +72,12 @@ public class OrderBaseServiceImpl implements OrderBaseService {
 	 * @return
 	 */
 
-	public int getShengOrderCountName(String tableName,String vendorName) {
-		return  orderBaseDao.getShengOrderCountName(tableName,vendorName);
+	public int getShengOrderCountName(String tableName,String vendorName,
+									  //Date startTime , Date endTime
+									  Timestamp startTime , Timestamp endTime
+
+	) {
+		return  orderBaseDao.getShengOrderCountName(tableName,vendorName,startTime,endTime);
 	}
 
 

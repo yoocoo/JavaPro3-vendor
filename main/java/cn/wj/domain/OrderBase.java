@@ -1,7 +1,10 @@
 package cn.wj.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
+
+//import java.sql.Date;
+
 /**
  * 说明： 售货机订单实时数据
  * 作者： 王娇
@@ -18,9 +21,33 @@ public class OrderBase implements Serializable {
 
     private Integer price;
 
-    private Date creatTime;
+    //private Date creatTime;
+    //private Date endTime;
+    //private Date paidTime;
+	//
+    //public Date getCreatTime() {
+    //    return creatTime;
+    //}
+	//
+    //public void setCreatTime(Date creatTime) {
+    //    this.creatTime = creatTime;
+    //}
+    //public Date getEndTime() {
+    //    return endTime;
+    //}
+    //public void setEndTime(Date endTime) {
+    //    this.endTime = endTime;
+    //}
+    //public Date getPaidTime() {
+    //    return paidTime;
+    //}
+	//
+    //public void setPaidTime(Date paidTime) {
+    //    this.paidTime = paidTime;
+    //}
 
-    private Date paidTime;
+
+
 
     private Integer paidMoney;
 
@@ -40,6 +67,32 @@ public class OrderBase implements Serializable {
 
     //================================================
     private String vendorName;
+
+    private Timestamp endTime;//时间段选择的结束时间
+    private Timestamp createTime;
+    private Timestamp paidTime;
+
+    public void setCreatTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+    public Timestamp getCreatTime() {
+        return createTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+    public void setPaidTime(Timestamp paidTime) {
+        this.paidTime = paidTime;
+    }
+    public Timestamp getPaidTime() {
+        return paidTime;
+    }
+
+
 
     public String getVendorName() {
         return vendorName;
@@ -90,21 +143,6 @@ public class OrderBase implements Serializable {
         this.price = price;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
-    }
-
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
-    }
-
-    public Date getPaidTime() {
-        return paidTime;
-    }
-
-    public void setPaidTime(Date paidTime) {
-        this.paidTime = paidTime;
-    }
 
     public Integer getPaidMoney() {
         return paidMoney;
