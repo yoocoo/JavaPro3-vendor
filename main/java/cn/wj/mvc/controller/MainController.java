@@ -127,4 +127,13 @@ public class MainController {
 		return "vendor/yun/vendor_yun_res";
 	}
 
+	//=========暂时测试========================
+	///**
+	// *  测试
+	// * @return
+	// */
+	//@RequestMapping(value = "/saleAction/listSslaePage", method = RequestMethod.GET)
+	//public String sSaleVendor() {
+	//	return "vendor/sheng/vendor_sheng_salecount";
+	//}
 }

@@ -96,7 +96,7 @@
 
     <!--2.1.1 生产商售货机 列表-->
     <select id="getAllShengVendor" resultMap="VendorMap">
-SELECT
+    SELECT
     v.vendor_id, v.vendor_name, v.factory_id,
     v.agency_id, v.checked, v.check_user,
     v.last_update_time, v.registered_time, v.expire_date,

@@ -217,9 +217,9 @@ public class UserController {
 						  @RequestParam(value = "limit", defaultValue = "10") Integer length
 	) {
 		Datagrid datagrid = userService.getAllUserList(user, pageNum, length);
-		System.out.println("======控制台打印=====pageNum==========" + pageNum);
-		System.out.println("=======控制台打印====length=========" + length);
-		System.out.println("=======控制台打印====== result =datagrid============" + new GsonUtils().toJson(datagrid));
+		//System.out.println("======控制台打印=====pageNum==========" + pageNum);
+		//System.out.println("=======控制台打印====length=========" + length);
+		//System.out.println("=======控制台打印====== result =datagrid============" + new GsonUtils().toJson(datagrid));
 
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -351,25 +351,6 @@ public class UserController {
 			//==================(1)获取该登录用户的头像===============
 			String userImagePath = userService.findPathById(accountName);
 			System.out.println("===测试获取该登录用户的头像打印图片原始路径======" + userImagePath);
-             //int roleId=
-			//if(user.getRoleId()==6){
-			//	int fId= user.getFactoryId();
-			//	System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
-			//	List<Vendor> vendorNameSList= vendorService.getAllSvendorName(fId);
-			//	System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
-			//	//================================7.16 号增加新内容====================
-			//	session.setAttribute("sVnameList", new GsonUtils().toJson(vendorNameSList));
-			//	//================================7.16号增加新内容================-==
-			//
-			//}
-			//if(user.getRoleId()==3){
-			//	int aId = user.getAgencyId();
-			//	System.out.println("打印放到首页的用户登录的时候得到 运营商Id"+aId);
-			//	List<Vendor> vendorNameYList = vendorService.getAllYvendorName(aId);
-			//	System.out.println("打印放到首页的用户登录的时候得到 运营商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameYList));
-			//	session.setAttribute("yVnameList", new GsonUtils().toJson(vendorNameYList));
-			//
-			//}
 			if (user.getPassword().equals(user1.getPassword())) {
 				user1.setPassword(session.getId());
 				//================(2)5.12  做权限菜单=================
@@ -416,7 +397,7 @@ public class UserController {
 
 				//==============================================================================================
 				int roleId=user1.getRoleId();
-				if(roleId==6){
+				if(roleId==6||roleId==8||roleId==10){
 					int fId= user1.getFactoryId();
 
 					System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
@@ -429,7 +410,7 @@ public class UserController {
 					//================================7.16号增加新内容================-==
 
 				}
-				if(roleId==3){
+				if(roleId==3||roleId==4||roleId==5){
 					int aId = user1.getAgencyId();
 					System.out.println("打印放到首页的用户登录的时候得到 运营商Id"+aId);
 					List<Vendor> vendorNameYList = vendorService.getAllYvendorName(aId,roleId);

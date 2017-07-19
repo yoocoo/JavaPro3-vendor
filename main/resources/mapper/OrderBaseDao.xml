@@ -7,7 +7,7 @@
         <result column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
         <result column="cube_partner_id" property="cubePartnerId" jdbcType="VARCHAR"/>
         <result column="price" property="price" jdbcType="INTEGER"/>
-        <result column="create_time" property="createTime"  jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="paid_time" property="paidTime" jdbcType="TIMESTAMP"/>
         <result column="paid_money" property="paidMoney" jdbcType="INTEGER"/>
         <result column="paid_source" property="paidSource" jdbcType="VARCHAR"/>
@@ -22,8 +22,6 @@
     order_id, sale_id, vendor_id, cube_partner_id, price, create_time, paid_time, paid_money,
     paid_source, status, pay_url, discount, refound, cube_create_result, channel
   </sql>
-
-
     <!--1.1.1 生产商管理员，查看订单表详情-->
     <select id="getAllShengOrder" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
     SELECT   o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
@@ -38,50 +36,43 @@
         SELECT COUNT(*)
         FROM ${tableName}
     </select>
-
-    <!--2.1.1 生产商管理员，查看订单表详情 条件（1）：按 选择售货机名称段查询-->
+    <!--2.1.1 生产商管理员，查看订单表详情 双条件：按 选择售货机名称段查询-->
     <select id="getAllShengOrderName" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
         SELECT o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
         o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
         FROM ${tableName} o
-        LEFT  JOIN vendor v
+        LEFT JOIN vendor v
         ON o.vendor_id= v.vendor_id
         WHERE
-         o.create_time &gt;= #{startTime}
-        AND o.create_time  &lt;=#{endTime}
+        o.create_time &gt;= #{startTime}
+        AND o.create_time &lt;=#{endTime}
         AND v.vendor_name=#{vendorName}
-
         <!--<where>-->
-            <!--<if test="startTime!=null ">o.create_time>=#{startTime,jdbcType=TIMESTAMP}</if>-->
-            <!--<if test="endTime!=null ">and o.create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
+        <!--<if test="startTime!=null ">o.create_time>=#{startTime,jdbcType=TIMESTAMP}</if>-->
+        <!--<if test="endTime!=null ">and o.create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
         <!--</where>-->
     </select>
-
-
     <!--<if test="startTime!=null and startTime!='' ">    <if test="endTime!=null and endTime!=''">-->
-    <!--2.1.2 生产商管理员，查看订单表总记录数 条件（1）：按选择售货机名称段查询 -->
+    <!--2.1.2 生产商管理员，查看订单表总记录数 双条件：按选择售货机名称段查询 -->
     <select id="getShengOrderCountName" resultType="int" parameterType="cn.wj.domain.OrderBase">
         SELECT COUNT(*)
         FROM ${tableName} o
         RIGHT JOIN vendor v
         ON o.vendor_id= v.vendor_id
-        WHERE  o.create_time &gt;= #{startTime}
-        AND o.create_time  &lt;=#{endTime}
+        WHERE o.create_time &gt;= #{startTime}
+        AND o.create_time &lt;=#{endTime}
         AND v.vendor_name=#{vendorName}
         <!--<where>-->
-            <!--<if test="startTime!=null">-->
-                <!--o.create_time>=#{startTime,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
-            <!--<if test="endTime!=null">-->
-                <!--and o.create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
+        <!--<if test="startTime!=null">-->
+        <!--o.create_time>=#{startTime,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
+        <!--<if test="endTime!=null">-->
+        <!--and o.create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
         <!--</where>-->
     </select>
-    <!-- o.create_time>=#{startTime,jdbcType=TIMESTAMP} AND o.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}-->
-
-
-    <!--3.1.1 生产商管理员，查看订单表详情 条件（2）：按时间段查询-->
+    <!--3.1.1（暂时未用到） 生产商管理员，查看订单表详情 独条件（2）：按时间段查询-->
     <select id="getAllShengOrderTime" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
         SELECT o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.creat_time, o.paid_time, o.paid_money,
         o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
@@ -97,29 +88,28 @@
             </if>
         </where>
     </select>
-    <!--3.1.2 生产商管理员，查看订单表总记录数 条件（2）：按时间段查询 -->
+    <!--3.1.2 （暂时未用到）生产商管理员，查看订单表总记录数 独条件（2）：按时间段查询 -->
     <select id="getShengOrderCountTime" resultType="int" parameterType="cn.wj.domain.OrderBase">
-        <!--<select id="getShengOrderCount" resultMap="OrderBaseResultMap"  parameterType="cn.wj.domain.OrderBase">-->
         SELECT COUNT(*)
         FROM ${tableName}
-        WHERE  create_time &gt;=#{startTime,jdbcType=TIMESTAMP} AND createe_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+        WHERE create_time &gt;=#{startTime,jdbcType=TIMESTAMP} AND createe_time &lt;= #{endTime,jdbcType=TIMESTAMP}
         <!--<where>-->
-            <!--<if test="startTime !=null">-->
-                <!--create_time>=#{startTime,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
-            <!--<if test="endTime != null">-->
-                <!--and create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
-            <!--</if>-->
+        <!--<if test="startTime !=null">-->
+        <!--create_time>=#{startTime,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
+        <!--<if test="endTime != null">-->
+        <!--and create_time&lt;=#{endTime,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
         <!--</where>-->
     </select>
 
 
     <!--========================  自动生成=============================================-->
     <!--<select id="selectByPrimaryKey" resultMap="OrderBaseResultMap" parameterType="java.lang.Integer">-->
-        <!--select-->
-        <!--<include refid="OrderBase_Column_List"/>-->
-        <!--from order_base-->
-        <!--where order_id = #{orderId,jdbcType=INTEGER}-->
+    <!--select-->
+    <!--<include refid="OrderBase_Column_List"/>-->
+    <!--from order_base-->
+    <!--where order_id = #{orderId,jdbcType=INTEGER}-->
     <!--</select>-->
     <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
     <!--delete from order_base-->
@@ -140,149 +130,149 @@
     <!--)-->
     <!--</insert>-->
     <!--<insert id="insertSelective" parameterType="cn.wj.domain.OrderBase">-->
-        <!--insert into order_base-->
-        <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-            <!--<if test="orderId != null">-->
-                <!--order_id,-->
-            <!--</if>-->
-            <!--<if test="saleId != null">-->
-                <!--sale_id,-->
-            <!--</if>-->
-            <!--<if test="vendorId != null">-->
-                <!--vendor_id,-->
-            <!--</if>-->
-            <!--<if test="cubePartnerId != null">-->
-                <!--cube_partner_id,-->
-            <!--</if>-->
-            <!--<if test="price != null">-->
-                <!--price,-->
-            <!--</if>-->
-            <!--<if test="createTime != null">-->
-                <!--create_time,-->
-            <!--</if>-->
-            <!--<if test="paidTime != null">-->
-                <!--paid_time,-->
-            <!--</if>-->
-            <!--<if test="paidMoney != null">-->
-                <!--paid_money,-->
-            <!--</if>-->
-            <!--<if test="paidSource != null">-->
-                <!--paid_source,-->
-            <!--</if>-->
-            <!--<if test="status != null">-->
-                <!--status,-->
-            <!--</if>-->
-            <!--<if test="payUrl != null">-->
-                <!--pay_url,-->
-            <!--</if>-->
-            <!--<if test="discount != null">-->
-                <!--discount,-->
-            <!--</if>-->
-            <!--<if test="refound != null">-->
-                <!--refound,-->
-            <!--</if>-->
-            <!--<if test="cubeCreateResult != null">-->
-                <!--cube_create_result,-->
-            <!--</if>-->
-            <!--<if test="channel != null">-->
-                <!--channel,-->
-            <!--</if>-->
-        <!--</trim>-->
-        <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-            <!--<if test="orderId != null">-->
-                <!--#{orderId,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="saleId != null">-->
-                <!--#{saleId,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="vendorId != null">-->
-                <!--#{vendorId,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="cubePartnerId != null">-->
-                <!--#{cubePartnerId,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="price != null">-->
-                <!--#{price,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="createTime != null">-->
-                <!--#{createTime,jdbcType=TIMESTAMP},-->
-            <!--</if>-->
-            <!--<if test="paidTime != null">-->
-                <!--#{paidTime,jdbcType=TIMESTAMP},-->
-            <!--</if>-->
-            <!--<if test="paidMoney != null">-->
-                <!--#{paidMoney,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="paidSource != null">-->
-                <!--#{paidSource,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="status != null">-->
-                <!--#{status,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="payUrl != null">-->
-                <!--#{payUrl,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="discount != null">-->
-                <!--#{discount,jdbcType=DOUBLE},-->
-            <!--</if>-->
-            <!--<if test="refound != null">-->
-                <!--#{refound,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="cubeCreateResult != null">-->
-                <!--#{cubeCreateResult,jdbcType=TINYINT},-->
-            <!--</if>-->
-            <!--<if test="channel != null">-->
-                <!--#{channel,jdbcType=INTEGER},-->
-            <!--</if>-->
-        <!--</trim>-->
+    <!--insert into order_base-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--<if test="orderId != null">-->
+    <!--order_id,-->
+    <!--</if>-->
+    <!--<if test="saleId != null">-->
+    <!--sale_id,-->
+    <!--</if>-->
+    <!--<if test="vendorId != null">-->
+    <!--vendor_id,-->
+    <!--</if>-->
+    <!--<if test="cubePartnerId != null">-->
+    <!--cube_partner_id,-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--price,-->
+    <!--</if>-->
+    <!--<if test="createTime != null">-->
+    <!--create_time,-->
+    <!--</if>-->
+    <!--<if test="paidTime != null">-->
+    <!--paid_time,-->
+    <!--</if>-->
+    <!--<if test="paidMoney != null">-->
+    <!--paid_money,-->
+    <!--</if>-->
+    <!--<if test="paidSource != null">-->
+    <!--paid_source,-->
+    <!--</if>-->
+    <!--<if test="status != null">-->
+    <!--status,-->
+    <!--</if>-->
+    <!--<if test="payUrl != null">-->
+    <!--pay_url,-->
+    <!--</if>-->
+    <!--<if test="discount != null">-->
+    <!--discount,-->
+    <!--</if>-->
+    <!--<if test="refound != null">-->
+    <!--refound,-->
+    <!--</if>-->
+    <!--<if test="cubeCreateResult != null">-->
+    <!--cube_create_result,-->
+    <!--</if>-->
+    <!--<if test="channel != null">-->
+    <!--channel,-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+    <!--<if test="orderId != null">-->
+    <!--#{orderId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="saleId != null">-->
+    <!--#{saleId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="vendorId != null">-->
+    <!--#{vendorId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="cubePartnerId != null">-->
+    <!--#{cubePartnerId,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--#{price,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="createTime != null">-->
+    <!--#{createTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="paidTime != null">-->
+    <!--#{paidTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="paidMoney != null">-->
+    <!--#{paidMoney,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="paidSource != null">-->
+    <!--#{paidSource,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="status != null">-->
+    <!--#{status,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="payUrl != null">-->
+    <!--#{payUrl,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="discount != null">-->
+    <!--#{discount,jdbcType=DOUBLE},-->
+    <!--</if>-->
+    <!--<if test="refound != null">-->
+    <!--#{refound,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="cubeCreateResult != null">-->
+    <!--#{cubeCreateResult,jdbcType=TINYINT},-->
+    <!--</if>-->
+    <!--<if test="channel != null">-->
+    <!--#{channel,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--</trim>-->
     <!--</insert>-->
     <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.OrderBase">-->
-        <!--update order_base-->
-        <!--<set>-->
-            <!--<if test="saleId != null">-->
-                <!--sale_id = #{saleId,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="vendorId != null">-->
-                <!--vendor_id = #{vendorId,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="cubePartnerId != null">-->
-                <!--cube_partner_id = #{cubePartnerId,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="price != null">-->
-                <!--price = #{price,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="createTime != null">-->
-                <!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
-            <!--</if>-->
-            <!--<if test="paidTime != null">-->
-                <!--paid_time = #{paidTime,jdbcType=TIMESTAMP},-->
-            <!--</if>-->
-            <!--<if test="paidMoney != null">-->
-                <!--paid_money = #{paidMoney,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="paidSource != null">-->
-                <!--paid_source = #{paidSource,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="status != null">-->
-                <!--status = #{status,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="payUrl != null">-->
-                <!--pay_url = #{payUrl,jdbcType=VARCHAR},-->
-            <!--</if>-->
-            <!--<if test="discount != null">-->
-                <!--discount = #{discount,jdbcType=DOUBLE},-->
-            <!--</if>-->
-            <!--<if test="refound != null">-->
-                <!--refound = #{refound,jdbcType=INTEGER},-->
-            <!--</if>-->
-            <!--<if test="cubeCreateResult != null">-->
-                <!--cube_create_result = #{cubeCreateResult,jdbcType=TINYINT},-->
-            <!--</if>-->
-            <!--<if test="channel != null">-->
-                <!--channel = #{channel,jdbcType=INTEGER},-->
-            <!--</if>-->
-        <!--</set>-->
-        <!--where order_id = #{orderId,jdbcType=INTEGER}-->
+    <!--update order_base-->
+    <!--<set>-->
+    <!--<if test="saleId != null">-->
+    <!--sale_id = #{saleId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="vendorId != null">-->
+    <!--vendor_id = #{vendorId,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="cubePartnerId != null">-->
+    <!--cube_partner_id = #{cubePartnerId,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="price != null">-->
+    <!--price = #{price,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="createTime != null">-->
+    <!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="paidTime != null">-->
+    <!--paid_time = #{paidTime,jdbcType=TIMESTAMP},-->
+    <!--</if>-->
+    <!--<if test="paidMoney != null">-->
+    <!--paid_money = #{paidMoney,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="paidSource != null">-->
+    <!--paid_source = #{paidSource,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="status != null">-->
+    <!--status = #{status,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="payUrl != null">-->
+    <!--pay_url = #{payUrl,jdbcType=VARCHAR},-->
+    <!--</if>-->
+    <!--<if test="discount != null">-->
+    <!--discount = #{discount,jdbcType=DOUBLE},-->
+    <!--</if>-->
+    <!--<if test="refound != null">-->
+    <!--refound = #{refound,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--<if test="cubeCreateResult != null">-->
+    <!--cube_create_result = #{cubeCreateResult,jdbcType=TINYINT},-->
+    <!--</if>-->
+    <!--<if test="channel != null">-->
+    <!--channel = #{channel,jdbcType=INTEGER},-->
+    <!--</if>-->
+    <!--</set>-->
+    <!--where order_id = #{orderId,jdbcType=INTEGER}-->
     <!--</update>-->
     <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.OrderBase">-->
     <!--update order_base-->

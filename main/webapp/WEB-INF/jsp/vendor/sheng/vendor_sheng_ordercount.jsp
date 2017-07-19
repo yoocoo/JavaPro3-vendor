@@ -229,9 +229,7 @@
             src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
-    <script type="text/javascript">
 
-    </script>
     <script type="text/javascript">
         var fantoryid = ${userMess.factoryId};
         var orderTablename = "order_" + fantoryid;
@@ -324,11 +322,11 @@
                         data: "paidSource",
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
-                                return '<span class="badge badge-danger">现金</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<span class="badge badge-danger">支付宝</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             } else if (data = 2) {
-                                return '<span class="badge badge-success">电子支付</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<span class="badge badge-success">微信</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             } else {
-                                return '<span class="badge badge-success">无效</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<span class="badge badge-success">其他</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             }
                         }
                     },
@@ -478,13 +476,11 @@
             var orderTablename = "order_" + fantoryid;
             var starttime=  document.getElementById('beginTime').value;
             var endtime = document.getElementById('endTime').value;
-//            var starttime= $('#beginTime').val(start.format('YYYY-MM-DD'));
-//            var endtime =$('#endTime').val(end.format('YYYY-MM-DD'));
-//            var starttime =  '2017-02-11 00:00:00'; //测试时间
-//            var endtime ='2017-02-11 23:00:00';//测试时间
-
-            alert("能否传递 选中的开始时间："+starttime);
-            alert("能否传递 选中的开始时间："+endtime);
+            if(starttime=='' || endtime == ''){
+                confirm("请选择具体时间，加快查询效率");
+            }else {
+//            alert("能否传递 选中的开始时间："+starttime);
+//            alert("能否传递 选中的开始时间："+endtime);
             console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
 
             $(document).ready(function () {
@@ -583,11 +579,11 @@
                             data: "paidSource",
                             "render": function (data, type, full, meta) {
                                 if (data == 1) {
-                                    return '<span class="badge badge-danger">现金</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                    return '<span class="badge badge-danger">支付宝</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                                 } else if (data = 2) {
-                                    return '<span class="badge badge-success">电子支付</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                    return '<span class="badge badge-success">微信</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                                 } else {
-                                    return '<span class="badge badge-success">无效</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                    return '<span class="badge badge-success">其他</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                                 }
                             }
                         },
@@ -630,7 +626,7 @@
                 });
             });
         }
-
+        }
     </script>
 
 

@@ -46,9 +46,6 @@ public class OrderBase implements Serializable {
     //    this.paidTime = paidTime;
     //}
 
-
-
-
     private Integer paidMoney;
 
     private String paidSource;
@@ -67,9 +64,16 @@ public class OrderBase implements Serializable {
 
     //================================================
     private String vendorName;
+    public String getVendorName() {
+        return vendorName;
+    }
 
-    private Timestamp endTime;//时间段选择的结束时间
-    private Timestamp createTime;
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    private Timestamp endTime;//作为 条件查询时间段选择的结束时间
+    private Timestamp createTime;// 可作为条件查询时间段选择的开始时间
     private Timestamp paidTime;
 
     public void setCreatTime(Timestamp createTime) {
@@ -90,16 +94,6 @@ public class OrderBase implements Serializable {
     }
     public Timestamp getPaidTime() {
         return paidTime;
-    }
-
-
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
     }
 
     //======================================================

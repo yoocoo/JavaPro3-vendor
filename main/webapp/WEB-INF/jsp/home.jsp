@@ -196,27 +196,27 @@
 
                                     <div class="alert alert-success">
                                         <ul class="margin-bottom-none padding-left-lg">
-                                            <li>不知道该说些什么</li>
-                                            <li>已经词穷</li>
+                                            <li>词穷</li>
+                                            <li>词穷</li>
                                         </ul>
 
                                     </div>
 
                                     <div class="alert alert-warning">
-                                        <h4><i class="fa fa-warning"></i>警告！</h4>注意
+                                        <h4><i class="fa fa-warning"></i>警告！</h4>词穷
 
-                                        <a href="https://adblockplus.org/en/bugs" class="alert-link">还是注意</a>
-                                            再不注意， 就打人了
+                                        <a href="https://adblockplus.org/en/bugs" class="alert-link">词穷</a>
+                                            词穷
                                     </div>
 
                                     <div class="row fontawesome-icon-list">
-                                    <c:if test="${userMess.roleId ==6}">
+                                    <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
                                          <c:forEach items="${sVnameList}" var="slist">
                                         <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#"><i class="fa fa-empire"></i>${slist.vendorName}</a>
                                         </div>
                                          </c:forEach>
                                     </c:if>
-                                        <c:if test="${userMess.roleId ==3}">
+                                        <c:if test="${userMess.roleId ==3||userMess.roleId ==4||userMess.roleId ==5}">
                                             <c:forEach items="${yVnameList}" var="ylist">
                                                 <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a href="#"><i class="fa fa-empire"></i>${ylist.vendorName}</a>
                                                 </div>

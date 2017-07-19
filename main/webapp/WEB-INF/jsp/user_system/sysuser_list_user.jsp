@@ -274,7 +274,29 @@
                 {data: "accountName"},
                 {data: "password"},
                 {data: "realName"},
-                {data: "roleId"},
+                {
+                    data: "roleId",
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<span class="badge badge-danger">系统管理员</span>'
+                        }
+                        else if(data == 3)
+                        {return '<span class="badge badge-danger">运营商管理员</span>'}
+                        else if(data == 4)
+                        {return '<span class="badge badge-danger">运营商配货员</span>'}
+                        else if(data == 5)
+                        {return '<span class="badge badge-danger">运营商仓库员</span>'}
+                        else if(data == 6)
+                        {return '<span class="badge badge-danger">生产商管理员</span>'}
+                        else if(data == 8)
+                        {return '<span class="badge badge-danger">出租商管理员</span>'}
+                        else if(data == 10)
+                        {return '<span class="badge badge-danger">贸易商管理员</span>'}
+                        else{
+                            {return '<span class="badge badge-danger">外星人</span>'}
+                        }
+                    }
+                },
                 <%--{data: "nickName"},--%>
                 {data: "email"},
                 <%--{data: "lastLoginTime"},--%>
