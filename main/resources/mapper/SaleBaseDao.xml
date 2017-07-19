@@ -18,7 +18,7 @@
   </sql>
 
     <!--业务逻辑实现-->
-    <!--1.1.1 生产商角色 查看 指定  时间段 和 指定售货机 的销售订单 列表-->
+    <!--1.1.1  生产商角色 查看 指定  时间段 和 指定售货机 的销售订单 列表-->
     <select id="getAllShengSaleName" resultMap="SaleBaseResultMap" parameterType="cn.wj.domain.SaleBase">
         SELECT
         s.sale_id, s.vendor_id, s.channel_id, s.price, s.number, s.time, s.goods_code, s.goods_name, s.agency_id,
@@ -32,7 +32,7 @@
 
     </select>
 
-    <!--1.1.2生产商角色 查看 指定  时间段 和 指定售货机 的销售订单总记录数 列表-->
+    <!--1.1.2 生产商角色 查看 指定  时间段 和 指定售货机 的销售订单总记录数 列表-->
     <select id="getShengSaleCountName" resultType="int" parameterType="cn.wj.domain.SaleBase">
         SELECT COUNT(*)
         FROM ${tableName} s
@@ -40,11 +40,53 @@
         ON s.vendor_id= v.vendor_id
         WHERE
          v.vendor_name=#{vendorName}
+         AND s.time &gt;= #{startTime}
+        AND s.time &lt;=#{endTime}
+
+    </select>
+    <!--1.1.3 (生产商角色、、、）   条件查询下的 统计 ： 总计（1） 总销售数量-->
+    <select id="getAllSaleNum" resultType="int" parameterType="cn.wj.domain.SaleBase">
+        SELECT
+         sum(number)
+        FROM ${tableName} s
+        LEFT JOIN vendor v
+        ON s.vendor_id= v.vendor_id
+        WHERE v.vendor_name=#{vendorName}
+
+    </select>
+    <!--1.1.4 (生产商角色、、、）   条件查询下的 统计 ： 总计（1） 总销售价格-->
+    <select id="getAllSaleMoney" resultType="DECIMAL" parameterType="cn.wj.domain.SaleBase">
+        SELECT
+        sum(price)
+        FROM ${tableName} s
+        LEFT JOIN vendor v
+        ON s.vendor_id= v.vendor_id
+        WHERE v.vendor_name=#{vendorName}
+
+    </select>
+    <!--1.1.5 (生产商角色、、、）   条件查询下的 统计 ： 总计（1） 时间段内条件查询下销售数量-->
+    <select id="getSaleNum" resultType="int" parameterType="cn.wj.domain.SaleBase">
+        SELECT
+       sum(number)
+        FROM ${tableName} s
+        LEFT JOIN vendor v
+        ON s.vendor_id= v.vendor_id
+        WHERE v.vendor_name=#{vendorName}
         AND s.time &gt;= #{startTime}
         AND s.time &lt;=#{endTime}
 
     </select>
+    <!--1.1.6 (生产商角色、、、）   条件查询下的 统计 ： 总计（1） 时间段内条件查询下销售总价-->
+    <select id="getSaleMoney" resultType="DECIMAL" parameterType="cn.wj.domain.SaleBase">
+        SELECT sum(price)
+        FROM ${tableName} s
+        LEFT JOIN vendor v
+        ON s.vendor_id= v.vendor_id
+        WHERE v.vendor_name=#{vendorName}
+        AND s.time &gt;= #{startTime}
+        AND s.time &lt;=#{endTime}
 
+    </select>
     <!--================================自动生成=========================================-->
     <!--<select id="selectByPrimaryKey" resultMap="SaleBaseResultMap" parameterType="java.lang.Integer">-->
         <!--select-->

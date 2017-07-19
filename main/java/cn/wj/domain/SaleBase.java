@@ -5,6 +5,10 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 //import java.util.Date;
 
+/**
+ * 创建时间： 2017 年 07 月17 日
+ * 一更时间： 2017 年 07 月 19 日
+ */
 public class SaleBase implements Serializable {
 	private Integer saleId;
 

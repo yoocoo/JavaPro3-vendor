@@ -28,6 +28,8 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
+    <!-- Select2 -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/select2/dist/css/select2.min.css'/>">
     <!-- bootstrap-progressbar -->
     <%--<link type="text/css" rel="stylesheet"--%>
     <%--href="<c:url value='/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'/>">--%>
@@ -106,7 +108,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="row x_title">
-                                <div class="col-md-10 pull-right">
+                                <div class="col-md-12 ">
                                     <div id="reportrange" value="" type="text" class="pull-left" name="reportrange"
                                          style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
@@ -118,11 +120,13 @@
 
                                 <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
                                 <%--</div>--%>
+                                    <select id="vendorname" name="vendorName" class="col-sm-4 form-control js-example-basic-single "
+                                    <%--class="select2_single form-control"--%>
+                                            style="background: #fff; font-size:13px;
+                                                        margin-left:5px;cursor: pointer;
+                                                         padding: 5px 10px; border: 1px solid #ccc"
+                                            tabindex="-1" > <i class="fa fa-empire"></i>
 
-                                    <select id="vendorname" name="vendorName"
-                                            <%--class="select2_single form-control"--%>
-                                         style="background: #fff; font-size:13px; margin-left:5px;cursor: pointer; padding: 5px 10px; border: 1px solid #ccc"
-                                            tabindex="-1"> <i class="fa fa-empire"></i>
                                         <c:forEach items="${sVnameList}" var="slist">
                                             <option value="${slist.vendorName}">${slist.vendorName} </option>
                                         </c:forEach>
@@ -227,9 +231,17 @@
     <%--<script type="text/javascript" src="<c:url value='/static/vendors/bootstrap-daterangepicker/bootstrap-datepicker.zh-CN.js'/>"></script>--%>
     <script type="text/javascript"
             src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
+    <!-- Select2 -->
+    <script type="text/javascript"
+            src="<c:url value='/static/vendors/select2/dist/js/select2.min.js'/>"></script>
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
-
+    <%--===============select2 模糊匹配=======--%>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2();
+        });
+    </script>
     <script type="text/javascript">
         var fantoryid = ${userMess.factoryId};
         var orderTablename = "order_" + fantoryid;

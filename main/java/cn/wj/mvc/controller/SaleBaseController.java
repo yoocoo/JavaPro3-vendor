@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import java.util.List;
  * 说明： 售货机-- 销售表 实时数据
  * 作者： 王娇
  * 时间： 2017 年 07 月 18 日
+ * 一更时间：  2017 年 07 月 19 日
  */
 @Controller
 @RequestMapping("/saleAction")
@@ -39,6 +42,7 @@ public class SaleBaseController {
 	private VendorServiceImpl vendorService;//自动载入 售货机表格Service对象
 	private FactoryServiceImpl factoryService;//载入 生产商Service对象
 	private ResponseObj responseObj;
+
 	/**
 	 * 说明：接收 生产商管理员售货机 销售表 接收数据的页面
 	 * 创建日期： 2017 年 07 月 18 日
@@ -52,6 +56,7 @@ public class SaleBaseController {
 		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_salecount");
 		return view;
 	}
+
 	/**
 	 * 时间： 2017 年 7 月  18 日
 	 * 作者： 王娇
@@ -62,24 +67,25 @@ public class SaleBaseController {
 	 */
 	@RequestMapping(value = "/shengSaleName", method = RequestMethod.POST)
 	public void PageInfoSname(HttpServletRequest request,
-							  HttpServletResponse response,
+							  HttpServletResponse response, HttpSession session,
 							  Vendor vendor, SaleBase saleBase, Factory factory,
 							  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
-
+		String tableName = factory.getSaleTableName();
+		String vendorName = vendor.getVendorName();
+		System.out.println("===打印分页请求生产商的售货 销售表名的===:" + tableName);
+		System.out.println("===打印页面传进来的vendorName ==" + vendorName);
+		Timestamp startTime = saleBase.getCreatTime();
+		Timestamp endTime = saleBase.getEndTime();
+		System.out.println("===（ 按时间段，按指定售货机）打印前台传过来时间 开始===:" + startTime);
+		System.out.println("===（ 按时间段，按指定售货机）打印前台传过来时间 结束===:" + endTime);
 		//使用DataTables的属性接收分页数据
 		DataTablePageUtil<SaleBase> dataTable = new DataTablePageUtil<SaleBase>(request);
 		//开始的分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期
-		Timestamp startTime = saleBase.getCreatTime();
-		Timestamp endTime = saleBase.getEndTime();
-		System.out.println("===打印前台传过来时间 开始===:" + startTime);
-		System.out.println("===打印前台传过来时间 结束===:" + endTime);
-		String tableName = factory.getSaleTableName();
-		System.out.println("===打印分页请求生产商的售货 销售表名的===:" + tableName);
-		String vendorName = vendor.getVendorName();
-		System.out.println("===打印页面传进来的vendorName ==" + vendorName);
+		//========== 参数列表 start==============================================
+
 		List<SaleBase> shengSalenameList = saleBaseService.getAllShengSaleName(tableName, vendorName, startTime, endTime, 1, 10);
 		System.out.println("===打印分页请求=shengVendorList==" + shengSalenameList);
 		//用PageInfo对结果进行包装
@@ -105,7 +111,21 @@ public class SaleBaseController {
 			e.printStackTrace();
 		}
 
+//============录入数据库中，筛查 统计数值================================
+		int allSum = saleBaseService.getAllSaleNum(tableName, vendorName);
+		int timeSum = saleBaseService.getSaleNum(tableName, vendorName, startTime, endTime);
+		BigDecimal allMoney = saleBaseService.getAllSaleMoney(tableName, vendorName);
+		BigDecimal timeMoney = saleBaseService.getSaleMoney(tableName, vendorName, startTime, endTime);
+		session.setAttribute("allSum", allSum);
+		session.setAttribute("timeSum", timeSum);
+		session.setAttribute("allMoney", allMoney);
+		session.setAttribute("timeMoney", timeMoney);
+		System.out.println("=== 销售清单 统计session变量===:" + allSum);
+		System.out.println("=== 销售清单 统计session变量===:" + timeSum);
+		System.out.println("=== 销售清单 统计session变量===:" + allMoney);
+		System.out.println("=== 销售清单 统计session变量===:" + timeMoney);
 
+		//=======================================================================
 	}
 
 }

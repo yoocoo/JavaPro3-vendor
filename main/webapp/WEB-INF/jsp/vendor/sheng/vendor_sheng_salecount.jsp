@@ -29,6 +29,8 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
+    <!-- Select2 -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/select2/dist/css/select2.min.css'/>">
     <!-- bootstrap-progressbar -->
     <%--<link type="text/css" rel="stylesheet"--%>
     <%--href="<c:url value='/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'/>">--%>
@@ -48,6 +50,42 @@
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
+    <script type="text/javascript">
+        function getCurDate()
+        {
+            var d = new Date();
+            var week;
+            switch (d.getDay()){
+                case 1: week="星期一"; break;
+                case 2: week="星期二"; break;
+                case 3: week="星期三"; break;
+                case 4: week="星期四"; break;
+                case 5: week="星期五"; break;
+                case 6: week="星期六"; break;
+                default: week="星期天";
+            }
+            var years = d.getFullYear();
+            var month = add_zero(d.getMonth()+1);
+            var days = add_zero(d.getDate());
+//            var hours = add_zero(d.getHours());
+//            var minutes = add_zero(d.getMinutes());
+//            var seconds=add_zero(d.getSeconds());
+//            var ndate = years+"年"+month+"月"+days+"日 "+hours+":"+minutes+":"+seconds+" "+week;
+            var ndate = years+"/"+month+"/"+days+" "+week;
+            var divT=document.getElementById("logInfo");
+            divT.innerHTML= ndate;
+            var ndate1 =years+"-"+month+"-"+days;
+            var divT1=document.getElementById("logInfo1");
+            divT1.innerHTML= ndate1;
+
+        }
+        function add_zero(temp)
+        {
+            if(temp<10) return "0"+temp;
+            else return temp;
+        }
+        setInterval("getCurDate()",100);
+    </script>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -107,7 +145,7 @@
                                         <div class="col-xs-12 invoice-header">
                                             <h1>
                                                 <i class="fa fa-globe"></i> 销售单
-                                                <small class="pull-right">统计时间：给个系统时间
+                                                <small  id="logInfo" class="pull-right">
                                                 </small>
                                             </h1>
                                         </div>
@@ -129,17 +167,20 @@
                                         <div class="col-sm-4 invoice-col">
                                             <address>
                                                 <strong>售货机详情：</strong>
-                                                <br>售货机名称
-                                                <select id="vendorname" name="vendorName"
+                                                <%--<br>售货机名称--%>
+                                                <%--<input type="text" class="select2-container select2-container--classic select2-container--open" name="" id="" value="" />--%>
+                                                <select id="vendorname" name="vendorName" class="col-sm-4 form-control js-example-basic-single"
                                                 <%--class="select2_single form-control"--%>
-                                                        style="background: #fff; font-size:14px; margin-left:5px;cursor: pointer; padding: 5px 10px; border: 1px solid #ccc"
-                                                        tabindex="-1"> <i class="fa fa-empire"></i>
+                                                        style="background: #fff; font-size:12px;
+                                                        margin-left:5px;cursor: pointer;
+                                                         padding: 5px 10px; border: 1px solid #ccc"
+                                                        tabindex="-1" > <i class="fa fa-empire"></i>
                                                     <c:forEach items="${sVnameList}" var="slist">
                                                         <option value="${slist.vendorName}">${slist.vendorName} </option>
                                                     </c:forEach>
                                                 </select>
-                                                <br>工作时间：一个时间段
-                                                <br>投放地址：婺城区
+                                                <%--<br>工作时间：一个时间段--%>
+                                                <%--<br>投放地址：婺城区--%>
                                             </address>
                                         </div>
                                         <!-- /.col -->
@@ -190,45 +231,42 @@
                                     <div class="row">
                                         <!-- accepted payments column -->
                                         <div class="col-xs-6">
-                                            <p class="lead">样式设计:</p>
-                                            <%--<img src="images/visa.png" alt="Visa">--%>
-                                            <%--<img src="images/mastercard.png" alt="Mastercard">--%>
-                                            <%--<img src="images/american-express.png" alt="American Express">--%>
-                                            <%--<img src="images/paypal.png" alt="Paypal">--%>
-                                            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                                                样式设计，待添加内容.样式设计，待添加内容.
-                                                样式设计，待添加内容.样式设计，待添加内容.
-                                                样式设计，待添加内容.样式设计，待添加内容.
+                                            <p class="lead">支付途径:</p>
+                                            <img src="/ssm_vendor/static/images/pay0.png" alt="银联">
+                                            <img src="/ssm_vendor/static/images/pay2.png" alt="微信支付">
+                                            <img src="/ssm_vendor/static/images/pay1.png" alt="支付宝">
+                                            <img src="/ssm_vendor/static/images/pay4.png" alt="苹果支付">
 
-                                            </p>
                                             <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                                                样式设计，待添加内容.样式设计，待添加内容.
-                                                样式设计，待添加内容.样式设计，待添加内容.
-                                                样式设计，待添加内容.样式设计，待添加内容.
-
+                                                电子支付是指消费者、商家和金融机构之间使用
+                                                安全电子手段把支付信息通过信息网络安全地传送到银行或相应的处理机构，
+                                                用来实现货币支付或资金流转的行为。从分发挥电子支付方便快捷等特点。
                                             </p>
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-xs-6">
-                                            <p class="lead"> 查询时间 2017-7-17</p>
+                                            <p class="lead" id="logInfo1"> 查询时间 :</p>
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <tbody>
                                                     <tr>
-                                                        <th style="width:50%">本机销售量:</th>
-                                                        <td>250</td>
+
+
+                                                        <th style="width:50%">本机总销售数量:</th>
+                                                        <td>${allSum}</td>
+
                                                     </tr>
                                                     <tr>
-                                                        <th>收入金额</th>
-                                                        <td>$10000.34</td>
+                                                        <th>本机总收入金额：</th>
+                                                        <td>${allMoney}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>待添加:</th>
-                                                        <td>$5.80</td>
+                                                        <th>时间段内销售数量:</th>
+                                                        <td>${timeSum}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th>总计:</th>
-                                                        <td>$265.24</td>
+                                                        <th>时间段内收入金额:</th>
+                                                        <td>${timeMoney}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -310,8 +348,19 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/moment/min/moment.min.js'/>"></script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
+<!-- Select2 -->
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/select2/dist/js/select2.min.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+<%--===============select2 模糊匹配=======--%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".js-example-basic-single").select2();
+    });
+</script>
+
+
 
 <script type="text/javascript">
     //========================================日期格式化=============================
@@ -440,6 +489,7 @@
 //args1: "我是固定传参的值，在服务器接收参数[args1]"
                         }
                     },
+
                     serverSide: true,//开启服务器模式:启用服务器分页
                     lengthChange: false,//是否允许用户改变表格每页显示的记录数
                     ordering: false,//是否允许用户排序
@@ -478,7 +528,11 @@
                             }
                         },
                         {data: "goodsName"},
-                        {data: "price"},
+                        {data: "price",
+                            "render": function (data, type, full, meta) {
+                                    return '<i class="fa fa-jpy"></i>'+data; //这里是主题  把url变成超链接、把图片路径显示为图片
+                            }
+                        },
 
                         {
                             data: "number",
