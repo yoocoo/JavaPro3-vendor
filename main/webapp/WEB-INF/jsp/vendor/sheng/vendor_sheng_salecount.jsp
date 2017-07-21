@@ -51,40 +51,51 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
     <script type="text/javascript">
-        function getCurDate()
-        {
+        function getCurDate() {
             var d = new Date();
             var week;
-            switch (d.getDay()){
-                case 1: week="星期一"; break;
-                case 2: week="星期二"; break;
-                case 3: week="星期三"; break;
-                case 4: week="星期四"; break;
-                case 5: week="星期五"; break;
-                case 6: week="星期六"; break;
-                default: week="星期天";
+            switch (d.getDay()) {
+                case 1:
+                    week = "星期一";
+                    break;
+                case 2:
+                    week = "星期二";
+                    break;
+                case 3:
+                    week = "星期三";
+                    break;
+                case 4:
+                    week = "星期四";
+                    break;
+                case 5:
+                    week = "星期五";
+                    break;
+                case 6:
+                    week = "星期六";
+                    break;
+                default:
+                    week = "星期天";
             }
             var years = d.getFullYear();
-            var month = add_zero(d.getMonth()+1);
+            var month = add_zero(d.getMonth() + 1);
             var days = add_zero(d.getDate());
 //            var hours = add_zero(d.getHours());
 //            var minutes = add_zero(d.getMinutes());
 //            var seconds=add_zero(d.getSeconds());
 //            var ndate = years+"年"+month+"月"+days+"日 "+hours+":"+minutes+":"+seconds+" "+week;
-            var ndate = years+"/"+month+"/"+days+" "+week;
-            var divT=document.getElementById("logInfo");
-            divT.innerHTML= ndate;
-            var ndate1 =years+"-"+month+"-"+days;
-            var divT1=document.getElementById("logInfo1");
-            divT1.innerHTML= ndate1;
+            var ndate = years + "/" + month + "/" + days + " " + week;
+            var divT = document.getElementById("logInfo");
+            divT.innerHTML = ndate;
+            var ndate1 = years + "-" + month + "-" + days;
+            var divT1 = document.getElementById("logInfo1");
+            divT1.innerHTML = ndate1;
 
         }
-        function add_zero(temp)
-        {
-            if(temp<10) return "0"+temp;
+        function add_zero(temp) {
+            if (temp < 10) return "0" + temp;
             else return temp;
         }
-        setInterval("getCurDate()",100);
+        setInterval("getCurDate()", 100);
     </script>
 </head>
 <body class="nav-md">
@@ -145,7 +156,7 @@
                                         <div class="col-xs-12 invoice-header">
                                             <h1>
                                                 <i class="fa fa-globe"></i> 销售单
-                                                <small  id="logInfo" class="pull-right">
+                                                <small id="logInfo" class="pull-right">
                                                 </small>
                                             </h1>
                                         </div>
@@ -167,18 +178,28 @@
                                         <div class="col-sm-4 invoice-col">
                                             <address>
                                                 <strong>售货机详情：</strong>
-                                                <%--<br>售货机名称--%>
-                                                <%--<input type="text" class="select2-container select2-container--classic select2-container--open" name="" id="" value="" />--%>
-                                                <select id="vendorname" name="vendorName" class="col-sm-4 form-control js-example-basic-single"
-                                                <%--class="select2_single form-control"--%>
-                                                        style="background: #fff; font-size:12px;
+
+
+
+                                                    <select id="vendorname" name="vendorName"
+                                                            class="col-sm-4 form-control js-example-basic-single"
+                                                            style="background: #fff; font-size:12px;
                                                         margin-left:5px;cursor: pointer;
                                                          padding: 5px 10px; border: 1px solid #ccc"
-                                                        tabindex="-1" > <i class="fa fa-empire"></i>
-                                                    <c:forEach items="${sVnameList}" var="slist">
-                                                        <option value="${slist.vendorName}">${slist.vendorName} </option>
-                                                    </c:forEach>
-                                                </select>
+                                                            tabindex="-1"> <i class="fa fa-empire"></i>
+                                                        <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
+
+                                                        <c:forEach items="${sVnameList}" var="slist">
+                                                            <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                                        </c:forEach>
+                                                        </c:if>
+                                                        <c:if test="${userMess.roleId ==3||userMess.roleId ==4||userMess.roleId ==5}">
+                                                            <c:forEach items="${yVnameList}" var="ylist">
+                                                            <option value="${ylist.vendorName}">${ylist.vendorName} </option>
+                                                            </c:forEach>
+                                                        </c:if>
+                                                    </select>
+
                                                 <%--<br>工作时间：一个时间段--%>
                                                 <%--<br>投放地址：婺城区--%>
                                             </address>
@@ -221,6 +242,16 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>0</td>
+
+                                                <td>0</td>
+                                                <td>0</td>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -250,15 +281,18 @@
                                                 <table class="table">
                                                     <tbody>
                                                     <tr>
-
-
                                                         <th style="width:50%">本机总销售数量:</th>
-                                                        <td>${allSum}</td>
+                                                        <td>${allSum}
+                                                            <%--2. <% Integer allSum=(Integer)request.getAttribute("allSum"); %>****--%>
+                                                            <%--&: <%=allSum%> --%>
+                                                            <%--& :out.print(allSum);--%>
+                                                        </td>
 
                                                     </tr>
                                                     <tr>
                                                         <th>本机总收入金额：</th>
                                                         <td>${allMoney}</td>
+
                                                     </tr>
                                                     <tr>
                                                         <th>时间段内销售数量:</th>
@@ -355,11 +389,10 @@
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 <%--===============select2 模糊匹配=======--%>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".js-example-basic-single").select2();
     });
 </script>
-
 
 
 <script type="text/javascript">
@@ -472,9 +505,10 @@
         var starttime = document.getElementById('beginTime').value;
         var endtime = document.getElementById('endTime').value;
         console.log("打印 查询条件 ---生产商的订单表 " + saleTablename);
-        if(starttime=='' || endtime == ''){
+        var int = self.setInterval("refresh()", 300000);
+        if (starttime == '' || endtime == '') {
             confirm("请选择具体时间，加快查询效率");
-        }else {
+        } else {
             $(document).ready(function () {
                 var tables = $('#list').DataTable({
                     ajax: {
@@ -528,9 +562,10 @@
                             }
                         },
                         {data: "goodsName"},
-                        {data: "price",
+                        {
+                            data: "price",
                             "render": function (data, type, full, meta) {
-                                    return '<i class="fa fa-jpy"></i>'+data; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<i class="fa fa-jpy"></i>' + data; //这里是主题  把url变成超链接、把图片路径显示为图片
                             }
                         },
 

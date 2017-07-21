@@ -197,14 +197,12 @@
                                     <div class="alert alert-success">
                                         <ul class="margin-bottom-none padding-left-lg">
                                             <li>词穷</li>
-                                            <li>词穷</li>
                                         </ul>
 
                                     </div>
 
                                     <div class="alert alert-warning">
                                         <h4><i class="fa fa-warning"></i>警告！</h4>词穷
-
                                         <a href="https://adblockplus.org/en/bugs" class="alert-link">词穷</a>
                                             词穷
                                     </div>

@@ -17,7 +17,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>售货机故障统计</title>
+    <title>生产商售货机现金统计</title>
 
     <link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>
     <!-- Bootstrap -->
@@ -117,7 +117,7 @@
                 <div class="page-title">
                     <div class="title_left">
                         <h3>
-                            <small>故障清单</small>
+                            <small>现金清单</small>
                         </h3>
                     </div>
 
@@ -133,7 +133,7 @@
                     <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>故障清单业务
+                                <h2>现金清单业务
                                     <small>1.统计 2.打印</small>
                                 </h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -149,7 +149,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 invoice-header">
                                             <h1>
-                                                <i class="fa fa-globe"></i> 故障清单
+                                                <i class="fa fa-globe"></i> 现金清单
                                                 <small id="logInfo" class="pull-right">
                                                 </small>
                                             </h1>
@@ -172,6 +172,7 @@
                                         <div class="col-sm-4 invoice-col">
                                             <address>
                                                 <strong>售货机详情：</strong>
+
 
 
                                                 <select id="vendorname" name="vendorName"
@@ -222,29 +223,15 @@
                                             <table id="list" class="table table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>故障编号</th>
-                                                    <th style="width: 10%">报警时间</th>
+                                                    <th style="width: 40%">创建时间</th>
                                                     <th style="width: 20%">售货机名称</th>
-
-                                                    <th style="width: 40%">故障详情描述</th>
-                                                    <th>是否确认</th>
-                                                    <th>确认时间</th>
-
-                                                    <th>确认故障原因</th>
-                                                    <th>维修员</th>
-                                                    <th class="text-center">售货机权限操作</th>
+                                                    <th>货币</th>
+                                                    <th>状态</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>0</td>
-
-                                                <td>0</td>
+                                                <td style="width: 40%">0</td>
+                                                <td style="width: 20%">0</td>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 </tbody>
@@ -271,30 +258,30 @@
                                         </div>
                                         <!-- /.col -->
                                         <div class="col-xs-6">
-                                            <p class="lead" id="logInfo1"> 查询时间 :</p>
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <tbody>
-                                                    <tr>
-                                                        <th style="width:50%">啊啊啊:</th>
-                                                        <td>￥00.00</td>
+                                        <p class="lead" id="logInfo1"> 查询时间 :</p>
+                                        <div class="table-responsive">
+                                        <table class="table">
+                                        <tbody>
+                                        <tr>
+                                        <th style="width:50%">时间段内本机纸币:</th>
+                                        <td>￥00.00</td>
 
-                                                    </tr>
-                                                    <tr>
-                                                        <th>时间段故障次数：</th>
-                                                        <td>￥00.00</td>
-                                                    </tr>
-                                                    <%--<tr>--%>
-                                                    <%--<th>时间段内本机找零:</th>--%>
-                                                    <%--<td>￥00.00</td>--%>
-                                                    <%--</tr>--%>
-                                                    <%--<tr>--%>
-                                                    <%--<th>时间段内收入金额:</th>--%>
-                                                    <%--<td>￥00.00</td>--%>
-                                                    <%--</tr>--%>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        </tr>
+                                        <tr>
+                                        <th>时间段内本机硬币：</th>
+                                        <td>￥00.00</td>
+                                        </tr>
+                                        <tr>
+                                        <th>时间段内本机找零:</th>
+                                        <td>￥00.00</td>
+                                        </tr>
+                                        <tr>
+                                        <th>时间段内收入金额:</th>
+                                        <td>￥00.00</td>
+                                        </tr>
+                                        </tbody>
+                                        </table>
+                                        </div>
                                         </div>
                                         <!-- /.col -->
                                     </div>
@@ -468,10 +455,10 @@
         var vendorname = $(":selected", "#vendorname").val();
         var fantoryid = ${userMess.factoryId};
 
-        var alarmTablename = "alarm_" + fantoryid;
+        var cashTablename = "cash_" + fantoryid;
         var starttime = document.getElementById('beginTime').value;
         var endtime = document.getElementById('endTime').value;
-        console.log("打印 查询条件 ---生产商的订单表 " + alarmTablename);
+        console.log("打印 查询条件 ---生产商的订单表 " + cashTablename);
 //        var int=self.setInterval("refresh()",300000);
         if (starttime == '' || endtime == '') {
             confirm("请选择具体时间，加快查询效率");
@@ -479,11 +466,11 @@
             $(document).ready(function () {
                 var tables = $('#list').DataTable({
                     ajax: {
-                        url: "<%=request.getContextPath()%>/alarmAction/shengAlarmName",
+                        url: "<%=request.getContextPath()%>/cashAction/shengCashName",
                         type: "POST",
 //dataSrc : "list",//这个参数是自己封装的json里面的key
                         data: {
-                            alarmTableName: alarmTablename,
+                            cashTableName: cashTablename,
                             vendorName: vendorname,
                             creatTime: starttime,
                             endTime: endtime
@@ -509,49 +496,51 @@
                     destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
                     deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                     columns: [
-
-                        {data: "alarmId"},
+                        {data: "vendorName"},
                         {
-                            data: "occurTime",
+                            data: "time",
                             "render": function (data, type, full, meta) {
                                 var dataStr = Date.parse(data);
                                 return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
                             }
                         },
-                        {data: "vendorName"},
 
-                        {data: "description"},
-                        {
-                            data: "acked",
+                        {data: "money",
+                            "render": function (data, type, full, meta) {
+                                return '<span class="badge badge-success">#' + data + '</span>'
+                            }
+                        },
+                        {data: "transBorder",
                             "render": function (data, type, full, meta) {
                                 if (data == 0) {
-                                    return '<span class="badge badge-danger">未确认</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                                } else {
-                                    return '<span class="badge badge-danger">已确认</span>';
+                                    return '<span class="badge badge-danger">收</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                } else if (data == 1) {
+                                    return '<span class="badge badge-danger">找零</span>';//这里是主题  把url变成超链接、把图片路径显示为图片
+                                } else if (data == 2) {
+                                    return '<span class="badge badge-danger">吐</span>';
+                                } else if (data == 4) {
+                                    return '<span class="badge badge-danger">未知</span>';
                                 }
-                            }
-                        },
-                        {
-                            data: "ackTime",
-                            "render": function (data, type, full, meta) {
-                                var dataStr = Date.parse(data);
-                                return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-                            }
-                        },
-                        {data: "reason"},
-                        {data: "ackUser"},
-                        {data: null},
+                                else if (data == 5) {
+                                    return '<span class="badge badge-danger">纸币</span>';
+                                }
+                                else if (data == 7) {
+                                    return '<span class="badge badge-danger">硬币</span>';
+                                } else {
+                                    return '<span class="badge badge-danger">无效状态</span>';
+                                }
+                            }}
                     ],
-                columnDefs: [{
-                    "targets": 8,//编辑
-                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>确认</button>"
-                }],
+//                columnDefs: [{
+//                    "targets": 10,//编辑
+//                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
+//                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
+//                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待定</button>"
+//                }],
                     "createdRow": function (row, data, dataIndex) {//行回调
 //每加载完一行的回调函数
-                        $('td', row).eq(3).css("color", "red");//获取到具体行具体格的元素
-//                        $('td', row).eq(7).css("color", "red");//获取到具体行具体格的元素
+                        $('td', row).eq(0).css("color", "green");//获取到具体行具体格的元素
+                        $('td', row).eq(1).css("color", "red");//获取到具体行具体格的元素
                         return row;
                     }
                 });

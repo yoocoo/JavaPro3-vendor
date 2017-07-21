@@ -18,11 +18,40 @@
     alarm_id, vendor_id, channel_id, occur_time, ack_time, alarm_code, description, acked, 
     reason, ack_user, event_id
   </sql>
+  <!--业务逻辑实现-->
+  <!--1.1.1  (生产商角色、、、） 查看 指定  时间段 和 指定售货机 的 警告表 列表-->
+  <select id="getAllShengAlarmName" resultMap="AlarmBaseDaoResultMap" parameterType="cn.wj.domain.AlarmBase">
+    SELECT
+    a.alarm_id, a.vendor_id, a.channel_id, a.occur_time, a.ack_time, a.alarm_code, a.description, a.acked,
+    a.reason, a.ack_user, a.event_id,
+    v.vendor_name
+    FROM ${tableName} a
+    LEFT JOIN vendor v
+    ON a.vendor_id= v.vendor_id
+    WHERE v.vendor_name=#{vendorName}
+    AND a.time &gt;= #{startTime}
+    AND a.time &lt;=#{endTime}
+
+  </select>
+
+  <!--1.1.2 （生产商角色、、、、） 查看 指定  时间段 和 指定售货机 的  警告表总记录数 列表-->
+  <select id="getShengAlarmCountName" resultType="int" parameterType="cn.wj.domain.AlarmBase">
+    SELECT COUNT(*)
+    FROM ${tableName} a
+    LEFT JOIN vendor v
+    ON a.vendor_id= v.vendor_id
+    WHERE
+    v.vendor_name=#{vendorName}
+    AND a.time &gt;= #{startTime}
+    AND a.time &lt;=#{endTime}
+
+  </select>
+
 
 
 
   <!--===========================自动成成======================================-->
-  <!--<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >-->
+  <!--<select id="selectByPrimaryKey" resultMap="AlarmBaseDaoResultMap" parameterType="java.lang.Integer" >-->
     <!--select -->
     <!--<include refid="AlarmBaseDao_Column_List" />-->
     <!--from alarm_base-->

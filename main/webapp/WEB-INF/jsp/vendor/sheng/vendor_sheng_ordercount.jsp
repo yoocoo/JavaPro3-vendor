@@ -118,23 +118,33 @@
                                         <input type="hidden" name="endTime" class="to" id="endTime" value="">
                                     </div>
 
-                                <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
-                                <%--</div>--%>
-                                    <select id="vendorname" name="vendorName" class="col-sm-4 form-control js-example-basic-single "
+                                    <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
+                                    <%--</div>--%>
+                                    <select id="vendorname" name="vendorName"
+                                            class="col-sm-4 form-control js-example-basic-single "
                                     <%--class="select2_single form-control"--%>
                                             style="background: #fff; font-size:13px;
                                                         margin-left:5px;cursor: pointer;
                                                          padding: 5px 10px; border: 1px solid #ccc"
-                                            tabindex="-1" > <i class="fa fa-empire"></i>
+                                            tabindex="-1"> <i class="fa fa-empire"></i>
 
-                                        <c:forEach items="${sVnameList}" var="slist">
-                                            <option value="${slist.vendorName}">${slist.vendorName} </option>
-                                        </c:forEach>
+                                        <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
+
+                                            <c:forEach items="${sVnameList}" var="slist">
+                                                <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                            </c:forEach>
+                                        </c:if>
+                                        <c:if test="${userMess.roleId ==3||userMess.roleId ==4||userMess.roleId ==5}">
+                                            <c:forEach items="${yVnameList}" var="ylist">
+                                                <option value="${ylist.vendorName}">${ylist.vendorName} </option>
+                                            </c:forEach>
+                                        </c:if>
                                     </select>
-                                    <button type="submit" id="count" class="btn-sm btn-success" onclick="webNameCount();">
+                                    <button type="button" id="count" class="btn-sm btn-success"
+                                            onclick="webNameCount();">
                                         搜索
                                     </button>
-                                    </div>
+                                </div>
                             </div>
                             <div class="x_content">
                                 <input type="hidden" id="factoryid" name="factoryId"
@@ -160,6 +170,18 @@
 
                                     </tr>
                                     </thead>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+
+                                    <td>0</td>
+                                    <td>0</td>
                                     <tbody>
 
                                     </tbody>
@@ -238,164 +260,29 @@
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
     <%--===============select2 模糊匹配=======--%>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $(".js-example-basic-single").select2();
         });
     </script>
     <script type="text/javascript">
-        var fantoryid = ${userMess.factoryId};
-        var orderTablename = "order_" + fantoryid;
-        console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
-        $(document).ready(function () {
-            var tables = $('#list').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'copy',
-                        text: '复制数据 <i class="glyphicon glyphicon-copy"> </i>',
-                        className: 'btn bg-green',
-                        key: {
-                            key: 'c',
-                            altKey: true
-                        }
-                    }, {
-                        extend: 'csv',
-                        text: '下载CSV <i class="fa fa-cloud-download"> </i>',
-                        className: 'btn bg-olive'
-                    }, {
-                        extend: 'excel',
-                        text: '下载Excel <i class="fa fa-cloud-download"> </i>',
-                        className: 'btn bg-green'
-                    },
-                    {
-                        extend: 'print',
-                        text: '<i class="fa fa-table"> </i> 打印表格',
-                        className: 'btn bg-olive'
-                    }],
-                ajax: {
-                    url: "<%=request.getContextPath()%>/orderAction/shengOrder",
-                    type: "POST",
-//dataSrc : "list",//这个参数是自己封装的json里面的key
-                    data: {
-                        orderTableName: orderTablename,
-//args1: "我是固定传参的值，在服务器接收参数[args1]"
-                    }
-                },
-                serverSide: true,//开启服务器模式:启用服务器分页
-                lengthChange: false,//是否允许用户改变表格每页显示的记录数
-                ordering: false,//是否允许用户排序
-                paging: true,//是否分页
-//            pagingType: "full_numbers",//首页，上一页、中间数字下一页、尾页四个按钮还有页数按钮
-                pagingType: "simple_numbers",//上一页、中间数字下一页、四个按钮还有页数按钮
-                processing: true,//是否显示处理状态
-                scrollX: false,//允许水平滚动
-//          scrollY: "200px",
-//          scrollCollapse: true,
-                searching: false,//是否开始本地搜索
-                bStateSave: true,//配置好这个,刷新页面会让页面停留在之前的页码
-                stateSave: true,//刷新时是否保存状态
-//          autoWidth: true,//自动计算宽度
-//            retrieve:true,//检索已存在的Datatables实例(retrieve)
-                destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
-                deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
-                columns: [
-                    {
-                        data: "createTime",
-                        "render": function (data, type, full, meta) {
-                            var dataStr = Date.parse(data);
-                            return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-                        }
-                    },
-                    {data: "orderId"},
-                    {data: "vendorName"},
-                    {
-                        data: "channel",
-                        "render": function (data, type, full, meta) {
-                            return '<span class="badge badge-success">#' + data + '</span>'
-                        }
-                    },
 
-                    {
-                        data: "paidTime",
-                        "render": function (data, type, full, meta) {
-                            var dataStr = Date.parse(data);
-//                            2001-01-01 00:00:00
-                            var newDate =new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-                            if(newDate == '2001-01-01 00:00:00'){
-                                return'<span class="badge badge-success">无效时间</span>';
-                            }else {
-                                return newDate;
-                            }
-                        }
-                    },
-                    {data: "price"},
-                    {data: "paidMoney"},
-                    {
-                        data: "paidSource",
-                        "render": function (data, type, full, meta) {
-                            if (data == 1) {
-                                return '<span class="badge badge-danger">支付宝</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            } else if (data = 2) {
-                                return '<span class="badge badge-success">微信</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            } else {
-                                return '<span class="badge badge-success">其他</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            }
-                        }
-                    },
 
-                    {
-                        data: "status",
-                        "render": function (data, type, full, meta) {
-                            if (data == 1) {
-                                return '<span class="badge badge-danger">支付成功</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            } else if (data == 0) {
-                                return '<span class="badge badge-success">支付失败</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            } else {
-                                return '<span class="badge badge-success">未知状态</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            }
-                        }
-                    },
-                    {
-                        data: "discount",
-                        "render": function (data, type, full, meta) {
-                            if (data == 0) {
-                                return '<span class="label label-info">无优惠</span>'
-                            }
-                        }
-                    },
-                    {data: null}
-
-                ],
-                columnDefs: [{
-                    "targets": 10,//编辑
-                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待定</button>"
-                }],
-                "createdRow": function (row, data, dataIndex) {
-                    //每加载完一行的回调函数
-                    $('td', row).eq(5).css("color", "green");//获取到具体行具体格的元素
-                    $('td', row).eq(6).css("color", "red");//获取到具体行具体格的元素
-                    return row;
-                }
-            });
-//========================================日期格式化=============================
-            Date.prototype.Format = function (fmt) { //author: meizz
-                var o = {
-                    "M+": this.getMonth() + 1, //月份
-                    "d+": this.getDate(), //日
-                    "h+": this.getHours(), //小时
-                    "m+": this.getMinutes(), //分
-                    "s+": this.getSeconds(), //秒
-                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-                    "S": this.getMilliseconds() //毫秒
-                };
-                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-                for (var k in o)
-                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                return fmt;
-            }
-        });
+        //========================================日期格式化=============================
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
         $(document).ready(function () {
             //时间插件
             $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD HH:mm:ss') + ' - ' + moment().format('YYYY-MM-DD HH:mm:ss'));
@@ -426,7 +313,7 @@
                     buttonClasses: ['btn btn-default'],
                     applyClass: 'btn-small btn-primary blue',
                     cancelClass: 'btn-small',
-                    format : 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
 //                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
                     separator: ' to ',
                     locale: {
@@ -441,20 +328,20 @@
                         firstDay: 1
                     }
                 },
-                function(start, end, label) {//格式化日期显示框,就是给你选中的值 填进去表单里去
+                function (start, end, label) {//格式化日期显示框,就是给你选中的值 填进去表单里去
                     $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' - ' + end.format('YYYY-MM-DD HH:mm:ss'));
-                    console.log("您 选 择 的 时 间 为: "+ start.format('YYYY-MM-DD HH:mm:ss') + ' to ' + end.format('YYYY-MM-DD HH:mm:ss') + ' (predefined range: ' + label + ')');
+                    console.log("您 选 择 的 时 间 为: " + start.format('YYYY-MM-DD HH:mm:ss') + ' to ' + end.format('YYYY-MM-DD HH:mm:ss') + ' (predefined range: ' + label + ')');
                     var startTime = start.format('YYYY-MM-DD HH:mm:ss');
                     var endTime = end.format('YYYY-MM-DD HH:mm:ss');
-                    console.log("自定义时间选择器startTime"+startTime);
-                    console.log("自定义时间选择器endTime"+ endTime);
+                    console.log("自定义时间选择器startTime" + startTime);
+                    console.log("自定义时间选择器endTime" + endTime);
 
 //
-                    document.getElementById('beginTime').value=startTime;
-                    document.getElementById('endTime').value=endTime;
-                    console.log("时间选择器中赋值的开始时间"+document.getElementById('beginTime').value);
-                    console.log("时间选择器中赋值的开始时间"+ document.getElementById('endTime').value);
-                    alert("您选择的时间是为"+ start.format('YYYY-MM-DD HH:mm:ss') + "~" + end.format('YYYY-MM-DD HH:mm:ss') + ' (时间选择类型: ' + label + ')');
+                    document.getElementById('beginTime').value = startTime;
+                    document.getElementById('endTime').value = endTime;
+                    console.log("时间选择器中赋值的开始时间" + document.getElementById('beginTime').value);
+                    console.log("时间选择器中赋值的开始时间" + document.getElementById('endTime').value);
+                    alert("您选择的时间是为" + start.format('YYYY-MM-DD HH:mm:ss') + "~" + end.format('YYYY-MM-DD HH:mm:ss') + ' (时间选择类型: ' + label + ')');
                 });
             //设置日期菜单被选项 --开始--
             var dateOption;
@@ -480,21 +367,12 @@
                 }
             });
         });
-
-        function webNameCount() {
-            //获取得到要查询  生产商家的 订单表名 传到后台 进行筛查
-            var vendorname = $(":selected", "#vendorname").val();
-            var fantoryid = ${userMess.factoryId};
-            var orderTablename = "order_" + fantoryid;
-            var starttime=  document.getElementById('beginTime').value;
-            var endtime = document.getElementById('endTime').value;
-            if(starttime=='' || endtime == ''){
-                confirm("请选择具体时间，加快查询效率");
-            }else {
-//            alert("能否传递 选中的开始时间："+starttime);
-//            alert("能否传递 选中的开始时间："+endtime);
-            console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
-
+        //===================================================================
+        var fantoryid = ${userMess.factoryId};
+        var orderTablename = "order_" + fantoryid;
+        console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
+        var roid =${userMess.roleId};
+        if (roid == 6) {
             $(document).ready(function () {
                 var tables = $('#list').DataTable({
                     dom: 'Bfrtip',
@@ -522,14 +400,11 @@
                             className: 'btn bg-olive'
                         }],
                     ajax: {
-                        url: "<%=request.getContextPath()%>/orderAction/shengOrderName",
+                        url: "<%=request.getContextPath()%>/orderAction/shengOrder",
                         type: "POST",
 //dataSrc : "list",//这个参数是自己封装的json里面的key
                         data: {
                             orderTableName: orderTablename,
-                            vendorName: vendorname,
-                            creatTime:starttime,
-                            endTime:endtime
 //args1: "我是固定传参的值，在服务器接收参数[args1]"
                         }
                     },
@@ -572,18 +447,13 @@
                             "render": function (data, type, full, meta) {
                                 var dataStr = Date.parse(data);
 //                            2001-01-01 00:00:00
-                                var newDate =new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-                                if(newDate == '2001-01-01 00:00:00'){
-                                    return'<span class="badge badge-success">无效时间</span>';
-                                }else {
+                                var newDate = new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                                if (newDate == '2001-01-01 00:00:00') {
+                                    return '<span class="badge badge-success">无效时间</span>';
+                                } else {
                                     return newDate;
                                 }
                             }
-//
-//                            "render": function (data, type, full, meta) {
-//                                var dataStr = Date.parse(data);
-//                                return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-//                            }
                         },
                         {data: "price"},
                         {data: "paidMoney"},
@@ -629,7 +499,7 @@
                         "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
                         "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待定</button>"
                     }],
-                    "createdRow": function (row, data, dataIndex) {//行回调
+                    "createdRow": function (row, data, dataIndex) {
                         //每加载完一行的回调函数
                         $('td', row).eq(5).css("color", "green");//获取到具体行具体格的元素
                         $('td', row).eq(6).css("color", "red");//获取到具体行具体格的元素
@@ -637,11 +507,170 @@
                     }
                 });
             });
+
         }
-        }
+            function webNameCount(){
+                //获取得到要查询  生产商家的 订单表名 传到后台 进行筛查
+                var vendorname = $(":selected", "#vendorname").val();
+                var fantoryid = ${userMess.factoryId};
+                var orderTablename = "order_" + fantoryid;
+                var starttime = document.getElementById('beginTime').value;
+                var endtime = document.getElementById('endTime').value;
+                if (starttime == '' || endtime == '') {
+                    confirm("请选择具体时间，加快查询效率");
+                } else {
+//            alert("能否传递 选中的开始时间："+starttime);
+//            alert("能否传递 选中的开始时间："+endtime);
+                    console.log("打印 查询条件 ---生产商的订单表 " + orderTablename);
+
+                    $(document).ready(function () {
+                        var tables = $('#list').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'copy',
+                                    text: '复制数据 <i class="glyphicon glyphicon-copy"> </i>',
+                                    className: 'btn bg-green',
+                                    key: {
+                                        key: 'c',
+                                        altKey: true
+                                    }
+                                }, {
+                                    extend: 'csv',
+                                    text: '下载CSV <i class="fa fa-cloud-download"> </i>',
+                                    className: 'btn bg-olive'
+                                }, {
+                                    extend: 'excel',
+                                    text: '下载Excel <i class="fa fa-cloud-download"> </i>',
+                                    className: 'btn bg-green'
+                                },
+                                {
+                                    extend: 'print',
+                                    text: '<i class="fa fa-table"> </i> 打印表格',
+                                    className: 'btn bg-olive'
+                                }],
+                            ajax: {
+                                url: "<%=request.getContextPath()%>/orderAction/shengOrderName",
+                                type: "POST",
+//dataSrc : "list",//这个参数是自己封装的json里面的key
+                                data: {
+                                    orderTableName: orderTablename,
+                                    vendorName: vendorname,
+                                    creatTime: starttime,
+                                    endTime: endtime
+//args1: "我是固定传参的值，在服务器接收参数[args1]"
+                                }
+                            },
+                            serverSide: true,//开启服务器模式:启用服务器分页
+                            lengthChange: false,//是否允许用户改变表格每页显示的记录数
+                            ordering: false,//是否允许用户排序
+                            paging: true,//是否分页
+//            pagingType: "full_numbers",//首页，上一页、中间数字下一页、尾页四个按钮还有页数按钮
+                            pagingType: "simple_numbers",//上一页、中间数字下一页、四个按钮还有页数按钮
+                            processing: true,//是否显示处理状态
+                            scrollX: false,//允许水平滚动
+//          scrollY: "200px",
+//          scrollCollapse: true,
+                            searching: false,//是否开始本地搜索
+                            bStateSave: true,//配置好这个,刷新页面会让页面停留在之前的页码
+                            stateSave: true,//刷新时是否保存状态
+//          autoWidth: true,//自动计算宽度
+//            retrieve:true,//检索已存在的Datatables实例(retrieve)
+                            destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
+                            deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
+                            columns: [
+                                {
+                                    data: "createTime",
+                                    "render": function (data, type, full, meta) {
+                                        var dataStr = Date.parse(data);
+                                        return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                                    }
+                                },
+                                {data: "orderId"},
+                                {data: "vendorName"},
+                                {
+                                    data: "channel",
+                                    "render": function (data, type, full, meta) {
+                                        return '<span class="badge badge-success">#' + data + '</span>'
+                                    }
+                                },
+
+                                {
+                                    data: "paidTime",
+                                    "render": function (data, type, full, meta) {
+                                        var dataStr = Date.parse(data);
+//                            2001-01-01 00:00:00
+                                        var newDate = new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                                        if (newDate == '2001-01-01 00:00:00') {
+                                            return '<span class="badge badge-success">无效时间</span>';
+                                        } else {
+                                            return newDate;
+                                        }
+                                    }
+//
+//                            "render": function (data, type, full, meta) {
+//                                var dataStr = Date.parse(data);
+//                                return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+//                            }
+                                },
+                                {data: "price"},
+                                {data: "paidMoney"},
+                                {
+                                    data: "paidSource",
+                                    "render": function (data, type, full, meta) {
+                                        if (data == 1) {
+                                            return '<span class="badge badge-danger">支付宝</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        } else if (data = 2) {
+                                            return '<span class="badge badge-success">微信</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        } else {
+                                            return '<span class="badge badge-success">其他</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        }
+                                    }
+                                },
+
+                                {
+                                    data: "status",
+                                    "render": function (data, type, full, meta) {
+                                        if (data == 1) {
+                                            return '<span class="badge badge-danger">支付成功</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        } else if (data == 0) {
+                                            return '<span class="badge badge-success">支付失败</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        } else {
+                                            return '<span class="badge badge-success">未知状态</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                        }
+                                    }
+                                },
+                                {
+                                    data: "discount",
+                                    "render": function (data, type, full, meta) {
+                                        if (data == 0) {
+                                            return '<span class="label label-info">无优惠</span>'
+                                        }
+                                    }
+                                },
+                                {data: null}
+
+                            ],
+                            columnDefs: [{
+                                "targets": 10,//编辑
+                                "data": null,//下面这行，添加了编辑按钮和，删除按钮
+                                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i>查看</button>" +
+                                "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待定</button>"
+                            }],
+                            "createdRow": function (row, data, dataIndex) {//行回调
+                                //每加载完一行的回调函数
+                                $('td', row).eq(5).css("color", "green");//获取到具体行具体格的元素
+                                $('td', row).eq(6).css("color", "red");//获取到具体行具体格的元素
+                                return row;
+                            }
+                        });
+                    });
+                }
+            }
+
+
+
     </script>
-
-
 
 
 </body>
