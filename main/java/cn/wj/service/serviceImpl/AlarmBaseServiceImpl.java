@@ -21,11 +21,30 @@ public class AlarmBaseServiceImpl implements AlarmBaseService {
 	@Autowired
 	private AlarmBaseDao alarmBaseDao;
 
+	/**
+	 * 1.1.1 (生产商角色、运营商角色、出租商、贸易商） 条件查询下：警告表列表
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 * @throws Exception
+	 */
 	public List<AlarmBase> getAllShengAlarmName(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime, @Param("pageNum") int pageNum, @Param("pageSize") int pageSize) throws Exception {
 		List<AlarmBase> saList = alarmBaseDao.getAllShengAlarmName(tableName, vendorName, startTime, endTime, 1, 10);
 		return saList;
 	}
 
+	/**
+	 * 1.1.2 (生产商角色、运营商角色、出租商、贸易商） 条件查询下：警告表记录数
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
 	public int getShengAlarmCountName(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime) {
 		return alarmBaseDao.getShengAlarmCountName(tableName, vendorName, startTime, endTime);
 	}

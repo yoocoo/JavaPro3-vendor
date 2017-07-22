@@ -13,10 +13,11 @@ import java.util.List;
  * 时间： 2017 年 07 月 18 日
  * 说明：  两角色的 订单表查询 （订单表意义：）
  * 作者： 王娇
+ * 一更： 2017  年 07 月 21
  */
 public interface OrderBaseDao extends Dao<OrderBase> {
 
-	//1.1.1 生产商管理员，查看订单表详情
+	//1.1.1 (生产商角色、运营商角色、出租商、贸易商），查看订单表详情
 	List<OrderBase> getAllShengOrder(@Param("tableName") String tableName,
 									 @Param("pageNum") int pageNum,
 									 @Param("pageSize") int pageSize);

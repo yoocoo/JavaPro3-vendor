@@ -224,10 +224,10 @@
                                                 <tr>
                                                     <th>故障编号</th>
                                                     <th style="width: 10%">报警时间</th>
-                                                    <th style="width: 20%">售货机名称</th>
+                                                    <th style="width: 10%">售货机名称</th>
 
-                                                    <th style="width: 40%">故障详情描述</th>
-                                                    <th>是否确认</th>
+                                                    <th style="width: 20%">故障详情描述</th>
+                                                    <th style="width: 10%">是否确认</th>
                                                     <th>确认时间</th>
 
                                                     <th>确认故障原因</th>

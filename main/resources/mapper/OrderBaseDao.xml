@@ -22,7 +22,7 @@
     order_id, sale_id, vendor_id, cube_partner_id, price, create_time, paid_time, paid_money,
     paid_source, status, pay_url, discount, refound, cube_create_result, channel
   </sql>
-    <!--1.1.1 生产商管理员，查看订单表详情-->
+    <!--1.1.1  (生产商角色、出租商、贸易商）查看订单表详情-->
     <select id="getAllShengOrder" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
     SELECT   o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
     o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
@@ -30,13 +30,13 @@
     LEFT JOIN vendor v
     ON  o.vendor_id= v.vendor_id
   </select>
-    <!--1.1.2 生产商管理员，查看订单表总记录数-->
+    <!--1.1.2  (生产商角色、出租商、贸易商），查看订单表总记录数-->
     <select id="getShengOrderCount" resultType="int" parameterType="cn.wj.domain.OrderBase">
         <!--<select id="getShengOrderCount" resultMap="OrderBaseResultMap"  parameterType="cn.wj.domain.OrderBase">-->
         SELECT COUNT(*)
         FROM ${tableName}
     </select>
-    <!--2.1.1 生产商管理员，查看订单表详情 双条件：按 选择售货机名称段查询-->
+    <!--2.1.1  (生产商角色、运营商角色、出租商、贸易商），查看订单表详情 双条件：按 选择售货机名称段查询-->
     <select id="getAllShengOrderName" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
         SELECT o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
         o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
@@ -54,7 +54,7 @@
         <!--</where>-->
     </select>
     <!--<if test="startTime!=null and startTime!='' ">    <if test="endTime!=null and endTime!=''">-->
-    <!--2.1.2 生产商管理员，查看订单表总记录数 双条件：按选择售货机名称段查询 -->
+    <!--2.1.2  (生产商角色、运营商角色、出租商、贸易商），查看订单表总记录数 双条件：按选择售货机名称段查询 -->
     <select id="getShengOrderCountName" resultType="int" parameterType="cn.wj.domain.OrderBase">
         SELECT COUNT(*)
         FROM ${tableName} o

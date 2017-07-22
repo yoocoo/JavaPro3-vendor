@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface AlarmBaseService extends BaseService<AlarmBase>{
 
-	// 1.1.1  生产商角色 查看 指定  时间段 和 指定售货机 的 故障 列表
+	// 1.1.1  (生产商角色、运营商角色、出租商、贸易商） 查看 指定  时间段 和 指定售货机 的 故障 列表
 	List<AlarmBase> getAllShengAlarmName(@Param("tableName") String tableName,
 										 @Param("vendorName") String vendorName,
 										 @Param("startTime") Timestamp startTime,
@@ -21,7 +21,7 @@ public interface AlarmBaseService extends BaseService<AlarmBase>{
 										 @Param("pageNum") int pageNum,
 										 @Param("pageSize") int pageSize)throws Exception;
 
-	//1.1.2 生产商角色 查看 指定  时间段 和 指定售货机 的  故障表总记录数 列表
+	//1.1.2 (生产商角色、运营商角色、出租商、贸易商） 查看 指定  时间段 和 指定售货机 的  故障表总记录数 列表
 	int getShengAlarmCountName(@Param("tableName") String tableName,
 							   @Param("vendorName") String vendorName,
 							   @Param("startTime") Timestamp startTime,

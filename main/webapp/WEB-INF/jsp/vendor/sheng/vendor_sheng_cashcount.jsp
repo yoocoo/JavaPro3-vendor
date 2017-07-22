@@ -496,7 +496,6 @@
                     destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
                     deferRender: true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                     columns: [
-                        {data: "vendorName"},
                         {
                             data: "time",
                             "render": function (data, type, full, meta) {
@@ -504,6 +503,7 @@
                                 return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
                             }
                         },
+                        {data: "vendorName"},
 
                         {data: "money",
                             "render": function (data, type, full, meta) {

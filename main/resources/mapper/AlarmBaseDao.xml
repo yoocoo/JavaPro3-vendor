@@ -19,7 +19,7 @@
     reason, ack_user, event_id
   </sql>
   <!--业务逻辑实现-->
-  <!--1.1.1  (生产商角色、、、） 查看 指定  时间段 和 指定售货机 的 警告表 列表-->
+  <!--1.1.1   (生产商角色、运营商角色、出租商、贸易商） 查看 指定  时间段 和 指定售货机 的 警告表 列表-->
   <select id="getAllShengAlarmName" resultMap="AlarmBaseDaoResultMap" parameterType="cn.wj.domain.AlarmBase">
     SELECT
     a.alarm_id, a.vendor_id, a.channel_id, a.occur_time, a.ack_time, a.alarm_code, a.description, a.acked,
@@ -29,12 +29,12 @@
     LEFT JOIN vendor v
     ON a.vendor_id= v.vendor_id
     WHERE v.vendor_name=#{vendorName}
-    AND a.time &gt;= #{startTime}
-    AND a.time &lt;=#{endTime}
+    AND a.occur_time &gt;= #{startTime}
+    AND a.occur_time &lt;=#{endTime}
 
   </select>
 
-  <!--1.1.2 （生产商角色、、、、） 查看 指定  时间段 和 指定售货机 的  警告表总记录数 列表-->
+  <!--1.1.2  (生产商角色、运营商角色、出租商、贸易商） 查看 指定  时间段 和 指定售货机 的  警告表总记录数 列表-->
   <select id="getShengAlarmCountName" resultType="int" parameterType="cn.wj.domain.AlarmBase">
     SELECT COUNT(*)
     FROM ${tableName} a
@@ -42,8 +42,8 @@
     ON a.vendor_id= v.vendor_id
     WHERE
     v.vendor_name=#{vendorName}
-    AND a.time &gt;= #{startTime}
-    AND a.time &lt;=#{endTime}
+    AND a.occur_time &gt;= #{startTime}
+    AND a.occur_time &lt;=#{endTime}
 
   </select>
 

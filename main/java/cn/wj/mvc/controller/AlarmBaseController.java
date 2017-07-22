@@ -29,7 +29,7 @@ import java.util.List;
  * 说明： 售货机-- 现金表 实时数据
  * 作者： 王娇
  * 时间： 2017 年 07 月 20 日
- * 一更时间：  2017 年 07 月 * 日
+ * 一更时间：  2017 年 07 月 21 日
  */
 @Controller
 @RequestMapping("/alarmAction")
@@ -41,6 +41,7 @@ public class AlarmBaseController {
 	private VendorServiceImpl vendorService;//自动载入 售货机表格Service对象
 	private FactoryServiceImpl factoryService;//载入 生产商Service对象
 	private ResponseObj responseObj;
+
 	/**
 	 * 说明：接收 生产商管理员售货机 故障表 接收数据的页面
 	 * 创建日期： 2017 年 07 月 20 日
@@ -54,6 +55,7 @@ public class AlarmBaseController {
 		ModelAndView view = new ModelAndView("vendor/sheng/vendor_sheng_alarmcount");
 		return view;
 	}
+
 	/**
 	 * 时间： 2017 年 7 月  18 日
 	 * 作者： 王娇
@@ -108,8 +110,7 @@ public class AlarmBaseController {
 			e.printStackTrace();
 		}
 
-//============录入数据库中，筛查 统计数值================================
-
+		//============录入数据库中，筛查 统计数值================================
 
 
 		//=======================================================================

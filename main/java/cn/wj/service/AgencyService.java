@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface AgencyService extends BaseService<Agency> {
 	/**
-	 * 查找数据库中用户（注册时查重和登录时判空）
+	 *  1.1 查找数据库中用户（注册时查重和登录时判空）
 	 *
 	 * @param agency
 	 * @return
@@ -18,7 +18,7 @@ public interface AgencyService extends BaseService<Agency> {
 	 */
 	Agency findAgency(Agency agency) throws Exception;
 	/**
-	 * 系统管理员 sysuseradd 添加一条记录到 运营商表格中
+	 *   1.2 系统管理员 sysuseradd 添加一条记录到 运营商表格中
 	 *
 	 * @param agency
 	 * @throws Exception

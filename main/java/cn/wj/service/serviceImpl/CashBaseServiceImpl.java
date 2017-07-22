@@ -23,37 +23,55 @@ public class CashBaseServiceImpl implements CashBaseService {
 @Autowired
 private  CashBaseDao cashBaseDao;//加入事物管理
 
-	public List<CashBase> getAllShengCashName(@Param("tableName") String tableName,
-											  @Param("vendorName") String vendorName,
-											  @Param("startTime") Timestamp startTime,
-											  @Param("endTime") Timestamp endTime,
-											  @Param("pageNum") int pageNum,
-											  @Param("pageSize") int pageSize) throws OtherThingsException {
+	/**
+	 *1.1.1 (生产商角色、运营商角色、出租商、贸易商） 条件查询下现金表 数据
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 * @throws OtherThingsException
+	 */
+	public List<CashBase> getAllShengCashName(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime, @Param("pageNum") int pageNum, @Param("pageSize") int pageSize) throws OtherThingsException {
 		 List<CashBase> sclist = cashBaseDao.getAllShengCashName(tableName, vendorName, startTime, endTime,1,10);
 		return sclist;
 	}
 
-
-	public int getShengCashCountName(@Param("tableName") String tableName,
-									 @Param("vendorName") String vendorName,
-									 @Param("startTime") Timestamp startTime,
-									 @Param("endTime") Timestamp endTime) {
+	/**
+	 *1.1.2  (生产商角色、运营商角色、出租商、贸易商） 条件查询下  现金表的记录数据
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public int getShengCashCountName(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime) {
 		return cashBaseDao.getShengCashCountName(tableName, vendorName, startTime, endTime);
 	}
 
-
-	public BigDecimal getCashInMoney(@Param("tableName") String tableName,
-									 @Param("vendorName") String vendorName,
-									 @Param("startTime") Timestamp startTime,
-									 @Param("endTime") Timestamp endTime) {
+	/**
+	 *
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public BigDecimal getCashInMoney(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime) {
 		return cashBaseDao.getCashInMoney(tableName, vendorName, startTime, endTime);
 	}
 
-
-	public BigDecimal getCashOutMoney(@Param("tableName") String tableName,
-									  @Param("vendorName") String vendorName,
-									  @Param("startTime") Timestamp startTime,
-									  @Param("endTime") Timestamp endTime) {
+	/**
+	 *
+	 * @param tableName
+	 * @param vendorName
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public BigDecimal getCashOutMoney(@Param("tableName") String tableName, @Param("vendorName") String vendorName, @Param("startTime") Timestamp startTime, @Param("endTime") Timestamp endTime) {
 		return cashBaseDao.getCashOutMoney(tableName, vendorName, startTime, endTime);
 	}
 
