@@ -1,8 +1,16 @@
 package cn.wj.domain;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class OrderBase {
+//import java.sql.Date;
+
+/**
+ * 说明： 售货机订单实时数据
+ * 作者： 王娇
+ * 时间： 2017 年 07 月 14 日
+ */
+public class OrderBase implements Serializable {
     private Integer orderId;
 
     private Integer saleId;
@@ -13,9 +21,30 @@ public class OrderBase {
 
     private Integer price;
 
-    private Date creatTime;
-
-    private Date paidTime;
+    //private Date creatTime;
+    //private Date endTime;
+    //private Date paidTime;
+	//
+    //public Date getCreatTime() {
+    //    return creatTime;
+    //}
+	//
+    //public void setCreatTime(Date creatTime) {
+    //    this.creatTime = creatTime;
+    //}
+    //public Date getEndTime() {
+    //    return endTime;
+    //}
+    //public void setEndTime(Date endTime) {
+    //    this.endTime = endTime;
+    //}
+    //public Date getPaidTime() {
+    //    return paidTime;
+    //}
+	//
+    //public void setPaidTime(Date paidTime) {
+    //    this.paidTime = paidTime;
+    //}
 
     private Integer paidMoney;
 
@@ -33,6 +62,41 @@ public class OrderBase {
 
     private Integer channel;
 
+    //================================================
+    private String vendorName;
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    private Timestamp endTime;//作为 条件查询时间段选择的结束时间
+    private Timestamp createTime;// 可作为条件查询时间段选择的开始时间
+    private Timestamp paidTime;
+
+    public void setCreatTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+    public Timestamp getCreatTime() {
+        return createTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+    public void setPaidTime(Timestamp paidTime) {
+        this.paidTime = paidTime;
+    }
+    public Timestamp getPaidTime() {
+        return paidTime;
+    }
+
+    //======================================================
     public Integer getOrderId() {
         return orderId;
     }
@@ -73,21 +137,6 @@ public class OrderBase {
         this.price = price;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
-    }
-
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
-    }
-
-    public Date getPaidTime() {
-        return paidTime;
-    }
-
-    public void setPaidTime(Date paidTime) {
-        this.paidTime = paidTime;
-    }
 
     public Integer getPaidMoney() {
         return paidMoney;

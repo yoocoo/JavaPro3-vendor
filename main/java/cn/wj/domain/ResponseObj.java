@@ -25,8 +25,6 @@ public class ResponseObj<T> {
 		this.allRoleInMenuList = allRoleInMenuList;
 	}
 
-
-
 	public Object getAllmenulist() {
 		return allmenulist;
 	}

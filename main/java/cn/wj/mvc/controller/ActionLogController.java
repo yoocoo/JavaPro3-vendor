@@ -55,38 +55,36 @@ public class ActionLogController {
 	public ModelAndView logMain(HttpServletRequest request, UserActionLog userActionLog) throws Exception {
 		ModelAndView mav = new ModelAndView("user_system/list_action_log");
 
-		mav.addObject("logJson", getLogJson(userActionLog,request,1,10));
+		mav.addObject("logJson", getLogJson(userActionLog, request, 1, 10));
 		//把首页需要的json数据直接扔到 view里面，在js代码中，可以看到如何使用
+
 		return mav;
 	}
-
 
 	/**
 	 * 分页查找行为日志，其实druidd 里面已经包含了行为日志
 	 * 获取日志列表
 	 * 获取日志主页的JSON  按照道理讲这里应该根据页面结构拆分组合的
+	 * 作者自己的写的手动分页，靠上一页和下一页进行数据翻页
 	 *
 	 * @param
 	 * @return 返回日志首页JSON
 	 */
 
-	@RequestMapping(value = "/findLogList"
+	@RequestMapping(value = "/findLogList1"
 			, produces = "application/json;charset=utf-8"
 			//, produces = {APPLICATION_JSON_UTF8_VALUE}
 			//, method = {RequestMethod.GET, RequestMethod.POST}
 	)
-	//设置其访问地址形式：http://xxx.cn/actionLog/findLogList,响应请求头 ContentType表明响应是JSON数九，字符编码 utf8
+	//设置其访问地址形式：http://xxx.cn/actionLog/findLogList,响应请求头 ContentType表明响应是JSON，字符编码 utf8
 	@ResponseBody //表明 该方法直接返回的是响应体的内容
 	public Object getLogJson(UserActionLog userActionLog, HttpServletRequest request,
 							 int pageNum, int pageSize
 							 //@RequestParam(value = "pageNum", defaultValue = "0") Integer pageNum,
 							 //@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
-							  )
+	)
 			throws Exception {
-
-
-		PageSplit page;
-
+		PageSplit page;//判断
 		ResponseList<UserActionLog> list = new ResponseList<UserActionLog>();
 		if (PublicUtil.isJsonRequest(request)) {    //确认是否是post的json提交
 			page = new GsonUtils().jsonRequest2Bean(request.getInputStream(), PageSplit.class);  //转换为指定类型的对象

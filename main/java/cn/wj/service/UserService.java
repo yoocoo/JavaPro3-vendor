@@ -6,9 +6,16 @@ import cn.wj.domain.User;
 import java.util.List;
 
 /**
- * Created by ThinkPad on 2017/4/8.
+ * 说明： 用户管理业务逻辑
+ * 作者： 王娇
+ * 时间： 2017 年 06 月 10 日
  */
 public interface UserService extends BaseService<User> {
+	/**
+	 * 10.1.1 jquery DataTable +PageHelper  服务器端分页
+	 * @return
+	 */
+	int getAllCount();
 	/**
 	 * 2.1 注册普通用户(暂时未用到，注册页面可以套用)
 	 *
@@ -48,6 +55,14 @@ public interface UserService extends BaseService<User> {
 	 * @param accountName
 	 */
 	void updateAgencyId(int agencyId, String accountName) throws Exception;
+
+	/**
+	 * 2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员)
+	 *
+	 * @param user
+	 * @throws Exception
+	 */
+	void sysuseraddYunPei(User user) throws Exception;
 
 	/**
 	 * （暂时未用到） 2.2.2.1-注入运营商归属的factory_id 到user表中  6.13号
@@ -193,9 +208,19 @@ public interface UserService extends BaseService<User> {
 	//List<User> getAllUserList(User user);
 
 	/**
-	 * 	9.2  6.20日 物理分页 处理数据
-	 * 	在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 * 9.2  6.20日 物理分页 处理数据
+	 * 在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 *
 	 * @param userId
 	 */
-	void removeUser(int userId)throws Exception;
+	void removeUser(int userId) throws Exception;
+
+
+	/**
+	 * 9.3 7.7 日 物理分页 处理数据  在用户列表中，审核某个用户（操作：把user表中approve字段设置1）
+	 * 说明：系统管理员：审核 新注册用户
+	 * @param userId
+	 * @throws Exception
+	 */
+	void passUser(int userId) throws Exception;
 }

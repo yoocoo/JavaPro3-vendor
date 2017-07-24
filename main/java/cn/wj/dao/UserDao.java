@@ -23,7 +23,8 @@ import java.util.List;
 
 
 public interface UserDao extends Dao<User> {
-
+	//10.1.1 jquery DataTable +PageHelper  服务器端分页
+	int getAllCount();
 
 	//1.1.1 查找数据库中的用户，查找用户是否存在
 	User findOneById(Serializable Id);
@@ -63,6 +64,9 @@ public interface UserDao extends Dao<User> {
 	//2.3.2 更新用户表中 agencyId
 	int updateAgencyId(@Param("agencyId") int agencyId, @Param("accountName") String accountName);
 
+	//2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员)
+	int sysuseraddYunPei(User user);
+
 	//（暂时未用到）2.1.1.1-注入运营商归属的factory_id 到user表中  6.13号
 	int addAgencyToFactoryId(User user);
 
@@ -95,17 +99,17 @@ public interface UserDao extends Dao<User> {
 	//List<User> getAllUserList(PageObject page);
 	List<User> getAllUserList(User user);
 
-	//9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	//9.2  6.20日  冻结可疑账户在用户列表中，删除某个用户（操作：把user表中approve字段设置为0），说明：系统管理员：冻结 新注册用户
 	int removeUser(@Param("userId") int userId);
+
+	//9.3 7.7 日 审核通过在用户列表中，审核某个用户（操作：把user表中approve字段设置1）,说明：系统管理员：审核 新注册用户
+	int passUser(@Param("userId") int userId);
 
 	//用户 sessionId（暂时未用到）
 	void updateLoginSession(@Param("sessionId") String sessionId, @Param("accountName") String accountName);
 
 	//增加用户sessionId（暂时未用到）
 	void addSessionId(String id);
-
-
-
 
 
 }

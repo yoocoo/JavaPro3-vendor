@@ -17,6 +17,9 @@ import java.util.Map;
 
 /**
  * Created by linjizong on 15/7/20.
+ * 时间： 2017 年 03 月 01 日
+ * 作者： 王娇
+ * 说明： json 各种格式的相互转换的需要调用的方法
  */
 public class GsonUtils {
 
@@ -99,7 +102,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * Json字符串 转为指定对象
+	 * Json 字符串 转为指定对象
 	 *
 	 * @param json json字符串
 	 * @param type 对象类型
@@ -113,7 +116,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * 将jsonStr转换为javaBean
+	 * 将jsonStr 转换为 javaBean
 	 *
 	 * @param object
 	 * @return json string
@@ -123,7 +126,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * 将jsonStr转换为javaBean
+	 * 将jsonStr 转换为 javaBean
 	 *
 	 * @param json
 	 * @param type
@@ -134,7 +137,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * 将jsonStr转换为javaBean
+	 * 将jsonStr 转换为 javaBean
 	 *
 	 * @param json
 	 * @param type
@@ -145,7 +148,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * 将reader转换为javaBean
+	 * 将reader 转换为 javaBean
 	 *
 	 * @param reader
 	 * @param type
@@ -156,7 +159,7 @@ public class GsonUtils {
 	}
 
 	/**
-	 * 将reader转换为javaBean
+	 * 将reader 转换为 javaBean
 	 *
 	 * @param reader
 	 * @param type

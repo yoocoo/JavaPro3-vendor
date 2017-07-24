@@ -52,6 +52,12 @@
             5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
             6.resultType：指定sql输出结果的映射的java对象类型，
             7.select指定resultType表示将单条记录映射成java对象-->
+    <!--10.1.1 jquery DataTable +PageHelper  服务器端分页-->
+    <select id="getAllCount" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+    </select>
+
     <!--1.1.1查找-登录用户，查找用户是否存在-->
 
     <select id="findOneById" resultMap="UserMapperMap" parameterType="String">
@@ -68,7 +74,7 @@
         AND account_name = #{accountNname,jdbcType=VARCHAR}
         ORDER BY user_id
     </select>
-    <!--2.1 （暂时未用到）增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <!--2.1 创建系统管理员 ，增加语句-注册新用户 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="add" parameterType="cn.wj.domain.User">
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS user_id
@@ -77,7 +83,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},'null',11,0,0,'null','null',
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},'0','0','0',0,'null',CURRENT_TIMESTAMP,'/static/images/avatar-0.jpg',0)
     </insert>
     <!--2.2.1增加语句-注册一级管理用户(生产商用户) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
     <insert id="sysuseradd" parameterType="cn.wj.domain.User">
@@ -88,7 +94,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,'null',#{email},
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',0)
     </insert>
 
     <!--=================================================-->
@@ -108,21 +114,21 @@
     <!--2.2.2  第一张表 ：系统管理员注册一级管理用户（生产商）动态创建订单表表格 -->
     <update id="createOrderTable" parameterType="String">
             create table ${tableName} (
-            order_id  int(50) NOT  NULL  AUTO_INCREMENT,
-            sale_id INT(50) NOT NULL COMMENT '支付id',
-            vendor_id INT(200) NOT NULL COMMENT '售货机ID',
-            cube_partner_id VARCHAR(50) NOT NULL COMMENT '第三方身份id' COLLATE 'utf8_unicode_ci',
-            price INT(10) NOT NULL COMMENT '商品价格吧',
-            creat_time DATETIME NOT NULL COMMENT '创建时间',
-            paid_time DATETIME NOT NULL COMMENT '支付时间',
-            paid_money INT(50) NOT NULL COMMENT '支付金额',
-            paid_source VARCHAR(50) NOT NULL COMMENT '支付来源（微信或支付宝）' COLLATE 'utf8_unicode_ci',
-            status VARCHAR(50) NOT NULL COMMENT '支付状态' COLLATE 'utf8_unicode_ci',
-            pay_url VARCHAR(50) NOT NULL COMMENT '支付二维码' COLLATE 'utf8_unicode_ci',
-            discount DOUBLE NOT NULL COMMENT '支付优惠',
-            refound INT(50) NOT NULL COMMENT '退款',
-            cube_creat_result TINYINT(2) NOT NULL COMMENT '是否创建第三方？？？？',
-            channel INT(10) NOT NULL COMMENT '货道数量',
+            order_id  int(50) NOT  NULL  AUTO_INCREMENT COMMENT '销售ID',
+            sale_id INT(50) NULL DEFAULT NULL COMMENT '支付id',
+            vendor_id INT(200) NULL DEFAULT NULL COMMENT '售货机ID',
+            cube_partner_id VARCHAR(50) NULL DEFAULT NULL COMMENT '第三方身份id' COLLATE 'utf8_unicode_ci',
+            price INT(10) NULL DEFAULT NULL COMMENT '商品价格吧',
+            create_time DATETIME NULL DEFAULT NULL COMMENT '创建时间',
+            paid_time DATETIME NULL DEFAULT NULL COMMENT '支付时间',
+            paid_money INT(50) NULL DEFAULT NULL COMMENT '支付金额',
+            paid_source VARCHAR(50) NULL DEFAULT NULL COMMENT '支付来源（微信或支付宝）' COLLATE 'utf8_unicode_ci',
+            status VARCHAR(50) NULL DEFAULT NULL COMMENT '支付状态' COLLATE 'utf8_unicode_ci',
+            pay_url VARCHAR(200) NULL DEFAULT NULL COMMENT '支付二维码' COLLATE 'utf8_unicode_ci',
+            discount DOUBLE NULL DEFAULT NULL COMMENT '支付优惠',
+            refound INT(50) NULL DEFAULT NULL COMMENT '退款',
+            cube_creat_result TINYINT(2) NULL DEFAULT NULL COMMENT '是否创建第三方？？？？',
+            channel INT(10) NULL DEFAULT NULL COMMENT '货道数量',
             primary key (order_id)
             )
             COMMENT=' 自动创建订单表'
@@ -131,14 +137,15 @@
     <update id="createSaleTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     sale_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '销售ID',
-    vendor_id INT(200) NOT NULL COMMENT '售货机ID',
-    channel_id INT(10) NOT NULL COMMENT '货到ID',
-    price DECIMAL(18,2) NOT NULL COMMENT '销售价格',
-    number INT(10) NOT NULL COMMENT '销售数量',
-    time DATETIME NOT NULL COMMENT '销售时间',
-    goods_code INT(10) NOT NULL COMMENT '商品分组',
-    goods_name VARCHAR(50) NOT NULL COMMENT '商品名称' COLLATE 'utf8_unicode_ci',
-    agency_id INT(50) NOT NULL COMMENT '运营商或出租商id',
+    vendor_id INT(200) NULL DEFAULT NULL COMMENT '售货机ID',
+    channel_id INT(10) NULL DEFAULT NULL COMMENT '货道ID',
+     agency_id INT(50) NULL DEFAULT NULL COMMENT '运营商或出租商id',
+    price DECIMAL(18,2) NULL DEFAULT NULL COMMENT '销售价格',
+    number INT(10) NULL DEFAULT NULL COMMENT '销售数量',
+    time DATETIME NULL DEFAULT NULL COMMENT '销售时间',
+    goods_code INT(10) NULL DEFAULT NULL COMMENT '商品分组',
+    goods_name VARCHAR(50) NULL DEFAULT NULL COMMENT '商品名称' COLLATE 'utf8_unicode_ci',
+
     PRIMARY KEY (sale_id)
     )
     COMMENT=' 自动创建销售表'
@@ -158,9 +165,10 @@
     <!--2.2.5 第四张表 ：系统管理员注册一级管理用户（生产商）动态创建现金销售关联表 -->
     <update id="createCashSaleTable" parameterType="String">
     CREATE TABLE ${tableName} (
-    cash_id INT(50) NOT NULL COMMENT '现金表id',
-    id INT(50) NOT NULL AUTO_INCREMENT,
+    id INT(50) NOT NULL AUTO_INCREMENT COMMENT '现金销售关联表id值',
     sale_id INT(50) NULL DEFAULT NULL COMMENT '销售id',
+    cash_id INT(50) NOT NULL COMMENT '现金表id',
+
     PRIMARY KEY (id)
     )
     COMMENT='自动创建现金销售关联表'
@@ -170,7 +178,7 @@
     <update id="createAlarmTable" parameterType="String">
     CREATE TABLE ${tableName}  (
     alarm_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '警告表id值',
-    vendor_id  INT(255) NOT NULL DEFAULT '0' COMMENT '指定的售货机ID',
+    vendor_id  INT(255)  NULL DEFAULT '0' COMMENT '指定的售货机ID',
     channel_id INT(50) NULL DEFAULT '0' COMMENT '货到ID',
     occur_time DATETIME NULL DEFAULT NULL COMMENT '发生时间',
     ack_time DATETIME NULL DEFAULT NULL COMMENT '确认时间',
@@ -209,7 +217,7 @@
         nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
         login_count,post_adress,creat_time,head_image,approved)
         VALUES ('url', #{accountName},#{password},#{realName},#{roleId},#{factoryId},0,'null',#{email},
-        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',1)
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',0)
     </insert>
     <!--2.3.2更新用户表中 agencyId ！增加语句-注入agency_id 到user表中    注意： 是全部的把一个表某个字段内容复制到另一张表的某个字段。-->
     <update id="updateAgencyId" parameterType="cn.wj.domain.User">
@@ -217,6 +225,18 @@
         agency_id = #{agencyId}
         WHERE  account_name = #{accountName}
     </update>
+    <!--2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员) 在数据库中，主键id设置为自增长，时间无默认值，sql语句中CURRENT_TIMESTAMP就是获取当前系统时间-->
+    <insert id="sysuseraddYunPei" parameterType="cn.wj.domain.User">
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS user_id
+        </selectKey>
+        INSERT into user(next_url,account_name,password,real_name,role_id,factory_id,agency_id,
+        nick_name,email,last_login_time,fix_phone,mobile_phone,QQ,postcode,idcard,
+        login_count,post_adress,creat_time,head_image,approved)
+        VALUES ('url', #{accountName},#{password},#{realName},#{roleId},0,#{agencyId},'null',#{email},
+        CURRENT_TIMESTAMP,'0',#{mobilePhone},#{qq},#{postcode},#{idcard},0,#{postAdress},CURRENT_TIMESTAMP,'/ssm_vendor/static/images/avatar-0.jpg',0)
+    </insert>
+
     <!--=================================================-->
     <!-- 2.3.2更新用户表中 agencyId 6.10号 版本，依据两张表，更新全部的 agency_id-->
     <!--<update id="updateAgencyId" parameterType="cn.wj.domain.User">-->
@@ -307,8 +327,8 @@
 
     <!--9.1  6.20日 物理分页 处理数据  得到所有用户列表 -->
     <!--<select id="getAllUserList" parameterType="page" resultType="User">-->
-        <!--SELECT *-->
-        <!--FROM user-->
+    <!--SELECT *-->
+    <!--FROM user-->
     <!--</select>-->
 
     <select id="getAllUserList" resultMap="UserMapperMap" parameterType="cn.wj.domain.User">
@@ -316,154 +336,172 @@
         FROM user
     </select>
 
-    <!--9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0） -->
+    <!--9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+     说明:系统管理员：  冻结可疑账户
+     -->
     <update id="removeUser" parameterType="cn.wj.domain.User">
         UPDATE  user
         SET
         approved =0
         WHERE  user_id = #{userId}
     </update>
+    <!--9.3  7.7 日 物理分页 处理数据  在用户列表中，审核某个用户（操作：把user表中approve字段设置1）
+     说明： 系统管理员： 审核 新注册用户
+     -->
+    <update id="passUser" parameterType="cn.wj.domain.User">
+        UPDATE  user
+        SET
+        approved =1
+        WHERE  user_id = #{userId}
+    </update>
+    <!--10.1.1(暂时用不到，因为 findUser 可以得到该用户的所有的信息，不用在写SQL语句了) 7.16日  首先根据 用户登录时，得到的用户名，得到该用户的 角色id 说明： 生厂商管理员： 条件查询（一）获得 该生产商的所有的 售货机列表-->
+    <!--<select id="getAllShengVname" -->
+    <select id="getUserRoleId" resultType="int" parameterType="String">
+        SELECT  role_id
+        FROM  user
+        WHERE  account_name = #{accountNname}
+    </select>
 </mapper>
-    <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
-    <!--insert into user (user_id, account_name, password, -->
-    <!--real_name, role_id, factory_id, -->
-    <!--agency_id, nick_name, email, -->
-    <!--last_login_time, fix_phone, mobile_phone, -->
-    <!--QQ, postcode, idcard, -->
-    <!--login_count, post_adress, creat_time, -->
-    <!--head_image, approved)-->
-    <!--values (#{userId,jdbcType=INTEGER}, #{accountName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, -->
-    <!--#{realName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{factoryId,jdbcType=INTEGER}, -->
-    <!--#{agencyId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, -->
-    <!--#{lastLoginTime,jdbcType=DATE}, #{fixPhone,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, -->
-    <!--#{qq,jdbcType=VARCHAR}, #{postcode,jdbcType=INTEGER}, #{idcard,jdbcType=VARCHAR}, -->
-    <!--#{loginCount,jdbcType=INTEGER}, #{postAdress,jdbcType=VARCHAR}, #{creatTime,jdbcType=DATE}, -->
-    <!--#{headImage,jdbcType=VARCHAR}, #{approved,jdbcType=TINYINT})-->
-    <!--</insert>-->
-    <!--<insert id="insertSelective" parameterType="cn.wj.model.User" >-->
-    <!--insert into user-->
-    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
-    <!--<if test="userId != null" >-->
-    <!--user_id,-->
-    <!--</if>-->
-    <!--<if test="accountName != null" >-->
-    <!--account_name,-->
-    <!--</if>-->
-    <!--<if test="password != null" >-->
-    <!--password,-->
-    <!--</if>-->
-    <!--<if test="realName != null" >-->
-    <!--real_name,-->
-    <!--</if>-->
-    <!--<if test="roleId != null" >-->
-    <!--role_id,-->
-    <!--</if>-->
-    <!--<if test="factoryId != null" >-->
-    <!--factory_id,-->
-    <!--</if>-->
-    <!--<if test="agencyId != null" >-->
-    <!--agency_id,-->
-    <!--</if>-->
-    <!--<if test="nickName != null" >-->
-    <!--nick_name,-->
-    <!--</if>-->
-    <!--<if test="email != null" >-->
-    <!--email,-->
-    <!--</if>-->
-    <!--<if test="lastLoginTime != null" >-->
-    <!--last_login_time,-->
-    <!--</if>-->
-    <!--<if test="fixPhone != null" >-->
-    <!--fix_phone,-->
-    <!--</if>-->
-    <!--<if test="mobilePhone != null" >-->
-    <!--mobile_phone,-->
-    <!--</if>-->
-    <!--<if test="qq != null" >-->
-    <!--QQ,-->
-    <!--</if>-->
-    <!--<if test="postcode != null" >-->
-    <!--postcode,-->
-    <!--</if>-->
-    <!--<if test="idcard != null" >-->
-    <!--idcard,-->
-    <!--</if>-->
-    <!--<if test="loginCount != null" >-->
-    <!--login_count,-->
-    <!--</if>-->
-    <!--<if test="postAdress != null" >-->
-    <!--post_adress,-->
-    <!--</if>-->
-    <!--<if test="creatTime != null" >-->
-    <!--creat_time,-->
-    <!--</if>-->
-    <!--<if test="headImage != null" >-->
-    <!--head_image,-->
-    <!--</if>-->
-    <!--<if test="approved != null" >-->
-    <!--approved,-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
-    <!--<if test="userId != null" >-->
-    <!--#{userId,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="accountName != null" >-->
-    <!--#{accountName,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="password != null" >-->
-    <!--#{password,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="realName != null" >-->
-    <!--#{realName,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="roleId != null" >-->
-    <!--#{roleId,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="factoryId != null" >-->
-    <!--#{factoryId,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="agencyId != null" >-->
-    <!--#{agencyId,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="nickName != null" >-->
-    <!--#{nickName,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="email != null" >-->
-    <!--#{email,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="lastLoginTime != null" >-->
-    <!--#{lastLoginTime,jdbcType=DATE},-->
-    <!--</if>-->
-    <!--<if test="fixPhone != null" >-->
-    <!--#{fixPhone,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="mobilePhone != null" >-->
-    <!--#{mobilePhone,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="qq != null" >-->
-    <!--#{qq,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="postcode != null" >-->
-    <!--#{postcode,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="idcard != null" >-->
-    <!--#{idcard,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="loginCount != null" >-->
-    <!--#{loginCount,jdbcType=INTEGER},-->
-    <!--</if>-->
-    <!--<if test="postAdress != null" >-->
-    <!--#{postAdress,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="creatTime != null" >-->
-    <!--#{creatTime,jdbcType=DATE},-->
-    <!--</if>-->
-    <!--<if test="headImage != null" >-->
-    <!--#{headImage,jdbcType=VARCHAR},-->
-    <!--</if>-->
-    <!--<if test="approved != null" >-->
-    <!--#{approved,jdbcType=TINYINT},-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--</insert>-->
+        <!--<insert id="insert" parameterType="cn.wj.model.User" >-->
+        <!--insert into user (user_id, account_name, password, -->
+        <!--real_name, role_id, factory_id, -->
+        <!--agency_id, nick_name, email, -->
+        <!--last_login_time, fix_phone, mobile_phone, -->
+        <!--QQ, postcode, idcard, -->
+        <!--login_count, post_adress, creat_time, -->
+        <!--head_image, approved)-->
+        <!--values (#{userId,jdbcType=INTEGER}, #{accountName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, -->
+        <!--#{realName,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{factoryId,jdbcType=INTEGER}, -->
+        <!--#{agencyId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, -->
+        <!--#{lastLoginTime,jdbcType=DATE}, #{fixPhone,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, -->
+        <!--#{qq,jdbcType=VARCHAR}, #{postcode,jdbcType=INTEGER}, #{idcard,jdbcType=VARCHAR}, -->
+        <!--#{loginCount,jdbcType=INTEGER}, #{postAdress,jdbcType=VARCHAR}, #{creatTime,jdbcType=DATE}, -->
+        <!--#{headImage,jdbcType=VARCHAR}, #{approved,jdbcType=TINYINT})-->
+        <!--</insert>-->
+        <!--<insert id="insertSelective" parameterType="cn.wj.model.User" >-->
+        <!--insert into user-->
+        <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+        <!--<if test="userId != null" >-->
+        <!--user_id,-->
+        <!--</if>-->
+        <!--<if test="accountName != null" >-->
+        <!--account_name,-->
+        <!--</if>-->
+        <!--<if test="password != null" >-->
+        <!--password,-->
+        <!--</if>-->
+        <!--<if test="realName != null" >-->
+        <!--real_name,-->
+        <!--</if>-->
+        <!--<if test="roleId != null" >-->
+        <!--role_id,-->
+        <!--</if>-->
+        <!--<if test="factoryId != null" >-->
+        <!--factory_id,-->
+        <!--</if>-->
+        <!--<if test="agencyId != null" >-->
+        <!--agency_id,-->
+        <!--</if>-->
+        <!--<if test="nickName != null" >-->
+        <!--nick_name,-->
+        <!--</if>-->
+        <!--<if test="email != null" >-->
+        <!--email,-->
+        <!--</if>-->
+        <!--<if test="lastLoginTime != null" >-->
+        <!--last_login_time,-->
+        <!--</if>-->
+        <!--<if test="fixPhone != null" >-->
+        <!--fix_phone,-->
+        <!--</if>-->
+        <!--<if test="mobilePhone != null" >-->
+        <!--mobile_phone,-->
+        <!--</if>-->
+        <!--<if test="qq != null" >-->
+        <!--QQ,-->
+        <!--</if>-->
+        <!--<if test="postcode != null" >-->
+        <!--postcode,-->
+        <!--</if>-->
+        <!--<if test="idcard != null" >-->
+        <!--idcard,-->
+        <!--</if>-->
+        <!--<if test="loginCount != null" >-->
+        <!--login_count,-->
+        <!--</if>-->
+        <!--<if test="postAdress != null" >-->
+        <!--post_adress,-->
+        <!--</if>-->
+        <!--<if test="creatTime != null" >-->
+        <!--creat_time,-->
+        <!--</if>-->
+        <!--<if test="headImage != null" >-->
+        <!--head_image,-->
+        <!--</if>-->
+        <!--<if test="approved != null" >-->
+        <!--approved,-->
+        <!--</if>-->
+        <!--</trim>-->
+        <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+        <!--<if test="userId != null" >-->
+        <!--#{userId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="accountName != null" >-->
+        <!--#{accountName,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="password != null" >-->
+        <!--#{password,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="realName != null" >-->
+        <!--#{realName,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="roleId != null" >-->
+        <!--#{roleId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="factoryId != null" >-->
+        <!--#{factoryId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="agencyId != null" >-->
+        <!--#{agencyId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="nickName != null" >-->
+        <!--#{nickName,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="email != null" >-->
+        <!--#{email,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="lastLoginTime != null" >-->
+        <!--#{lastLoginTime,jdbcType=DATE},-->
+        <!--</if>-->
+        <!--<if test="fixPhone != null" >-->
+        <!--#{fixPhone,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="mobilePhone != null" >-->
+        <!--#{mobilePhone,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="qq != null" >-->
+        <!--#{qq,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="postcode != null" >-->
+        <!--#{postcode,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="idcard != null" >-->
+        <!--#{idcard,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="loginCount != null" >-->
+        <!--#{loginCount,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="postAdress != null" >-->
+        <!--#{postAdress,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="creatTime != null" >-->
+        <!--#{creatTime,jdbcType=DATE},-->
+        <!--</if>-->
+        <!--<if test="headImage != null" >-->
+        <!--#{headImage,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="approved != null" >-->
+        <!--#{approved,jdbcType=TINYINT},-->
+        <!--</if>-->
+        <!--</trim>-->
+        <!--</insert>-->

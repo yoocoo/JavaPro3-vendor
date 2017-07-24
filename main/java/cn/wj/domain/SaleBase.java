@@ -1,96 +1,143 @@
 package cn.wj.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
+//import java.util.Date;
 
-public class SaleBase {
-    private Integer saleId;
+/**
+ * 创建时间： 2017 年 07 月17 日
+ * 一更时间： 2017 年 07 月 19 日
+ */
+public class SaleBase implements Serializable {
+	private Integer saleId;
 
-    private Integer vendorId;
+	private Integer vendorId;
 
-    private Integer channelId;
+	private Integer channelId;
 
-    private BigDecimal price;
+	private BigDecimal price;
 
-    private Integer number;
+	private Integer number;
+	//======================抽取作为 条件查询对应实体属性============================
+	private String vendorName;// 销售表需要的 售货机名称
 
-    private Date time;
+	public String getVendorName() {
+		return vendorName;
+	}
 
-    private Integer goodsCode;
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
-    private String goodsName;
+	private Timestamp createTime;//作为销售表条件查询条件 ----开始时间
 
-    private Integer agencyId;
+	public void setCreatTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
-    public Integer getSaleId() {
-        return saleId;
-    }
+	public Timestamp getCreatTime() {
+		return createTime;
+	}
 
-    public void setSaleId(Integer saleId) {
-        this.saleId = saleId;
-    }
+	private Timestamp endTime;//作为销售表条件-----结束时间
 
-    public Integer getVendorId() {
-        return vendorId;
-    }
+	public Timestamp getEndTime() {
+		return endTime;
+	}
 
-    public void setVendorId(Integer vendorId) {
-        this.vendorId = vendorId;
-    }
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
 
-    public Integer getChannelId() {
-        return channelId;
-    }
+	//========================抽取作为 条件查询对应实体属性====================================
+	private Timestamp time;
 
-    public void setChannelId(Integer channelId) {
-        this.channelId = channelId;
-    }
+	public Timestamp getTime() {
+		return time;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setTime(Timestamp time) {
+		this.time = time;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	//============2017年 07月17 日 ==============================
+	//private Date time;
+	//public Date getTime() {
+	//    return time;
+	//}
+	//
+	//public void setTime(Date time) {
+	//    this.time = time;
+	//}
+//=====================================
+	private Integer goodsCode;
 
-    public Integer getNumber() {
-        return number;
-    }
+	private String goodsName;
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
+	private Integer agencyId;
 
-    public Date getTime() {
-        return time;
-    }
+	public Integer getSaleId() {
+		return saleId;
+	}
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
+	public void setSaleId(Integer saleId) {
+		this.saleId = saleId;
+	}
 
-    public Integer getGoodsCode() {
-        return goodsCode;
-    }
+	public Integer getVendorId() {
+		return vendorId;
+	}
 
-    public void setGoodsCode(Integer goodsCode) {
-        this.goodsCode = goodsCode;
-    }
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
+	}
 
-    public String getGoodsName() {
-        return goodsName;
-    }
+	public Integer getChannelId() {
+		return channelId;
+	}
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
-    }
+	public void setChannelId(Integer channelId) {
+		this.channelId = channelId;
+	}
 
-    public Integer getAgencyId() {
-        return agencyId;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setAgencyId(Integer agencyId) {
-        this.agencyId = agencyId;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Integer getGoodsCode() {
+		return goodsCode;
+	}
+
+	public void setGoodsCode(Integer goodsCode) {
+		this.goodsCode = goodsCode;
+	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName == null ? null : goodsName.trim();
+	}
+
+	public Integer getAgencyId() {
+		return agencyId;
+	}
+
+	public void setAgencyId(Integer agencyId) {
+		this.agencyId = agencyId;
+	}
 }

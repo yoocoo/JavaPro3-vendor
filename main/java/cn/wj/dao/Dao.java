@@ -40,8 +40,12 @@ public interface Dao<T> {
 	/**
 	 * 查找对象
 	 * @return  返回对象集合
+	 * @param i
+	 * @param i1
 	 */
-	List<T> findAll();
+	List<T> findAll(int i, int i1);
+
+
 
 
 }

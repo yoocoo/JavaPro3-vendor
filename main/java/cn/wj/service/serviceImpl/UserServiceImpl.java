@@ -22,8 +22,18 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	/**
+	 * //10.1.1 jquery DataTable +PageHelper  服务器端分页
+	 *
+	 * @return
+	 */
+	public int getAllCount() {
+		return userDao.getAllCount();
+	}
+
+	/**
 	 * 添加用户，检查用户为空， 用户名为空，密码为空
 	 * 2.1 注册普通用户（暂时未用到）
+	 *
 	 * @param user
 	 * @throws Exception
 	 */
@@ -98,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	public void updateAgencyId(int agencyId, String accountName) throws OtherThingsException {
 		int result = 0;//受影响的行数默认为零
 		try {
-			result = userDao.updateAgencyId(agencyId,accountName);
+			result = userDao.updateAgencyId(agencyId, accountName);
 		} catch (Exception e) {
 			System.out.println("创建运营商商用户时，更新用户表中agencyid 失败");
 			//其他用户添加失败异常
@@ -106,6 +116,27 @@ public class UserServiceImpl implements UserService {
 		}
 		if (result > 0) {
 			System.out.println("创建运营商用户时，更新用户表中agencyid 成功");
+		}
+	}
+
+
+	/**
+	 * 2.3.3  7.5 号增加语句-注册三级用户(运营商配货员，仓库员) ,记住  agency_id 是生产商用户登录的 记录的 agency_id 值，可自动填入
+	 *
+	 * @param user
+	 * @throws OtherThingsException
+	 */
+	public void sysuseraddYunPei(User user) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = userDao.sysuseraddYunPei(user);
+		} catch (Exception e) {
+			System.out.println("添加二级运营商管理员用户失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("添加二级运营商管理员用户成功！");
 		}
 	}
 
@@ -271,8 +302,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 更新用户资料
-	 * 4.1更新用户(全局普通更新)
+	 *  统一公共页面 修改个人资料
+	 * 4.1 更新用户(全局普通更新)
+	 *
 	 * @param user
 	 * @throws OtherThingsException
 	 */
@@ -293,6 +325,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 依据用户名找到 该用户名头像地址 Path
 	 * 5.1 查找用户头像地址，用于动态显示头像(全局普通更新)
+	 *
 	 * @param accountName
 	 * @return 返回头像地址
 	 */
@@ -303,6 +336,7 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 更新用户头像
 	 * 5.2  更新用户头像(全局普通更新)
+	 *
 	 * @param
 	 * @throws OtherThingsException
 	 */
@@ -345,20 +379,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 用户列表（查找所有用户，带分页）（暂时未用到）
+	 * 用户列表（查找所有用户，带分页）
+	 * 时间： 2017 年 07 月 5 日  jquery datatable版本 物理分页
 	 *
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量
 	 * @return
 	 */
 	public List<User> findAll(int pageNum, int pageSize) {
-		return null;
+		List<User> userList = userDao.findAll(1, 10);
+		return userList;
 	}
 
 
 	/**
 	 * 根据用户ID 获得   该用户权限的菜单
-	 *  7.1  根据用户ID 获得权限菜单
+	 * 7.1  根据用户ID 获得权限菜单
+	 *
 	 * @param userId
 	 * @return
 	 */
@@ -367,7 +404,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 *  //8.1根据用户名获得该用户的ID
+	 * //8.1根据用户名获得该用户的ID
+	 *
 	 * @param accountName
 	 * @return
 	 */
@@ -376,33 +414,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	/**
-	 * 9.1  6.20日 物理分页 处理数据  得到所有用户列表 （1）
-	 * @param page
-	 * @return
-	 */
-	//public  List<User> getAllUserList(PageObject page){
-	//	return  userDao.getAllUserList(page);
-	//}
 
 	/**
-	 * BootSrap-table PageHelper物理分页
+	 * 9.1 获得用户表中所有的用户
+	 * 时间： 2017 年 06 月 22 日  BootSrap-table PageHelper物理分页
+	 *
 	 * @param user
 	 * @return
 	 */
-	public Datagrid getAllUserList(User user,int pageNum,int pageSize){
-		PageHelper.startPage(pageNum,pageSize);
+	public Datagrid getAllUserList(User user, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		PageHelper.orderBy("user_id asc");
 		List<User> userList = userDao.getAllUserList(user);
 		PageInfo<User> pageInfo = new PageInfo<User>(userList);
-		Datagrid datagrid = new Datagrid(pageInfo.getTotal(),pageInfo.getList());
-		return  datagrid;
+		Datagrid datagrid = new Datagrid(pageInfo.getTotal(), pageInfo.getList());
+		return datagrid;
 
 	}
 
 	/**
-	 * 9.2  6.20日 物理分页 处理数据
-	 * 	在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 * 9.2  6.20 日 物理分页 处理数据
+	 * 在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
+	 *
 	 * @param userId
 	 * @throws OtherThingsException
 	 */
@@ -411,12 +444,27 @@ public class UserServiceImpl implements UserService {
 		try {
 			result1 = userDao.removeUser(userId);
 		} catch (Exception e) {
-			System.out.println("删除用户列表中用户信息 失败");
+			System.out.println("冻结用户列表中用户信息 失败");
 			//其他用户添加失败异常
 			throw new OtherThingsException(e);
 		}
 		if (result1 > 0) {
-			System.out.println("service删除用户列表中用户信息 成功！");
+			System.out.println("冻结用户列表中用户信息 成功！");
+		}
+
+	}
+
+	public void passUser(int userId) throws OtherThingsException {
+		int result1 = 0;//受影响的行数默认为零
+		try {
+			result1 = userDao.passUser(userId);
+		} catch (Exception e) {
+			System.out.println("审核用户列表中用户信息 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result1 > 0) {
+			System.out.println("审核用户列表中用户信息 成功！");
 		}
 
 	}

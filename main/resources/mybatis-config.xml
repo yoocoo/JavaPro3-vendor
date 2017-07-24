@@ -17,9 +17,7 @@
         <!--允许在嵌套语句中使用分页（RowBounds）-->
         <setting name="safeRowBoundsEnabled" value="false"/>
     </settings>
-    <!--=============6.12 使用 PageHelper 插件分页
-       Mybatis分页插件-pagehelper =========在Mybatis配置xml中配置拦截器插件:========
-       ===============-->
+    <!--=============6.12 ==Mybatis分页插件-使用 PageHelper 插件分页 =========在Mybatis配置xml中配置拦截器插件:=====-->
     <plugins>
         <!-- com.github.pagehelper为PageHelper类所在包名 -->
         <plugin interceptor="com.github.pagehelper.PageHelper">
@@ -57,17 +55,16 @@
         </plugin>
     </plugins>
 
-    <!--=======6.20  配置 PageIntercept====-->
+    <!--=======6.20  配置 (需要一个拦截类Intercept)PageIntercept====-->
 
     <!--<typeAliases>-->
-        <!--<typeAlias alias="page" type="cn.wj.domain.PageObject"/>-->
+    <!--<typeAlias alias="page" type="cn.wj.domain.PageObject"/>-->
     <!--</typeAliases>-->
     <!--<plugins>-->
-        <!--<plugin interceptor="cn.wj.intercepter.PageIntercepter"></plugin>-->
+    <!--<plugin interceptor="cn.wj.intercepter.PageIntercepter"></plugin>-->
     <!--</plugins>-->
 
-
-    <!--如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。-->
+    <!--=====5.30日==如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器， 因为 Spring 模块会使用自带的管理器来覆盖前面的配置。-->
 </configuration>
 
         <!--一个配置完整的 settings 元素的示例如下-->

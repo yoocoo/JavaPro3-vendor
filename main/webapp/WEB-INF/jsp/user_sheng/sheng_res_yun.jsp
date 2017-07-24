@@ -11,7 +11,7 @@
 <head>
     <title>新建二级用户</title>
     <%--引入CSS 样式 start--%>
-
+    <link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/bootstrap/dist/css/bootstrap.min.css'/>">
     <!-- Font Awesome -->
@@ -25,46 +25,46 @@
     <%--=======创建运营商 开始=======--%>
     <script type="text/javascript">
         function webReg() {
-//            if ($('#user').val() == "") {
-//                $('#user').focus();
-//                $('#user').tips({
-//                    side: 2,
-//                    msg: '用户名不能为空',
-//                    bg: '#AE81FF',
-//                    time: 3,
-//                });
-//                return false;
-//            }
-//            if ($('#user').val().length < 4 || $('#user').val().length > 10) {
-//                $('#user').focus();
-//                $('#user').tips({
-//                    side: 2,
-//                    msg: '用户名位数建议4-10位',
-//                    bg: '#AE81FF',
-//                    time: 3,
-//                });
-//                return false;
-//            }
-//            if ($('#passwd').val().length < 6) {
-//                $('#passwd').focus();
-//                $("#passwd").tips({
-//                    side: 2,
-//                    msg: '密码不能小于6位',
-//                    bg: '#AE81FF',
-//                    time: 3
-//                });
-//                return false;
-//            }
-//            if ($('#passwd2').val() != $('#passwd').val()) {
-//                $('#passwd2').focus();
-//                $("#passwd2").tips({
-//                    side: 2,
-//                    msg: '两次密码不一致',
-//                    bg: '#AE81FF',
-//                    time: 3
-//                });
-//                return false;
-//            }
+            if ($('#name').val() == "") {
+                $('#name').focus();
+                $('#name').tips({
+                    side: 2,
+                    msg: '用户名不能为空',
+                    bg: '#B22222',
+                    time: 3,
+                });
+                return false;
+            }
+            if ($('#name').val().length < 6 || $('#name').val().length > 10) {
+                $('#name').focus();
+                $('#name').tips({
+                    side: 2,
+                    msg: '用户名位数建议6-10位',
+                    bg: '#B22222',
+                    time: 3,
+                });
+                return false;
+            }
+            if ($('#password5').val().length < 6) {
+                $('#password5').focus();
+                $("#password5").tips({
+                    side: 2,
+                    msg: '密码不能小于6位',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+            if ($('#password6').val() != $('#password5').val()) {
+                $('#password6').focus();
+                $("#password6").tips({
+                    side: 2,
+                    msg: '两次密码不一致',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
 
 
             var sqq = /^1[34578]\d{9}$/;
@@ -77,7 +77,17 @@
                 $("#telephone1").tips({
                     side: 2,
                     msg: '手机号不正确',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+            if ($('#telephone4').val().length !== 18) {
+                $('#telephone4').focus();
+                $("#telephone4").tips({
+                    side: 2,
+                    msg: '请输入正确的18位二代身份号',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -86,8 +96,8 @@
             var password = $("#password5").val();
             var cellnumber = $("#telephone1").val();
             var realname = $("#name2").val();
-            alert("检查运营商管理员roleid 的值 =  3 ,而不是弹出来的值是 id= 2");
-            alert($(":selected", "#sel5").val());
+//            alert("检查运营商管理员roleid 的值 =  3 ,而不是弹出来的值是 id= 2");
+//            alert($(":selected", "#sel5").val());
             var roleid = $(":selected", "#sel5").val();
 //        var roleid = $("select option:selected").val();
             var Email = $("#email1").val();
@@ -100,7 +110,7 @@
             var agencyname = $("#name4").val();
 
             var factoryid = $("#factoryid").val();
-            alert("打印要提交 归属的生产商用户的id值" + factoryid);
+//            alert("打印要提交 归属的生产商用户的id值" + factoryid);
             $.ajax({
                 type: "POST",
                 url: '<%=request.getContextPath()%>/userAction/sysuserResYun',
@@ -232,19 +242,19 @@
                                                         <span class="step_no">3</span>
                                                         <span class="step_descr">
                                               步骤 3<br/>
-                                              <small>运营商管理员基本信息（一）</small>
+                                              <small>运营商管理员基本信息</small>
                                           </span>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#step-4">
-                                                        <span class="step_no">4</span>
-                                                        <span class="step_descr">
-                                              步骤 4<br/>
-                                              <small>运营商管理员基本信息（二）</small>
-                                          </span>
-                                                    </a>
-                                                </li>
+                                                <%--<li>--%>
+                                                <%--<a href="#step-4">--%>
+                                                <%--<span class="step_no">4</span>--%>
+                                                <%--<span class="step_descr">--%>
+                                                <%--步骤 4<br/>--%>
+                                                <%--<small>运营商管理员基本信息</small>--%>
+                                                <%--</span>--%>
+                                                <%--</a>--%>
+                                                <%--</li>--%>
                                             </ul>
 
                                             <div id="step-1">
@@ -334,7 +344,7 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                            for="name2">真实姓名
-                                                        <span class="required">*</span>
+                                                        <span class="required"></span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input id="name2" class="form-control col-md-7 col-xs-12"
@@ -348,16 +358,16 @@
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">角色*</label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <select id="sel5" name="roleId" class="form-control">
+
                                                             <option value="3">运营商管理员</option>
-                                                            <option value="4">运营商配货员</option>
-                                                            <option value="5">运营商仓库员</option>
+                                                            <option value="3">运营商操作员</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                            for="email1">用户邮箱
-                                                        <span class="required">*</span>
+                                                        <span class="required"></span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input type="text" id="email1" name="email" placeholder=""
@@ -367,7 +377,7 @@
                                                 </div>
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                                           for="telephone2">QQ号码 <span class="required">*</span>
+                                                           for="telephone2">QQ号码 <span class="required"></span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input type="text" id="telephone2" name="qq" placeholder=""
@@ -375,11 +385,9 @@
                                                                class="form-control col-md-7 col-xs-12">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div id="step-4">
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                                           for="telephone3">邮政编码 <span class="required">*</span>
+                                                           for="telephone3">邮政编码 <span class="required"></span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input type="text" id="telephone3" name="postcode"
@@ -402,7 +410,7 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                            for="name3">通信地址<span
-                                                            class="required">*</span>
+                                                            class="required"></span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" id="name3" required name="postAdress"
@@ -413,7 +421,7 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                            for="name4">运营商单位名称
-                                                        <span class="required">*</span>
+                                                        <span class="required"></span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                                         <input id="name4" class="form-control col-md-7 col-xs-12"
@@ -421,18 +429,18 @@
                                                                placeholder="" required="required" type="text">
                                                     </div>
                                                 </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">归属的生产商ID
-                                                        <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input class="form-control col-md-7 col-xs-12"
-                                                               name="factoryId"
-                                                               id="factoryid"
-                                                               placeholder="" required="required" type="text"
-                                                               value="${userMess.factoryId}">
-                                                    </div>
-                                                </div>
+                                                <%--<div class="item form-group">--%>
+                                                <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">归属的生产商ID--%>
+                                                <%--<span class="required">*</span>--%>
+                                                <%--</label>--%>
+                                                <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       name="factoryId" readonly="readonly"
+                                                       id="factoryid"
+                                                       placeholder="" required="required" type="hidden"
+                                                       value="${userMess.factoryId}">
+                                                <%--</div>--%>
+                                                <%--</div>--%>
                                                 <div class="item form-group">
                                                     <div class="col-md-6 col-md-offset-3">
                                                         <button type="reset" class="btn btn-primary"> 取消</button>
@@ -442,31 +450,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
+                                            <%--<div id="step-4"></div>--%>
+                                        </div>
+                                    </form>
+                                    <!-- End SmartWizard Content -->
+                                </div>
 
                             </div>
-                            </form>
-                            <!-- End SmartWizard Content -->
                         </div>
-
                     </div>
+
                 </div>
             </div>
-
+            <!-- /page content end-->
         </div>
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                ZJNU
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-    <!-- /page content end-->
-</div>
-<!-- footer content -->
-<footer>
-    <div class="pull-right">
-        ZJNU- Bootstrap Admin
-    </div>
-    <div class="clearfix"></div>
-</footer>
-<!-- /footer content -->
-</div>
 </div>
 
 
@@ -482,9 +488,11 @@
 <script type="text/javascript"
         src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
 <!-- validator -->
-<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+<%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
+<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
 
 </body>
 </html>

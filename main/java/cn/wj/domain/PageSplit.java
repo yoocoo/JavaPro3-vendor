@@ -2,6 +2,7 @@ package cn.wj.domain;
 
 /**
  * Created by 王娇 on 2017/06/27.
+ * doT.min.js版本物理分页 使用到这种
  */
 public class PageSplit {
     private int pageNum,pageSize;

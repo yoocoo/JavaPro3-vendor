@@ -8,7 +8,7 @@
     </resultMap>
 
     <!--========================SQL语句=====================================-->
-    <!--1。1查找-登录运营商用户，查找用户是否存在-->
+    <!--1.1查找-登录运营商用户，查找用户是否存在-->
     <select id="findOneById" resultMap="AgencyResultMap" parameterType="String">
         SELECT  *
         FROM  agency

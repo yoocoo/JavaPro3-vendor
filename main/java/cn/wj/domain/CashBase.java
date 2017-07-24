@@ -1,59 +1,98 @@
 package cn.wj.domain;
 /**
- *
+ * 说明： 售货机-- 现金表 实时数据
+ * 作者： 王娇
+ * 时间： 2017 年 07 月 20 日
+ * 一更时间： 2017 年 07 月 **日
  */
 
+
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
-public class CashBase {
-    private Integer cashId;
+public class CashBase implements Serializable {
 
-    private Integer vendorId;
+	//======================抽取作为 条件查询对应实体属性============================
+	private String vendorName;// 销售表需要的 售货机名称
 
-    private BigDecimal money;
+	public String getVendorName() {
+		return vendorName;
+	}
 
-    private Date time;
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
 
-    private Byte transBorder;
+	private Timestamp createTime;//作为销售表条件查询条件 ----开始时间
 
-    public Integer getCashId() {
-        return cashId;
-    }
+	public void setCreatTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setCashId(Integer cashId) {
-        this.cashId = cashId;
-    }
+	public Timestamp getCreatTime() {
+		return createTime;
+	}
 
-    public Integer getVendorId() {
-        return vendorId;
-    }
+	private Timestamp endTime;//作为销售表条件-----结束时间
 
-    public void setVendorId(Integer vendorId) {
-        this.vendorId = vendorId;
-    }
+	public Timestamp getEndTime() {
+		return endTime;
+	}
 
-    public BigDecimal getMoney() {
-        return money;
-    }
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
+	//========================抽取作为 条件查询对应实体属性====================================
+	private Integer cashId;
 
-    public Date getTime() {
-        return time;
-    }
+	private Integer vendorId;
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
+	private BigDecimal money;
 
-    public Byte getTransBorder() {
-        return transBorder;
-    }
+	private Date time;
 
-    public void setTransBorder(Byte transBorder) {
-        this.transBorder = transBorder;
-    }
+	private Byte transBorder;
+
+	public Integer getCashId() {
+		return cashId;
+	}
+
+	public void setCashId(Integer cashId) {
+		this.cashId = cashId;
+	}
+
+	public Integer getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public BigDecimal getMoney() {
+		return money;
+	}
+
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public Byte getTransBorder() {
+		return transBorder;
+	}
+
+	public void setTransBorder(Byte transBorder) {
+		this.transBorder = transBorder;
+	}
 }

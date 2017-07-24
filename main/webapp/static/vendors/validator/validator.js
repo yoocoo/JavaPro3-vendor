@@ -1,4 +1,4 @@
-/*
+s/*
     Validator v1.1.0
     (c) Yair Even Or
     https://github.com/yairEO/validator
@@ -44,7 +44,8 @@ var validator = (function($){
         classes : {
 	        item    : 'item',
 	        alert   : 'alert',
-	        bad     : 'bad'
+	        bad     : 'bad',
+
         }
     };
 

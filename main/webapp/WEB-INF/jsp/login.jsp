@@ -23,10 +23,13 @@
     <meta charset="UTF-8">
     <title>售货机系统账户登录</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <%--<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">--%>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel="shortcut icon" href="${path}/static/img/favicon.ico"/>
     <link type="text/css" rel="stylesheet" href="${path}/static/css/login/login.css">
+    <!-- Font Awesome -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/font-awesome/css/font-awesome.min.css'/>">
 
     <%--<link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>--%>
     <%--<link type="text/css" rel="stylesheet" href="<c:url value='/static/css/login.css'/>">--%>
@@ -38,7 +41,7 @@
                 $("#u").tips({ // .tips 是js提示标签的调用方法，具体的轮廓如上面的登陆页面的提示标签
                     side: 2,
                     msg: '用户名不得为空',//提示信息
-                    bg: '#AE81FF',//提示的背景颜色
+                    bg: '#B22222',//提示的背景颜色
                     time: 3//提示呈现的时间
                 });
                 $("#u").focus();  //让u标签获取输入焦点
@@ -49,7 +52,7 @@
                 $("#p").tips({
                     side: 2,
                     msg: '密码不得为空',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 $("#p").focus();
@@ -89,7 +92,7 @@
                 $('#user').tips({
                     side: 2,
                     msg: '用户名不能为空',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3,
                 });
                 return false;
@@ -99,7 +102,7 @@
                 $('#user').tips({
                     side: 2,
                     msg: '用户名位数建议4-10位',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3,
                 });
                 return false;
@@ -109,7 +112,7 @@
                 $("#passwd").tips({
                     side: 2,
                     msg: '密码不能小于6位',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -119,7 +122,7 @@
                 $("#passwd2").tips({
                     side: 2,
                     msg: '两次密码不一致',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -136,7 +139,7 @@
                 $("#cellnumber").tips({
                     side: 2,
                     msg: '手机号不正确',
-                    bg: '#AE81FF',
+                    bg: '#B22222',
                     time: 3
                 });
                 return false;
@@ -176,16 +179,24 @@
                 <div class="col_md_login">
                     <div class="cont_ba_opcitiy">
                         <h2>用户登录</h2>
-                        <p>遵守用户登录规则，保管好个人信息！</p>
+                        <br/>
+                        <br/>
+
+
+                        <%--<p>遵守用户登录规则，保管好个人信息！</p>--%>
                         <button class="btn_login" onclick="cambiar_login()">登 录</button>
                     </div>
                 </div>
                 <div class="col_md_sign_up">
                     <div class="cont_ba_opcitiy">
-                        <h2>声明</h2>
-                        <p> *推荐使用ie8或以上版本ie浏览器或<br/>
-                            Chrome内核浏览器访问本站</p>
-                        <button class="btn_sign_up" onclick="cambiar_sign_up()">打开细则</button>
+                        <h2>加盟</h2>
+                        <br/>
+                        <br/>
+
+
+                        <%--<p> *推荐使用ie8或以上版本ie浏览器或<br/>--%>
+                        <%--Chrome内核浏览器访问本站</p>--%>
+                        <button class="btn_sign_up" onclick="cambiar_sign_up()">详情</button>
                     </div>
                 </div>
             </div>
@@ -217,23 +228,27 @@
                     &#xE5C4;</i>
                 </a>
                     <%--5.30 日更改由此声明： 由于该系统暂时不需要 用户自主注册功能,暂时换成，用户登录准则--%>
-                    <h2>登录协议</h2>
+                    <h2>加盟详情</h2>
+
+                    <p>1.</p>
+                    <p>2.</p>
+                    <p>3.</p>
                     <p>
-                        <marquee direction="up" height="400px" width="200px"
-                                 scrollamount="2" onmouseover="stop();" onmouseout="start();">
-                    <p>阅读《售货机协议》及《售货机服务条款》</p>
-                    <p>（一）</p>
-                    <p>用户必须同意，其提供的真实的、准确的、合法的帐号</p>
-                    <p>，这是作为认定用户与售货机的关联性以及确认用户身</p>
-                    <p>份的唯一证据。 用户在享用售货机提供的各项服务的</p>
-                    <p>同时，   同意接受售货机后台管理系统提供的各类</p>
-                    <p> 信息服务。</p>
-                    <p>（二）</p>
-                    <p>售货机公司始终在不断变更和改进服务。售货机公司</p>
-                    <p>可能会增加或删除功能，也可能暂停或彻底停止某项</p>
-                    <p>服务。用户同 意售货机公司有权行使上述权利且不需</p>
-                    <p>对用户或第三方承担任何责任。</p>
-                    </marquee>
+                        <%--<marquee direction="up" height="400px" width="200px"--%>
+                        <%--scrollamount="2" onmouseover="stop();" onmouseout="start();">--%>
+                        <%--<p>阅读《售货机协议》及《售货机服务条款》</p>--%>
+                        <%--<p>（一）</p>--%>
+                        <%--<p>用户必须同意，其提供的真实的、准确的、合法的帐号</p>--%>
+                        <%--<p>，这是作为认定用户与售货机的关联性以及确认用户身</p>--%>
+                        <%--<p>份的唯一证据。 用户在享用售货机提供的各项服务的</p>--%>
+                        <%--<p>同时，   同意接受售货机后台管理系统提供的各类</p>--%>
+                        <%--<p> 信息服务。</p>--%>
+                        <%--<p>（二）</p>--%>
+                        <%--<p>售货机公司始终在不断变更和改进服务。售货机公司</p>--%>
+                        <%--<p>可能会增加或删除功能，也可能暂停或彻底停止某项</p>--%>
+                        <%--<p>服务。用户同 意售货机公司有权行使上述权利且不需</p>--%>
+                        <%--<p>对用户或第三方承担任何责任。</p>--%>
+                        <%--</marquee>--%>
                     </p>
                     <%--<div id="web_reg">--%>
                     <%--5月出 注册版本， 注册开始--%>
@@ -259,10 +274,9 @@
                 </div>
             </div>
         </div>
-        <%--<div class="footer">--%>
-        <%--*推荐使用ie8或以上版本ie浏览器或Chrome内核浏览器访问本站--%>
-        <%--</div>--%>
 
+    </div>
+</div>
 </body>
 </html>
-<%----%>
+

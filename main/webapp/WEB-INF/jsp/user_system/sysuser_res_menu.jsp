@@ -35,6 +35,34 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
 
+    <script type="application/javascript">
+        <%--function GetRoleMenu() {--%>
+        <%--$.ajax({--%>
+        <%--type: "POST",  //http请求方式为POST--%>
+        <%--url: "<%=request.getContextPath()%>/listMenu/getRoleInMenu",//请求--%>
+        <%--//            data: {--%>
+        <%--//            },--%>
+        <%--dataType: 'json',//返回值类型 一般设置为json--%>
+        <%--cache: false,--%>
+        <%--success: function (data) {--%>
+        <%--alert(data.msg);--%>
+        <%--location.reload() //点击按钮刷新页面--%>
+        <%--}--%>
+        <%--});--%>
+        <%--}--%>
+        function go() {
+
+
+        }
+        function goEdit1() {
+
+        }
+
+        function doDelete1() {
+
+        }
+
+    </script>
 </head>
 
 <body class="nav-md">
@@ -55,8 +83,8 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>Tab主题：权限菜单管理表格
-                            <small> ----1,2,3-----</small>
+                        <h3>权限菜单管理表格
+                            <%--<small> ----1,2,3-----</small>--%>
                         </h3>
                     </div>
                     <div class="title_right">
@@ -75,30 +103,30 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>菜单管理列表</h2>
-                                <small>----说明：<br>
-                                    1，RABC(基于角色的访问控制)思想:权限不直接赋予给用户，而是角色，用户在拥有某个角色
-                                    <br>
-                                    2，在逻辑中，只有管理员角色才能分配权限。<br>
-                                    3，目前RABC分四层：RABC0、RABC1、RABC2、RABC3 ，目前该系统达到了简易的RABC2层次，后期可继续完善。<br>
-                                </small>
+                                <%--<small>----说明：<br><br>--%>
+                                    <%--1，RABC(基于角色的访问控制)思想:权限不直接赋予给用户，而是角色，用户在拥有某个角色 <br>--%>
+                                    <%--2，在逻辑中，只有管理员角色才能分配权限。<br>--%>
+                                    <%--3，目前RABC分四层：RABC0、RABC1、RABC2、RABC3 ，目前该系统达到了简易的RABC2层次，后期可继续完善。<br>--%>
+                                <%--</small>--%>
                                 </h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                                            <%--role="button" aria-expanded="false"><i--%>
+                                            <%--class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a></li>--%>
+                                            <%--<li><a href="#">设置 2</a></li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <p class="text-muted font-13 m-b-30"> 菜单列表管理功能：1.查看菜单信息 2. 编辑菜单信息（待增加） 3.清除菜单 </p>
-                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap">
+                                <%--<p class="text-muted font-13 m-b-30"> 菜单列表管理功能：1.查看菜单信息 2. 编辑菜单信息（待增加） 3.清除菜单 </p>--%>
+                                <table id="datatable-buttons"
+                                       class="table table-striped table-bordered dt-responsive nowrap">
                                     <thead>
                                     <tr>
                                         <th>菜单ID</th>
@@ -122,7 +150,7 @@
                                         <td><c:out value="${item.menuOrder}"/></td>
                                         <td><i class=" <c:out value="${item.menuIcon}"/> "></i></td>
                                         <td><c:out value="${item.menuType}"/></td>
-                                        <td onclick='goEdit(<c:out value="${item.menuId}"/>)'>编辑</td>
+                                        <td onclick='go(<c:out value="${item.menuId}"/>)'>查看</td>
                                             <%--<td onclick='doDelete(<c:out value="${item.menuId}"/>)'>删除</td>--%>
                                     </tr>
                                     </c:forEach>
@@ -131,341 +159,256 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>菜单关联表---响应式表格
-                                    <small>--------</small>
-                                </h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <p class="text-muted font-13 m-b-30">
-                                    响应是DataTables的扩展，它通过从表中动态插入和删除列来优化不同屏幕大小的表格来解决该问题。 </p>
-                                <table id="datatable-responsive"
-                                       class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-                                       width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>ID值</th>
-                                        <th>角色ID值</th>
-                                        <th>菜单ID值</th>
-                                        <th>操作</th>
+                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                            <%--<div class="x_title">--%>
+                                <%--<h2>菜单关联表---响应式表格--%>
+                                    <%--<small>--------</small>--%>
+                                <%--</h2>--%>
+                                <%--<ul class="nav navbar-right panel_toolbox">--%>
+                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                                            <%--role="button" aria-expanded="false"><i--%>
+                                            <%--class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a></li>--%>
+                                            <%--<li><a href="#">设置 2</a></li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
+                                <%--</ul>--%>
+                                <%--<div class="clearfix"></div>--%>
+                            <%--</div>--%>
+                            <%--<div class="x_content">--%>
+                                <%--<p class="text-muted font-13 m-b-30">--%>
+                                    <%--响应是DataTables的扩展，它通过从表中动态插入和删除列来优化不同屏幕大小的表格来解决该问题。 </p>--%>
+                                <%--<table id="datatable-responsive"--%>
+                                       <%--class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"--%>
+                                       <%--width="100%">--%>
+                                    <%--<thead>--%>
+                                    <%--<tr>--%>
+                                        <%--<th>ID值</th>--%>
+                                        <%--<th>角色ID值</th>--%>
+                                        <%--<th>菜单ID值</th>--%>
                                         <%--<th>操作</th>--%>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <c:forEach items="${listRoleInMenuJson}" var="list">
-                                        <td><c:out value="${list.id}"/></td>
-                                        <td><c:out value="${list.roleId}"/></td>
-                                        <td><c:out value="${list.menuId}"/></td>
-                                        <td onclick='goEdit1(<c:out value="${list.id}"/>)'>查看</td>
-                                            <%--<td onclick='doDelete1(<c:out value="${list.id}"/>)'>删除</td>--%>
-                                    </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>基于Bootstrap CSS framework
-                                    <small>-----</small>
-                                </h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <p class="text-muted font-13 m-b-30"> 基于 by the Bootstrap CSS framework设计的静态表格 </p>
-                                <table id="datatable-fixed-header"
-                                       class="table table-striped table-bordered"
-                                       data-toggle="table"
-                                       data-url="<%=request.getContextPath()%>/userAction/listAllUser"
-                                       data-click-to-select="true"
-                                       data-search="true"
-                                       data-method="post"
-                                       data-side-pagination="server"
-                                       data-query-params-type="limit"
-                                       data-content-type="application/x-www-form-urlencoded"
-                                       data-pagination="true"
-                                       data-page-size="5"
-                                       data-page-list="[5,10]"
-                                       data-height="200"
-                                       data-toolbar="#toolbar"
-                                       data-single-select="true"
-                                >
-                                    <thead>
-                                    <tr>
+                                        <%--&lt;%&ndash;<th>操作</th>&ndash;%&gt;--%>
+                                    <%--</tr>--%>
+                                    <%--</thead>--%>
+                                    <%--<tbody>--%>
+                                    <%--<tr>--%>
+                                        <%--<c:forEach items="${listRoleInMenuJson}" var="list">--%>
+                                        <%--<td><c:out value="${list.id}"/></td>--%>
+                                        <%--<td><c:out value="${list.roleId}"/></td>--%>
+                                        <%--<td><c:out value="${list.menuId}"/></td>--%>
+                                        <%--<td onclick='goEdit1(<c:out value="${list.id}"/>)'>查看</td>--%>
+                                            <%--&lt;%&ndash;<td onclick='doDelete1(<c:out value="${list.id}"/>)'>删除</td>&ndash;%&gt;--%>
+                                    <%--</tr>--%>
+                                    <%--</c:forEach>--%>
+                                    <%--</tbody>--%>
+                                <%--</table>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
 
-                                        <th data-field="userId">ID</th>
-                                        <%--<th data-field="nextUrl" data-align="center">下一</th>--%>
-                                        <th data-field="accountName">账户名</th>
-                                        <%--<th data-field="password" data-align="center">密码</th>--%>
-                                        <th data-field="realName">姓名</th>
-                                        <th data-field="roleId">角色</th>
-                                        <%--<th data-field="nickName" data-align="center">昵称</th>--%>
-                                        <th data-field="email">电子邮箱</th>
-                                        <%--<th data-field="lastLoginTime" data-align="center">最近一次登录</th>--%>
-                                        <%--<th data-field="fixPhone" data-align="center">电话</th>--%>
-                                        <th data-field="mobilePhone">手机</th>
-                                        <th data-field="qq">QQ</th>
-                                        <th data-field="postcode">邮编</th>
-                                        <th data-field="idcard">身份证</th>
-                                        <%--<th data-field="loginCount" data-align="center">次数</th>--%>
-                                        <th data-field="postAdress">地址</th>
-                                        <th data-field="creatTime">创建时间</th>
-                                        <%--<th data-field="headImage" data-align="center">头像地址</th>--%>
-                                        <th data-field="approved">是否删除</th>
-                                        <td data-field="action" data-align="center" data-formatter="formatAction">操作
-                                        </td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>王娇</td>
-                                        <td>大中国</td>
-                                        <td>18770077797</td>
-                                        <td>3434644411</td>
-                                        <td>343008316@qq.com</td>
-                                        <td>admin1</td>
-                                        <td>123456</td>
-                                        <td>系统管理员</td>
-                                        <td>2011/04/25</td>
-                                        <td>/static/images/1.jpg</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>静态表格模板
-                                    <small>Users</small>
-                                </h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <p class="text-muted font-13 m-b-30"> 这是一个静态表格的例子，为了方便查看例子，和设计样式。
-                                    <code>$().DataTable();</code></p>
-                                <table id="datatable" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>姓名</th>
-                                        <th>地址</th>
-                                        <th>办公室</th>
-                                        <th>年龄</th>
-                                        <th>开始日期</th>
-                                        <th>薪水</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1王娇</td>
-                                        <td>上海虹桥</td>
-                                        <td>销售部</td>
-                                        <td>99</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2王娇</td>
-                                        <td>上海虹桥</td>
-                                        <td>销售部</td>
-                                        <td>99</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3王娇</td>
-                                        <td>上海虹桥</td>
-                                        <td>销售部</td>
-                                        <td>99</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4王娇</td>
-                                        <td>上海虹桥</td>
-                                        <td>销售部</td>
-                                        <td>99</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>带复选框表格样式设计</h2>
-                                <small>11111111111</small>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <p class="text-muted font-13 m-b-30"> （多选）带复选框表格样式设计，注意是静态表格 </p>
-                                <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                        <th><input type="checkbox" class="flat"></th>
-                                        </th>
-                                        <th>姓名</th>
-                                        <th>通信地址</th>
-                                        <th>邮箱</th>
-                                        <th>电话</th>
-                                        <th>日期</th>
-                                        <th>金钱</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                        <th><input type="checkbox"  class="flat"></th>
-                                        </td>
-                                        <td>王娇</td>
-                                        <td>大中国</td>
-                                        <td>353@qq.com</td>
-                                        <td>1870077797</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                        <th><input type="checkbox"
-                                                   <%--id="check-all" --%>
-                                                   class="flat"></th>
-                                        </td>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>可选中内容表格
-                                    <small>-----</small>
-                                </h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                                            role="button" aria-expanded="false"><i
-                                            class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">设置 1</a></li>
-                                            <li><a href="#">设置 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="card-box table-responsive">
-                                            <p class="text-muted font-13 m-b-30">
-                                                KeyTable在任何表格上提供Excel像单元导航。可以将事件（焦点，模糊，动作等）分配给单个单元格，列，行或所有单元格。 </p>
-                                            <table id="datatable-keytable" class="table table-striped table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                            <%--<div class="x_title">--%>
+                                <%--<h2>静态表格模板--%>
+                                    <%--<small>Users</small>--%>
+                                <%--</h2>--%>
+                                <%--<ul class="nav navbar-right panel_toolbox">--%>
+                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                                            <%--role="button" aria-expanded="false"><i--%>
+                                            <%--class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a></li>--%>
+                                            <%--<li><a href="#">设置 2</a></li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
+                                <%--</ul>--%>
+                                <%--<div class="clearfix"></div>--%>
+                            <%--</div>--%>
+                            <%--<div class="x_content">--%>
+                                <%--<p class="text-muted font-13 m-b-30"> 这是一个静态表格的例子，为了方便查看例子，和设计样式。--%>
+                                    <%--<code>$().DataTable();</code></p>--%>
+                                <%--<table id="datatable" class="table table-striped table-bordered">--%>
+                                    <%--<thead>--%>
+                                    <%--<tr>--%>
+                                        <%--<th>姓名</th>--%>
+                                        <%--<th>地址</th>--%>
+                                        <%--<th>办公室</th>--%>
+                                        <%--<th>年龄</th>--%>
+                                        <%--<th>开始日期</th>--%>
+                                        <%--<th>薪水</th>--%>
+                                    <%--</tr>--%>
+                                    <%--</thead>--%>
+                                    <%--<tbody>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>1王娇</td>--%>
+                                        <%--<td>上海虹桥</td>--%>
+                                        <%--<td>销售部</td>--%>
+                                        <%--<td>99</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>$320,800</td>--%>
+                                    <%--</tr>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>2王娇</td>--%>
+                                        <%--<td>上海虹桥</td>--%>
+                                        <%--<td>销售部</td>--%>
+                                        <%--<td>99</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>$320,800</td>--%>
+                                    <%--</tr>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>3王娇</td>--%>
+                                        <%--<td>上海虹桥</td>--%>
+                                        <%--<td>销售部</td>--%>
+                                        <%--<td>99</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>$320,800</td>--%>
+                                    <%--</tr>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>4王娇</td>--%>
+                                        <%--<td>上海虹桥</td>--%>
+                                        <%--<td>销售部</td>--%>
+                                        <%--<td>99</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>$320,800</td>--%>
+                                    <%--</tr>--%>
+                                    <%--</tbody>--%>
+                                <%--</table>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                            <%--<div class="x_title">--%>
+                                <%--<h2>带复选框表格样式设计</h2>--%>
+                                <%--<small>11111111111</small>--%>
+                                <%--<ul class="nav navbar-right panel_toolbox">--%>
+                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                                            <%--role="button" aria-expanded="false"><i--%>
+                                            <%--class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a></li>--%>
+                                            <%--<li><a href="#">设置 2</a></li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
+                                <%--</ul>--%>
+                                <%--<div class="clearfix"></div>--%>
+                            <%--</div>--%>
+                            <%--<div class="x_content">--%>
+                                <%--<p class="text-muted font-13 m-b-30"> （多选）带复选框表格样式设计，注意是静态表格 </p>--%>
+                                <%--<table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">--%>
+                                    <%--<thead>--%>
+                                    <%--<tr>--%>
+                                        <%--<th>--%>
+                                        <%--<th><input type="checkbox" class="flat"></th>--%>
+                                        <%--</th>--%>
+                                        <%--<th>姓名</th>--%>
+                                        <%--<th>通信地址</th>--%>
+                                        <%--<th>邮箱</th>--%>
+                                        <%--<th>电话</th>--%>
+                                        <%--<th>日期</th>--%>
+                                        <%--<th>金钱</th>--%>
+                                    <%--</tr>--%>
+                                    <%--</thead>--%>
+                                    <%--<tbody>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>--%>
+                                        <%--<th><input type="checkbox" class="flat"></th>--%>
+                                        <%--</td>--%>
+                                        <%--<td>王娇</td>--%>
+                                        <%--<td>大中国</td>--%>
+                                        <%--<td>353@qq.com</td>--%>
+                                        <%--<td>1870077797</td>--%>
+                                        <%--<td>2011/04/25</td>--%>
+                                        <%--<td>$320,800</td>--%>
+                                    <%--</tr>--%>
+                                    <%--<tr>--%>
+                                        <%--<td>--%>
+                                        <%--<th><input type="checkbox"--%>
+                                        <%--&lt;%&ndash;id="check-all" &ndash;%&gt;--%>
+                                                   <%--class="flat"></th>--%>
+                                        <%--</td>--%>
+                                        <%--<td>Garrett Winters</td>--%>
+                                        <%--<td>Accountant</td>--%>
+                                        <%--<td>Tokyo</td>--%>
+                                        <%--<td>63</td>--%>
+                                        <%--<td>2011/07/25</td>--%>
+                                        <%--<td>$170,750</td>--%>
+                                    <%--</tr>--%>
+                                    <%--</tbody>--%>
+                                <%--</table>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                    <%--<div class="col-md-12 col-sm-12 col-xs-12">--%>
+                        <%--<div class="x_panel">--%>
+                            <%--<div class="x_title">--%>
+                                <%--<h2>可选中内容表格--%>
+                                    <%--<small>-----</small>--%>
+                                <%--</h2>--%>
+                                <%--<ul class="nav navbar-right panel_toolbox">--%>
+                                    <%--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>--%>
+                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
+                                                            <%--role="button" aria-expanded="false"><i--%>
+                                            <%--class="fa fa-wrench"></i></a>--%>
+                                        <%--<ul class="dropdown-menu" role="menu">--%>
+                                            <%--<li><a href="#">设置 1</a></li>--%>
+                                            <%--<li><a href="#">设置 2</a></li>--%>
+                                        <%--</ul>--%>
+                                    <%--</li>--%>
+                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
+                                <%--</ul>--%>
+                                <%--<div class="clearfix"></div>--%>
+                            <%--</div>--%>
+                            <%--<div class="x_content">--%>
+                                <%--<div class="row">--%>
+                                    <%--<div class="col-sm-12">--%>
+                                        <%--<div class="card-box table-responsive">--%>
+                                            <%--<p class="text-muted font-13 m-b-30">--%>
+                                                <%--KeyTable在任何表格上提供Excel像单元导航。可以将事件（焦点，模糊，动作等）分配给单个单元格，列，行或所有单元格。 </p>--%>
+                                            <%--<table id="datatable-keytable" class="table table-striped table-bordered">--%>
+                                                <%--<thead>--%>
+                                                <%--<tr>--%>
+                                                    <%--<th>Name</th>--%>
+                                                    <%--<th>Position</th>--%>
+                                                    <%--<th>Office</th>--%>
+                                                    <%--<th>Age</th>--%>
+                                                    <%--<th>Start date</th>--%>
+                                                    <%--<th>Salary</th>--%>
+                                                <%--</tr>--%>
+                                                <%--</thead>--%>
+                                                <%--<tbody>--%>
+                                                <%--<tr>--%>
+                                                    <%--<td>Tiger Nixon</td>--%>
+                                                    <%--<td>System Architect</td>--%>
+                                                    <%--<td>Edinburgh</td>--%>
+                                                    <%--<td>61</td>--%>
+                                                    <%--<td>2011/04/25</td>--%>
+                                                    <%--<td>$320,800</td>--%>
+                                                <%--</tr>--%>
+                                                <%--</tbody>--%>
+                                            <%--</table>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
                 </div>
             </div>
         </div>
         <!-- /page content -->
-<%--===========================================--%>
+        <%--===========================================--%>
         <!-- footer content -->
         <footer>
-            <div class="pull-right"> ZJNU - Bootstrap Admin -功夫不负有心人
+            <div class="pull-right"> ZJNU
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -473,6 +416,7 @@
     </div>
 </div>
 
+<%--=========================引用的js文件===================--%>
 <!-- jQuery -->
 <script type="text/javascript" src="<c:url value='/static/vendors/jquery/dist/jquery.min.js'/>"></script>
 <!-- Bootstrap -->
@@ -486,10 +430,12 @@
 <!-- Datatables -->
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net/js/jquery.dataTables.min.js'/>"></script>
+
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'/>"></script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js'/>"></script>
+
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js'/>"></script>
 <script type="text/javascript"
@@ -512,7 +458,46 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
 
+
+
+
+<%--==========================================================--%>
+<%--<script type="text/javascript">--%>
+<%--$(document).ready(function() {--%>
+<%--$('#datatable-buttons').DataTable({--%>
+<%--bLengthChange : false,//是否显示每页大小的下拉框--%>
+<%--"bRetrieve": true,--%>
+<%--language: {--%>
+<%--"sProcessing": "处理中...",--%>
+<%--//                "sLengthMenu": "显示 _MENU_ 项结果",--%>
+<%--"sZeroRecords": "没有匹配结果",--%>
+<%--"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",--%>
+<%--"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",--%>
+<%--"sInfoFiltered": "(由 _MAX_ 项结果过滤)",--%>
+<%--"sInfoPostFix": "",--%>
+<%--"sSearch": "搜索:",--%>
+<%--"sUrl": "",--%>
+<%--"sEmptyTable": "表中数据为空",--%>
+<%--"sLoadingRecords": "载入中...",--%>
+<%--"sInfoThousands": ",",--%>
+<%--"oPaginate": {--%>
+<%--"sFirst": "首页",--%>
+<%--"sPrevious": "上页",--%>
+<%--"sNext": "下页",--%>
+<%--"sLast": "末页"--%>
+<%--},--%>
+<%--"oAria": {--%>
+<%--"sSortAscending": ": 以升序排列此列",--%>
+<%--"sSortDescending": ": 以降序排列此列"--%>
+<%--}--%>
+<%--}--%>
+<%--});--%>
+<%--});--%>
+<%--</script>--%>
+
+
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
+
 </body>
 </html>

@@ -19,7 +19,7 @@ public class AgencyServiceImpl implements AgencyService {
 	private AgencyDao agencyDao;
 
 	/**
-	 * 查找数据库中用户（注册时查重和登录时判空）
+	 * 1.1 查找数据库中用户（注册时查重和登录时判空）
 	 *
 	 * @param agency 用户bean
 	 * @return 返回用户名
@@ -30,7 +30,7 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	/**
-	 * 添加运营商，一般要先检查 用户名是否为空，密码是否为空
+	 * 1.2 添加运营商，一般要先检查 用户名是否为空，密码是否为空
 	 *
 	 * @param agency
 	 * @throws Exception
