@@ -88,20 +88,15 @@ public class OrderBaseController {
 		System.out.println("===打印分页请求生产商的售货机订单表名的===:" + tableName);
 		try {
 			List<OrderBase> shengOrderList = orderBaseService.getAllShengOrder(tableName, 1, 10);
-			//System.out.println("===打印分页请求=shengVendorList==" + shengVendorList);
 			//用PageInfo对结果进行包装
 			PageInfo<OrderBase> pageInfo = new PageInfo<OrderBase>(shengOrderList);
 			//System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
 			//封装数据给DataTables
 			dataTable.setDraw(dataTable.getDraw());
-			//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 			dataTable.setData(pageInfo.getList());
-			//System.out.println("===打印打印分页请求的 封装订单数据页面 pageInfo.getList()===" + pageInfo.getList());
 			dataTable.setRecordsTotal(orderBaseService.getShengOrderCount(tableName));
-			//System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
 			//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 			dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-			//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
 			//返回数据到页面
 			try {
 				response.setCharacterEncoding("UTF-8");
@@ -133,8 +128,6 @@ public class OrderBaseController {
 	public void PageInfoSname(HttpServletRequest request,
 							  HttpServletResponse response,
 							  Vendor vendor, OrderBase orderBase, Factory factory,
-							  //@RequestParam(value = "startTime") Date startTime,
-							  //@RequestParam(value = "endTime") Date endTime,
 							  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
 
@@ -146,10 +139,6 @@ public class OrderBaseController {
 		//
 		Timestamp startTime = orderBase.getCreatTime();
 		Timestamp endTime = orderBase.getEndTime();
-		//Date startTime = orderBase.getCreatTime();
-		//Date endTime = orderBase.getEndTime();
-
-
 		System.out.println("===打印前台传过来时间 开始===:" + startTime);
 		System.out.println("===打印前台传过来时间 结束===:" + endTime);
 		String tableName = factory.getOrderTableName();
@@ -160,17 +149,13 @@ public class OrderBaseController {
 		System.out.println("===打印分页请求=shengVendorList==" + shengOrdernameList);
 		//用PageInfo对结果进行包装
 		PageInfo<OrderBase> pageInfo = new PageInfo<OrderBase>(shengOrdernameList);
-		//System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
 		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(orderBaseService.getShengOrderCountName(tableName, vendorName, startTime, endTime));
-		//System.out.println("===打印打印分页请求的 总过滤数===" + orderBaseService.getShengOrderCount(tableName));
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-		//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
 		//返回数据到页面
 		try {
 			response.setCharacterEncoding("UTF-8");

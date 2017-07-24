@@ -90,10 +90,8 @@ public class SaleBaseController {
 		System.out.println("===打印分页请求=shengVendorList==" + shengSalenameList);
 		//用PageInfo对结果进行包装
 		PageInfo<SaleBase> pageInfo = new PageInfo<SaleBase>(shengSalenameList);
-		//System.out.println("===打印打印分页请求的 生厂商订单 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
 		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(saleBaseService.getShengSaleCountName(tableName, vendorName, startTime, endTime));

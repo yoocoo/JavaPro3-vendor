@@ -87,14 +87,11 @@ public class CashBaseController {
 		System.out.println("===打印分页请求现金表" + shengCashNameList);
 		//用PageInfo对结果进行包装
 		PageInfo<CashBase> pageInfo = new PageInfo<CashBase>(shengCashNameList);
-		//System.out.println("===打印打印分页请求的 生厂商现金表 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		//System.out.println("===打印打印分页请求的 开始记录 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
 		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(cashBaseService.getShengCashCountName(tableName, vendorName, startTime, endTime));
-		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
 		//返回数据到页面
 		try {

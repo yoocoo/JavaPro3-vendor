@@ -224,7 +224,6 @@
 
     <script type="text/javascript">
         var fantoryid = ${userMess.factoryId};
-        //        $("#fantoryid").val();
         console.log("打印筛选的参数 生产商id" + fantoryid);
         $(document).ready(function () {
             var tables = $('#listS').DataTable({

@@ -136,17 +136,12 @@ public class VendorController {
 		//System.out.println("===打印分页请求=shengVendorList==" + shengVendorList);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(shengVendorList);
-		//System.out.println("===打印打印分页请求的 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		//System.out.println("===打印打印分页请求的 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
-		//System.out.println("===打印打印分页请求的 pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(vendorService.getAllCount(fId));
-		//System.out.println("===打印打印分页请求的 setRecordsTotal===" + vendorService.getAllCount(fId));
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-		//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
 		//返回数据到页面
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -249,7 +244,6 @@ public class VendorController {
 
 		ModelAndView view1 = new ModelAndView("vendor/xi/vendor_xi_list");
 		//view.addObject("listpage", PageInfo(request, user, 1, 5));
-		//System.out.println("页面接受检测=====" + PageInfo(request, user, 1, 5));
 		return view1;
 	}
 
@@ -272,21 +266,14 @@ public class VendorController {
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
 		List<Vendor> xiVendorList = vendorService.getAllXiVendor(1,10);
-		//System.out.println("===打印分页请求=shengVendorList==" + xiVendorList);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(xiVendorList);
-		//System.out.println("===打印打印分页请求的 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		//System.out.println("===打印打印分页请求的 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
-		//System.out.println("===打印打印分页请求的 pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(vendorService.getAllXiCount());
-		//System.out.println("===打印打印分页请求的 setRecordsTotal===" + vendorService.getAllXiCount());
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-		//System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
-
 		//返回数据到页面
 		try {
 			response.setCharacterEncoding("UTF-8");
@@ -338,24 +325,16 @@ public class VendorController {
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
-
 		int aId = user.getAgencyId();
-		System.out.println("===打印分页请求运营商的 aId===" + aId);
 		List<Vendor> yunVendorList = vendorService.getAllYunVendor(aId,1, 10);
-		System.out.println("===打印分页请求=yunVendorList==" + yunVendorList);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(yunVendorList);
-		System.out.println("===打印打印分页请求的 pageInfo===" + pageInfo);
 		//封装数据给DataTables
 		dataTable.setDraw(dataTable.getDraw());
-		System.out.println("===打印打印分页请求的 dataTable.getDraw()===" + dataTable.getDraw());
 		dataTable.setData(pageInfo.getList());
-		System.out.println("===打印打印分页请求的 pageInfo.getList()===" + pageInfo.getList());
 		dataTable.setRecordsTotal(vendorService.getAllYunCount(aId));
-		System.out.println("===打印打印分页请求的 setRecordsTotal===" + vendorService.getAllCount(aId));
 		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
 		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
-		System.out.println("===打印打印分页请求的 setRecordsFiltered===" + dataTable.getRecordsTotal());
 		//返回数据到页面
 		try {
 			response.setCharacterEncoding("UTF-8");

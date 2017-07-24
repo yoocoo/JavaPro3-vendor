@@ -22,7 +22,30 @@
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
+    <script type="text/javascript">
+//        document.ready(function () {
+//                fresh();
+//            });
+        function fresh() {
+            if ($(":selected", "#sel1").val() == 6) {
+                $('#s2').attr('disabled', 'disabled');
+                $('#s3').attr('disabled', 'disabled');
+                document.getElementById("s1").checked = true;
+            } else if ($(":selected", "#sel1").val() == 8) {
+                $('#s1').attr('disabled', 'disabled');
+                $('#s3').attr('disabled', 'disabled');
+                document.getElementById("s2").checked = true;
+            } else {
+                $('#s2').attr('disabled', 'disabled');
+                $('#s1').attr('disabled', 'disabled');
+                document.getElementById("s3").checked = true;
 
+            }
+//            $("#wrap").load();
+//            setTimeout("fresh()", 1000 * 20);
+        }
+
+    </script>
     <%--=====创建生产商管理 用户======--%>
     <script type="text/javascript">
         function webRes() {
@@ -133,8 +156,6 @@
             var cellnumber = $("#telephone5").val();
             var realname = $("#name5").val();
 //            ===检测单选值==========================================
-//        var roleid = $("select option:selected").val();
-//
             console.log("弹出来的选择存入数据库中的roleid值：" + $(":selected", "#sel1").val());
             console.log("弹出来的设定的id值：" + $("select option:selected").attr("id"));
 //        alert($("select option:selected").val());//弹出  存入数据库的值
@@ -150,7 +171,9 @@
             //==========================生产商信息=========================
 
             var factoryname = $("#name7").val();
-            var factorytype = $(":selected", "#sel2").val()
+            var factorytype = $("input[type=radio]:checked").val();//获取被选中按钮的值
+            alert("打印改写单选按钮的生产商类型的值" + factorytype);
+//            var factorytype = $(":selected", "#sel2").val()
             var sfeereturnrate = $("#telephone9").val();
             var qrreturnrate = $("#telephone10").val();
             var receiveaccount = $("#telephone11").val();
@@ -395,11 +418,11 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">角色*</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <select id="sel1" name="roleId" class="form-control">
-
+                                                    <select id="sel1" name="roleId" class="form-control" onchange="fresh();" >
+                                                        <option></option>
                                                         <option value="6">生产商管理员</option>
-                                                        <option value="8">出租商管理员</option>
-                                                        <option value="10"> 贸易商管理员</option>
+                                                        <option  value="10"> 贸易商管理员</option>
+                                                        <option  value="8">出租商管理员</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -467,15 +490,40 @@
                                                            type="text">
                                                 </div>
                                             </div>
+                                            <%--=================================加入开关 start=======================================--%>
                                             <div class="form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">生产商类型*</label>
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <select id="sel2" name="factoryType" class="form-control">
-                                                        <option value="生产商" id="0">生产商</option>
-                                                        <option value="贸易商" id="1">贸易商</option>
-                                                    </select>
+                                                    <div class="radio" id="sel2">
+                                                        <label>
+                                                            <input id="s1" type="radio" value="生产商" class="flat" checked
+                                                                   name="factoryType"> 生产商
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input id="s2" type="radio" value="贸易商" class="flat"
+                                                                   name="factoryType"> 贸易商
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input id="s3" type="radio" value="出租商" class="flat"
+                                                                   name="factoryType"> 出租商
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <%--=================================加入开关 end=======================================--%>
+                                            <%--<div class="form-group">--%>
+                                            <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">生产商类型*</label>--%>
+                                            <%--<div class="col-md-6 col-sm-6 col-xs-12">--%>
+                                            <%--<select id="sel2" name="factoryType" class="form-control">--%>
+                                            <%--<option value="生产商" id="0">生产商</option>--%>
+                                            <%--<option value="贸易商" id="1">贸易商</option>--%>
+                                            <%--</select>--%>
+                                            <%--</div>--%>
+                                            <%--</div>--%>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                        for="telephone9">服务费返回率 <span class="required">*</span>

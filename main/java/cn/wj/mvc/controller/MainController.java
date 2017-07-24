@@ -128,12 +128,12 @@ public class MainController {
 	}
 
 	//=========暂时测试========================
-	///**
-	// *  测试
-	// * @return
-	// */
-	//@RequestMapping(value = "/saleAction/listSslaePage", method = RequestMethod.GET)
-	//public String sSaleVendor() {
-	//	return "vendor/sheng/vendor_sheng_salecount";
-	//}
+	/**
+	 *  测试
+	 * @return
+	 */
+	@RequestMapping(value = "/alarmAction/listAckedPage", method = RequestMethod.GET)
+	public String Vendor() {
+		return "vendor/sheng/vendor_no_alarm";
+	}
 }
