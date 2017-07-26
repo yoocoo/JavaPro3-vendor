@@ -468,7 +468,6 @@
 <%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
 <!-- bootstrap-daterangepicker -->
 <script type="text/javascript" src="<c:url value='/static/vendors/moment/min/moment.min.js'/>"></script>
-<%--<script type="text/javascript" src="<c:url value='/static/vendors/bootstrap-daterangepicker/bootstrap-datepicker.zh-CN.js'/>"></script>--%>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
 <!-- Switchery -->
@@ -486,9 +485,9 @@
                 format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
 //                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
                 locale: {
-                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
 
-//                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
                         '七月', '八月', '九月', '十月', '十一月', '十二月']
@@ -508,9 +507,9 @@
                 format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
 //                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
                 locale: {
-                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
 
-//                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
                         '七月', '八月', '九月', '十月', '十一月', '十二月']

@@ -42,6 +42,8 @@
           href="<c:url value='/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
+    <!-- bootstrap-daterangepicker -->
+    <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -162,7 +164,124 @@
 
             </div>
 
+            <%--===============================--%>
+            <%--查看个人资料  start====--%>
+            <!-- Large modal -->
+            <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>--%>
 
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel1">售货机信息卡</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>详情</h4>
+
+                            <div class="x_content">
+                                <br/>
+                                <form class="form-horizontal form-label-left input_mask">
+                                    <input type="hidden" name="vendorId" id="vendorid" value="">//售货机编辑条件
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">售货机名称</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="vname" name="vendorName"
+                                                   disabled="disabled" placeholder="" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">机器型号</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="mNumber" name="modelNumber" value=""
+                                                   class="form-control" disabled="disabled" placeholder="" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">审核管理员 </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="checkuser" name="checkUser" value=""
+                                                   class="form-control" disabled="disabled" placeholder=" ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">软件版本</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="sversion" name="softVersion" value=""
+                                                   class="form-control" disabled="disabled" placeholder=" ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">硬件版本</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="hversion" name="hardwareVersion" value=""
+                                                   class="form-control" disabled="disabled" placeholder=" ">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">服务停止时间</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" name="expireDate"
+                                                   placeholder="" id="odate" name="expireDate"
+                                            <%--value=""--%>
+                                                   class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">第三方支付KEY</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" id="key" name="thirdpayKey" value=""
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">运营商详情</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="aname" name="agencyName" value=""
+                                                   class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+
+
+                                    <%--<div class="form-group">--%>
+                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>--%>
+                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
+                                    <%--<input type="text" class="form-control" placeholder="Default Input">--%>
+                                    <%--</div>--%>
+                                    <%--</div>--%>
+                                    <%--<div class="form-group">--%>
+                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>--%>
+                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
+                                    <%--<input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">--%>
+                                    <%--</div>--%>
+                                    <%--</div>--%>
+                                    <%--<div class="form-group">--%>
+                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>--%>
+                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
+                                    <%--<input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">--%>
+                                    <%--</div>--%>
+                                    <%--</div>--%>
+
+                                    <div class="ln_solid"></div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary">提交</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <%--modal end--%>
+
+            <%--=======    查看个人资料  end   --%>
             <!-- footer content -->
             <footer>
                 <div class="pull-right"> ZJNU ---- ${userMess.factoryId}
@@ -190,6 +309,10 @@
     <%--=================================================================================--%>
     <!-- iCheck -->
     <script type="text/javascript" src="<c:url value='/static/vendors/iCheck/icheck.min.js'/>"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script type="text/javascript" src="<c:url value='/static/vendors/moment/min/moment.min.js'/>"></script>
+    <script type="text/javascript"
+            src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
     <!-- Datatables -->
     <script type="text/javascript"
             src="<c:url value='/static/vendors/datatables.net/js/jquery.dataTables.min.js'/>"></script>
@@ -279,7 +402,8 @@
                 //deferRender : true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                 columns: [
                     {data: "vendorId"},
-                    {data: "vendorName",
+                    {
+                        data: "vendorName",
 
                     },
                     {data: "totalSaled"},
@@ -296,15 +420,16 @@
                     {data: "mdbchangerAlarmCode"},
 
                     {data: "temperature"},
-                    {data: "gprsLevel",
+                    {
+                        data: "gprsLevel",
                         class: "project_progress",
 //                    width: "200px",
                         "render": function (data, type, full, meta) {
-                            return'<div class="progress progress_sm ">' +
+                            return '<div class="progress progress_sm ">' +
                                 '<div class="progress-bar bg-green"' +
-                                ' role="progressbar" ' +'style="width: '+data+'%;"'+
+                                ' role="progressbar" ' + 'style="width: ' + data + '%;"' +
                                 'data-transitiongoal=' + '"' + data +
-                                '"></div> </div> <small>'+data+'% </small>'
+                                '"></div> </div> <small>' + data + '% </small>'
 //                        =========================================================
 //                      var gprsLevel = window.sessionStorage.getItem("gprsLevel");//这里就可以获取到提前存在缓存的数据
 //                        ================================================
@@ -321,13 +446,14 @@
                         }
                     },
 
-                    {data: "checked",
+                    {
+                        data: "checked",
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
 //                        <span class="badge badge-danger">通过</span>
 //                                <span class="badge badge-success">停用</span>
                                 return '<span class="badge badge-danger">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                            }else{
+                            } else {
                                 return '<span class="badge badge-success">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             }
 
@@ -335,15 +461,16 @@
 
                     },
                     {data: "factoryId"},
-                    {data: "agencyName",width: "80px"},
+                    {data: "agencyName", width: "80px"},
                     {data: null}
 
                 ],
                 columnDefs: [{
                     "targets": 18,//编辑
                     "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
+                    "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>" +
+                    "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
                 }],
                 "createdRow": function (row, data, dataIndex) {
                     //每加载完一行的回调函数
@@ -359,7 +486,31 @@
                     return row;
                 }
             });
-//========================================日期格式化=============================
+//            ============编辑弹窗======================================================
+            $('#listS tbody').on('click', 'button#editinfo', function () {
+
+                //获取数据
+                var data = tables.row($(this).parents('tr')).data();
+                var vendorid = $('#vendorid').val(data.vendorId);
+                var vname = $('#vname').val(data.vendorName);
+                var mNumber = $('#mNumber').val(data.modelNumber);
+
+                var checkuser = $('#checkuser').val(data.checkUser);
+                var sversion = $('#sversion').val(data.softVersion);
+                var hversion = $('#hversion').val(data.hardwareVersion);
+
+                var key = $('#key').val(data.thirdpayKey);
+                var aname = $('#aname').val(data.agencyName);
+//                var odate1 = $('#odate').val(data.expireDate);
+
+//                var odate2 = Date.parse(odate1);
+//                var odate=Date(odate2).Format("yyyy-MM-dd hh:mm:ss");
+//                console.log("name:" + vname);
+//                console.log("data:" + data);
+
+
+            });
+//========================================对数据中表格进行日期格式化=============================
             Date.prototype.Format = function (fmt) { //author: meizz
                 var o = {
                     "M+": this.getMonth() + 1, //月份
@@ -408,6 +559,8 @@
                                 } else {
                                     alert(data.msg);
                                     $("#vendor").focus();
+                                    alert("测试获取数据");
+
                                 }
                             },
                             error: function (err) {
@@ -419,6 +572,16 @@
                     }
                 }
             });
+
+//            ==============================测试获得一行数据 start=====================================
+            $('#listS tbody').on('click', 'tr', function () {
+
+                var oTable2 = $('#listS').DataTable();
+                console.log(oTable2.row(this).data());
+                console.log(oTable2.row(this).data().vendorName);
+            });
+//            =============================测试获得一行数据  end======================================
+
 //        ===========================审核用户信息======================================
             $('#listS tbody').on('click', 'button#editrow', function () {
                 var oTable1 = $('#listS').dataTable();
@@ -464,6 +627,32 @@
                     }
                 }
             });
+        });
+
+
+    </script>
+    // =========================时间编辑==================================================================
+
+    <script type="text/javascript">
+        $(function () {
+            $('input[name="expireDate"]').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true,
+                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
+                    locale: {
+//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+
+                        format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+                        daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+                            '七月', '八月', '九月', '十月', '十一月', '十二月']
+                    }
+                },
+                function (start, end, label) {
+                    var odate = start.format('YYYY-MM-DD HH:mm:ss');
+                    document.getElementById('odate').value = odate;
+                });
         });
     </script>
 </body>

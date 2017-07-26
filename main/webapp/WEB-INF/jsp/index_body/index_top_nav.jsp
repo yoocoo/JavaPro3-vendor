@@ -115,7 +115,7 @@
                             </li>
                             <li>
                                 <span>
-                          <span>通信地址 ：</span>
+                          <span>通信地址：</span>
 
                                 </span>
                                 <span class="message">${userMess.postAdress}
@@ -142,6 +142,9 @@
     <%--modal end--%>
 
 <%--=======    查看个人资料  end   --%>
+
+
+
 <!-- /top navigation -->
 </body>
 </html>
