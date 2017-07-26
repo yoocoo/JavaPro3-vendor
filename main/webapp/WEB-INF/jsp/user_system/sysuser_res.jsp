@@ -286,7 +286,7 @@
                                             <%--</p>--%>
                                             <%--</div>--%>
                                             <div id="step-2">
-                                                <h2 class="StepTitle">步骤 2 详情</h2>
+                                                <h2 class="StepTitle">步骤 1 详情</h2>
                                                 <p>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     1.创建系统管理员用户

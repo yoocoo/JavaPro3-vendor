@@ -2,7 +2,7 @@ package cn.wj.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * 说明： 售货机实时数据
@@ -14,6 +14,16 @@ public class Vendor implements Serializable {
 
 	private String vendorName;
 
+	public String getCommPassword() {
+		return commPassword;
+	}
+
+	public void setCommPassword(String commPassword) {
+		this.commPassword = commPassword;
+	}
+
+	private String commPassword;
+
 	private Integer factoryId;
 
 	private Integer agencyId;
@@ -22,11 +32,7 @@ public class Vendor implements Serializable {
 
 	private String checkUser;
 
-	private Date lastUpdateTime;
 
-	private Date registeredTime;
-
-	private Date expireDate;
 
 	private Integer mdbbillAlarmCode;
 
@@ -46,9 +52,7 @@ public class Vendor implements Serializable {
 
 	private String boardTemperature;
 
-	private Date timestamps;
 
-	private Date lastSaleTime;
 
 	private Integer actived;
 
@@ -85,16 +89,84 @@ public class Vendor implements Serializable {
 
 	private String modelNumber;
 
-	private String thirdpayId;
+	private Integer thirdpayId;
+
+	public Integer getThirdpayId() {
+		return thirdpayId;
+	}
+
+	public void setThirdpayId(Integer thirdpayId) {
+		this.thirdpayId = thirdpayId;
+	}
 
 	private String thirdpayKey;
 
 	private Integer wirelessPayEnabled;
 
-	private Date dateOfProduct;
+
 
 	private Integer gprsLevel;
 
+
+	//==============================日期这个格式真头疼========================================
+	private Timestamp lastUpdateTime;
+
+	private Timestamp registeredTime;
+
+	private Timestamp expireDate;
+	private Timestamp timestamps;
+
+	private Timestamp lastSaleTime;
+	private Timestamp dateOfProduct;
+
+	public Timestamp getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Timestamp lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
+	}
+
+	public Timestamp getRegisteredTime() {
+		return registeredTime;
+	}
+
+	public void setRegisteredTime(Timestamp registeredTime) {
+		this.registeredTime = registeredTime;
+	}
+
+	public Timestamp getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Timestamp expireDate) {
+		this.expireDate = expireDate;
+	}
+
+	public Timestamp getTimestamps() {
+		return timestamps;
+	}
+
+	public void setTimestamps(Timestamp timestamps) {
+		this.timestamps = timestamps;
+	}
+
+	public Timestamp getLastSaleTime() {
+		return lastSaleTime;
+	}
+
+	public void setLastSaleTime(Timestamp lastSaleTime) {
+		this.lastSaleTime = lastSaleTime;
+	}
+
+	public Timestamp getDateOfProduct() {
+		return dateOfProduct;
+	}
+
+	public void setDateOfProduct(Timestamp dateOfProduct) {
+		this.dateOfProduct = dateOfProduct;
+	}
+	//====================================================================
 
 //====================================================================
 	private String agencyName;//打印 售货机列表 需要前端的字段
@@ -154,29 +226,29 @@ public class Vendor implements Serializable {
 		this.checkUser = checkUser == null ? null : checkUser.trim();
 	}
 
-	public Date getLastUpdateTime() {
-		return lastUpdateTime;
-	}
-
-	public void setLastUpdateTime(Date lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
-	}
-
-	public Date getRegisteredTime() {
-		return registeredTime;
-	}
-
-	public void setRegisteredTime(Date registeredTime) {
-		this.registeredTime = registeredTime;
-	}
-
-	public Date getExpireDate() {
-		return expireDate;
-	}
-
-	public void setExpireDate(Date expireDate) {
-		this.expireDate = expireDate;
-	}
+	//public Date getLastUpdateTime() {
+	//	return lastUpdateTime;
+	//}
+	//
+	//public void setLastUpdateTime(Date lastUpdateTime) {
+	//	this.lastUpdateTime = lastUpdateTime;
+	//}
+	//
+	//public Date getRegisteredTime() {
+	//	return registeredTime;
+	//}
+	//
+	//public void setRegisteredTime(Date registeredTime) {
+	//	this.registeredTime = registeredTime;
+	//}
+	//
+	//public Date getExpireDate() {
+	//	return expireDate;
+	//}
+	//
+	//public void setExpireDate(Date expireDate) {
+	//	this.expireDate = expireDate;
+	//}
 
 	public Integer getMdbbillAlarmCode() {
 		return mdbbillAlarmCode;
@@ -249,22 +321,22 @@ public class Vendor implements Serializable {
 	public void setBoardTemperature(String boardTemperature) {
 		this.boardTemperature = boardTemperature == null ? null : boardTemperature.trim();
 	}
-
-	public Date getTimestamps() {
-		return timestamps;
-	}
-
-	public void setTimestamps(Date timestamps) {
-		this.timestamps = timestamps;
-	}
-
-	public Date getLastSaleTime() {
-		return lastSaleTime;
-	}
-
-	public void setLastSaleTime(Date lastSaleTime) {
-		this.lastSaleTime = lastSaleTime;
-	}
+	//
+	//public Date getTimestamps() {
+	//	return timestamps;
+	//}
+	//
+	//public void setTimestamps(Date timestamps) {
+	//	this.timestamps = timestamps;
+	//}
+	//
+	//public Date getLastSaleTime() {
+	//	return lastSaleTime;
+	//}
+	//
+	//public void setLastSaleTime(Date lastSaleTime) {
+	//	this.lastSaleTime = lastSaleTime;
+	//}
 
 	public Integer getActived() {
 		return actived;
@@ -402,13 +474,13 @@ public class Vendor implements Serializable {
 		this.modelNumber = modelNumber == null ? null : modelNumber.trim();
 	}
 
-	public String getThirdpayId() {
-		return thirdpayId;
-	}
-
-	public void setThirdpayId(String thirdpayId) {
-		this.thirdpayId = thirdpayId == null ? null : thirdpayId.trim();
-	}
+	//public String getThirdpayId() {
+	//	return thirdpayId;
+	//}
+	//
+	//public void setThirdpayId(String thirdpayId) {
+	//	this.thirdpayId = thirdpayId == null ? null : thirdpayId.trim();
+	//}
 
 	public String getThirdpayKey() {
 		return thirdpayKey;
@@ -426,13 +498,13 @@ public class Vendor implements Serializable {
 		this.wirelessPayEnabled = wirelessPayEnabled;
 	}
 
-	public Date getDateOfProduct() {
-		return dateOfProduct;
-	}
-
-	public void setDateOfProduct(Date dateOfProduct) {
-		this.dateOfProduct = dateOfProduct;
-	}
+	//public Date getDateOfProduct() {
+	//	return dateOfProduct;
+	//}
+	//
+	//public void setDateOfProduct(Date dateOfProduct) {
+	//	this.dateOfProduct = dateOfProduct;
+	//}
 
 	public Integer getGprsLevel() {
 		return gprsLevel;

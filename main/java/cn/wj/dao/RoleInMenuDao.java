@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface RoleInMenuDao extends Dao<RoleInMenuDao> {
+public interface RoleInMenuDao extends Dao<RoleInMenu> {
     /**
      * 1.1.1  6.10 得到关联菜单表中内容
      * 得到 角色菜单 role_in_menu 所有信息

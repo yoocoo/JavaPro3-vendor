@@ -3,6 +3,7 @@ package cn.wj.dao;
 import cn.wj.domain.Vendor;
 import org.apache.ibatis.annotations.Param;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,10 +11,16 @@ import java.util.List;
  * 作者： 王娇
  * 时间： 2017 年 07 月 10 日
  */
-public interface VendorDao extends Dao<VendorDao> {
+public interface VendorDao extends Dao<Vendor> {
 
-	//1.1 功能说明： 生产商用户 ：注册新的售货机
+	//1.1.1 功能说明： 生产商用户 ：注册新的售货机
 	int shengAddVendor(Vendor vendor);
+
+	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
+	int updateThirdId(@Param("thirdpayId") int thirdpayId,@Param("thirdpayKey") String thirdpayKey);
+
+	//1.1.3 查找-售货机名称，查找该售货机名称是否已经被命名-->
+	Vendor findOneById(Serializable Id);
 
 	//2.1.1 生产商售货机 列表
 
@@ -41,10 +48,11 @@ public interface VendorDao extends Dao<VendorDao> {
 	int getAllYunCount(@Param("agencyId") int agencyId);
 
 	//2.5.1 生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
-	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId,@Param("roleId") int roleId);
+	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId, @Param("roleId") int roleId);
 
 	//2.5.2 运营商售货机 数据查询统计的准备条件： 按指定运营商售货机名称列表 查询
-	List<Vendor> getAllYvendorName(@Param("agencyId") int agencyId,@Param("roleId") int roleId);
+	List<Vendor> getAllYvendorName(@Param("agencyId") int agencyId, @Param("roleId") int roleId);
+
 	//====================自动生成==================
 	int deleteByPrimaryKey(Integer vendorId);
 

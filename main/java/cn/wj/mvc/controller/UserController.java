@@ -334,7 +334,7 @@ public class UserController {
 
 		//查找用户
 		User user1 = userService.findUser(user);
-		System.out.println("用户登录时候，能得到该用户的信息中的 userId："+user1.getRoleId());
+		//System.out.println("用户登录时候，能得到该用户的信息中的 userId："+user1.getRoleId());//如果加上这句，当用户不存在会抛出异常
 
 		if (null == user1) {
 			responseObj = new ResponseObj<User>();

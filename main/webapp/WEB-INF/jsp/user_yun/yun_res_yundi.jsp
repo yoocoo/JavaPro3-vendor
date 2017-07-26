@@ -142,7 +142,6 @@
                     } else {
                         alert(data.msg);
                         $("#user").focus();
-//                        $("#agency").focus();
                     }
                 }
             })

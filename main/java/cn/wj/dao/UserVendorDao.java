@@ -7,7 +7,7 @@ import cn.wj.domain.UserVendor;
  * 作者：王娇
  * 时间： 2017 年 7 月 10 日
  */
-public interface UserVendorDao extends Dao<UserVendorDao> {
+public interface UserVendorDao extends Dao<UserVendor> {
 
 
     //===========自动生成=================

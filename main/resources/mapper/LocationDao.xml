@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.LocationDao" >
+  <resultMap id="LocationResultMap" type="cn.wj.domain.Location" >
+    <result column="location_id" property="locationId" jdbcType="INTEGER" />
+    <result column="location_name" property="locationName" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.wj.domain.Location" >
+    insert into location (location_id, location_name)
+    values (#{locationId,jdbcType=INTEGER}, #{locationName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.Location" >
+    insert into location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="locationId != null" >
+        location_id,
+      </if>
+      <if test="locationName != null" >
+        location_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="locationId != null" >
+        #{locationId,jdbcType=INTEGER},
+      </if>
+      <if test="locationName != null" >
+        #{locationName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,7 +1,10 @@
 package cn.wj.mvc.controller;
 
 import cn.wj.domain.ResponseObj;
-import cn.wj.domain.*;
+import cn.wj.domain.ThirdPay;
+import cn.wj.domain.User;
+import cn.wj.domain.Vendor;
+import cn.wj.service.serviceImpl.ThirdPayServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.service.serviceImpl.UserVendorServiceImpl;
 import cn.wj.service.serviceImpl.VendorServiceImpl;
@@ -37,41 +40,36 @@ public class VendorController {
 	private VendorServiceImpl vendorService;//自动载入 售货机表格Service对象
 	@Autowired
 	private UserVendorServiceImpl userVendorService;//自动载入 用户售货机分配 Service 对象
-	@Autowired//这里是重点,spring事务管理时,那就一定要加上注解
-
+	@Autowired//
 	private UserServiceImpl userService;//自动载入 用户表格Service对象
+	@Autowired//
+	private ThirdPayServiceImpl thirdPayService;//自动载入  第三方支付 Service 对象
 	private ResponseObj responseObj;//封装 放到前端页面 数据
 
-	/**
-	 * 说明：放到页面上的 生产商所拥有的 所有的售货机的名称
-	 * 时间： 2017 年 7 月 15 日（暂时未用到）
-	 * 作者：王娇
-	 * @param request
-	 * @return
-	 */
-	//@RequestMapping(value = "/getVendorNameList",
-	//		//, method = RequestMethod.POST,
-	//		produces = "application/json;charset=utf-8")
-	//private Object getvendorName(HttpServletRequest request,Vendor vendor,Factory factory) throws Exception {
-	//	int fId = factory.getFactoryId();
-	//	System.out.println("===打印放到页面传过来的factory_id==" + fId);
-	//	//try {
-	//	//List<Vendor> vendorNameList = vendorService.getAllSvendorName(fId,);
-	//	//System.out.println("===打印放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
-	//	//session.setAttribute("nameList", new GsonUtils().toJson(vendorNameList));
-	//	//System.out.println("===打印session中放到页面的改生产商所有的售货机名称==" + new GsonUtils().toJson(vendorNameList));
-	//	//return new GsonUtils().toJson(vendorNameList);
-	//}
-
-	@RequestMapping(value = "/shengRegVendor",
+	@RequestMapping(value = "/RegVendor",
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object shengRegVendor(HttpServletRequest request, HttpServletResponse response, Vendor vendor) throws Exception {
+	public Object shengRegVendor(HttpServletRequest request, HttpServletResponse response, Vendor vendor, ThirdPay thirdPay) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<Vendor>();
+		if (null != vendorService.findVendor(vendor)) {
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("售货机命名重复");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
 		try {
-			vendorService.shengAddVendor(vendor);
+			vendorService.shengAddVendor(vendor);//新注册售货机时， 售货机表格 添加一条记录
+			thirdPayService.addVendor(thirdPay);//新注册售货机时，添加第三方支付 一条记录
+			int  id = thirdPay.getThirdpayId();
+			String key = vendor.getThirdpayKey();
+			System.out.println("王八一："+id);
+			System.out.println("王八二："+key);
+			vendorService.updateThirdId(id,key);
+			int id2 = vendor.getVendorId();
+			System.out.print("王八三："+id2);
+			thirdPayService.updateVendorId(id2,key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);

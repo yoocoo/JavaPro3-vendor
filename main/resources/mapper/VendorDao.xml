@@ -4,6 +4,7 @@
     <resultMap id="VendorMap" type="cn.wj.domain.Vendor">
         <id column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
         <result column="vendor_name" property="vendorName" jdbcType="VARCHAR"/>
+        <result column="comm_password" property="commPassword" jdbcType="VARCHAR"/>
         <result column="factory_id" property="factoryId" jdbcType="INTEGER"/>
         <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
         <result column="checked" property="checked" jdbcType="INTEGER"/>
@@ -39,7 +40,7 @@
         <result column="current_cashless" property="currentCashless" jdbcType="DECIMAL"/>
         <result column="current_extra_income" property="currentExtraIncome" jdbcType="DECIMAL"/>
         <result column="model_number" property="modelNumber" jdbcType="VARCHAR"/>
-        <result column="thirdpay_id" property="thirdpayId" jdbcType="VARCHAR"/>
+        <result column="thirdpay_id" property="thirdpayId" jdbcType="INTEGER"/>
         <result column="thirdpay_key" property="thirdpayKey" jdbcType="VARCHAR"/>
         <result column="wireless_pay_enabled" property="wirelessPayEnabled" jdbcType="INTEGER"/>
         <result column="date_of_product" property="dateOfProduct" jdbcType="TIMESTAMP"/>
@@ -51,7 +52,7 @@
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
     </resultMap>
     <!--<sql id="Vendor_Column_List">-->
-    <!--vendor_id, vendor_name, factory_id, agency_id, check, check_user, last_update_time,-->
+    <!--vendor_id, vendor_name, comm_password,factory_id, agency_id, check, check_user, last_update_time,-->
     <!--registered_time, expire_date, mdbBill_alarm_code, mdbChanger_alarm_code, temperature,-->
     <!--leaved_bill, leaved_coin, soft_version, hardware_version, max_channel_num, board_temperature,-->
     <!--timestamps, last_sale_time, actived, inactive_reason, total_saled, total_money, total_bill,-->
@@ -60,39 +61,47 @@
     <!--model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product, gprs_level-->
     <!--</sql>-->
 
-    <!--1.1 功能说明： 生产商用户 ：注册新的售货机 -->
+    <!--1.1.1 功能说明： 生产商用户 ：注册新的售货机 -->
     <insert id="shengAddVendor" parameterType="cn.wj.domain.Vendor">
-    insert into vendor (vendor_id, vendor_name, factory_id,
-    agency_id, checked, check_user,
-    last_update_time, registered_time, expire_date,
-    mdbBill_alarm_code, mdbChanger_alarm_code,
-    temperature, leaved_bill, leaved_coin,
-    soft_version, hardware_version, max_channel_num,
-    board_temperature, timestamps, last_sale_time,
-    actived, inactive_reason, total_saled,
-    total_money, total_bill, total_coin,
-    total_change, total_cashless, total_extra_income,
-    current_saled, current_money, current_bill,
-    current_coin, current_change, current_cashless,
-    current_extra_income, model_number, thirdpay_id,
-    thirdpay_key, wireless_pay_enabled, date_of_product,
-    gprs_level)
-    values (#{vendorId,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},
-    #{agencyId,jdbcType=INTEGER}, 0, #{checkUser,jdbcType=VARCHAR},
-    #{lastUpdateTime,jdbcType=TIMESTAMP}, #{registeredTime,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP},
-    #{mdbbillAlarmCode,jdbcType=INTEGER}, #{mdbchangerAlarmCode,jdbcType=INTEGER},
-    #{temperature,jdbcType=INTEGER}, #{leavedBill,jdbcType=INTEGER}, #{leavedCoin,jdbcType=INTEGER},
-    #{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR}, #{maxChannelNum,jdbcType=INTEGER},
-    #{boardTemperature,jdbcType=VARCHAR}, #{timestamps,jdbcType=TIMESTAMP}, #{lastSaleTime,jdbcType=TIMESTAMP},
-    #{actived,jdbcType=INTEGER}, #{inactiveReason,jdbcType=VARCHAR}, #{totalSaled,jdbcType=INTEGER},
-    #{totalMoney,jdbcType=DECIMAL}, #{totalBill,jdbcType=DECIMAL}, #{totalCoin,jdbcType=DECIMAL},
-    #{totalChange,jdbcType=DECIMAL}, #{totalCashless,jdbcType=DECIMAL}, #{totalExtraIncome,jdbcType=DECIMAL},
-    #{currentSaled,jdbcType=INTEGER}, #{currentMoney,jdbcType=DECIMAL}, #{currentBill,jdbcType=DECIMAL},
-    #{currentCoin,jdbcType=DECIMAL}, #{currentChange,jdbcType=DECIMAL}, #{currentCashless,jdbcType=DECIMAL},
-    #{currentExtraIncome,jdbcType=DECIMAL}, #{modelNumber,jdbcType=VARCHAR}, #{thirdpayId,jdbcType=VARCHAR},
-    #{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},
-    #{gprsLevel,jdbcType=INTEGER})
+        <selectKey keyProperty="vendorId" resultType="int" order="AFTER">
+            SELECT @@IDENTITY AS vendor_id
+        </selectKey>
+    insert into vendor (
+    vendor_name,   comm_password,   factory_id,        agency_id,           checked,            check_user,
+    last_update_time, registered_time,   expire_date,         mdbBill_alarm_code, mdbChanger_alarm_code,
+    temperature,      leaved_bill,       leaved_coin,         soft_version,       hardware_version,
+    max_channel_num,  board_temperature, timestamps,          last_sale_time,     actived,
+    inactive_reason,  total_saled,        total_money,         total_bill,         total_coin,
+    total_change,     total_cashless,     total_extra_income,  current_saled,      current_money,
+    current_bill,     current_coin,       current_change,      current_cashless,   current_extra_income,
+    model_number,     thirdpay_id,        thirdpay_key,        wireless_pay_enabled, date_of_product,
+    gprs_level
+        )
+    values (
+        #{vendorName,jdbcType=VARCHAR}, #{commPassword,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},0, 0, '待审核',
+        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{expireDate,jdbcType=TIMESTAMP},0, 0,
+    0, 0, 0,#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR},
+    #{maxChannelNum,jdbcType=INTEGER},0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1,
+   '暂无', 0, 0, 0, 0,
+    0, 0, 0,0, 0,
+   0,0, 0, 0, 0,
+    #{modelNumber,jdbcType=VARCHAR}, 0,#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},
+   0 )
   </insert>
+    <!--1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
+    <update id="updateThirdId" parameterType="cn.wj.domain.Vendor">
+        UPDATE vendor SET
+        thirdpay_id = #{thirdpayId}
+        WHERE  thirdpay_key = #{thirdpayKey}
+    </update>
+
+    <!--1.1.3 查找-售货机名称，查找该售货机名称是否已经被命名-->
+    <select id="findOneById" resultMap="VendorMap" parameterType="String">
+        SELECT *
+        FROM vendor
+        WHERE vendor_name = #{vendorName}
+    </select>
+
 
     <!--2.1.1 生产商售货机 列表-->
     <select id="getAllShengVendor" resultMap="VendorMap">
@@ -191,6 +200,24 @@
          WHERE u.agency_id=#{agencyId} and u.role_id= #{roleId}
     </select>
 
+
+
+    <!--============你迟早会用到的=============================-->
+    <!--#{vendorId,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},-->
+    <!--#{agencyId,jdbcType=INTEGER}, 0, #{checkUser,jdbcType=VARCHAR},-->
+    <!--#{lastUpdateTime,jdbcType=TIMESTAMP}, #{registeredTime,jdbcType=TIMESTAMP}, #{expireDate,jdbcType=TIMESTAMP},-->
+    <!--#{mdbbillAlarmCode,jdbcType=INTEGER}, #{mdbchangerAlarmCode,jdbcType=INTEGER},-->
+    <!--#{temperature,jdbcType=INTEGER}, #{leavedBill,jdbcType=INTEGER}, #{leavedCoin,jdbcType=INTEGER},-->
+    <!--#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR}, #{maxChannelNum,jdbcType=INTEGER},-->
+    <!--#{boardTemperature,jdbcType=VARCHAR}, #{timestamps,jdbcType=TIMESTAMP}, #{lastSaleTime,jdbcType=TIMESTAMP},-->
+    <!--#{actived,jdbcType=INTEGER}, #{inactiveReason,jdbcType=VARCHAR}, #{totalSaled,jdbcType=INTEGER},-->
+    <!--#{totalMoney,jdbcType=DECIMAL}, #{totalBill,jdbcType=DECIMAL}, #{totalCoin,jdbcType=DECIMAL},-->
+    <!--#{totalChange,jdbcType=DECIMAL}, #{totalCashless,jdbcType=DECIMAL}, #{totalExtraIncome,jdbcType=DECIMAL},-->
+    <!--#{currentSaled,jdbcType=INTEGER}, #{currentMoney,jdbcType=DECIMAL}, #{currentBill,jdbcType=DECIMAL},-->
+    <!--#{currentCoin,jdbcType=DECIMAL}, #{currentChange,jdbcType=DECIMAL}, #{currentCashless,jdbcType=DECIMAL},-->
+    <!--#{currentExtraIncome,jdbcType=DECIMAL}, #{modelNumber,jdbcType=VARCHAR}, #{thirdpayId,jdbcType=VARCHAR},-->
+    <!--#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},-->
+    <!--#{gprsLevel,jdbcType=INTEGER}-->
     <!--=================================自动生成================================================================-->
     <!--<select id="selectByPrimaryKey" resultMap="VendorMap" parameterType="java.lang.Integer">-->
     <!--select-->

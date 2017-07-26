@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="cn.wj.dao.ThirdPayDao">
+    <resultMap id="ThirdPayResultMap" type="cn.wj.domain.ThirdPay">
+      <id column="thirdpay_id" jdbcType="INTEGER" property="thirdpayId" />
+      <result column="thirdpay_key" jdbcType="VARCHAR" property="thirdpayKey" />
+      <result column="vendor_id" jdbcType="INTEGER" property="vendorId" />
+    </resultMap>
+    <sql id="ThirdPay_Column_List">
+      thirdpay_id, thirdpay_key, vendor_id
+    </sql>
+    <!--1.1.1生产商管理员注册售货机 在第三方支付表中 添加记录-->
+    <insert id="addVendor" parameterType="cn.wj.domain.ThirdPay">
+      <selectKey keyProperty="thirdpayId" resultType="int" order="AFTER">
+        SELECT @@IDENTITY AS thirdpay_id
+      </selectKey>
+      INSERT into  third_pay(thirdpay_key, vendor_id)
+      values (#{thirdpayKey,jdbcType=VARCHAR},0);
+    </insert>
+  <!--1.1.2 功能说明：更新售货机id  依据从 售货机表 拷贝过来   -->
+  <update id="updateVendorId" parameterType="cn.wj.domain.ThirdPay">
+    UPDATE third_pay SET
+    vendor_id = #{vendorId}
+    WHERE  thirdpay_key = #{thirdpayKey}
+  </update>
+
+
+    <!--========================自动成成==================================================-->
+    <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ThirdPayResultMap">-->
+      <!--select-->
+      <!--<include refid="ThirdPay_Column_List" />-->
+      <!--from third_pay-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+      <!--delete from third_pay-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</delete>-->
+    <!--<insert id="insert" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--insert into third_pay (thirdpay_id, thirdpay_key, vendor_id-->
+      <!--)-->
+      <!--values (#{thirdpayId,jdbcType=INTEGER}, #{thirdpayKey,jdbcType=VARCHAR}, #{vendorId,jdbcType=INTEGER}-->
+      <!--)-->
+    <!--</insert>-->
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--insert into third_pay-->
+      <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+        <!--<if test="thirdpayId != null">-->
+          <!--thirdpay_id,-->
+        <!--</if>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--thirdpay_key,-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--vendor_id,-->
+        <!--</if>-->
+      <!--</trim>-->
+      <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+        <!--<if test="thirdpayId != null">-->
+          <!--#{thirdpayId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--#{thirdpayKey,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--#{vendorId,jdbcType=INTEGER},-->
+        <!--</if>-->
+      <!--</trim>-->
+    <!--</insert>-->
+    <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--update third_pay-->
+      <!--<set>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--vendor_id = #{vendorId,jdbcType=INTEGER},-->
+        <!--</if>-->
+      <!--</set>-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--update third_pay-->
+      <!--set thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+      <!--vendor_id = #{vendorId,jdbcType=INTEGER}-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</update>-->
+    <!--<resultMap id="ThirdPayResultMap" type="cn.wj.domain.ThirdPay">-->
+      <!--<id column="thirdpay_id" jdbcType="INTEGER" property="thirdpayId" />-->
+      <!--<result column="thirdpay_key" jdbcType="VARCHAR" property="thirdpayKey" />-->
+      <!--<result column="vendor_id" jdbcType="INTEGER" property="vendorId" />-->
+    <!--</resultMap>-->
+    <!--<sql id="Base_Column_List">-->
+      <!--thirdpay_id, thirdpay_key, vendor_id-->
+    <!--</sql>-->
+    <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ThirdPayResultMap">-->
+      <!--select-->
+      <!--<include refid="ThirdPay_Column_List" />-->
+      <!--from third_pay-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+      <!--delete from third_pay-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</delete>-->
+    <!--<insert id="insert" parameterType="cn.wj.domain.thirdPay">-->
+      <!--insert into third_pay (thirdpay_id, thirdpay_key, vendor_id-->
+      <!--)-->
+      <!--values (#{thirdpayId,jdbcType=INTEGER}, #{thirdpayKey,jdbcType=VARCHAR}, #{vendorId,jdbcType=INTEGER}-->
+      <!--)-->
+    <!--</insert>-->
+    <!--<insert id="insertSelective" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--insert into third_pay-->
+      <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+        <!--<if test="thirdpayId != null">-->
+          <!--thirdpay_id,-->
+        <!--</if>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--thirdpay_key,-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--vendor_id,-->
+        <!--</if>-->
+      <!--</trim>-->
+      <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+        <!--<if test="thirdpayId != null">-->
+          <!--#{thirdpayId,jdbcType=INTEGER},-->
+        <!--</if>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--#{thirdpayKey,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--#{vendorId,jdbcType=INTEGER},-->
+        <!--</if>-->
+      <!--</trim>-->
+    <!--</insert>-->
+    <!--<update id="updateByPrimaryKeySelective" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--update third_pay-->
+      <!--<set>-->
+        <!--<if test="thirdpayKey != null">-->
+          <!--thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+        <!--</if>-->
+        <!--<if test="vendorId != null">-->
+          <!--vendor_id = #{vendorId,jdbcType=INTEGER},-->
+        <!--</if>-->
+      <!--</set>-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</update>-->
+    <!--<update id="updateByPrimaryKey" parameterType="cn.wj.domain.ThirdPay">-->
+      <!--update third_pay-->
+      <!--set thirdpay_key = #{thirdpayKey,jdbcType=VARCHAR},-->
+      <!--vendor_id = #{vendorId,jdbcType=INTEGER}-->
+      <!--where thirdpay_id = #{thirdpayId,jdbcType=INTEGER}-->
+    <!--</update>-->
+  </mapper>

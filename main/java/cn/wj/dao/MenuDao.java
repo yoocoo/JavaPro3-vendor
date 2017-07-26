@@ -4,7 +4,7 @@ import cn.wj.domain.Menu;
 
 import java.util.List;
 
-public interface MenuDao extends Dao<MenuDao> {
+public interface MenuDao extends Dao<Menu> {
 
 	/**
 	 * 得到所有菜单  6.10
