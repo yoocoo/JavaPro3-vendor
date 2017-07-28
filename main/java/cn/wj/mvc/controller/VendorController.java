@@ -1,9 +1,6 @@
 package cn.wj.mvc.controller;
 
-import cn.wj.domain.ResponseObj;
-import cn.wj.domain.ThirdPay;
-import cn.wj.domain.User;
-import cn.wj.domain.Vendor;
+import cn.wj.domain.*;
 import cn.wj.service.serviceImpl.ThirdPayServiceImpl;
 import cn.wj.service.serviceImpl.UserServiceImpl;
 import cn.wj.service.serviceImpl.UserVendorServiceImpl;
@@ -232,7 +229,7 @@ public class VendorController {
 	 * 说明：系统管理员接受 售货机列表数据的页面
 	 * 创建日期： 2017 年 07 月 11 日
 	 * 创建者： 王娇
-	 *
+	 * 一更时间： 2017 年 07 月28 日
 	 * @param request
 	 * @param vendor
 	 * @return
@@ -255,7 +252,7 @@ public class VendorController {
 	@RequestMapping(value = "/listAllXVendor", method = RequestMethod.POST)
 	public void PageInfoVendor1(HttpServletRequest request,
 							   HttpServletResponse response,
-							   Vendor vendor,User user,
+							   Vendor vendor,User user, Channel channel,
 							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
 		//使用DataTables的属性接收分页数据

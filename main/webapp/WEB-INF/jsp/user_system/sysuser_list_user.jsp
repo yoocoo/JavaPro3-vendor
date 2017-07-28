@@ -273,7 +273,7 @@
                 <%--{data: "nextUrl"},--%>
                 {data: "accountName"},
                 {data: "password"},
-                {data: "realName"},
+                {data: "realName", "defaultContent": "<i>未初始化</i>"},
                 {
                     data: "roleId",
                     "render": function (data, type, full, meta) {
@@ -298,16 +298,21 @@
                     }
                 },
                 <%--{data: "nickName"},--%>
-                {data: "email"},
+                {data: "email",
+                    "defaultContent": "<i>未初始化</i>"},
                 <%--{data: "lastLoginTime"},--%>
                 <%--{data: "fixPhone"},--%>
-                {data: "mobilePhone"},
-                {data: "qq"},
+                {data: "mobilePhone",
+                    "defaultContent": "<i>未初始化</i>"},
+                {data: "qq",
+                    "defaultContent": "<i>未初始化</i>"},
 //                {data: "postcode"},
-                {data: "idcard"},
+                {data: "idcard",
+                    "defaultContent": "<i>未初始化</i>"},
                 <%--{data: "loginCount"},--%>
                 <%--{data: "creatTime"},--%>
-                {data: "postAdress"},
+                {data: "postAdress",
+                    "defaultContent": "<i>未初始化</i>"},
 //                {data: "headImage"},
                 {data: "approved"},
                 {data: null}

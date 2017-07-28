@@ -81,7 +81,7 @@
         #{vendorName,jdbcType=VARCHAR}, #{commPassword,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},0, 0, '待审核',
         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{expireDate,jdbcType=TIMESTAMP},0, 0,
     0, 0, 0,#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR},
-    #{maxChannelNum,jdbcType=INTEGER},0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,1,
+    #{maxChannelNum,jdbcType=INTEGER},0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,0,
    '暂无', 0, 0, 0, 0,
     0, 0, 0,0, 0,
    0,0, 0, 0, 0,
@@ -102,7 +102,7 @@
         WHERE vendor_name = #{vendorName}
     </select>
 
-
+<!-- ===============（一 ）生产商角色======================-->
     <!--2.1.1 生产商售货机 列表-->
     <select id="getAllShengVendor" resultMap="VendorMap">
     SELECT
@@ -120,11 +120,16 @@
     v.current_coin, v.current_change, v.current_cashless,
     v.current_extra_income, v.model_number, v.thirdpay_id,
     v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
-    v.gprs_level,a.agency_name
+    v.gprs_level,a.agency_name,sum(stock_number) sum,
+                  count(case when stock_number !=0  then 'count_num'END ) count_num,
+                  count(case when motor_status = 0 then 'count_status'END) count_status
     FROM  vendor v
      LEFT JOIN agency a
      ON  v.agency_id= a.agency_id
+     LEFT  JOIN  channel c1
+     on v.vendor_id = c1.vendor_id
      WHERE  v.factory_id =#{factoryId}
+     GROUP  BY  v.vendor_id
     </select>
     <!--2.1.2 jquery DataTable +PageHelper  服务器端分页-->
     <select id="getAllCount" resultType="int">
@@ -132,28 +137,60 @@
         FROM vendor
         WHERE factory_id =#{factoryId}
     </select>
-    <!--2.2.2   系统管理，运营商管理，生产商管理用户 冻结新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  冻结可疑售货机，过期售货机-->
+
+    <!--  =====（四）===还需要再改写权限问题 冻结和审核问题=======系统管理员角色==============-->
+
+    <!--2.2.2   （系统管理，运营商管理，生产商管理用户） 冻结新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  冻结可疑售货机，过期售货机-->
     <update id="ShengRemoveVendor" parameterType="cn.wj.domain.Vendor">
     UPDATE  vendor
     SET checked =0
     WHERE  vendor_id = #{vendorId}
   </update>
-    <!--2.2.3   系统管理，运营商管理，生产商用户 通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
+    <!--2.2.3   （系统管理，运营商管理，生产商用户 ）通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
     <update id="shengPassVendor" parameterType="cn.wj.domain.Vendor">
     UPDATE  vendor SET
    checked =1
     WHERE  vendor_id = #{vendorId,jdbcType=INTEGER}
   </update>
-    <!--2.3.1 系统管理员的售货机 列表-->
+
+    <!--===== （二）系统管理员 角色=========-->
+    <!--  2.3.1 系统管理员的售货机 列表-->
+    <!--<select id="getAllXiVendor" resultMap="VendorMap">-->
+    <!--SELECT *-->
+    <!--FROM vendor-->
+    <!--</select>-->
     <select id="getAllXiVendor" resultMap="VendorMap">
-    SELECT *
-    FROM vendor
+        SELECT  v.vendor_id, v.vendor_name, v.factory_id,
+                v.agency_id, v.checked, v.check_user,
+                v.last_update_time, v.registered_time, v.expire_date,
+                v.mdbBill_alarm_code, v.mdbChanger_alarm_code,
+                v.temperature, v.leaved_bill, v.leaved_coin,
+                v.soft_version, v.hardware_version, v.max_channel_num,
+                v.board_temperature, v.timestamps, v.last_sale_time,
+                v.actived, v.inactive_reason, v.total_saled,
+                v.total_money, v.total_bill, v.total_coin,
+                v.total_change, v.total_cashless, v.total_extra_income,
+                v.current_saled, v.current_money, v.current_bill,
+                v.current_coin, v.current_change, v.current_cashless,
+                v.current_extra_income, v.model_number, v.thirdpay_id,
+                v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
+                v.gprs_level,sum(stock_number) sum,
+                  count(case when stock_number !=0  then 'count_num'END ) count_num,
+                  count(case when motor_status = 0 then 'count_status'END) count_status
+                 FROM vendor v
+                 LEFT  JOIN  channel c1
+                 ON  v.vendor_id = c1.vendor_id
+                 GROUP  BY  v.vendor_id
     </select>
+
     <!--2.3.2 系统管理员jquery DataTable +PageHelper  服务器端分页-->
     <select id="getAllXiCount" resultType="int">
     SELECT COUNT(*)
     FROM vendor
     </select>
+
+    <!--===== （三）运营商管理员 角色=========-->
+
     <!--2.4.1  运营商管理员的售货机 列表-->
     <select id="getAllYunVendor" resultMap="VendorMap">
         SELECT   v.vendor_id, v.vendor_name, v.factory_id,
@@ -170,11 +207,16 @@
     v.current_coin, v.current_change, v.current_cashless,
     v.current_extra_income, v.model_number, v.thirdpay_id,
     v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
-    v.gprs_level,a.agency_name
+    v.gprs_level,a.agency_name,sum(stock_number) sum,
+                  count(case when stock_number !=0  then 'count_num'END ) count_num,
+                  count(case when motor_status = 0 then 'count_status'END) count_status
         FROM vendor v
          LEFT JOIN agency a
      ON  v.agency_id= a.agency_id
+     LEFT  JOIN  channel c1
+     on v.vendor_id = c1.vendor_id
         WHERE  v.agency_id =#{agencyId}
+        GROUP  BY  v.vendor_id
     </select>
     <!--2.4.2 运营商管理员jquery DataTable +PageHelper  服务器端分页-->
     <select id="getAllYunCount" resultType="int">
@@ -200,7 +242,20 @@
          WHERE u.agency_id=#{agencyId} and u.role_id= #{roleId}
     </select>
 
-
+ <!--2.6.1 基础编辑指定售货机信息-->
+    <update id="updateSvendorInfo" parameterType="cn.wj.domain.Vendor">
+        UPDATE vendor
+        SET
+        password=#{password},
+        real_name = #{realName},
+        email = #{email},
+        mobile_phone = #{mobilePhone},
+        QQ = #{qq},
+        postcode = #{postcode},
+        idcard = #{idcard},
+        post_adress = #{postAdress}
+        WHERE  account_name = #{accountName}
+    </update>
 
     <!--============你迟早会用到的=============================-->
     <!--#{vendorId,jdbcType=INTEGER}, #{vendorName,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},-->

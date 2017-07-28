@@ -3,7 +3,8 @@
   User: ThinkPad
   Date: 2017/7/11
   Time: 22:08
-    售货机业务逻辑页面----系统管理员
+  一更时间：2017年07 月28 日
+    售货机业务逻辑页面----系统管理员 (审核售货机功能)
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,8 +30,6 @@
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
     <!-- bootstrap-progressbar -->
-    <%--<link type="text/css" rel="stylesheet"--%>
-    <%--href="<c:url value='/static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'/>">--%>
     <!-- Datatables -->
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css'/>">
@@ -91,63 +90,48 @@
                                     </small>
                                 </h2>
                                 <p class="text-muted font-13 m-b-30">
-
-                                    <%--<div class="fontawesome-icon-list ">--%>
-                                    <%--&lt;%&ndash;<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;href="<%=request.getContextPath()%>/mvc/userAction/sysuserResXi"><i&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;class="fa fa-eye"></i>&nbsp;&nbsp;新增系统管理员</a>&ndash;%&gt;--%>
-                                    <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a--%>
-                                    <%--href="<%=request.getContextPath()%>/mvc/vendorAction/shengRegVendor"><i--%>
-                                    <%--class="fa fa-cc-amex"></i> 注册售货机</a>--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
                                 </p>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
-                                    <%--role="button" aria-expanded="false"><i--%>
-                                    <%--class="fa fa-wrench"></i></a>--%>
-                                    <%--<ul class="dropdown-menu" role="menu">--%>
-                                    <%--<li><a href="#">设置 1</a></li>--%>
-                                    <%--<li><a href="#">设置 2</a></li>--%>
-                                    <%--</ul>--%>
-                                    <%--</li>--%>
-                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
-                                <table id="datatable-buttons"
+                                <table id="listS"
                                        class="table table-striped table-bordered ">
                                     <thead>
                                     <tr>
 
                                         <th class="text-center">ID</th>
                                         <th class="text-left">售货机名称</th>
-                                        <th class="text-left">销售次数</th>
+                                        <th class="text-left">通信状态</th>
 
-                                        <th class="text-left">库存量</th>
-                                        <th class="text-center">总金额</th>
-                                        <th class="text-center">总纸币</th>
+                                        <th class="text-left">总销售次数</th>
+                                        <th class="text-left">最大货道数</th>
 
-                                        <th class="text-center">总硬币</th>
-                                        <th class="text-center">总非现金</th>
+
+                                        <th class="text-left">库存数量</th>
+                                        <th class="text-left">总金额</th>
+                                        <th class="text-left">总纸币</th>
+
+                                        <th class="text-left">总硬币</th>
+                                        <th class="text-left">总非现金</th>
                                         <th class="text-left">总额外收入</th>
 
-                                        <th class="text-left">电机状态</th>
+                                        <th class="text-left">库存状态</th>
+                                        <th class="text-left">马达状态</th>
                                         <th class="text-left">纸币器</th>
                                         <th class="text-left">硬币器</th>
 
                                         <th class="text-left">温度</th>
                                         <th>信号</th>
-                                        <th class="text-left">最近销售</th>
+                                        <th class="text-left">最近一次销售</th>
 
                                         <th class="text-left">审核状态</th>
-                                        <th class="text-left">生产商</th>
-                                        <th class="text-left">运营商描述</th>
-                                        <th class="text-center">售货机权限操作</th>
+                                        <%--<th class="text-left">生产商</th>--%>
+                                        <%--<th class="text-left">运营商详情</th>--%>
+                                        <th class="text-left">权限操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -225,7 +209,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var tables = $('#datatable-buttons').DataTable({
+        var tables = $('#listS').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -276,73 +260,127 @@
             destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
             //deferRender : true,//延迟渲染
             columns: [
-                {data: "vendorId"},
-                {data: "vendorName"},
-                {data: "totalSaled"},
+                {data: "vendorId"},//售货机ID  -0
+                {data: "vendorName"},//售货机名称-1
+                {
+                    data: "actived",//是否在线（通信状态）-2
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<h4 class="green"><i class="fa fa-power-off"></i></h4>'
+//                            return '<i class="fa fa-smile-o bg-green"></i>'
+                        } else {
+                            return '<h4 class="red"><i class="fa fa-power-off"></i></h4>'
+//                            return '<i class="fa fa-frown-o bg-red"></i>'
+                        }
+                    }
+                },
 
-                {data: "currentSaled"},
-                {data: "totalMoney"},
-                {data: "totalBill"},
+                {data: "totalSaled"},//总出货次数(总销售次数)-3
+                {data: "maxChannelNum",
+                "render":function (data,type, full,mata) {
+                    return '<span class="label label-info">'+data+'</span>'
+                }},//售货机最大货道-4
 
-                {data: "totalCoin"},
-                {data: "totalCashless"},
-                {data: "totalExtraIncome"},
+                {data: "sum","defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                {data: "totalMoney"},//总金额-6
+                {data: "totalBill"},//总纸币-7
 
-                {data: "boardTemperature"},
-                {data: "mdbbillAlarmCode"},
-                {data: "mdbchangerAlarmCode"},
+                {data: "totalCoin"},//总硬币-8
+                {data: "totalCashless"},//总非现金-9
+                {data: "totalExtraIncome"},//总额外收入-10
 
-                {data: "temperature"},
-                {data: "gprsLevel",
+                {data: "countNum"},//库存状态 -11
+                {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
+                {data: "mdbbillAlarmCode",//纸币器状态-13
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
+                        } else {
+                            return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
+                        }
+                    }},
+                {data: "mdbchangerAlarmCode",//硬币器状态-14
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
+                        } else {
+                            return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
+                        }
+                    }},
+
+                {data: "temperature",//售货机温度-15
+                    "render": function (data, type, full, meta) {
+                        if (data < 0) {
+                            return '<span class="label label-primary">' + data + ' ℃</span>'
+                        }else {
+                            return '<span class="label label-danger">' + data + ' ℃</span>'
+
+                        }
+                    }},
+                {
+                    data: "gprsLevel",//信号强度-16
                     class: "project_progress",
 //                    width: "200px",
                     "render": function (data, type, full, meta) {
-                        return'<div class="progress progress_sm ">' +
+                        return '<div class="progress progress_sm ">' +
                             '<div class="progress-bar bg-green"' +
-                            ' role="progressbar" ' +'style="width: '+data+'%;"'+
+                            ' role="progressbar" ' + 'style="width: ' + data + '%;"' +
                             'data-transitiongoal=' + '"' + data +
-                            '"></div> </div> <small>'+data+'% </small>'
+                            '"></div> </div> <small>' + data + '% </small>'
                     }
                 },
-                {data: "lastSaleTime"
+                {
+                    data: "lastSaleTime"//最近一次出货时间-17
                     ,
-                    "render": function ( data, type, full, meta ) {
+                    "render": function (data, type, full, meta) {
                         var dataStr = Date.parse(data);
                         return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
-                    }},
+                    }
+                },
 
-                {data: "checked",
+                {
+                    data: "checked",//是否通过审核-18
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
-                            return '<span class="badge badge-danger">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
-                        }else{
-                            return '<span class="badge badge-success">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                            return '<span class="badge badge-danger bg-green">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                        } else {
+                            return '<span class="badge badge-success bg-red">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                         }
 
-                    }},
-                {data: "factoryId"},
-                {data: "agencyId",width: "80px"},
-                {data: null}
+                    }
+                },
+//                {data: "factoryId"},//负责生产商ID-19
+//                {data: "agencyId", width: "80px", "defaultContent": "<i>还没有设置</i>"},//归属运营商ID-20
+                {data: null}//操作-19
 
             ],
-            columnDefs: [{
-                "targets": 18,//编辑
+            columnDefs: [
+                {"render": function(data, type, row) {
+//                        return data + ' /' + row[4].data ;//jquery
+                        return data + ' /' + row.maxChannelNum;//api
+                    },
+                    "targets": 12
+                },
+                {"render": function(data, type, row) {
+//                    return data + ' /' + row[4].data ;//jquery
+                    return data + ' /' + row.maxChannelNum ;//api
+                },
+                    "targets": 11
+                },
+//                {
+//                    "visible": false,
+//                    "targets": 4 //售货机最大货道数
+//                },
+                {
+                "targets": 19,//权限操作
                 "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs bg-green' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
                 "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
             }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
-                $('td', row).eq(17).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
-                $('td', row).eq(1).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
-//                data[0].replace(/[\$,]/g, '') * 1 <=50
-                if(data[13]<=50){
-                    console.log("=========信号强度============"+ data[13]);
-                    $('td', row).eq(13).css('font-weight', "bold").css("color", "red");//获取到具体行具体格的元素
-                }
-                // $('td', data).eq(13).css('data-transitiongoal',"");
-                // $('td', row).eq(13).css('class', "col-md-2 progress-bar progress-bar-success ").css("data-transitiongoal", $('td', data).eq(13));//获取到具体行具体格的元素
-//                class=" col-md-2 progress progress-bar progress-bar-success"
+//                $('td', row).eq(20).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
+                $('td', row).eq(1).css("color", "green");//获取到具体行具体格的元素
                 return row;
             }
         });
@@ -364,8 +402,8 @@
         }
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
-        $('#datatable-buttons tbody').on('click', 'button#delrow', function () {
-            var oTable = $('#datatable-buttons').dataTable();
+        $('#listS tbody').on('click', 'button#delrow', function () {
+            var oTable = $('#listS').dataTable();
             var data = oTable.fnGetData($(this).parent().parent());
             var datastr = JSON.stringify(data);
             var dataObj = JSON.parse(datastr);
@@ -407,8 +445,8 @@
             }
         });
 //        ===========================审核用户信息======================================
-        $('#datatable-buttons tbody').on('click', 'button#editrow', function () {
-            var oTable1 = $('#datatable-buttons').dataTable();
+        $('#listS tbody').on('click', 'button#editrow', function () {
+            var oTable1 = $('#listS').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);

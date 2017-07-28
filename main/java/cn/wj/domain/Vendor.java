@@ -33,7 +33,6 @@ public class Vendor implements Serializable {
 	private String checkUser;
 
 
-
 	private Integer mdbbillAlarmCode;
 
 	private Integer mdbchangerAlarmCode;
@@ -51,7 +50,6 @@ public class Vendor implements Serializable {
 	private Integer maxChannelNum;
 
 	private String boardTemperature;
-
 
 
 	private Integer actived;
@@ -103,12 +101,37 @@ public class Vendor implements Serializable {
 
 	private Integer wirelessPayEnabled;
 
-
-
 	private Integer gprsLevel;
+	//===========================7.28===货道表接受统计对象属性========================================
+	private Integer sum; //库存数量
+	private Integer countNum;//库存状态
+	private Integer countStatus;//马达状态
 
+	public Integer getSum() {
+		return sum;
+	}
 
-	//==============================日期这个格式真头疼========================================
+	public void setSum(Integer sum) {
+		this.sum = sum;
+	}
+
+	public Integer getCountNum() {
+		return countNum;
+	}
+
+	public void setCountNum(Integer countNum) {
+		this.countNum = countNum;
+	}
+
+	public Integer getCountStatus() {
+		return countStatus;
+	}
+
+	public void setCountStatus(Integer countStatus) {
+		this.countStatus = countStatus;
+	}
+	//===================================================================================
+	//===========================7.26===日期这个格式真头疼========================================
 	private Timestamp lastUpdateTime;
 
 	private Timestamp registeredTime;
@@ -168,8 +191,9 @@ public class Vendor implements Serializable {
 	}
 	//====================================================================
 
-//====================================================================
+	//====================================================================
 	private String agencyName;//打印 售货机列表 需要前端的字段
+
 	public String getAgencyName() {
 		return agencyName;
 	}
@@ -177,6 +201,7 @@ public class Vendor implements Serializable {
 	public void setAgencyName(String agencyName) {
 		this.agencyName = agencyName;
 	}
+
 	//=====================================================================
 	public Integer getVendorId() {
 		return vendorId;

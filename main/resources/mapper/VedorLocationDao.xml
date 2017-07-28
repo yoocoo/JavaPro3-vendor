@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.wj.dao.VendorLocationDao" >
-  <resultMap id="VendorLocationResultMap" type="cn.wj.domain.VendorLocation" >
-    <result column="vendor_id" property="vendorId" jdbcType="INTEGER" />
-    <result column="location_name" property="locationName" jdbcType="VARCHAR" />
-    <result column="contact_person" property="contactPerson" jdbcType="VARCHAR" />
-    <result column="contact_number" property="contactNumber" jdbcType="VARCHAR" />
-    <result column="location_id" property="locationId" jdbcType="INTEGER" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <insert id="insert" parameterType="cn.wj.domain.VendorLocation" >
-    insert into vendor_location (vendor_id, location_name, contact_person, 
-      contact_number, location_id, start_time, 
-      end_time)
-    values (#{vendorId,jdbcType=INTEGER}, #{locationName,jdbcType=VARCHAR}, #{contactPerson,jdbcType=VARCHAR}, 
-      #{contactNumber,jdbcType=VARCHAR}, #{locationId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP})
+<mapper namespace="cn.wj.dao.VendorLocationDao">
+    <resultMap id="VendorLocationResultMap" type="cn.wj.domain.VendorLocation">
+        <result column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
+        <result column="location_name" property="locationName" jdbcType="VARCHAR"/>
+        <result column="contact_person" property="contactPerson" jdbcType="VARCHAR"/>
+        <result column="contact_number" property="contactNumber" jdbcType="VARCHAR"/>
+        <result column="location_id" property="locationId" jdbcType="INTEGER"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.wj.domain.VendorLocation">
+    insert into vendor_location (vendor_id, location_name, contact_person,
+    contact_number, location_id, start_time,
+    end_time, longitude, latitude
+    )
+    values (#{vendorId,jdbcType=INTEGER}, #{locationName,jdbcType=VARCHAR}, #{contactPerson,jdbcType=VARCHAR},
+    #{contactNumber,jdbcType=VARCHAR}, #{locationId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+    #{endTime,jdbcType=TIMESTAMP}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}
+    )
   </insert>
-  <insert id="insertSelective" parameterType="cn.wj.domain.VendorLocation" >
-    insert into vendor_location
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="vendorId != null" >
-        vendor_id,
-      </if>
-      <if test="locationName != null" >
-        location_name,
-      </if>
-      <if test="contactPerson != null" >
-        contact_person,
-      </if>
-      <if test="contactNumber != null" >
-        contact_number,
-      </if>
-      <if test="locationId != null" >
-        location_id,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="vendorId != null" >
-        #{vendorId,jdbcType=INTEGER},
-      </if>
-      <if test="locationName != null" >
-        #{locationName,jdbcType=VARCHAR},
-      </if>
-      <if test="contactPerson != null" >
-        #{contactPerson,jdbcType=VARCHAR},
-      </if>
-      <if test="contactNumber != null" >
-        #{contactNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="locationId != null" >
-        #{locationId,jdbcType=INTEGER},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="cn.wj.domain.VendorLocation">
+        insert into vendor_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vendorId != null">
+                vendor_id,
+            </if>
+            <if test="locationName != null">
+                location_name,
+            </if>
+            <if test="contactPerson != null">
+                contact_person,
+            </if>
+            <if test="contactNumber != null">
+                contact_number,
+            </if>
+            <if test="locationId != null">
+                location_id,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vendorId != null">
+                #{vendorId,jdbcType=INTEGER},
+            </if>
+            <if test="locationName != null">
+                #{locationName,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPerson != null">
+                #{contactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="contactNumber != null">
+                #{contactNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="locationId != null">
+                #{locationId,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 </mapper>

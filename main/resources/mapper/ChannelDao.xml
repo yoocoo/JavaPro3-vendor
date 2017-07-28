@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.ChannelDao" >
+  <resultMap id="ChannelResultMap" type="cn.wj.domain.Channel" >
+    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+    <result column="channel_index" property="channelIndex" jdbcType="INTEGER" />
+    <result column="vendor_id" property="vendorId" jdbcType="INTEGER" />
+    <result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="stock_number" property="stockNumber" jdbcType="INTEGER" />
+    <result column="motor_status" property="motorStatus" jdbcType="INTEGER" />
+    <result column="disabled" property="disabled" jdbcType="TINYINT" />
+  </resultMap>
+
+
+  <!--===================自动成成============================================-->
+  <insert id="insert" parameterType="cn.wj.domain.Channel" >
+    insert into channel (channel_id, channel_index, vendor_id, 
+      channel_name, price, group_code, 
+      goods_code, stock_number, motor_status, 
+      disabled)
+    values (#{channelId,jdbcType=INTEGER}, #{channelIndex,jdbcType=INTEGER}, #{vendorId,jdbcType=INTEGER}, 
+      #{channelName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{groupCode,jdbcType=VARCHAR}, 
+      #{goodsCode,jdbcType=VARCHAR}, #{stockNumber,jdbcType=INTEGER}, #{motorStatus,jdbcType=INTEGER}, 
+      #{disabled,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.Channel" >
+    insert into channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        channel_id,
+      </if>
+      <if test="channelIndex != null" >
+        channel_index,
+      </if>
+      <if test="vendorId != null" >
+        vendor_id,
+      </if>
+      <if test="channelName != null" >
+        channel_name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="stockNumber != null" >
+        stock_number,
+      </if>
+      <if test="motorStatus != null" >
+        motor_status,
+      </if>
+      <if test="disabled != null" >
+        disabled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="channelId != null" >
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="channelIndex != null" >
+        #{channelIndex,jdbcType=INTEGER},
+      </if>
+      <if test="vendorId != null" >
+        #{vendorId,jdbcType=INTEGER},
+      </if>
+      <if test="channelName != null" >
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNumber != null" >
+        #{stockNumber,jdbcType=INTEGER},
+      </if>
+      <if test="motorStatus != null" >
+        #{motorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="disabled != null" >
+        #{disabled,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

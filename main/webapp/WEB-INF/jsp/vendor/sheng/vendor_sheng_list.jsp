@@ -94,10 +94,6 @@
                                 <p class="text-muted font-13 m-b-30">
 
                                 <div class="fontawesome-icon-list ">
-                                    <%--<div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a--%>
-                                    <%--href="<%=request.getContextPath()%>/mvc/userAction/sysuserResXi"><i--%>
-                                    <%--class="fa fa-eye"></i>&nbsp;&nbsp;新增系统管理员</a>--%>
-                                    <%--</div>--%>
                                     <div class="fa-hover col-md-3 col-sm-4 col-xs-12"><a
                                             href="<%=request.getContextPath()%>/mvc/vendorAction/shengRegVendor"><i
                                             class="fa fa-cc-amex"></i> 注册售货机</a>
@@ -106,15 +102,6 @@
                                 </p>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
-                                    <%--role="button" aria-expanded="false"><i--%>
-                                    <%--class="fa fa-wrench"></i></a>--%>
-                                    <%--<ul class="dropdown-menu" role="menu">--%>
-                                    <%--<li><a href="#">设置 1</a></li>--%>
-                                    <%--<li><a href="#">设置 2</a></li>--%>
-                                    <%--</ul>--%>
-                                    <%--</li>--%>
-                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -126,30 +113,36 @@
                                     <thead>
                                     <tr>
 
+
                                         <th class="text-center">ID</th>
                                         <th class="text-left">售货机名称</th>
-                                        <th class="text-left">销售次数</th>
+                                        <th class="text-left">通信状态</th>
 
-                                        <th class="text-left">库存量</th>
-                                        <th class="text-center">总金额</th>
-                                        <th class="text-center">总纸币</th>
+                                        <th class="text-left">总销售次数</th>
+                                        <th class="text-left">最大货道数</th>
 
-                                        <th class="text-center">总硬币</th>
-                                        <th class="text-center">总非现金</th>
+
+                                        <th class="text-left">库存数量</th>
+                                        <th class="text-left">总金额</th>
+                                        <th class="text-left">总纸币</th>
+
+                                        <th class="text-left">总硬币</th>
+                                        <th class="text-left">总非现金</th>
                                         <th class="text-left">总额外收入</th>
 
-                                        <th class="text-left">电机状态</th>
+                                        <th class="text-left">库存状态</th>
+                                        <th class="text-left">马达状态</th>
                                         <th class="text-left">纸币器</th>
                                         <th class="text-left">硬币器</th>
 
                                         <th class="text-left">温度</th>
                                         <th>信号</th>
-                                        <th class="text-left">最近销售</th>
+                                        <th class="text-left">最近一次销售</th>
 
                                         <th class="text-left">审核状态</th>
-                                        <th class="text-left">生产商</th>
-                                        <th class="text-left">运营商描述</th>
-                                        <th class="text-center">售货机权限操作</th>
+                                        <%--<th class="text-left">生产商</th>--%>
+                                        <%--<th class="text-left">运营商详情</th>--%>
+                                        <th class="text-left">权限操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -401,27 +394,65 @@
                 destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
                 //deferRender : true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
                 columns: [
-                    {data: "vendorId"},
+                    {data: "vendorId"},//售货机ID  -0
+                    {data: "vendorName"},//售货机名称-1
                     {
-                        data: "vendorName",
-
+                        data: "actived",//是否在线（通信状态）-2
+                        "render": function (data, type, full, meta) {
+                            if (data == 1) {
+                                return '<h4 class="green"><i class="fa fa-power-off"></i></h4>'
+//                            return '<i class="fa fa-smile-o bg-green"></i>'
+                            } else {
+                                return '<h4 class="red"><i class="fa fa-power-off"></i></h4>'
+//                            return '<i class="fa fa-frown-o bg-red"></i>'
+                            }
+                        }
                     },
-                    {data: "totalSaled"},
-                    {data: "currentSaled"},
-                    {data: "totalMoney"},
-                    {data: "totalBill"},
 
-                    {data: "totalCoin"},
-                    {data: "totalCashless"},
-                    {data: "totalExtraIncome"},
+                    {data: "totalSaled"},//总出货次数(总销售次数)-3
+                    {data: "maxChannelNum",
+                        "render":function (data,type, full,mata) {
+                            return '<span class="label label-info">'+data+'</span>'
+                        }},//售货机最大货道-4
 
-                    {data: "boardTemperature"},
-                    {data: "mdbbillAlarmCode"},
-                    {data: "mdbchangerAlarmCode"},
+                    {data: "sum","defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                    {data: "totalMoney"},//总金额-6
+                    {data: "totalBill"},//总纸币-7
 
-                    {data: "temperature"},
+                    {data: "totalCoin"},//总硬币-8
+                    {data: "totalCashless"},//总非现金-9
+                    {data: "totalExtraIncome"},//总额外收入-10
+
+                    {data: "countNum"},//库存状态 -11
+                    {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
+                    {data: "mdbbillAlarmCode",//纸币器状态-13
+                        "render": function (data, type, full, meta) {
+                            if (data == 1) {
+                                return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
+                            } else {
+                                return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
+                            }
+                        }},
+                    {data: "mdbchangerAlarmCode",//硬币器状态-14
+                        "render": function (data, type, full, meta) {
+                            if (data == 1) {
+                                return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
+                            } else {
+                                return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
+                            }
+                        }},
+
+                    {data: "temperature",//售货机温度-15
+                        "render": function (data, type, full, meta) {
+                            if (data < 0) {
+                                return '<span class="label label-primary">' + data + ' ℃</span>'
+                            }else {
+                                return '<span class="label label-danger">' + data + ' ℃</span>'
+
+                            }
+                        }},
                     {
-                        data: "gprsLevel",
+                        data: "gprsLevel",//信号强度-16
                         class: "project_progress",
 //                    width: "200px",
                         "render": function (data, type, full, meta) {
@@ -430,16 +461,11 @@
                                 ' role="progressbar" ' + 'style="width: ' + data + '%;"' +
                                 'data-transitiongoal=' + '"' + data +
                                 '"></div> </div> <small>' + data + '% </small>'
-//                        =========================================================
-//                      var gprsLevel = window.sessionStorage.getItem("gprsLevel");//这里就可以获取到提前存在缓存的数据
-//                        ================================================
-//                        return "<img src='" + data + "' />"; //这里是主题  把url变成超链接、把图片路径显示为图片
-//                        ================================================
-//
                         }
                     },
                     {
-                        data: "lastSaleTime",
+                        data: "lastSaleTime"//最近一次出货时间-17
+                        ,
                         "render": function (data, type, full, meta) {
                             var dataStr = Date.parse(data);
                             return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
@@ -447,42 +473,50 @@
                     },
 
                     {
-                        data: "checked",
+                        data: "checked",//是否通过审核-18
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
-//                        <span class="badge badge-danger">通过</span>
-//                                <span class="badge badge-success">停用</span>
-                                return '<span class="badge badge-danger">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<span class="badge badge-danger bg-green">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             } else {
-                                return '<span class="badge badge-success">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
+                                return '<span class="badge badge-success bg-red">停用</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
                             }
 
                         }
-
                     },
-                    {data: "factoryId"},
-                    {data: "agencyName", width: "80px"},
-                    {data: null}
+//                {data: "factoryId"},//负责生产商ID-19
+//                {data: "agencyId", width: "80px", "defaultContent": "<i>还没有设置</i>"},//归属运营商ID-20
+                    {data: null}//操作-19
 
                 ],
-                columnDefs: [{
-                    "targets": 18,//编辑
+                columnDefs: [
+                    {"render": function(data, type, row) {
+//                        return data + ' /' + row[4].data ;//jquery
+                        return data + ' /' + row.maxChannelNum;//api
+                    },
+                        "targets": 12
+                    },
+                    {"render": function(data, type, row) {
+//                    return data + ' /' + row[4].data ;//jquery
+                        return data + ' /' + row.maxChannelNum ;//api
+                    },
+                        "targets": 11
+                    },
+//                {
+//                    "visible": false,
+//                    "targets": 4 //售货机最大货道数
+//                },
+                {
+                    "targets": 19,//权限操作
                     "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>" +
+                    "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
+                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +
                     "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
                 }],
                 "createdRow": function (row, data, dataIndex) {
                     //每加载完一行的回调函数
 //                $('td', row).eq(17).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
-//                $('td', row).eq(1).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
-                    $('td', row).eq(17).css("color", "green");//获取到具体行具体格的元素
+//                    $('td', row).eq(19).css("color", "green");//获取到具体行具体格的元素
                     $('td', row).eq(1).css("color", "green");//获取到具体行具体格的元素
-                    if (data[13] <= '50') {
-                        alert("=========信号强度============" + data[13]);
-                        console.log("=========信号强度============" + data[13]);
-                        $('td', row).eq(13).addClass('important').css("color", "red");
-                    }
                     return row;
                 }
             });
