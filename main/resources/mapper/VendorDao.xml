@@ -149,7 +149,7 @@
     <!--2.2.3   （系统管理，运营商管理，生产商用户 ）通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
     <update id="shengPassVendor" parameterType="cn.wj.domain.Vendor">
     UPDATE  vendor SET
-   checked =1
+   checked =1,   check_user =#{checkUser}
     WHERE  vendor_id = #{vendorId,jdbcType=INTEGER}
   </update>
 

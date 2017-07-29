@@ -27,7 +27,7 @@ public interface VendorService extends BaseService<Vendor> {
 	void ShengRemoveVendor(@Param("vendorId") int vendorId) throws Exception;
 
 	//2.2.3   生产商用户 通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
-	void shengPassVendor(@Param("vendorId") int vendorId) throws Exception;
+	void shengPassVendor(@Param("vendorId") int vendorId,@Param("checkUser") String checkUser) throws Exception;
 
 	//2.3.1 系统管理员的售货机 列表
 	List<Vendor> getAllXiVendor(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);

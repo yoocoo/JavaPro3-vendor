@@ -126,10 +126,10 @@ public class VendorServiceImpl implements VendorService {
 	 * @param vendorId
 	 * @throws OtherThingsException
 	 */
-	public void shengPassVendor(int vendorId) throws OtherThingsException {
+	public void shengPassVendor(int vendorId,String checkUser) throws OtherThingsException {
 		int result1 = 0;//受影响的行数默认为零
 		try {
-			result1 = vendorDao.shengPassVendor(vendorId);
+			result1 = vendorDao.shengPassVendor(vendorId,checkUser);
 		} catch (Exception e) {
 			System.out.println("审核 生产商的售货机列表 失败");
 			//其他用户添加失败异常

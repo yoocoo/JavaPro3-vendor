@@ -29,6 +29,8 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
+    <!-- Switchery -->
+    <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/switchery/dist/switchery.min.css'/>">
     <!-- bootstrap-progressbar -->
     <!-- Datatables -->
     <link type="text/css" rel="stylesheet"
@@ -41,9 +43,30 @@
           href="<c:url value='/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
+    <!-- bootstrap-daterangepicker -->
+    <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
+    <script type="text/javascript">
+
+        //        function fresh() {
+        //            if(document.getElementById('ced').val() ==1){
+        //                $('input:checkbox').eq(1).attr("checked",'true');
+        ////                var checkedOfAll=$("#ced").attr("checked");
+        ////                alert(checkedOfAll);
+        ////                $("input[name='checked']").attr("checked", checkedOfAll);
+        ////                alert("value:"+document.getElementById('ced').val());
+        ////                document.getElementById('ced').checked = true;
+        //            }else {
+        //                $('input:checkbox').eq(1).attr("checked",'false');
+        ////                document.getElementById('ced').checked = false;
+        //
+        //            }
+        //
+        //        }
+
+    </script>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -148,6 +171,218 @@
         </div>
 
 
+        <%--===============================--%>
+        <%--查看售货机资料  start====--%>
+        <!-- Large modal -->
+        <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>--%>
+        <!-- modals -->
+        <!-- Large modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large
+            modal
+        </button>
+
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">售货机信息卡</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4><span class="bg-green">售货机详情-----系统管理员角色</span></h4>
+                        <div class="x_content">
+                            <br/>
+                            <%--======================表单================--%>
+                            <form class="form-horizontal ">
+                                <div class="col-md-6 col-sm-11 col-xs-11">
+                                    <div class="x_panel">
+
+                                        <div class="x_title">
+                                            <h2>售货机基本信息
+                                                <small>-----</small>
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+                                        <div class="x_content">
+                                            <input type="hidden" id="cuser" name="checkUser"
+                                                   value="${userMess.accountName}">
+                                            <div class="form-group-horizontal">
+                                                <div class="col-sm-11">
+                                                    <input type="hidden" name="vendorId" id="vendorid"
+                                                           class="form-control" value=''>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary">售货机名称</button></span>
+                                                        <input type="text" id="vname" name="vendorName"
+                                                               class="form-control" value=''>
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn">
+                                              <button type="button" class="btn btn-primary">软件版本号</button></span>
+                                                        <input name="softVersion" id="sversion" value='' type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-primary">硬件版本号</button></span>
+                                                        <input type="text" name="hardwareVersion" id="hversion"
+                                                               disabled="disabled" value='' class="form-control">
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-primary">出厂 日期</button></span>
+                                                        <input name="dateOfProduct" id="dateproduct" disabled="disabled"
+                                                               value='' type="text" class="form-control">
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-primary">无线 支付</button></span>
+
+                                                        <%--<input type="checkbox" class="flat" id="payable" name="wirelessPayEnabled" value="" >--%>
+                                                        <%--==========================================1=============================================--%>
+                                                        <input type="checkbox" id="payable" name="wirelessPayEnabled"
+                                                               class="js-switch" value="" checked/>
+                                                        <%--========================================2===============================================--%>
+
+                                                        <%--<input type="checkbox" id="payable" name="wirelessPayEnabled"--%>
+                                                        <%--class="js-switch" value="" ${wirelessPayEnabled eq"1"?"checked":"false"}/>--%>
+                                                        <%--=======================================3================================================--%>
+                                                        <%--<c:if test="${document.getElementById('#payable').val() ==1}">--%>
+                                                        <%--<input type="checkbox" id="dd" class="js-switch" value=""--%>
+                                                        <%--checked="checked"/>--%>
+                                                        <%--</c:if>--%>
+                                                        <%--<c:if test="${document.getElementById('#payable').val()==0}">--%>
+                                                        <%--<input type="checkbox" id="dd" class="js-switch" value=""--%>
+                                                        <%--checked="false"/>--%>
+                                                        <%--</c:if>--%>
+                                                        <%--=======================================4================================================--%>
+
+                                                        <%--<input type="hidden" id="payable" name="wirelessPayEnabled"--%>
+                                                        <%--disabled="disabled" value='' class="form-control">--%>
+                                                        <%--=======================================end================================================--%>
+
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-primary">机器 型号</button></span>
+                                                        <input type="text" id="mNumber" name="modelNumber"
+                                                               disabled="disabled" value='' class="form-control">
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn">
+                                              <button type="button" class="btn btn-primary">第三方 id</button></span>
+                                                        <input type="text" id="payid" name="thirdpayId"
+                                                               disabled="disabled" value='' class="form-control">
+                                                    </div>
+                                                    <div class="input-group"><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-primary">第三方key</button></span>
+                                                        <input type="text" id="paykey" name="thirdpayKey"
+                                                               disabled="disabled" value='' class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divider-dashed"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-11 col-xs-11">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>售货机权限信息
+                                                <small>----</small>
+                                            </h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="form-group-horizontal">
+                                                <div class="col-sm-11">
+                                                    <div class="input-group "><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-danger"> 审 核 员</button></span>
+                                                        <input type="text" id="checkuser" name="checkUser" value=""
+                                                               disabled="disabled" class="form-control">
+                                                    </div>
+                                                    <div class="input-group "><span class="input-group-btn"><button
+                                                            type="button" class="btn btn-danger">停服时间</button></span>
+                                                        <input type="text" name="expireDate" placeholder="" id="odate"
+                                                               value="" name="expireDate" class="form-control">
+                                                    </div>
+                                                    <%--<div class="input-group "><span class="input-group-btn">--%>
+                                                    <%--<button type="button" class="btn btn-danger">审核状态</button></span>--%>
+                                                    <%--<div class="checkbox">--%>
+                                                    <%--<label>--%>
+                                                    <%--<input   class="checkbox" id="ced" name="checked" value=""  type="checkbox" class="flat" >--%>
+                                                    <%--</label>--%>
+                                                    <%--</div>--%>
+                                                    <%--<input type="checkbox" class="flat" id="ced" name="checked" value="" >--%>
+                                                    <%--==========================================1=============================================--%>
+                                                    <%--<input type="checkbox" id="ced" name="checked" value="" checked class="js-switch">--%>
+                                                    <%--//使用开关，checked不受控制--%>
+                                                    <%--<input id="ced" name="checked" type="radio" value="" class="flat"--%>
+                                                    <%--name="factoryType"> 是否开启--%>
+                                                    <%--==========================================2=============================================--%>
+
+
+                                                    <%--==========================================3=============================================--%>
+                                                    <%--<c:if test="${document.getElementById('ced').val()} ==1">--%>
+                                                    <%--<c:if test="${document.getElementById('ced').val() ==1}">--%>
+                                                    <%--<input type="checkbox" n id="cc" class="js-switch" value=""--%>
+                                                    <%--checked="checked"/>--%>
+                                                    <%--</c:if>--%>
+                                                    <%--<c:if test="${document.getElementById('ced').val()==0}">--%>
+                                                    <%--<input type="checkbox" id="cc" class="js-switch" value=""--%>
+                                                    <%--checked="false"/>--%>
+                                                    <%--</c:if>--%>
+                                                    <%--==========================================4=============================================--%>
+
+                                                    <%--<input type="checkbox"  id="ced1" class="js-switch" value="" checked="false" />--%>
+                                                    <%--<h4  id="s1" class="green" ><i class="fa fa-toggle-on"></i> 已通过审核</h4>--%>
+                                                    <%--<h4  id="s2" class="red"><i class="fa fa-toggle-off"></i> 未通过审核</h4>--%>
+                                                    <%--<div class="radio " id="sel2">--%>
+                                                    <%--<label>--%>
+                                                    <%--<input id="s1" type="radio"  class="flat" checked--%>
+                                                    <%--> 已通过--%>
+                                                    <%--</label>--%>
+                                                    <%--</div>--%>
+                                                    <%--<div class="radio ">--%>
+                                                    <%--<label>--%>
+                                                    <%--<input id="s2" type="radio" value="" class="flat"--%>
+                                                    <%--> 未通过--%>
+                                                    <%--</label>--%>
+                                                    <%--</div>--%>
+                                                    <%--==========================================4=============================================--%>
+                                                    <%--</div>--%>
+
+                                                </div>
+                                            </div>
+                                            <div class="divider-dashed"></div>
+                                            <br/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <%--=====================表单 end==================--%>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">审核</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <%--modal end--%>
+
+        <%--=======    查看售货机资料  end   --%>
+
         <!-- footer content -->
         <footer>
             <div class="pull-right"> ZJNU
@@ -175,6 +410,10 @@
 <%--=================================================================================--%>
 <!-- iCheck -->
 <script type="text/javascript" src="<c:url value='/static/vendors/iCheck/icheck.min.js'/>"></script>
+<!-- bootstrap-daterangepicker -->
+<script type="text/javascript" src="<c:url value='/static/vendors/moment/min/moment.min.js'/>"></script>
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.js'/>"></script>
 <!-- Datatables -->
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net/js/jquery.dataTables.min.js'/>"></script>
@@ -203,11 +442,15 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/jszip/dist/jszip.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
-
+<!-- Switchery -->
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/switchery/dist/switchery.min.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
 <script type="text/javascript">
+
+
     $(document).ready(function () {
         var tables = $('#listS').DataTable({
             dom: 'Bfrtip',
@@ -276,12 +519,14 @@
                 },
 
                 {data: "totalSaled"},//总出货次数(总销售次数)-3
-                {data: "maxChannelNum",
-                "render":function (data,type, full,mata) {
-                    return '<span class="label label-info">'+data+'</span>'
-                }},//售货机最大货道-4
+                {
+                    data: "maxChannelNum",
+                    "render": function (data, type, full, mata) {
+                        return '<span class="label label-info">' + data + '</span>'
+                    }
+                },//售货机最大货道-4
 
-                {data: "sum","defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                {data: "sum", "defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
                 {data: "totalMoney"},//总金额-6
                 {data: "totalBill"},//总纸币-7
 
@@ -291,32 +536,38 @@
 
                 {data: "countNum"},//库存状态 -11
                 {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
-                {data: "mdbbillAlarmCode",//纸币器状态-13
+                {
+                    data: "mdbbillAlarmCode",//纸币器状态-13
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                         } else {
                             return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                         }
-                    }},
-                {data: "mdbchangerAlarmCode",//硬币器状态-14
+                    }
+                },
+                {
+                    data: "mdbchangerAlarmCode",//硬币器状态-14
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                         } else {
                             return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                         }
-                    }},
+                    }
+                },
 
-                {data: "temperature",//售货机温度-15
+                {
+                    data: "temperature",//售货机温度-15
                     "render": function (data, type, full, meta) {
                         if (data < 0) {
                             return '<span class="label label-primary">' + data + ' ℃</span>'
-                        }else {
+                        } else {
                             return '<span class="label label-danger">' + data + ' ℃</span>'
 
                         }
-                    }},
+                    }
+                },
                 {
                     data: "gprsLevel",//信号强度-16
                     class: "project_progress",
@@ -355,16 +606,18 @@
 
             ],
             columnDefs: [
-                {"render": function(data, type, row) {
+                {
+                    "render": function (data, type, row) {
 //                        return data + ' /' + row[4].data ;//jquery
                         return data + ' /' + row.maxChannelNum;//api
                     },
                     "targets": 12
                 },
-                {"render": function(data, type, row) {
+                {
+                    "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
-                    return data + ' /' + row.maxChannelNum ;//api
-                },
+                        return data + ' /' + row.maxChannelNum;//api
+                    },
                     "targets": 11
                 },
 //                {
@@ -372,11 +625,13 @@
 //                    "targets": 4 //售货机最大货道数
 //                },
                 {
-                "targets": 19,//权限操作
-                "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs bg-green' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
-                "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
-            }],
+                    "targets": 19,//权限操作
+                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
+                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs bg-green' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>" +
+                    "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>查看</button>"
+
+                }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
 //                $('td', row).eq(20).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
@@ -384,8 +639,98 @@
                 return row;
             }
         });
+        //            ============编辑弹窗======================================================
+        $('#listS tbody').on('click', 'button#editinfo', function () {
+
+            //获取数据
+            var data = tables.row($(this).parents('tr')).data();
+
+            var vendorid = $('#vendorid').val(data.vendorId);
+            var vname = $('#vname').val(data.vendorName).attr({disabled: true, style: "color:green"});
+
+            var sversion = $('#sversion').val(data.softVersion).attr("disabled", true);
+            var hversion = $('#hversion').val(data.hardwareVersion);
+
+            var dateproduct = $('#dateproduct').val(data.dateOfProduct);
+//            var payable = $('#payable').val(data.wirelessPayEnabled);
+
+//            var mNumber = $('#mNumber').val(data.modelNumber);
+            var payid = $('#payid').val(data.thirdpayId);
+            var paykey = $('#paykey').val(data.thirdpayKey);
+
+//            ===============权限信息============================================================
+            var checkuser = $('#checkuser').val(data.checkUser);
+            var odate = $('#odate').val(data.expireDate);
+//            var ced =$('#ced').val(data.checked);
+
+//            =================测试========================
+            var cpay = data.wirelessPayEnabled;
+            var cced = data.checked;
+            console.log("cpay的值 数字:" + cpay);
+            console.log("cced的值 数字:" + cced);
+            var cNumber = data.modelNumber;
+
+            var vid = data.vendorId;
+
+//            document.getElementById('dd').value = cced;//错误不能赋值
+            var ced = $('#ced').val(cced);
+//            var payable = $('#payable').val(cpay);
+            if (cpay == 1) {
+                var payable = $('#payable').val(data.wirelessPayEnabled).prop("checked", true);
+            } else {
+                var payable = $('#payable').val(data.wirelessPayEnabled).removeAttr("checked", false);
+            }
+            if (cced == 1) {
+                var ced = $('#ced').val(data.checked).prop("checked", true);
+
+            } else {
+                var ced = $('#ced').val(data.checked).removeAttr("checked", false);
+            }
+            var mNumber = $('#mNumber').val(cNumber);
+
+
+            <%--if (confirm("是否确认通过该售货机信息")) {--%>
+            <%--var cuser = ${userMess.accountName};--%>
+
+            <%--console.log("====  确认选择 冻结该售货机的vendorid===:" + vid);--%>
+            <%--if (cced == 1) {--%>
+            <%--confirm("该售货机已通过审核，无需重复操作！")--%>
+            <%--}--%>
+            <%--else {--%>
+            <%--$.ajax({--%>
+            <%--type: "POST",  //http请求方式为POST--%>
+            <%--url: '<%=request.getContextPath()%>/vendorAction/listSVendorPass',--%>
+            <%--//                type:'delete',--%>
+            <%--//                type : 'json',--%>
+            <%--dataType: 'json',//返回值类型 一般设置为json--%>
+            <%--//                    timeout: "3000",--%>
+            <%--cache: "false",--%>
+            <%--data: {vendorId: vid,--%>
+            <%--checkUser:cuser},--%>
+            <%--success: function (data) {--%>
+            <%--if (data.code == 1) {--%>
+            <%--alert(data.msg);--%>
+            <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
+            <%--} else {--%>
+            <%--alert(data.msg);--%>
+            <%--$("#vendor").focus();--%>
+            <%--alert("售货机信息，aaaaa");--%>
+            <%--}--%>
+            <%--},--%>
+            <%--error: function (err) {--%>
+            <%--alert("售货机信息，!!!");--%>
+            <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
+
+            <%--}--%>
+            <%--});--%>
+            <%--}--%>
+            <%--}--%>
+        });
 //        ============================日期格式化=======================================================================
         Date.prototype.Format = function (fmt) { //author: meizz
+
+
+//            document.getElementById('dd').value = cpay;
             var o = {
                 "M+": this.getMonth() + 1, //月份
                 "d+": this.getDate(), //日
@@ -400,6 +745,7 @@
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             return fmt;
         }
+
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
         $('#listS tbody').on('click', 'button#delrow', function () {
@@ -445,7 +791,10 @@
             }
         });
 //        ===========================审核用户信息======================================
+
         $('#listS tbody').on('click', 'button#editrow', function () {
+            var cuser = $("#cuser").val();
+            console.log("user:"+cuser);
             var oTable1 = $('#listS').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
@@ -456,6 +805,7 @@
             //tables.ajax.reload();重新获取数据
             //tables.draw(false);重新刷新页面
             if (confirm("是否确认通过该售货机信息")) {
+
                 var vendorid = dataObj1.vendorId;
                 console.log("====  确认选择 冻结该售货机的vendorid===:" + vendorid);
                 if (dataObj1.checked == 1) {
@@ -470,7 +820,7 @@
                         dataType: 'json',//返回值类型 一般设置为json
 //                    timeout: "3000",
                         cache: "false",
-                        data: {vendorId: vendorid},
+                        data: {vendorId: vendorid, checkUser: cuser},
                         success: function (data) {
                             if (data.code == 1) {
                                 alert(data.msg);
@@ -491,9 +841,29 @@
         });
     });
 </script>
+<%--<script type="text/javascript">--%>
+<%--$(function () {--%>
+<%--$('input[name="expireDate"]').daterangepicker({--%>
+<%--singleDatePicker: true,--%>
+<%--showDropdowns: true,--%>
+<%--format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间--%>
+<%--//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期--%>
+<%--locale: {--%>
+<%--//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间--%>
+
+<%--format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间--%>
+<%--daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],--%>
+<%--monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',--%>
+<%--'七月', '八月', '九月', '十月', '十一月', '十二月']--%>
+<%--}--%>
+<%--},--%>
+<%--function (start, end, label) {--%>
+<%--var odate = start.format('YYYY-MM-DD HH:mm:ss');--%>
+<%--document.getElementById('odate').value = odate;--%>
+<%--});--%>
+<%--});--%>
+<%--</script>--%>
 </body>
 </html>
 
 
-</body>
-</html>

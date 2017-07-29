@@ -158,7 +158,7 @@
             </div>
 
             <%--===============================--%>
-            <%--查看个人资料  start====--%>
+            <%--查看售货机资料  start====--%>
             <!-- Large modal -->
             <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>--%>
 
@@ -274,7 +274,7 @@
             </div>
             <%--modal end--%>
 
-            <%--=======    查看个人资料  end   --%>
+            <%--=======    查看售货机资料  end   --%>
             <!-- footer content -->
             <footer>
                 <div class="pull-right"> ZJNU ---- ${userMess.factoryId}
@@ -410,12 +410,14 @@
                     },
 
                     {data: "totalSaled"},//总出货次数(总销售次数)-3
-                    {data: "maxChannelNum",
-                        "render":function (data,type, full,mata) {
-                            return '<span class="label label-info">'+data+'</span>'
-                        }},//售货机最大货道-4
+                    {
+                        data: "maxChannelNum",
+                        "render": function (data, type, full, mata) {
+                            return '<span class="label label-info">' + data + '</span>'
+                        }
+                    },//售货机最大货道-4
 
-                    {data: "sum","defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                    {data: "sum", "defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
                     {data: "totalMoney"},//总金额-6
                     {data: "totalBill"},//总纸币-7
 
@@ -425,32 +427,38 @@
 
                     {data: "countNum"},//库存状态 -11
                     {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
-                    {data: "mdbbillAlarmCode",//纸币器状态-13
+                    {
+                        data: "mdbbillAlarmCode",//纸币器状态-13
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                             } else {
                                 return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                             }
-                        }},
-                    {data: "mdbchangerAlarmCode",//硬币器状态-14
+                        }
+                    },
+                    {
+                        data: "mdbchangerAlarmCode",//硬币器状态-14
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                             } else {
                                 return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                             }
-                        }},
+                        }
+                    },
 
-                    {data: "temperature",//售货机温度-15
+                    {
+                        data: "temperature",//售货机温度-15
                         "render": function (data, type, full, meta) {
                             if (data < 0) {
                                 return '<span class="label label-primary">' + data + ' ℃</span>'
-                            }else {
+                            } else {
                                 return '<span class="label label-danger">' + data + ' ℃</span>'
 
                             }
-                        }},
+                        }
+                    },
                     {
                         data: "gprsLevel",//信号强度-16
                         class: "project_progress",
@@ -489,29 +497,31 @@
 
                 ],
                 columnDefs: [
-                    {"render": function(data, type, row) {
+                    {
+                        "render": function (data, type, row) {
 //                        return data + ' /' + row[4].data ;//jquery
-                        return data + ' /' + row.maxChannelNum;//api
-                    },
+                            return data + ' /' + row.maxChannelNum;//api
+                        },
                         "targets": 12
                     },
-                    {"render": function(data, type, row) {
+                    {
+                        "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
-                        return data + ' /' + row.maxChannelNum ;//api
-                    },
+                            return data + ' /' + row.maxChannelNum;//api
+                        },
                         "targets": 11
                     },
 //                {
 //                    "visible": false,
 //                    "targets": 4 //售货机最大货道数
 //                },
-                {
-                    "targets": 19,//权限操作
-                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +
-                    "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
-                }],
+                    {
+                        "targets": 19,//权限操作
+                        "data": null,//下面这行，添加了编辑按钮和，删除按钮
+                        "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
+                        "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +
+                        "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
+                    }],
                 "createdRow": function (row, data, dataIndex) {
                     //每加载完一行的回调函数
 //                $('td', row).eq(17).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
@@ -525,7 +535,18 @@
 
                 //获取数据
                 var data = tables.row($(this).parents('tr')).data();
-                var vendorid = $('#vendorid').val(data.vendorId);
+                console.log("获取data 纯对象" + JSON.stringify(data));
+                console.log("获取data 字符串数组" + data);
+
+                var data1 = tables.row($(this).parents('tr')).data();
+                var data3 = data1.vendorName;
+                console.log("获取data3 字符串？" + data3);
+                var data2 = JSON.stringify(data1.vendorName);
+                console.log("获取data2 字符串？" + data2);
+
+
+
+                var vendorid = $('#vendorid').val(data.vendorId);//取对象
                 var vname = $('#vname').val(data.vendorName);
                 var mNumber = $('#mNumber').val(data.modelNumber);
 
@@ -536,15 +557,12 @@
                 var key = $('#key').val(data.thirdpayKey);
                 var aname = $('#aname').val(data.agencyName);
 //                var odate1 = $('#odate').val(data.expireDate);
-
 //                var odate2 = Date.parse(odate1);
 //                var odate=Date(odate2).Format("yyyy-MM-dd hh:mm:ss");
-//                console.log("name:" + vname);
-//                console.log("data:" + data);
 
 
             });
-//========================================对数据中表格进行日期格式化=============================
+            //========================================对数据中表格进行日期格式化=============================
             Date.prototype.Format = function (fmt) { //author: meizz
                 var o = {
                     "M+": this.getMonth() + 1, //月份
@@ -560,8 +578,8 @@
                     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             }
-//  =================以下为自定义的删除按钮事件，可以忽略，也可以参考写法===========================
-//================================冻结可疑账户==================================================
+            //  =================以下为自定义的删除按钮事件，可以忽略，也可以参考写法===========================
+            //================================冻结可疑账户==================================================
             $('#listS tbody').on('click', 'button#delrow', function () {
                 var oTable = $('#listS').dataTable();
                 var data = oTable.fnGetData($(this).parent().parent());
@@ -607,16 +625,19 @@
                 }
             });
 
-//            ==============================测试获得一行数据 start=====================================
+            //            ==============================测试获得一行数据 start=====================================
             $('#listS tbody').on('click', 'tr', function () {
 
                 var oTable2 = $('#listS').DataTable();
-                console.log(oTable2.row(this).data());
-                console.log(oTable2.row(this).data().vendorName);
-            });
-//            =============================测试获得一行数据  end======================================
+                console.log("测试一正行数据：" + oTable2.row(this).data());
+                var sss = oTable2.row(this).data().vendorName;
 
-//        ===========================审核用户信息======================================
+                console.log("测试一行数据：" + oTable2.row(this).data().vendorName);
+                console.log("测试一行数据sssss：" + ssss);
+            });
+            //            =============================测试获得一行数据  end======================================
+
+            //        ===========================审核用户信息======================================
             $('#listS tbody').on('click', 'button#editrow', function () {
                 var oTable1 = $('#listS').dataTable();
                 var data1 = oTable1.fnGetData($(this).parent().parent());
@@ -661,7 +682,8 @@
                     }
                 }
             });
-        });
+        })
+        ;
 
 
     </script>

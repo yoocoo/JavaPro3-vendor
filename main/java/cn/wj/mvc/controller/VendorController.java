@@ -206,8 +206,9 @@ public class VendorController {
 		// 通过新注册账户信息 审核
 		try {
 			int vendorId = vendor.getVendorId();
+			String cUser = vendor.getCheckUser();
 			System.out.println("-=====7.7打印要冻结账户ID:" + vendorId);
-			vendorService.shengPassVendor(vendorId);
+			vendorService.shengPassVendor(vendorId,cUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
