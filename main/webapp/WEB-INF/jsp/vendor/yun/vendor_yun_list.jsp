@@ -119,8 +119,8 @@
                             <div class="x_content">
                                 <input type="hidden" id="agencyid" name="agencyId"
                                        value="${userMess.agencyId}">
-                                <table id="listS"
-                                       class="table table-striped table-bordered ">
+                                <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                <%--<table id="listS" class="table table-striped table-bordered ">--%>
                                     <thead>
                                     <tr>
 
@@ -232,7 +232,7 @@
     var agencyid = ${userMess.agencyId};
     console.log("打印筛选的参数运营商id" + agencyid);
     $(document).ready(function () {
-        var tables = $('#listS').DataTable({
+        var tables = $('#datatable-responsive').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -300,12 +300,14 @@
                 },
 
                 {data: "totalSaled"},//总出货次数(总销售次数)-3
-                {data: "maxChannelNum",
-                    "render":function (data,type, full,mata) {
-                        return '<span class="label label-info">'+data+'</span>'
-                    }},//售货机最大货道-4
+                {
+                    data: "maxChannelNum",
+                    "render": function (data, type, full, mata) {
+                        return '<span class="label label-info">' + data + '</span>'
+                    }
+                },//售货机最大货道-4
 
-                {data: "sum","defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                {data: "sum", "defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
                 {data: "totalMoney"},//总金额-6
                 {data: "totalBill"},//总纸币-7
 
@@ -315,32 +317,38 @@
 
                 {data: "countNum"},//库存状态 -11
                 {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
-                {data: "mdbbillAlarmCode",//纸币器状态-13
+                {
+                    data: "mdbbillAlarmCode",//纸币器状态-13
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                         } else {
                             return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                         }
-                    }},
-                {data: "mdbchangerAlarmCode",//硬币器状态-14
+                    }
+                },
+                {
+                    data: "mdbchangerAlarmCode",//硬币器状态-14
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
                         } else {
                             return '<h4 class="red"><i class="fa fa-exclamation-circle"></i></h4>'
                         }
-                    }},
+                    }
+                },
 
-                {data: "temperature",//售货机温度-15
+                {
+                    data: "temperature",//售货机温度-15
                     "render": function (data, type, full, meta) {
                         if (data < 0) {
                             return '<span class="label label-primary">' + data + ' ℃</span>'
-                        }else {
+                        } else {
                             return '<span class="label label-danger">' + data + ' ℃</span>'
 
                         }
-                    }},
+                    }
+                },
                 {
                     data: "gprsLevel",//信号强度-16
                     class: "project_progress",
@@ -379,16 +387,18 @@
 
             ],
             columnDefs: [
-                {"render": function(data, type, row) {
+                {
+                    "render": function (data, type, row) {
 //                        return data + ' /' + row[4].data ;//jquery
-                    return data + ' /' + row.maxChannelNum;//api
-                },
+                        return data + ' /' + row.maxChannelNum;//api
+                    },
                     "targets": 11
                 },
-                {"render": function(data, type, row) {
+                {
+                    "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
-                    return data + ' /' + row.maxChannelNum ;//api
-                },
+                        return data + ' /' + row.maxChannelNum;//api
+                    },
                     "targets": 12
                 },
 //                {
@@ -396,11 +406,11 @@
 //                    "targets": 4
 //                },
                 {
-                "targets": 19,//编辑
-                "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
-                "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
-            }],
+                    "targets": 19,//编辑
+                    "data": null,//下面这行，添加了编辑按钮和，删除按钮
+                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
+                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
+                }],
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
 //                $('td', row).eq(19).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
@@ -424,10 +434,11 @@
                 if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
             return fmt;
         }
+
 //    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
 //================================冻结可疑账户==================================================
-        $('#listS tbody').on('click', 'button#delrow', function () {
-            var oTable = $('#listS').dataTable();
+        $('#datatable-responsive tbody').on('click', 'button#delrow', function () {
+            var oTable = $('#datatable-responsive').dataTable();
             var data = oTable.fnGetData($(this).parent().parent());
             var datastr = JSON.stringify(data);
             var dataObj = JSON.parse(datastr);
@@ -468,9 +479,9 @@
                 }
             }
         });
-//        ===========================审核用户信息======================================
-        $('#listS tbody').on('click', 'button#editrow', function () {
-            var oTable1 = $('#listS').dataTable();
+//        ===========================审核用户信息=======jquery 方法===============================
+        $('#datatable-responsive tbody').on('click', 'button#editrow', function () {
+            var oTable1 = $('#datatable-responsive').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);
@@ -515,5 +526,25 @@
         });
     });
 </script>
+<%--<script type="text/javascript">--%>
+<%--ｂｏｏｔｓｔｒａｐ　　模态--%>
+    <%--$(document).ready(function () {--%>
+        <%--$('#datatable-responsive').DataTable({--%>
+            <%--responsive: {--%>
+                <%--details: {--%>
+                    <%--display: $.fn.dataTable.Responsive.display.modal({--%>
+                        <%--header: function (row) {--%>
+                            <%--var data = row.data();--%>
+                            <%--return '该记录细节' + data[0] + ' ' + data[1];--%>
+                        <%--}--%>
+                    <%--}),--%>
+                    <%--renderer: $.fn.dataTable.Responsive.renderer.tableAll({--%>
+                        <%--tableClass: 'table'--%>
+                    <%--})--%>
+                <%--}--%>
+            <%--}--%>
+        <%--});--%>
+    <%--});--%>
+<%--</script>--%>
 </body>
 </html>

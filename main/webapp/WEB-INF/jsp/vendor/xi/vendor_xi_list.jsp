@@ -174,12 +174,9 @@
         <%--===============================--%>
         <%--查看售货机资料  start====--%>
         <!-- Large modal -->
-        <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>--%>
-        <!-- modals -->
-        <!-- Large modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large
-            modal
-        </button>
+        <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large--%>
+            <%--modal   按钮触发--%>
+        <%--</button>--%>
 
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -239,30 +236,8 @@
                                                     </div>
                                                     <div class="input-group"><span class="input-group-btn"><button
                                                             type="button" class="btn btn-primary">无线 支付</button></span>
-
-                                                        <%--<input type="checkbox" class="flat" id="payable" name="wirelessPayEnabled" value="" >--%>
-                                                        <%--==========================================1=============================================--%>
-                                                        <input type="checkbox" id="payable" name="wirelessPayEnabled"
-                                                               class="js-switch" value="" checked/>
-                                                        <%--========================================2===============================================--%>
-
-                                                        <%--<input type="checkbox" id="payable" name="wirelessPayEnabled"--%>
-                                                        <%--class="js-switch" value="" ${wirelessPayEnabled eq"1"?"checked":"false"}/>--%>
-                                                        <%--=======================================3================================================--%>
-                                                        <%--<c:if test="${document.getElementById('#payable').val() ==1}">--%>
-                                                        <%--<input type="checkbox" id="dd" class="js-switch" value=""--%>
-                                                        <%--checked="checked"/>--%>
-                                                        <%--</c:if>--%>
-                                                        <%--<c:if test="${document.getElementById('#payable').val()==0}">--%>
-                                                        <%--<input type="checkbox" id="dd" class="js-switch" value=""--%>
-                                                        <%--checked="false"/>--%>
-                                                        <%--</c:if>--%>
-                                                        <%--=======================================4================================================--%>
-
-                                                        <%--<input type="hidden" id="payable" name="wirelessPayEnabled"--%>
-                                                        <%--disabled="disabled" value='' class="form-control">--%>
-                                                        <%--=======================================end================================================--%>
-
+                                                        <input type="checkbox" id="payable" name="wirelessPayEnabled" checked
+                                                               class="js-switch" value="" />
                                                     </div>
                                                     <div class="input-group"><span class="input-group-btn"><button
                                                             type="button" class="btn btn-primary">机器 型号</button></span>
@@ -311,51 +286,10 @@
                                                         <input type="text" name="expireDate" placeholder="" id="odate"
                                                                value="" name="expireDate" class="form-control">
                                                     </div>
-                                                    <%--<div class="input-group "><span class="input-group-btn">--%>
-                                                    <%--<button type="button" class="btn btn-danger">审核状态</button></span>--%>
-                                                    <%--<div class="checkbox">--%>
-                                                    <%--<label>--%>
-                                                    <%--<input   class="checkbox" id="ced" name="checked" value=""  type="checkbox" class="flat" >--%>
-                                                    <%--</label>--%>
-                                                    <%--</div>--%>
-                                                    <%--<input type="checkbox" class="flat" id="ced" name="checked" value="" >--%>
-                                                    <%--==========================================1=============================================--%>
-                                                    <%--<input type="checkbox" id="ced" name="checked" value="" checked class="js-switch">--%>
-                                                    <%--//使用开关，checked不受控制--%>
-                                                    <%--<input id="ced" name="checked" type="radio" value="" class="flat"--%>
-                                                    <%--name="factoryType"> 是否开启--%>
-                                                    <%--==========================================2=============================================--%>
-
-
-                                                    <%--==========================================3=============================================--%>
-                                                    <%--<c:if test="${document.getElementById('ced').val()} ==1">--%>
-                                                    <%--<c:if test="${document.getElementById('ced').val() ==1}">--%>
-                                                    <%--<input type="checkbox" n id="cc" class="js-switch" value=""--%>
-                                                    <%--checked="checked"/>--%>
-                                                    <%--</c:if>--%>
-                                                    <%--<c:if test="${document.getElementById('ced').val()==0}">--%>
-                                                    <%--<input type="checkbox" id="cc" class="js-switch" value=""--%>
-                                                    <%--checked="false"/>--%>
-                                                    <%--</c:if>--%>
-                                                    <%--==========================================4=============================================--%>
-
-                                                    <%--<input type="checkbox"  id="ced1" class="js-switch" value="" checked="false" />--%>
-                                                    <%--<h4  id="s1" class="green" ><i class="fa fa-toggle-on"></i> 已通过审核</h4>--%>
-                                                    <%--<h4  id="s2" class="red"><i class="fa fa-toggle-off"></i> 未通过审核</h4>--%>
-                                                    <%--<div class="radio " id="sel2">--%>
-                                                    <%--<label>--%>
-                                                    <%--<input id="s1" type="radio"  class="flat" checked--%>
-                                                    <%--> 已通过--%>
-                                                    <%--</label>--%>
-                                                    <%--</div>--%>
-                                                    <%--<div class="radio ">--%>
-                                                    <%--<label>--%>
-                                                    <%--<input id="s2" type="radio" value="" class="flat"--%>
-                                                    <%--> 未通过--%>
-                                                    <%--</label>--%>
-                                                    <%--</div>--%>
-                                                    <%--==========================================4=============================================--%>
-                                                    <%--</div>--%>
+                                                    <div class="input-group "><span class="input-group-btn">
+                                                    <button type="button" class="btn btn-danger">审核状态</button></span>
+                                                    <input type="checkbox" id="ced" name="checked" value="" checked  class="js-switch">
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -372,7 +306,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary">审核</button>
+                        <%--<button type="button" class="btn btn-primary">审核</button>--%>
                     </div>
 
                 </div>
@@ -453,7 +387,7 @@
 
     $(document).ready(function () {
         var tables = $('#listS').DataTable({
-            dom: 'Bfrtip',
+            dom: 'Bfrtip',//来显示TableTools按钮
             buttons: [
                 {
                     extend: 'copy',
@@ -639,7 +573,7 @@
                 return row;
             }
         });
-        //            ============编辑弹窗======================================================
+        //=====7.29使用接口版本=======编辑弹窗======================================================
         $('#listS tbody').on('click', 'button#editinfo', function () {
 
             //获取数据
@@ -671,60 +605,35 @@
             var cNumber = data.modelNumber;
 
             var vid = data.vendorId;
-
-//            document.getElementById('dd').value = cced;//错误不能赋值
-            var ced = $('#ced').val(cced);
-//            var payable = $('#payable').val(cpay);
             if (cpay == 1) {
-                var payable = $('#payable').val(data.wirelessPayEnabled).prop("checked", true);
-            } else {
-                var payable = $('#payable').val(data.wirelessPayEnabled).removeAttr("checked", false);
+                if($('#payable').val(data.wirelessPayEnabled)[0].checked){
+                  //不做任何事情
+                }else{
+                    $('#payable').val(data.wirelessPayEnabled).trigger('click').attr('checked',"checked") ;
+                }
+            } else if(cpay == 0) {//关掉开关
+                if($('#payable').val(data.wirelessPayEnabled)[0].checked){
+                    $('#payable').val(data.wirelessPayEnabled).trigger('click').attr('checked',"checked") ;
+                }else{
+                    //不做任何事情
+                }
             }
             if (cced == 1) {
-                var ced = $('#ced').val(data.checked).prop("checked", true);
+                if($('#ced').val(data.checked)[0].checked){
+            //不做任何事情
+        }else {$('#ced').val(data.checked).trigger('click').attr('checked',"checked") ;
+                }
 
-            } else {
-                var ced = $('#ced').val(data.checked).removeAttr("checked", false);
+            } else if(cced == 0){//关闭开关
+                if($('#ced').val(data.checked)[0].checked){
+                    $('#ced').val(data.checked).trigger('click').attr('checked',"checked") ;
+                }else{
+                    //不做任何事情
+                }
             }
             var mNumber = $('#mNumber').val(cNumber);
 
 
-            <%--if (confirm("是否确认通过该售货机信息")) {--%>
-            <%--var cuser = ${userMess.accountName};--%>
-
-            <%--console.log("====  确认选择 冻结该售货机的vendorid===:" + vid);--%>
-            <%--if (cced == 1) {--%>
-            <%--confirm("该售货机已通过审核，无需重复操作！")--%>
-            <%--}--%>
-            <%--else {--%>
-            <%--$.ajax({--%>
-            <%--type: "POST",  //http请求方式为POST--%>
-            <%--url: '<%=request.getContextPath()%>/vendorAction/listSVendorPass',--%>
-            <%--//                type:'delete',--%>
-            <%--//                type : 'json',--%>
-            <%--dataType: 'json',//返回值类型 一般设置为json--%>
-            <%--//                    timeout: "3000",--%>
-            <%--cache: "false",--%>
-            <%--data: {vendorId: vid,--%>
-            <%--checkUser:cuser},--%>
-            <%--success: function (data) {--%>
-            <%--if (data.code == 1) {--%>
-            <%--alert(data.msg);--%>
-            <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
-            <%--} else {--%>
-            <%--alert(data.msg);--%>
-            <%--$("#vendor").focus();--%>
-            <%--alert("售货机信息，aaaaa");--%>
-            <%--}--%>
-            <%--},--%>
-            <%--error: function (err) {--%>
-            <%--alert("售货机信息，!!!");--%>
-            <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
-
-            <%--}--%>
-            <%--});--%>
-            <%--}--%>
-            <%--}--%>
         });
 //        ============================日期格式化=======================================================================
         Date.prototype.Format = function (fmt) { //author: meizz
@@ -795,7 +704,7 @@
         $('#listS tbody').on('click', 'button#editrow', function () {
             var cuser = $("#cuser").val();
             console.log("user:"+cuser);
-            var oTable1 = $('#listS').dataTable();
+            var oTable1 = $('#listS').dataTable();//返回jquery
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
             var dataObj1 = JSON.parse(datastr1);
@@ -841,28 +750,7 @@
         });
     });
 </script>
-<%--<script type="text/javascript">--%>
-<%--$(function () {--%>
-<%--$('input[name="expireDate"]').daterangepicker({--%>
-<%--singleDatePicker: true,--%>
-<%--showDropdowns: true,--%>
-<%--format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间--%>
-<%--//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期--%>
-<%--locale: {--%>
-<%--//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间--%>
 
-<%--format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间--%>
-<%--daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],--%>
-<%--monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',--%>
-<%--'七月', '八月', '九月', '十月', '十一月', '十二月']--%>
-<%--}--%>
-<%--},--%>
-<%--function (start, end, label) {--%>
-<%--var odate = start.format('YYYY-MM-DD HH:mm:ss');--%>
-<%--document.getElementById('odate').value = odate;--%>
-<%--});--%>
-<%--});--%>
-<%--</script>--%>
 </body>
 </html>
 
