@@ -181,12 +181,25 @@
                                                         margin-left:5px;cursor: pointer;
                                                          padding: 5px 10px; border: 1px solid #ccc"
                                                         tabindex="-1"> <i class="fa fa-empire"></i>
+                                                    <%--==============8.2号 生产商售货机列表====================--%>
                                                     <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
-
-                                                        <c:forEach items="${sVnameList}" var="slist">
-                                                            <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                                        <c:forEach items="${agencyNameList}" var="alist">
+                                                            <optgroup label="${alist.agencyName}">
+                                                                <c:forEach items="${sVnameList}" var="slist">
+                                                                    <c:if test="${slist.agencyName == alist.agencyName}">
+                                                                        <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </optgroup>
                                                         </c:forEach>
                                                     </c:if>
+                                                    <%--==================================--%>
+                                                    <%--<c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">--%>
+                                                        <%--<c:forEach items="${sVnameList}" var="slist">--%>
+                                                            <%--<option value="${slist.vendorName}">${slist.vendorName} </option>--%>
+                                                        <%--</c:forEach>--%>
+                                                    <%--</c:if>--%>
+
                                                     <c:if test="${userMess.roleId ==3||userMess.roleId ==4||userMess.roleId ==5}">
                                                         <c:forEach items="${yVnameList}" var="ylist">
                                                             <option value="${ylist.vendorName}">${ylist.vendorName} </option>

@@ -5,15 +5,23 @@ import cn.wj.domain.ResponseList;
 import cn.wj.domain.ResponseObj;
 import cn.wj.domain.UserActionLog;
 import cn.wj.service.ActionLogService;
+import cn.wj.utils.DataTablePageUtil;
 import cn.wj.utils.GsonUtils;
 import cn.wj.utils.PublicUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -50,6 +58,7 @@ import java.util.List;
 public class ActionLogController {
 	@Autowired
 	ActionLogService actionLogService;//自动注入ActionLogService
+	private ResponseObj responseObj;//封装 放到前端页面 数据
 
 	@RequestMapping(value = "/logMain")
 	public ModelAndView logMain(HttpServletRequest request, UserActionLog userActionLog) throws Exception {
@@ -59,6 +68,87 @@ public class ActionLogController {
 		//把首页需要的json数据直接扔到 view里面，在js代码中，可以看到如何使用
 
 		return mav;
+	}
+
+
+
+	/**
+	 * 时间： 2017 年 7 月  18 日
+	 * 作者： 王娇
+	 * 说明： 生产商管理员  按归属条件 查询 销售表 数据（ 按时间段，按指定售货机）
+	 * 基于jquery DataTable API 插件 的分页
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/findLogList", method = RequestMethod.POST)
+	public void PageInfoSname(HttpServletRequest request,UserActionLog userActionLog,
+							  HttpServletResponse response, HttpSession session,
+							  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+							  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) throws Exception {
+		//String tableName = factory.getAlarmTableName();
+		//String vendorName = vendor.getVendorName();
+
+
+		//使用DataTables的属性接收分页数据
+		DataTablePageUtil<UserActionLog> dataTable = new DataTablePageUtil<UserActionLog>(request);
+		//开始的分页：PageHelper会处理接下来的第一个查询
+		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
+		//还是使用List，方便后期
+		//========== 参数列表 start==============================================
+		List<UserActionLog> logList = actionLogService.findAll( 1, 10);
+		System.out.println("===打印分页请求现金表" + logList);
+		//用PageInfo对结果进行包装
+		PageInfo<UserActionLog> pageInfo = new PageInfo<UserActionLog>(logList);
+		//封装数据给DataTables
+		dataTable.setDraw(dataTable.getDraw());
+		dataTable.setData(pageInfo.getList());
+		System.out.println("===打印 查询条件（一） pageInfo.getList()===" + pageInfo.getList());
+		dataTable.setRecordsTotal(actionLogService.getAllCount());
+		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
+		//返回数据到页面
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/json");
+			response.getWriter().write(new GsonUtils().toJson(dataTable));
+			System.out.println("日志列表=====" + new GsonUtils().toJson(dataTable));
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value = "/editLogList",
+			method = RequestMethod.POST,
+			produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object shengRegVendor(HttpServletRequest request, HttpServletResponse response,UserActionLog userActionLog) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<UserActionLog>();
+
+		try {
+			long  id= userActionLog.getId();
+			System.out.println("打印要修改谁的日子："+id);
+			String  name1= userActionLog.getBroName();
+			System.out.println("打印要name1："+name1);
+
+			actionLogService.updateLogInfo(name1,id);//新注册售货机时， 售货机表格 添加一条记录
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("其他 的错误");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("恭喜，更新日志 成功");
+		responseObj.setData(userActionLog);//
+		System.out.println("===更新日志 ：：：=====" + userActionLog);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
+		//vendor.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
+		result = new GsonUtils().toJson(responseObj);
+		result = result;
+		return result;
 	}
 
 	/**

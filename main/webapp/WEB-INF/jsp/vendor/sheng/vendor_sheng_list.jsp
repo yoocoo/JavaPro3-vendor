@@ -321,6 +321,7 @@
             src="<c:url value='/static/vendors/datatables.net-buttons/js/buttons.html5.min.js'/>"></script>
     <script type="text/javascript"
             src="<c:url value='/static/vendors/datatables.net-buttons/js/buttons.print.min.js'/>"></script>
+    <%--固定表头--%>
     <script type="text/javascript"
             src="<c:url value='/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js'/>"></script>
     <script type="text/javascript"

@@ -26,6 +26,13 @@
     <!-- iCheck -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/iCheck/skins/flat/green.css'/>">
     <!-- Datatables -->
+    <%--====7.31=新增 编辑器===================================--%>
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/extensions/Editor/css/editor.dataTables.min.css'/>">
+
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/datatables.net-select/css/select.dataTables.min.css'/>">
+    <%--======================================================================--%>
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
@@ -107,9 +114,10 @@
                             </div>
                             <div class="x_content">
 
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="datatable" class=" table table-striped jambo_table bulk_action">
                                     <thead>
                                     <tr>
+                                        <th></th>
                                         <th>日志id</th>
                                         <th>登陆者</th>
                                         <th>SessionId</th>
@@ -180,6 +188,12 @@
         src="<c:url value='/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'/>"></script>
 <script type="text/javascript"
         src="<c:url value='/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js'/>"></script>
+<%--=====新增 编辑器插件==================================--%>
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/extensions/Editor/js/dataTables.editor.min.js'/>"></script>
+<script type="text/javascript"
+        src="<c:url value='/static/vendors/datatables.net-select/js/dataTables.select.min.js'/>"></script>
+<%--======================================================================--%>
 <script type="text/javascript" src="<c:url value='/static/vendors/jszip/dist/jszip.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
@@ -187,12 +201,167 @@
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
+<%--===============编辑器=====================改造开始================================================--%>
+<script type="text/javascript">
+    var editor; // use a global for the submit and return data rendering in the examples
+
+    $(document).ready(function () {
+//        var   id1 = $("#id1").val();
+//        console.log("id1:"+ id1);
+//
+//        var name1 = $("#name1").val();
+//        console.log("name1:"+ name1);
+        editor = new $.fn.dataTable.Editor({
+            ajax: {
+                url: "<%=request.getContextPath()%>/actionLog/editLogList",// 数据请求地址
+                type: "POST",
+                data: function (params) {
+                    //此处为定义查询条件 传给控制器的参数
+                    //角色名称
+                    params.broName = $("#name1").val(),
+                        params.id = $("#id1").val()
+                },
+                dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                cache: false,  //不用缓存
+                success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
+                    if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
+                        // window.location.href = data.data.nextUrl; //返回到主页
+                        alert(data.msg);
+                        <%--window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回主页--%>
+                    } else {//更新不成功
+                        alert(data.msg);//弹出对话框，提示返回错误信息
+                        // $("#loginId").focus();
+                    }
+                }
+
+            },
+            table: "#datatable",
+            idSrc: 'id',
+            fields: [
+                {label: "编号", name: "id" ,id:"id1"},
+//                {label: "账号", name: "accountName"},
+                {label: "浏览器名称", name: "broName",id:"name1"}
+//                {label: "浏览器版本", name: "broVersion"},
+//                {label: "系统名称:", name: "osName"},
+//
+//                {label: "系统版本", name: "osVersion"},
+//                {label: "IP4", name: "ipAddrV4"},
+//                {label: "IP6", name: "ipAddrV6"},
+//                {label: "详情", name: "description"},
+//                {label: "方式:", name: "method"},
+//
+//                {label: "其他", name: "other"},
+//                {label: "请求体", name: "requestBody"},
+//                {label: "登录时间", name: "time", type: "datetime"},
+//                {label: "会话id", name: "sessionId"}
+            ]
+        });
+
+        $('#datatable').on('click', 'tbody td:not(:first-child)', function (e) {
+            editor.bubble(this);
+        });
+
+        $('#datatable').DataTable({
+            dom: "Bfrtip",
+            searching: false,
+            processing: true,
+            serverSide: true,
+            paging: true,
+            info: true,
+            ordering: false,//是否允许用户排序
+            scrollX: true, //列太多，超过显示长度需要滚动条时使用
+            destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
+
+            ajax: {
+                url: "<%=request.getContextPath()%>/actionLog/findLogList",// 数据请求地址 编辑
+                type: "POST",
+                data: function (params) {
+                    //此处为定义查询条件 传给控制器的参数
+                    //角色名称
+                    params.broName = $("#broName").val()
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    defaultContent: '',
+                    className: 'select-checkbox',
+                    orderable: false
+                },
+                {
+                 data: null,
+                    render: function (data, type, row) {
+                        // Combine the first and last names into a single table field
+                        return data.id ;
+                    },
+                    editField: ['id', 'broName']
+                },
+//                {data: "id"},
+                {data: "accountName"},
+                {data: "broName"},
+                {data: "broVersion"},
+                {data: "osName"},
+
+                {data: "osVersion"},
+                {data: "ipAddrV4"},
+                {data: "ipAddrV6"},
+                {data: "description"},
+                {data: "method"},
+
+                {data: "other"},
+                {data: "requestBody"},
+                {data: "time"},
+                {data: "sessionId"}
+
+//                {data: "salary", render: $.fn.dataTable.render.number(',', '.', 0, '$')}
+            ],
+//            order: [1, 'asc'],
+            select: {
+                style: 'os',
+                selector: 'td:first-child'
+            },
+//            buttons: [
+//                {extend: "create", editor: editor},
+//                {extend: "edit", editor: editor,},
+//                {extend: "remove", editor: editor}
+//            ]
+            buttons: [
+                {extend: "edit",
+                    text: '更新信息 <i class="glyphicon glyphicon-copy"> </i>',
+                    className: 'btn bg-olive',
+                    editor: editor},
+                {
+                    extend: 'copy',
+                    text: '复制数据 <i class="glyphicon glyphicon-copy"> </i>',
+                    className: 'btn bg-green',
+                    key: {
+                        key: 'c',
+                        altKey: true
+                    }
+                }, {
+                    extend: 'csv',
+                    text: '下载CSV <i class="fa fa-cloud-download"> </i>',
+                    className: 'btn bg-olive'
+                }, {
+                    extend: 'excel',
+                    text: '下载Excel <i class="fa fa-cloud-download"> </i>',
+                    className: 'btn bg-green'
+                },
+                {
+                    extend: 'print',
+                    text: '<i class="fa fa-table"> </i> 打印表格',
+                    className: 'btn bg-olive'
+                }],
+        });
+    });
+
+
+</script>
+<%--==============编辑器======================改造结束================================================--%>
 <script type="text/javascript">
 
     var myTable;
     $(function () {
-
-
         //初始化表格对象
         myTable = $('#datatable').DataTable({
             dom: 'irtlp',
@@ -243,88 +412,88 @@
 </script>
 
 <%--<script type="text/javascript">--%>
-    <%--jQuery(function ($) {--%>
+<%--jQuery(function ($) {--%>
 
-        <%--//初始化table--%>
-        <%--var oTable1 = $('#datatable')--%>
-            <%--.dataTable(--%>
-                <%--{--%>
-                    <%--"bPaginate": true,//分页工具条显示--%>
-                    <%--//"sPaginationType" : "full_numbers",//分页工具条样式--%>
-                    <%--"bStateSave": true, //是否打开客户端状态记录功能,此功能在ajax刷新纪录的时候不会将个性化设定回复为初始化状态--%>
-                    <%--"bScrollCollapse": true, //当显示的数据不足以支撑表格的默认的高度--%>
-                    <%--"bLengthChange": true, //每页显示的记录数--%>
-                    <%--"bFilter": false, //搜索栏--%>
-                    <%--"bSort": true, //是否支持排序功能--%>
-                    <%--"bInfo": true, //显示表格信息--%>
-                    <%--"bAutoWidth": true, //自适应宽度--%>
+<%--//初始化table--%>
+<%--var oTable1 = $('#datatable')--%>
+<%--.dataTable(--%>
+<%--{--%>
+<%--"bPaginate": true,//分页工具条显示--%>
+<%--//"sPaginationType" : "full_numbers",//分页工具条样式--%>
+<%--"bStateSave": true, //是否打开客户端状态记录功能,此功能在ajax刷新纪录的时候不会将个性化设定回复为初始化状态--%>
+<%--"bScrollCollapse": true, //当显示的数据不足以支撑表格的默认的高度--%>
+<%--"bLengthChange": true, //每页显示的记录数--%>
+<%--"bFilter": false, //搜索栏--%>
+<%--"bSort": true, //是否支持排序功能--%>
+<%--"bInfo": true, //显示表格信息--%>
+<%--"bAutoWidth": true, //自适应宽度--%>
 <%--//                        "bJQueryUI" : false,//是否开启主题--%>
-                    <%--"bDestroy": true,--%>
-                    <%--"bProcessing": true, //开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好--%>
-                    <%--"bServerSide": true,//服务器处理分页，默认是false，需要服务器处理，必须true--%>
-                    <%--"sAjaxDataProp": "aData",//是服务器分页的标志，必须有--%>
-                    <%--"sAjaxSource": "<%=request.getContextPath()%>/actionLog/findLogList",//通过ajax实现分页的url路径。--%>
-                    <%--"aoColumns": [//初始化要显示的列--%>
-                        <%--{--%>
-                            <%--"mDataProp": "id",//获取列数据，跟服务器返回字段一致--%>
+<%--"bDestroy": true,--%>
+<%--"bProcessing": true, //开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好--%>
+<%--"bServerSide": true,//服务器处理分页，默认是false，需要服务器处理，必须true--%>
+<%--"sAjaxDataProp": "aData",//是服务器分页的标志，必须有--%>
+<%--"sAjaxSource": "<%=request.getContextPath()%>/actionLog/findLogList",//通过ajax实现分页的url路径。--%>
+<%--"aoColumns": [//初始化要显示的列--%>
+<%--{--%>
+<%--"mDataProp": "id",//获取列数据，跟服务器返回字段一致--%>
 <%--//                                "sClass" : "center",//显示样式--%>
 <%--//                                "mRender" : function(data, type, full) {//返回自定义的样式--%>
 <%--//                                    return "<label><input type='checkbox' class='ace' /><span class='lbl'></span></label>"--%>
 <%--//                                }--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "accountName"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "sessionId"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "ipAddrV4"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "ipAddrV6"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "osName"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "osVersion"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "broName"--%>
-                        <%--}, {--%>
-                            <%--"mDataProp": "broVersion"--%>
-                        <%--}, {--%>
-                            <%--"mDataProp": "requestBody"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "description"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "other"--%>
-                        <%--},--%>
-                        <%--{--%>
-                            <%--"mDataProp": "method"--%>
-                        <%--},--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "accountName"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "sessionId"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "ipAddrV4"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "ipAddrV6"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "osName"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "osVersion"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "broName"--%>
+<%--}, {--%>
+<%--"mDataProp": "broVersion"--%>
+<%--}, {--%>
+<%--"mDataProp": "requestBody"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "description"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "other"--%>
+<%--},--%>
+<%--{--%>
+<%--"mDataProp": "method"--%>
+<%--},--%>
 
-                        <%--{--%>
-                            <%--"mDataProp": "time",--%>
+<%--{--%>
+<%--"mDataProp": "time",--%>
 <%--//                                "mRender" : function(data, type, full) {--%>
 <%--//                                    return new Date(data)//处理时间显示--%>
 <%--//                                        .toLocaleString();--%>
 <%--//                                }--%>
-                        <%--}],--%>
-                    <%--"aoColumnDefs": [{//用来设置列一些特殊列的属性--%>
-                        <%--"bSortable": false,--%>
-                        <%--"aTargets": [0]--%>
-                        <%--//第一列不排序--%>
-                    <%--}, {--%>
-                        <%--"bSortable": false,--%>
-                        <%--"aTargets": [5]--%>
-                    <%--}, {--%>
-                        <%--"bSortable": false,--%>
-                        <%--"aTargets": [6]--%>
-                    <%--}],--%>
+<%--}],--%>
+<%--"aoColumnDefs": [{//用来设置列一些特殊列的属性--%>
+<%--"bSortable": false,--%>
+<%--"aTargets": [0]--%>
+<%--//第一列不排序--%>
+<%--}, {--%>
+<%--"bSortable": false,--%>
+<%--"aTargets": [5]--%>
+<%--}, {--%>
+<%--"bSortable": false,--%>
+<%--"aTargets": [6]--%>
+<%--}],--%>
 <%--//                        "oLanguage" : {//语言设置--%>
 <%--//                            "sProcessing" : "处理中...",--%>
 <%--//                            "sLengthMenu" : "显示 _MENU_ 项结果",--%>
@@ -349,23 +518,23 @@
 <%--//                                "sSortDescending" : ": 以降序排列此列"--%>
 <%--//                            }--%>
 <%--//                        }--%>
-                    <%--"fnServerData": function (sSource, aoData, fnCallback) {--%>
-                        <%--$.ajax({--%>
-                            <%--"type": 'post',--%>
-                            <%--"url": sSource,--%>
-                            <%--"dataType": "json",--%>
-                            <%--"data": {--%>
-                                <%--aoData: JSON.stringify(aoData)--%>
-                            <%--},--%>
+<%--"fnServerData": function (sSource, aoData, fnCallback) {--%>
+<%--$.ajax({--%>
+<%--"type": 'post',--%>
+<%--"url": sSource,--%>
+<%--"dataType": "json",--%>
+<%--"data": {--%>
+<%--aoData: JSON.stringify(aoData)--%>
+<%--},--%>
 
-                            <%--"success": function (resp) {--%>
-                                <%--fnCallback(resp);--%>
-                            <%--}--%>
-                        <%--});--%>
-                    <%--}--%>
-                <%--});--%>
+<%--"success": function (resp) {--%>
+<%--fnCallback(resp);--%>
+<%--}--%>
+<%--});--%>
+<%--}--%>
+<%--});--%>
 
-        <%--//全选--%>
+<%--//全选--%>
 <%--//            $('table th input:checkbox').on(--%>
 <%--//                'click',--%>
 <%--//                function() {--%>
@@ -379,7 +548,7 @@
 <%--//--%>
 <%--//                });--%>
 
-    <%--});--%>
+<%--});--%>
 <%--</script>--%>
 <%--<script type="text/javascript">--%>
 <%--var logJsonStr = JSON.stringify(${logJson});--%>

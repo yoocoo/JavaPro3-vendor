@@ -104,15 +104,7 @@
                                 </p>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                                    <%--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"--%>
-                                    <%--role="button" aria-expanded="false"><i--%>
-                                    <%--class="fa fa-wrench"></i></a>--%>
-                                    <%--<ul class="dropdown-menu" role="menu">--%>
-                                    <%--<li><a href="#">设置 1</a></li>--%>
-                                    <%--<li><a href="#">设置 2</a></li>--%>
-                                    <%--</ul>--%>
-                                    <%--</li>--%>
-                                    <%--<li><a class="close-link"><i class="fa fa-close"></i></a></li>--%>
+
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -125,11 +117,20 @@
                                     <tr>
 
                                         <th class="text-center">ID</th>
+
                                         <th class="text-left">售货机名称</th>
                                         <th class="text-left">通信状态</th>
 
-                                        <th class="text-left">总销售次数</th>
+                                        <th class="text-left">?停放地点</th>
+                                        <th class="text-left">出厂日期</th>
+                                        <th class="text-left">停服日期</th>
+
+                                        <th class="text-left">纸币器</th>
+                                        <th class="text-left">硬币器</th>
+                                        <th class="text-left">温度</th>
+                                        <th class="text-left">信号</th>
                                         <th class="text-left">最大货道数</th>
+                                        <th class="text-left">审核状态</th>
 
 
                                         <th class="text-left">库存数量</th>
@@ -139,20 +140,22 @@
                                         <th class="text-left">总硬币</th>
                                         <th class="text-left">总非现金</th>
                                         <th class="text-left">总额外收入</th>
+                                        <th class="text-left">总销售次数</th>
 
                                         <th class="text-left">库存状态</th>
                                         <th class="text-left">马达状态</th>
-                                        <th class="text-left">纸币器</th>
-                                        <th class="text-left">硬币器</th>
 
-                                        <th class="text-left">温度</th>
-                                        <th>信号</th>
+
+
                                         <th class="text-left">最近一次销售</th>
 
-                                        <th class="text-left">审核状态</th>
+
+
+
                                         <%--<th class="text-left">生产商</th>--%>
                                         <%--<th class="text-left">运营商详情</th>--%>
                                         <th class="text-left">权限操作</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -284,41 +287,45 @@
             destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
             //deferRender : true,//延迟渲染
             columns: [
+
                 {data: "vendorId"},//售货机ID  -0
+
                 {data: "vendorName"},//售货机名称-1
-                {
-                    data: "actived",//是否在线（通信状态）-2
+                {data: "actived",//是否在线（通信状态）-2
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-power-off"></i></h4>'
-//                            return '<i class="fa fa-smile-o bg-green"></i>'
                         } else {
                             return '<h4 class="red"><i class="fa fa-power-off"></i></h4>'
-//                            return '<i class="fa fa-frown-o bg-red"></i>'
                         }
                     }
                 },
-
-                {data: "totalSaled"},//总出货次数(总销售次数)-3
-                {
-                    data: "maxChannelNum",
-                    "render": function (data, type, full, mata) {
-                        return '<span class="label label-info">' + data + '</span>'
+//=======新增===input 表单======
+                {data: "agencyName",//归属运营商(实际为停放地点)
+                    width: "80px",
+                    "defaultContent": "<i>还没有设置</i>"
+//                    "render": function (data, type, full, mata) {
+//                        return '<input type="text" id= "aName" name="agencyName" value=" ' + data + '">';
+//                    }
+                },
+                {data: "dateOfProduct",//出厂日期
+                         "render": function (data, type, full, meta) {
+                            var dataStr = Date.parse(data);
+                             return new Date(dataStr).Format("yyyy-MM-dd");
+//                            return '<input  type="text" id= "pdate" name="dateOfProduct" ' +
+//                                ' value='+ '"'+new Date(dataStr).Format("yyyy-MM-dd")+'">';
+                        }
+                    },
+                {data: "expireDate",//停服日期
+                    "render": function (data, type, full, meta) {
+                        var dataStr = Date.parse(data);
+                        return new Date(dataStr).Format("yyyy-MM-dd");
+//                        return '<input type="text" id= "odate" name="expireDate" ' +
+//                            ' value='+ '"'+ new Date(dataStr).Format("yyyy-MM-dd")+'">';
                     }
-                },//售货机最大货道-4
+                },
 
-                {data: "sum", "defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
-                {data: "totalMoney"},//总金额-6
-                {data: "totalBill"},//总纸币-7
-
-                {data: "totalCoin"},//总硬币-8
-                {data: "totalCashless"},//总非现金-9
-                {data: "totalExtraIncome"},//总额外收入-10
-
-                {data: "countNum"},//库存状态 -11
-                {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
-                {
-                    data: "mdbbillAlarmCode",//纸币器状态-13
+                {data: "mdbbillAlarmCode",//纸币器状态-13
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
@@ -327,8 +334,7 @@
                         }
                     }
                 },
-                {
-                    data: "mdbchangerAlarmCode",//硬币器状态-14
+                {data: "mdbchangerAlarmCode",//硬币器状态-14
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
@@ -337,9 +343,7 @@
                         }
                     }
                 },
-
-                {
-                    data: "temperature",//售货机温度-15
+                {data: "temperature",//售货机温度-15
                     "render": function (data, type, full, meta) {
                         if (data < 0) {
                             return '<span class="label label-primary">' + data + ' ℃</span>'
@@ -349,8 +353,7 @@
                         }
                     }
                 },
-                {
-                    data: "gprsLevel",//信号强度-16
+                {data: "gprsLevel",//信号强度-16
                     class: "project_progress",
 //                    width: "200px",
                     "render": function (data, type, full, meta) {
@@ -361,17 +364,12 @@
                             '"></div> </div> <small>' + data + '% </small>'
                     }
                 },
-                {
-                    data: "lastSaleTime"//最近一次出货时间-17
-                    ,
-                    "render": function (data, type, full, meta) {
-                        var dataStr = Date.parse(data);
-                        return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                {data: "maxChannelNum",//最大货道数目
+                    "render": function (data, type, full, mata) {
+                        return '<span class="label label-info">' + data + '</span>'
                     }
                 },
-
-                {
-                    data: "checked",//是否通过审核-18
+                {data: "checked",//是否通过审核-18
                     "render": function (data, type, full, meta) {
                         if (data == 1) {
                             return '<span class="badge badge-danger bg-green">通过</span>'; //这里是主题  把url变成超链接、把图片路径显示为图片
@@ -381,10 +379,28 @@
 
                     }
                 },
+
+                {data: "sum", "defaultContent": "<i>待初始化</i>"},//库存数量（其实是：库存量 字段：sum(stockNumber)）-5
+                {data: "totalMoney"},//总金额-6
+                {data: "totalBill"},//总纸币-7
+
+                {data: "totalCoin"},//总硬币-8
+                {data: "totalCashless"},//总非现金-9
+                {data: "totalExtraIncome"},//总额外收入-10
+                {data: "totalSaled"},//总出货次数(总销售次数)-3
+
+                {data: "countNum"},//库存状态 -11
+                {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
+                {data: "lastSaleTime"//最近一次出货时间-17
+                    ,
+                    "render": function (data, type, full, meta) {
+                        var dataStr = Date.parse(data);
+                        return new Date(dataStr).Format("yyyy-MM-dd hh:mm:ss");
+                    }
+                },
 //                {data: "factoryId"},//负责生产商ID-19
 //                {data: "agencyId", width: "80px", "defaultContent": "<i>还没有设置</i>"},//归属运营商ID-20
                 {data: null}//操作-19
-
             ],
             columnDefs: [
                 {
@@ -392,25 +408,43 @@
 //                        return data + ' /' + row[4].data ;//jquery
                         return data + ' /' + row.maxChannelNum;//api
                     },
-                    "targets": 11
+                    "targets": 19
                 },
                 {
                     "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
                         return data + ' /' + row.maxChannelNum;//api
                     },
-                    "targets": 12
+                    "targets": 20
                 },
 //                {
 //                    "visible": false,
-//                    "targets": 4
+//                    "targets": 7
 //                },
                 {
-                    "targets": 19,//编辑
+                    "targets": 22,//编辑
                     "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                    "defaultContent": "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 审核</button>" +
-                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
+
+                    "defaultContent":
+                    "<button id='editrow' class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 编辑</button>"
+//                    +
+//                    "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>冻结</button>"
                 }],
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal( {
+                            header: function ( row, type, full, mata) {
+                                var data = row.data();
+                                console.log("data:"+data);
+                                return '售货机详情'+'<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>' ;
+                            }
+                        } ),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                            tableClass: 'table'
+                        } )
+                    }
+                },
+
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
 //                $('td', row).eq(19).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
@@ -435,52 +469,9 @@
             return fmt;
         }
 
-//    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
-//================================冻结可疑账户==================================================
-        $('#datatable-responsive tbody').on('click', 'button#delrow', function () {
-            var oTable = $('#datatable-responsive').dataTable();
-            var data = oTable.fnGetData($(this).parent().parent());
-            var datastr = JSON.stringify(data);
-            var dataObj = JSON.parse(datastr);
-            console.log("====JsonObj中vendorId :" + dataObj.vendorId);
-            //tables.ajax.reload();重新获取数据
-            //tables.draw(false);重新刷新页面
-            if (confirm("是否确认冻结该售货机")) {
-                var vendorid = dataObj.vendorId;
-                if (dataObj.checked == 0) {
-                    confirm("该售货机已被冻结，无需重复操作！")
-                }
-                else {
-                    console.log("====  确认选择 冻结售货机的vendorid===:" + vendorid);
-                    $.ajax({
-                        type: "POST",  //http请求方式为POST
-                        url: '<%=request.getContextPath()%>/vendorAction/listSVendorRemove',
-//                type:'delete',
-//                type : 'json',
-                        dataType: 'json',//返回值类型 一般设置为json
-//                    timeout: "3000",
-                        cache: "false",
-                        data: {vendorId: vendorid},
-                        success: function (data) {
-                            if (data.code == 1) {
-                                alert(data.msg);
-                                window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-                            } else {
-                                alert(data.msg);
-                                $("#vendor").focus();
-                            }
-                        },
-                        error: function (err) {
-                            alert("冻结成功");
-                            window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-
-                        }
-                    });
-                }
-            }
-        });
 //        ===========================审核用户信息=======jquery 方法===============================
         $('#datatable-responsive tbody').on('click', 'button#editrow', function () {
+
             var oTable1 = $('#datatable-responsive').dataTable();
             var data1 = oTable1.fnGetData($(this).parent().parent());
             var datastr1 = JSON.stringify(data1);
@@ -524,6 +515,57 @@
                 }
             }
         });
+
+
+
+
+
+
+//    －－－－－－－－－－－//以下为自定义的删除按钮事件，可以忽略，也可以参考写法－－－－－－－－－－－－－－－－
+//================================冻结可疑账户==================================================
+        <%--$('#datatable-responsive tbody').on('click', 'button#delrow', function () {--%>
+            <%--var oTable = $('#datatable-responsive').dataTable();--%>
+            <%--var data = oTable.fnGetData($(this).parent().parent());--%>
+            <%--var datastr = JSON.stringify(data);--%>
+            <%--var dataObj = JSON.parse(datastr);--%>
+            <%--console.log("====JsonObj中vendorId :" + dataObj.vendorId);--%>
+            <%--//tables.ajax.reload();重新获取数据--%>
+            <%--//tables.draw(false);重新刷新页面--%>
+            <%--if (confirm("是否确认冻结该售货机")) {--%>
+                <%--var vendorid = dataObj.vendorId;--%>
+                <%--if (dataObj.checked == 0) {--%>
+                    <%--confirm("该售货机已被冻结，无需重复操作！")--%>
+                <%--}--%>
+                <%--else {--%>
+                    <%--console.log("====  确认选择 冻结售货机的vendorid===:" + vendorid);--%>
+                    <%--$.ajax({--%>
+                        <%--type: "POST",  //http请求方式为POST--%>
+                        <%--url: '<%=request.getContextPath()%>/vendorAction/listSVendorRemove',--%>
+<%--//                type:'delete',--%>
+<%--//                type : 'json',--%>
+                        <%--dataType: 'json',//返回值类型 一般设置为json--%>
+<%--//                    timeout: "3000",--%>
+                        <%--cache: "false",--%>
+                        <%--data: {vendorId: vendorid},--%>
+                        <%--success: function (data) {--%>
+                            <%--if (data.code == 1) {--%>
+                                <%--alert(data.msg);--%>
+                                <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
+                            <%--} else {--%>
+                                <%--alert(data.msg);--%>
+                                <%--$("#vendor").focus();--%>
+                            <%--}--%>
+                        <%--},--%>
+                        <%--error: function (err) {--%>
+                            <%--alert("冻结成功");--%>
+                            <%--window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)--%>
+
+                        <%--}--%>
+                    <%--});--%>
+                <%--}--%>
+            <%--}--%>
+        <%--});--%>
+
     });
 </script>
 <%--<script type="text/javascript">--%>

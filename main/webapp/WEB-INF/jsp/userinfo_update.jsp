@@ -30,6 +30,7 @@
     function webUpdate() {
         if (onChangeInfo()) {
             var loginId = $("#loginId").val();
+
             var username = $("#name5").val();
             var pwd = $("#password3").val();
             var Email = $("#email2").val();

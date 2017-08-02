@@ -50,6 +50,46 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
 
+
+    <%--===============select2 模糊匹配=======--%>
+    <%--<script type="text/javascript">--%>
+        <%--$(document).ready(function () {--%>
+            <%--var arr = ${test};--%>
+            <%--var map = {},--%>
+                <%--dest = [];--%>
+            <%--for(var i = 0; i < arr.length; i++){--%>
+                <%--var ai = arr[i];--%>
+                <%--if(!map[ai.agencyName]){--%>
+                    <%--dest.push({--%>
+                        <%--id: ai.agencyName,--%>
+<%--//                    name: ai.name,--%>
+                        <%--data: [ai]--%>
+                    <%--});--%>
+                    <%--map[ai.agencyName] = ai;--%>
+                <%--}else{--%>
+                    <%--for(var j = 0; j < dest.length; j++){--%>
+                        <%--var dj = dest[j];--%>
+                        <%--if(dj.agencyName == ai.id){--%>
+                            <%--dj.data.push(ai);--%>
+                            <%--break;--%>
+                        <%--}--%>
+                    <%--}--%>
+                <%--}--%>
+            <%--}--%>
+        <%--&lt;%&ndash;});&ndash;%&gt;--%>
+<%--//            $(".js-example-basic-single").select2({--%>
+<%--//                data1 : dest--%>
+<%--////                data1: [--%>
+<%--////                    {--%>
+<%--////                        id: 'value',--%>
+<%--////                        text: 'Text to display'--%>
+<%--////                    },--%>
+<%--////                    // ... more data objects ...--%>
+<%--////                ]--%>
+<%--//            })--%>
+<%--//            $(".js-example-basic-single").select2();--%>
+<%--//--%>
+<%--//    </script>--%>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -109,37 +149,50 @@
                             </div>
                             <div class="row x_title">
                                 <div class="col-md-12 ">
-                                    <div id="reportrange" value="" type="text" class="pull-left" name="reportrange"
-                                         style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <span></span>
-                                        <b class="caret"></b>
-                                        <input type="hidden" name="startTime" class="from" id="beginTime" value="">
-                                        <input type="hidden" name="endTime" class="to" id="endTime" value="">
-                                    </div>
-
-                                    <%--<a href="javascript:"; onclick="begin_end_time_clear();">清除</a>--%>
-                                    <%--</div>--%>
                                     <select id="vendorname" name="vendorName"
-                                            class="col-sm-4 form-control js-example-basic-single "
+                                            class="col-sm-4  form-control js-example-basic-single "
                                     <%--class="select2_single form-control"--%>
                                             style="background: #fff; font-size:13px;
                                                         margin-left:5px;cursor: pointer;
-                                                         padding: 5px 10px; border: 1px solid #ccc"
+                                                         padding: 5px 10px; border: 1px solid #ccc; width: 50%;"
                                             tabindex="-1"> <i class="fa fa-empire"></i>
 
-                                        <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
+                                        <%--<c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">--%>
+                                            <%--<c:forEach items="${sVnameList}" var="slist">--%>
+                                        <%--<optgroup label="${slist.agencyName}">--%>
+                                        <%--<option value="${slist.vendorName}">${slist.vendorName} </option>--%>
+                                        <%--</optgroup>--%>
+                                            <%--</c:forEach>--%>
+                                        <%--</c:if>--%>
 
+                                        <%--==============8.2号 生产商售货机列表====================--%>
+                                        <c:if test="${userMess.roleId ==6||userMess.roleId ==8||userMess.roleId ==10 }">
+                                        <c:forEach items="${agencyNameList}" var="alist">
+                                        <optgroup label="${alist.agencyName}">
                                             <c:forEach items="${sVnameList}" var="slist">
-                                                <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                            <c:if test="${slist.agencyName == alist.agencyName}">
+                                        <option value="${slist.vendorName}">${slist.vendorName} </option>
+                                            </c:if>
                                             </c:forEach>
+                                        </optgroup>
+                                        </c:forEach>
                                         </c:if>
+                                        <%--==================================--%>
+
                                         <c:if test="${userMess.roleId ==3||userMess.roleId ==4||userMess.roleId ==5}">
                                             <c:forEach items="${yVnameList}" var="ylist">
                                                 <option value="${ylist.vendorName}">${ylist.vendorName} </option>
                                             </c:forEach>
                                         </c:if>
                                     </select>
+                                        <div id="reportrange" value="" type="text" class="pull-right" name="reportrange"
+                                             style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                            <span></span>
+                                            <b class="caret"></b>
+                                            <input type="hidden" name="startTime" class="from" id="beginTime" value="">
+                                            <input type="hidden" name="endTime" class="to" id="endTime" value="">
+                                        </div>
                                     <button type="button" id="count" class="btn-sm btn-success"
                                             onclick="webNameCount();">
                                         搜索
@@ -258,12 +311,7 @@
             src="<c:url value='/static/vendors/select2/dist/js/select2.min.js'/>"></script>
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
-    <%--===============select2 模糊匹配=======--%>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".js-example-basic-single").select2();
-        });
-    </script>
+
     <script type="text/javascript">
 
 
@@ -670,6 +718,10 @@
 
 
 
+    </script>
+    <script type="text/javascript">
+        $(".js-example-basic-single").select2({
+        });
     </script>
 
 

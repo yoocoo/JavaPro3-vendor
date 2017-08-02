@@ -397,16 +397,22 @@ public class UserController {
 
 				//=========================================7.18 放到home 页 售货机列表 =====================================================
 				int roleId=user1.getRoleId();
-				if(roleId==6||roleId==8||roleId==10){
-					int fId= user1.getFactoryId();
-
-					System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
-					List<Vendor> vendorNameSList= vendorService.getAllSvendorName(fId,roleId);
-					//responseObj.setTreelist(vendorNameSList);
-					System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
+				if(roleId==6||roleId==8||roleId==10) {
+					int fId = user1.getFactoryId();
+					//System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
+					List<Vendor> vendorNameSList = vendorService.getAllSvendorName(fId, roleId);
+					List<Vendor> agencyNameList = vendorService.getAgencyNameList(fId);
+					//System.out.println("数据筛选出来的列表："+new GsonUtils().toJson(vendorNameSList));//控制台可以看到数据
+					//System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
 					//================================7.16 号增加新内容====================
-					//session.setAttribute("sVnameList", new GsonUtils().toJson(vendorNameSList));
-					session.setAttribute("sVnameList",vendorNameSList);
+					session.setAttribute("test", new GsonUtils().toJson(vendorNameSList));// 拿去前台直接用的额
+					session.setAttribute("sVnameList", vendorNameSList);//后台拼好，拿去前台用的
+					session.setAttribute("agencyNameList", agencyNameList);//后台拼好，拿去前台用的
+					System.out.println("重新组装的 sVnameList：：" + vendorNameSList);
+					System.out.println("重新组装的 agencyNameList：：" + agencyNameList);
+
+					//session.setAttribute("treeList1", treeList1);//后台拼好，拿去前台用的
+					//System.out.println("重新组装的 treeList1：：" + treeList1);
 					//================================7.16号增加新内容================-==
 
 				}
@@ -445,6 +451,12 @@ public class UserController {
 				System.out.println("===存入session头像路径======" + userImagePath);
 				System.out.println("===存入session信息,userInfo=====" + user);//只打印 用户名和密码（未加密）
 				//System.out.println("===存入session信息,userInfo=====" + userMess);//只打印 用户名和密码（未加密）
+				//================================================
+				//responseObj.setTreelist(treeList1);
+				//session.setAttribute("treeList1",treeList1);
+				//System.out.println("重新组装的 treeList1：："+treeList1);
+
+				//============================================================
 				result = new GsonUtils().toJson(responseObj);
 			} else {
 				responseObj = new ResponseObj<User>();

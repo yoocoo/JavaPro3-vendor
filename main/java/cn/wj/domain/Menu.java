@@ -11,6 +11,18 @@ public class Menu implements Serializable {
 	private String menuIcon;//菜单图标
 	private String menuUrl;//菜单连接地址
 	private String menuType;//切换菜单   （待开发功能）
+
+	public String getAgencyName() {
+		return agencyName;
+	}
+
+	public void setAgencyName(String agencyName) {
+		this.agencyName = agencyName;
+	}
+
+	//===========8.1 号新增内容========
+	private  String agencyName;//运营商名称分组列表
+
 	/**
 	 * 子结点个数
 	 */

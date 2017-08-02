@@ -189,7 +189,7 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	/**
-	 * 2.5.1  条件查询一： 按生产商所拥有的售货机名称列表 查询
+	 * 2.5.1 (1) 条件查询一： 按生产商所拥有的售货机名称列表 查询
 	 *
 	 * @param factoryId
 	 * @throws OtherThingsException
@@ -206,6 +206,18 @@ public class VendorServiceImpl implements VendorService {
 		//	throw new OtherThingsException(e);
 		//}
 	}
+
+	/**
+	 *  2.5.1 (1) 条件查询一： 按生产商所拥有的售货机名称列表 查询
+	 * @param factoryId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Vendor> getAgencyNameList( int factoryId) throws Exception {
+		List<Vendor> agencynameList =vendorDao.getAgencyNameList(factoryId);
+		return agencynameList;
+	}
+
 	/**
 	 * 2.5.1  条件查询一： 按生产商所拥有的售货机名称列表 查询
 	 *

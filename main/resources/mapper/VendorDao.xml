@@ -66,28 +66,29 @@
         <selectKey keyProperty="vendorId" resultType="int" order="AFTER">
             SELECT @@IDENTITY AS vendor_id
         </selectKey>
-    insert into vendor (
-    vendor_name,   comm_password,   factory_id,        agency_id,           checked,            check_user,
-    last_update_time, registered_time,   expire_date,         mdbBill_alarm_code, mdbChanger_alarm_code,
-    temperature,      leaved_bill,       leaved_coin,         soft_version,       hardware_version,
-    max_channel_num,  board_temperature, timestamps,          last_sale_time,     actived,
-    inactive_reason,  total_saled,        total_money,         total_bill,         total_coin,
-    total_change,     total_cashless,     total_extra_income,  current_saled,      current_money,
-    current_bill,     current_coin,       current_change,      current_cashless,   current_extra_income,
-    model_number,     thirdpay_id,        thirdpay_key,        wireless_pay_enabled, date_of_product,
-    gprs_level
+        insert into vendor (
+        vendor_name, comm_password, factory_id, agency_id, checked, check_user,
+        last_update_time, registered_time, expire_date, mdbBill_alarm_code, mdbChanger_alarm_code,
+        temperature, leaved_bill, leaved_coin, soft_version, hardware_version,
+        max_channel_num, board_temperature, timestamps, last_sale_time, actived,
+        inactive_reason, total_saled, total_money, total_bill, total_coin,
+        total_change, total_cashless, total_extra_income, current_saled, current_money,
+        current_bill, current_coin, current_change, current_cashless, current_extra_income,
+        model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product,
+        gprs_level
         )
-    values (
+        values (
         #{vendorName,jdbcType=VARCHAR}, #{commPassword,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},0, 0, '待审核',
         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{expireDate,jdbcType=TIMESTAMP},0, 0,
-    0, 0, 0,#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR},
-    #{maxChannelNum,jdbcType=INTEGER},0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,0,
-   '暂无', 0, 0, 0, 0,
-    0, 0, 0,0, 0,
-   0,0, 0, 0, 0,
-    #{modelNumber,jdbcType=VARCHAR}, 0,#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER}, #{dateOfProduct,jdbcType=TIMESTAMP},
-   0 )
-  </insert>
+        0, 0, 0,#{softVersion,jdbcType=VARCHAR}, #{hardwareVersion,jdbcType=VARCHAR},
+        #{maxChannelNum,jdbcType=INTEGER},0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,0,
+        '暂无', 0, 0, 0, 0,
+        0, 0, 0,0, 0,
+        0,0, 0, 0, 0,
+        #{modelNumber,jdbcType=VARCHAR}, 0,#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER},
+        #{dateOfProduct,jdbcType=TIMESTAMP},
+        0 )
+    </insert>
     <!--1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
     <update id="updateThirdId" parameterType="cn.wj.domain.Vendor">
         UPDATE vendor SET
@@ -102,7 +103,7 @@
         WHERE vendor_name = #{vendorName}
     </select>
 
-<!-- ===============（一 ）生产商角色======================-->
+    <!-- ===============（一 ）生产商角色======================-->
     <!--2.1.1 生产商售货机 列表-->
     <select id="getAllShengVendor" resultMap="VendorMap">
     SELECT
@@ -224,16 +225,28 @@
         FROM vendor
          WHERE  agency_id =#{agencyId}
     </select>
-    <!--2.5.1  生产商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称： 查询-->
+    <!--2.5.1   (1)生产商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称，（带运营商分组）： 查询-->
+    <select id="getAgencyNameList" resultMap="VendorMap">
+        select u.agency_id  ,a.agency_name
+        from user u
+        left join agency a
+        on u.agency_id = a.agency_id
+        where  u.factory_id =#{factoryId} and  u.agency_id !=0
+
+    </select>
+    <!--2.5.1   (2)生产商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称，（带运营商分组）： 查询-->
     <select id="getAllSvendorName" resultMap="VendorMap">
-        SELECT  vendor_name,vendor_id
+        SELECT  agency_name,vendor_name,vendor_id
         FROM  vendor v
          LEFT JOIN user u
          ON  u.factory_id= v.factory_id
-         WHERE u.factory_id =#{factoryId} and u.role_id= #{roleId}
+           LEFT JOIN agency a
+         ON  a.agency_id= v.agency_id
+         WHERE u.factory_id =#{factoryId} and u.role_id= #{roleId} and a.agency_id !=0
+          GROUP  BY vendor_name , a.agency_name ,vendor_id
 
     </select>
-    <!--2.5.2  运营商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称： 查询-->
+    <!--2.5.2   登录到首页后，有个筛选 运营商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称： 查询-->
     <select id="getAllYvendorName" resultMap="VendorMap">
         SELECT  vendor_name,vendor_id
         FROM  vendor v
@@ -242,7 +255,7 @@
          WHERE u.agency_id=#{agencyId} and u.role_id= #{roleId}
     </select>
 
- <!--2.6.1 基础编辑指定售货机信息-->
+    <!--2.6.1 基础编辑指定售货机信息-->
     <update id="updateSvendorInfo" parameterType="cn.wj.domain.Vendor">
         UPDATE vendor
         SET

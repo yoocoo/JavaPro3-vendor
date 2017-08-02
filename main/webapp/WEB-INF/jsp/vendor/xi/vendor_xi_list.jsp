@@ -48,25 +48,6 @@
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
-    <script type="text/javascript">
-
-        //        function fresh() {
-        //            if(document.getElementById('ced').val() ==1){
-        //                $('input:checkbox').eq(1).attr("checked",'true');
-        ////                var checkedOfAll=$("#ced").attr("checked");
-        ////                alert(checkedOfAll);
-        ////                $("input[name='checked']").attr("checked", checkedOfAll);
-        ////                alert("value:"+document.getElementById('ced').val());
-        ////                document.getElementById('ced').checked = true;
-        //            }else {
-        //                $('input:checkbox').eq(1).attr("checked",'false');
-        ////                document.getElementById('ced').checked = false;
-        //
-        //            }
-        //
-        //        }
-
-    </script>
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -120,9 +101,8 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-
-                                <table id="listS"
-                                       class="table table-striped table-bordered ">
+                                <%--<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">--%>
+                                <table id="listS" class="table table-striped table-bordered " cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
 
@@ -566,6 +546,20 @@
                     "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>查看</button>"
 
                 }],
+//            responsive: {
+//                details: {
+//                    display: $.fn.dataTable.Responsive.display.modal( {
+//                        header: function ( row, type, full, mata) {
+//                            var data = row.data();
+//                            console.log("data:"+data);
+//                            return '售货机详情'+'<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>' ;
+//                        }
+//                    } ),
+//                    renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+//                        tableClass: 'table'
+//                    } )
+//                }
+//            },
             "createdRow": function (row, data, dataIndex) {
                 //每加载完一行的回调函数
 //                $('td', row).eq(20).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素

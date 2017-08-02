@@ -36,13 +36,24 @@
         SELECT *
         FROM user_action_log
         ORDER BY id
-        ASC
-        LIMIT #{offset}, #{limit};
+
     </select>
+    <!--&#45;&#45; ASC-->
+    <!--&#45;&#45; LIMIT #{offset}, #{limit};-->
     <select id="getAllCount" resultType="int">
         SELECT COUNT(*)
         FROM user_action_log;
     </select>
+
+    <!--测试-->
+    <!--2.6.1 基础编辑指定售货机信息-->
+    <update id="updateLogInfo" parameterType="cn.wj.domain.UserActionLog">
+        UPDATE user_action_log
+        SET
+            bro_name=#{broName}
+        WHERE  id = #{id}
+    </update>
+
     <!--5更新session的ID（暂时未用到）- -->
     <update id="updateLoginSession">
         UPDATE user_action_log

@@ -2,6 +2,7 @@ package cn.wj.service.serviceImpl;
 
 import cn.wj.dao.ActionLogDao;
 import cn.wj.domain.UserActionLog;
+import cn.wj.exception.OtherThingsException;
 import cn.wj.service.ActionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,14 +71,37 @@ public class ActionLogServiceImpl implements ActionLogService {
 	}
 
 	public List<UserActionLog> findAll(int pageNum, int pageSize) {
-		//因为数据库内容是从第一条出的数据，所以我们查询的 起始位置 = 页码 * 条数 + 1；
-		pageNum -= 1;
-		return actionLogDao.findAll(pageNum * pageSize, pageSize);
-		//这里不需要加1，不然从第二条开始展示！
+		List<UserActionLog> logList = actionLogDao.findAll( 1, 10);
+		return logList;
+		////因为数据库内容是从第一条出的数据，所以我们查询的 起始位置 = 页码 * 条数 + 1；
+		//pageNum -= 1;
+		//return actionLogDao.findAll(pageNum * pageSize, pageSize);
+		////这里不需要加1，不然从第二条开始展示！
 	}
 
 	public int getAllCount() {
 		return actionLogDao.getAllCount();
 	}
+
+	/**
+	 * 测试
+	 * @param broName
+	 * @param id
+	 * @throws Exception
+	 */
+		public void updateLogInfo( String broName, long id) throws OtherThingsException {
+			int result = 0;//受影响的行数默认为零
+			try {
+				result = actionLogDao.updateLogInfo(broName,id);
+			} catch (Exception e) {
+				System.out.println("日志测试更新  失败");
+				//其他用户添加失败异常
+				throw new OtherThingsException(e);
+			}
+			if (result > 0) {
+				System.out.println("日志测试更新 成功");
+			}
+		}
+
 }
 
