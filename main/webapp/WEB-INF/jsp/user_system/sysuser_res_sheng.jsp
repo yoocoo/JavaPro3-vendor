@@ -32,13 +32,13 @@
                 $('#s3').attr('disabled', 'disabled');
                 document.getElementById("s1").checked = true;
             } else if ($(":selected", "#sel1").val() == 8) {
-                $('#s1').attr('disabled', 'disabled');
-                $('#s3').attr('disabled', 'disabled');
-                document.getElementById("s2").checked = true;
-            } else {
                 $('#s2').attr('disabled', 'disabled');
                 $('#s1').attr('disabled', 'disabled');
                 document.getElementById("s3").checked = true;
+            } else {
+                $('#s3').attr('disabled', 'disabled');
+                $('#s1').attr('disabled', 'disabled');
+                document.getElementById("s2").checked = true;
 
             }
 //            $("#wrap").load();
@@ -421,8 +421,9 @@
                                                     <select id="sel1" name="roleId" class="form-control" onchange="fresh();" >
                                                         <option></option>
                                                         <option value="6">生产商管理员</option>
-                                                        <option  value="10"> 贸易商管理员</option>
                                                         <option  value="8">出租商管理员</option>
+                                                        <option  value="10"> 贸易商管理员</option>
+
                                                     </select>
                                                 </div>
                                             </div>

@@ -155,10 +155,54 @@ public class UserController {
 	}
 
 	/**
+	 * 时间： 2017 年 8 月  3  日
+	 * 作者： 王娇
+	 * 说明：系统管理员，系统用户列表中，按生产商单位筛选出来的列表
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/listShengUser", method = RequestMethod.POST)
+	public void PageInfo1(HttpServletRequest request,
+						  HttpServletResponse response,
+						  User user,Factory factory,
+						  @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+						  @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+		//使用DataTables的属性接收分页数据
+		DataTablePageUtil<User> dataTable = new DataTablePageUtil<User>(request);
+		//开始分页：PageHelper会处理接下来的第一个查询
+		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
+		//还是使用List，方便后期用到
+		String fname= factory.getFactoryName();
+		List<User> userShengList = userService.getShengUserList(fname,1, 10);
+		System.out.println("===打印得到的=userList==" + userShengList);
+		//用PageInfo对结果进行包装
+		PageInfo<User> pageInfo = new PageInfo<User>(userShengList);
+		System.out.println("===打印封装的 pageInfo===" + pageInfo);
+		//封装数据给DataTables
+		dataTable.setDraw(dataTable.getDraw());
+		dataTable.setData(pageInfo.getList());
+		dataTable.setRecordsTotal(userService.getShengUserCount(fname));
+		//dataTable.setRecordsTotal((int) pageInfo.getTotal());
+		dataTable.setRecordsFiltered(dataTable.getRecordsTotal());
+		//返回数据到页面
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/json");
+			response.getWriter().write(new GsonUtils().toJson(dataTable));
+			System.out.println("系统用户列表-条件筛选： 按生产商列表模糊匹配" + new GsonUtils().toJson(dataTable));
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+
+	/**
 	 * 时间： 2017 年 7 月  5  日
 	 * 作者： 王娇
-	 * 说明：基于jquery DataTable API 插件 的分页
-	 *
+	 * 说明：基于jquery DataTable API 插件 的分页 --系统管理员所有的系统列表
 	 * @return
 	 */
 	@RequestMapping(value = "/listAllUser", method = RequestMethod.POST)
@@ -172,7 +216,7 @@ public class UserController {
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
-		List<User> userList = userService.findAll(1, 10);
+		List<User> userList = userService.findAllUser(1, 10);
 		System.out.println("===打印得到的=userList==" + userList);
 		//用PageInfo对结果进行包装
 		PageInfo<User> pageInfo = new PageInfo<User>(userList);
@@ -309,7 +353,10 @@ public class UserController {
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object login(HttpServletRequest request, @RequestParam(value = "accountName", required = true) String accountName, HttpServletResponse response, User user,HttpSession session) throws Exception {
+	public Object login(HttpServletRequest request,
+						@RequestParam(value = "accountName", required = true) String accountName,
+						HttpServletResponse response,
+						User user, Factory factory,Agency agency,HttpSession session) throws Exception {
 		Object result;
 		//ModelAndView mav = new ModelAndView();//创建一个jsp页面对象
 		//mav.setViewName("home");//设置Jsp页面文件名
@@ -394,36 +441,35 @@ public class UserController {
 						}
 					}
 				}
-
 				//=========================================7.18 放到home 页 售货机列表 =====================================================
 				int roleId=user1.getRoleId();
 				if(roleId==6||roleId==8||roleId==10) {
 					int fId = user1.getFactoryId();
-					//System.out.println("打印放到首页的用户登录的时候得到 生产商Id"+fId);
+					Factory factoryInfo = factoryService.findFactory(factory);//生产商角色，可以直接借助用户名找到该生产商表中所有信息
 					List<Vendor> vendorNameSList = vendorService.getAllSvendorName(fId, roleId);
 					List<Vendor> agencyNameList = vendorService.getAgencyNameList(fId);
 					//System.out.println("数据筛选出来的列表："+new GsonUtils().toJson(vendorNameSList));//控制台可以看到数据
 					//System.out.println("打印放到首页的用户登录的时候得到 生产商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameSList));
 					//================================7.16 号增加新内容====================
-					session.setAttribute("test", new GsonUtils().toJson(vendorNameSList));// 拿去前台直接用的额
+					//session.setAttribute("test", new GsonUtils().toJson(vendorNameSList));//暂时用不到
 					session.setAttribute("sVnameList", vendorNameSList);//后台拼好，拿去前台用的
 					session.setAttribute("agencyNameList", agencyNameList);//后台拼好，拿去前台用的
-					System.out.println("重新组装的 sVnameList：：" + vendorNameSList);
-					System.out.println("重新组装的 agencyNameList：：" + agencyNameList);
+					session.setAttribute("factoryInfo", factoryInfo);//后台拼好，拿去前台用的  左侧菜单上方的 生产商信息
 
-					//session.setAttribute("treeList1", treeList1);//后台拼好，拿去前台用的
-					//System.out.println("重新组装的 treeList1：：" + treeList1);
 					//================================7.16号增加新内容================-==
-
 				}
 				if(roleId==3||roleId==4||roleId==5){
 					int aId = user1.getAgencyId();
-					System.out.println("打印放到首页的用户登录的时候得到 运营商Id"+aId);
+					int fId1 = user1.getFactoryId();//查询该运营商归属的生产商ID 值，从而查询到归属的生产商的描述 factoryName
+					String factoryInfo1 =factoryService.findFactoryById(fId1);//查询运营商归属的生产商信息
+					Agency agencyInfo = agencyService.findAgency(agency);
 					List<Vendor> vendorNameYList = vendorService.getAllYvendorName(aId,roleId);
-					//responseObj.setTreelist(vendorNameYList);
-					System.out.println("打印放到首页的用户登录的时候得到 运营商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameYList));
+					System.out.println("仅作日志查看：打印放到首页的用户登录的时候得到 运营商售货机名称列表（后续增加查询到的内容）"+new GsonUtils().toJson(vendorNameYList));
 					//session.setAttribute("yVnameList", new GsonUtils().toJson(vendorNameYList));//不能转json
 					session.setAttribute("yVnameList", vendorNameYList);
+					session.setAttribute("agencyInfo", agencyInfo);//拿到首页，存放运营商信息
+					session.setAttribute("factoryInfo1", factoryInfo1);//拿到首页，存放运营商信息
+
 
 				}
 //				=========================================分主次的权限菜单==五月十四日============================================================================================

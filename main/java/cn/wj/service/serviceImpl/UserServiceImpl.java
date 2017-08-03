@@ -22,7 +22,18 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	/**
-	 * //10.1.1 jquery DataTable +PageHelper  服务器端分页
+	 * 10.2.1
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<User> findAllUser( int pageNum, int pageSize) {
+		List<User>  allUserList = userDao.findAllUser(1,10);
+		return allUserList;
+	}
+
+	/**
+	 * 0.2.2 jquery DataTable +PageHelper  服务器端分页
 	 *
 	 * @return
 	 */
@@ -467,5 +478,28 @@ public class UserServiceImpl implements UserService {
 			System.out.println("审核用户列表中用户信息 成功！");
 		}
 
+	}
+
+	/**
+	* 时间：2017 年 08 月03 日
+	 * 说明：10.1.1（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选
+	 * @param factoryName
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<User> getShengUserList( String factoryName,  int pageNum, int pageSize) {
+		List<User>  shengList = userDao.getShengUserList(factoryName,1,10);
+		return shengList ;
+	}
+
+	/**
+	* 时间：2017 年 08 月03 日
+	 * 说明：10.1.2（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选
+	 * @param factoryName
+	 * @return
+	 */
+	public int getShengUserCount( String factoryName) {
+		return userDao.getShengUserCount(factoryName);
 	}
 }

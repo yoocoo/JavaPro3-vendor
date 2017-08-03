@@ -5,7 +5,17 @@ import java.util.Date;
 
 public class User implements Serializable {
 	private Integer userId;//用户ID
+//============== 2017年08月03日 改造后，系统管理员经过条件查询后列表=================================
+private String factoryName;//生产商单位名称
 
+	public String getFactoryName() {
+		return factoryName;
+	}
+
+	public void setFactoryName(String factoryName) {
+		this.factoryName = factoryName;
+	}
+	//===============================================
 
 	private String nextUrl;//下一步操作地址
 

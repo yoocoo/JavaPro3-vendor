@@ -535,7 +535,7 @@
                     "targets": 11
                 },
 //                {
-//                    "visible": false,
+//                  "visible": false,
 //                    "targets": 4 //售货机最大货道数
 //                },
                 {

@@ -121,6 +121,7 @@ public class FactoryServiceImpl implements FactoryService {
 	//=========================================
 
 	/**
+	 * 暂时未使用
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量
 	 * @return
@@ -128,4 +129,26 @@ public class FactoryServiceImpl implements FactoryService {
 	public List<Factory> findAll(int pageNum, int pageSize) {
 		return null;
 	}
+	/**
+	 * 说明：生产商角色 登录，查找要放到首页 生产商详情
+	 * 时间： 2017 年 08 月 2 日
+	 * @param factory 用户bean
+	 * @return 返回用户名
+	 * @throws Exception
+	 */
+	public Factory findFactory(Factory factory)throws Exception {
+		return factoryDao.findOneById(factory.getAccountName());
+	}
+
+	/**
+	 * 说明： 运营商角色 登录 ，查找归属的生产商 的 生产商详情
+	 * 时间： 2017 年 08 月 2 日
+	 * @param  factoryId 用户bean
+	 * @return 返回用户名
+	 * @throws Exception
+	 */
+	public String findFactoryById(int factoryId) throws OtherThingsException {
+		return  factoryDao.findFactoryById(factoryId);
+	}
+
 }

@@ -23,6 +23,18 @@
     factory_logo_path, cash_sale_table_name, sFee_return_rate, qR_return_rate, receive_account,
     open_bank_name, open_account_name
   </sql>
+    <!--3.2  时间： 8.3 生产商角色登录时，查询放到首页 生产商表中的生产商描述-->
+    <select id="findOneById" resultMap="FactoryResultMap" parameterType="String">
+        SELECT  *
+        FROM  factory
+        WHERE  account_name = #{accountNname}
+    </select>
+    <!--3.1 时间： 8.3  运营商角色用户登录的时候，存放的生产商表中的生产商描述 -->
+    <select id="findFactoryById" resultType="String" parameterType="int">
+        SELECT factory_name
+        FROM factory
+        WHERE factory_id = #{factoryId}
+    </select>
     <!--1.1.1 用户表新增加 用户，并同时 存入 生产商表格中-->
     <insert id="add" parameterType="cn.wj.domain.Factory">
         <selectKey keyProperty="factoryId" resultType="int" order="AFTER">
@@ -68,6 +80,8 @@
         FROM factory
         WHERE account_name = #{accountName}
     </select>
+
+
     <!--====================自动生成================================-->
     <!--SELECT  factory.factory_id-->
     <!--FROM  factory f LEFT  JOIN  user u-->

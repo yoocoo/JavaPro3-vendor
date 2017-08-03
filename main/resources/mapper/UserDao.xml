@@ -52,7 +52,13 @@
             5.#{id}其中id表示接收输入参数的名称，如果输入参数是简单类型，那么#{}中的值可以任意(如value)。
             6.resultType：指定sql输出结果的映射的java对象类型，
             7.select指定resultType表示将单条记录映射成java对象-->
-    <!--10.1.1 jquery DataTable +PageHelper  服务器端分页-->
+    <!--10.2.1 用户列表 查询所有用户-->
+    <select id="findAllUser" resultMap="UserMapperMap">
+        SELECT * FROM user
+
+    </select>
+    <!-- order by approved asc-->
+    <!--10.2.1 jquery DataTable +PageHelper  服务器端分页-->
     <select id="getAllCount" resultType="int">
         SELECT COUNT(*)
         FROM user
@@ -285,10 +291,7 @@
    WHERE  account_name = #{accountName}
     </update>
 
-    <!--6.1 用户列表 查询所有用户-->
-    <select id="findAll" resultMap="UserMapperMap">
-     SELECT * FROM user
-</select>
+
 
     <!--7.1依据用户名获得菜单~~~~resultMap 元素是 MyBatis 中最重要最强大的元素。它就是让你远离 90%的需要从结果 集中取出数据的 JDBC 代码的那个东西, 而且在一些情形下允许你做一些 JDBC 不支持的事 情。 事实上, 编写相似于对复杂语句联合映射这些等同的代码, 也许可以跨过上千行的代码。 ResultMap 的设计就是简单语句不需要明确的结果映射,而很多复杂语句确实需要描述它们 的关系。
 -->
@@ -334,6 +337,7 @@
     <select id="getAllUserList" resultMap="UserMapperMap" parameterType="cn.wj.domain.User">
         SELECT *
         FROM user
+         order by approved asc
     </select>
 
     <!--9.2  6.20日 物理分页 处理数据  在用户列表中，删除某个用户（操作：把user表中approve字段设置为0）
@@ -354,6 +358,32 @@
         approved =1
         WHERE  user_id = #{userId}
     </update>
+
+    <!--10.1.1（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选-->
+    <select id="getShengUserList" resultMap="UserMapperMap" parameterType="cn.wj.domain.User">
+          SELECT f.factory_name, user_id, u.account_name, password,
+        real_name, role_id, u.factory_id,
+        u.agency_id, nick_name, email,
+        last_login_time, fix_phone, mobile_phone,
+        QQ, postcode, idcard,
+        login_count, post_adress, creat_time,
+        head_image, approved
+        FROM user u
+        Left join factory f
+        on u.factory_id = f.factory_id
+          where f.factory_name like  CONCAT('%',#{factoryName,jdbcType=VARCHAR},'%')
+    </select>
+    <!--'%'#{factoryName}'%'-->
+    <!-- （1）原声：'%生产商%'  （2）  '%', #{text}), '%' -->
+    <!--10.1.2（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选-->
+    <select id="getShengUserCount" resultType="int">
+        SELECT COUNT(*)
+        FROM user u
+         Left join factory f
+        on u.factory_id = f.factory_id
+        where f.factory_name like CONCAT('%',#{factoryName,jdbcType=VARCHAR},'%')
+    </select>
+<!--====================================================================================================-->
     <!--10.1.1(暂时用不到，因为 findUser 可以得到该用户的所有的信息，不用在写SQL语句了) 7.16日  首先根据 用户登录时，得到的用户名，得到该用户的 角色id 说明： 生厂商管理员： 条件查询（一）获得 该生产商的所有的 售货机列表-->
     <!--<select id="getAllShengVname" -->
     <select id="getUserRoleId" resultType="int" parameterType="String">

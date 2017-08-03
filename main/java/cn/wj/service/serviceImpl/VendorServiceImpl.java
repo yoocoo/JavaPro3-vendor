@@ -195,16 +195,10 @@ public class VendorServiceImpl implements VendorService {
 	 * @throws OtherThingsException
 	 */
 	public List<Vendor> getAllSvendorName(int factoryId,int roleId) {
-
-		//try {
 			List<Vendor> svendorNameList = vendorDao.getAllSvendorName(factoryId,roleId);
 			System.out.println(" 得到 生产商的售货机名称列表 成功！");
 			return svendorNameList;
-		//} catch (Exception e) {
-		//	System.out.println(" 得到 生产商的售货机名称列表 失败");
-		//	//其他用户添加失败异常
-		//	throw new OtherThingsException(e);
-		//}
+
 	}
 
 	/**

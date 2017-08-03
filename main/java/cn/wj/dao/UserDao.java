@@ -23,7 +23,9 @@ import java.util.List;
 
 
 public interface UserDao extends Dao<User> {
-	//10.1.1 jquery DataTable +PageHelper  服务器端分页
+	//10.1.1 查询所有用户（暂时未用到）
+	List<User> findAllUser(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
+	//10.2.1 jquery DataTable +PageHelper  服务器端分页
 	int getAllCount();
 
 	//1.1.1 查找数据库中的用户，查找用户是否存在
@@ -86,8 +88,7 @@ public interface UserDao extends Dao<User> {
 	//5.1查找用户头像地址，用于动态显示头像(全局普通更新)
 	String findPathById(String accountName);
 
-	//6.1 查询所有用户（暂时未用到）
-	//List<User> findAll(Page page);
+
 
 	//7.1根据用户ID 获得权限菜单
 	List<Menu> getMenuByUserId(@Param("userId") int userId);
@@ -105,6 +106,10 @@ public interface UserDao extends Dao<User> {
 	//9.3 7.7 日 审核通过在用户列表中，审核某个用户（操作：把user表中approve字段设置1）,说明：系统管理员：审核 新注册用户
 	int passUser(@Param("userId") int userId);
 
+	//10.1.1 模糊匹配： 系统管理员列表 -- 按照生产商单位名称筛选
+	List<User> getShengUserList(@Param("factoryName") String factoryName,@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
+	//10.1.1 模糊匹配： 系统管理员列表 -- 按照生产商单位名称筛选
+	int getShengUserCount(@Param("factoryName") String factoryName);
 	//用户 sessionId（暂时未用到）
 	void updateLoginSession(@Param("sessionId") String sessionId, @Param("accountName") String accountName);
 

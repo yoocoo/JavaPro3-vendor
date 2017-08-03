@@ -20,7 +20,7 @@ public class AgencyServiceImpl implements AgencyService {
 
 	/**
 	 * 1.1 查找数据库中用户（注册时查重和登录时判空）
-	 *
+	 *  时间： 8.3 第二个功能 用于运营商角色登录的时候， 查询agency表中相关信息
 	 * @param agency 用户bean
 	 * @return 返回用户名
 	 * @throws Exception
@@ -30,7 +30,7 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	/**
-	 * 1.2 添加运营商，一般要先检查 用户名是否为空，密码是否为空
+	 * 2.1  添加运营商，一般要先检查 用户名是否为空，密码是否为空
 	 *
 	 * @param agency
 	 * @throws Exception
@@ -62,8 +62,11 @@ public class AgencyServiceImpl implements AgencyService {
 
 	}
 
+
+
 	/**
-	 * 更新 运营商表格 其中的一条记录
+	 *  （暂时未使用）
+	 *  更新 运营商表格 其中的一条记录
 	 *
 	 * @param agency
 	 * @throws Exception
@@ -73,6 +76,7 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	/**
+	 * （暂时未使用）
 	 * @param pageNum  页码
 	 * @param pageSize 每页的查询数量
 	 * @return

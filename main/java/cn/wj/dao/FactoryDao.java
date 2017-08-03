@@ -2,7 +2,13 @@ package cn.wj.dao;
 
 import cn.wj.domain.Factory;
 import org.apache.ibatis.annotations.Param;
+
+import java.io.Serializable;
+
 public interface FactoryDao extends Dao<Factory> {
+
+	//1.1查找-登录生产商用户，查找用户是否存在-->
+	Factory findOneById(Serializable Id);
 	/**
 	 * date： 2017.05.30
 	 * author： 王娇
@@ -65,6 +71,8 @@ public interface FactoryDao extends Dao<Factory> {
 	 int selectFactoryIdByName(@Param("accountName")  String accountName);
 	//================================自动生成=========================================
 
+	// 3.1 用户首页登录时候存放 生产商信息
+	String  findFactoryById(  @Param("factoryId") int factoryId);
 	/**
 	 *
 	 * @param factoryId

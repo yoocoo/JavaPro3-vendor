@@ -22,6 +22,7 @@ public interface FactoryService extends BaseService<Factory> {
 	 * @throws Exception
 	 */
 	void selectFactoryIdByName(String accountName)throws Exception;
+
 	/**
 	 * 2017.06.10
 	 * 2.1.1 用户登录之后，修改个人资料，同时还要修改factory表中 头像地址
@@ -60,4 +61,12 @@ public interface FactoryService extends BaseService<Factory> {
 	 * @return
 	 */
 	String findOneByName(String accountName);
+
+	/**
+	 *  获得放到 运营商查询到归属的生产商的 生产商描述
+	 * @param factoryId
+	 * @throws Exception
+	 */
+	String  findFactoryById(int factoryId)throws Exception;
+
 }

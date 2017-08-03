@@ -2,6 +2,7 @@ package cn.wj.service;
 
 import cn.wj.domain.Menu;
 import cn.wj.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,7 +13,16 @@ import java.util.List;
  */
 public interface UserService extends BaseService<User> {
 	/**
-	 * 10.1.1 jquery DataTable +PageHelper  服务器端分页
+	 * 10.2.1
+	 * 得到系统管理员 所有系统管理员的列表
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	List<User> findAllUser(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
+
+	/**
+	 * 10.2.2 jquery DataTable +PageHelper  服务器端分页
 	 * @return
 	 */
 	int getAllCount();
@@ -223,4 +233,26 @@ public interface UserService extends BaseService<User> {
 	 * @throws Exception
 	 */
 	void passUser(int userId) throws Exception;
+
+	/**
+	 * 时间：2017 年 08 月03 日
+	 * 说明：10.1.1（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选
+	 * 作者：王娇
+	 * @param factoryName
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	List<User> getShengUserList(@Param("factoryName") String factoryName, @Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
+
+	/**
+	 * 时间：2017 年 08 月03 日
+	 * 说明：10.1.2（两条SQL 语句） 模糊匹配： 系统管理员列表=====; 按照生产商单位名称（该生产商以及该生产商所归属的所有的运营商列表）筛选
+	 * @param factoryName
+	 * @return
+	 */
+	 int getShengUserCount(@Param("factoryName") String factoryName);
+
+
+
 }

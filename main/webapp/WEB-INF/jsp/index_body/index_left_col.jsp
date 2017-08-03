@@ -18,7 +18,18 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="<%=request.getContextPath()%>/mvc/home" class="site_title"><i class="fa fa-paw"></i> <span>智能售货机后台</span></a></div>
+            <a href="<%=request.getContextPath()%>/mvc/home" class="site_title"><i class="fa fa-paw"></i>
+                <c:if test="${userMess.roleId ==1}">
+                    <span>智能售货机后台</span>
+                </c:if>
+                <c:if test="${userMess.roleId ==6 || userMess.roleId ==8|| userMess.roleId ==10}">
+                    <span>${factoryInfo.factoryName}</span>
+                </c:if>
+                <c:if test="${userMess.roleId ==3 || userMess.roleId ==4|| userMess.roleId ==5}">
+                    <span>${factoryInfo1}</span>
+                </c:if>
+            </a>
+        </div>
         <div class="clearfix"></div>
         <!-- menu profile quick info -->
         <div class="profile clearfix">
@@ -33,12 +44,15 @@
                 </c:if>
                 <c:if test="${userMess.roleId ==3}">
                     <span>角色：运营商管理员</span>
+                    <span>${agencyInfo.agencyName}</span>
                 </c:if>
                 <c:if test="${userMess.roleId ==4}">
                     <span>角色：运营商配货员</span>
+                    <span>${agencyInfo.agencyName}</span>
                 </c:if>
                 <c:if test="${userMess.roleId ==5}">
                     <span>角色：运营商仓库员</span>
+                    <span>${agencyInfo.agencyName}</span>
                 </c:if>
                 <c:if test="${userMess.roleId ==6}">
                     <span>角色：生产商管理员</span>
