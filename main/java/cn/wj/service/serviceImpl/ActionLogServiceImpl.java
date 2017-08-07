@@ -85,14 +85,15 @@ public class ActionLogServiceImpl implements ActionLogService {
 
 	/**
 	 * 测试
-	 * @param broName
-	 * @param id
+	 * @param
 	 * @throws Exception
 	 */
-		public void updateLogInfo( String broName, long id) throws OtherThingsException {
+		//public void updateLogInfo( String broName, String broVersion , long id) throws OtherThingsException {
+		public void updateLogInfo(UserActionLog userActionLog ) throws OtherThingsException {
 			int result = 0;//受影响的行数默认为零
 			try {
-				result = actionLogDao.updateLogInfo(broName,id);
+				//result = actionLogDao.updateLogInfo(broName,broVersion,id);
+				result = actionLogDao.updateLogInfo(userActionLog);
 			} catch (Exception e) {
 				System.out.println("日志测试更新  失败");
 				//其他用户添加失败异常

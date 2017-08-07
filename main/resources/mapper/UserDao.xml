@@ -121,6 +121,7 @@
     <update id="createOrderTable" parameterType="String">
             create table ${tableName} (
             order_id  int(50) NOT  NULL  AUTO_INCREMENT COMMENT '销售ID',
+            order_code VARCHAR(100) NOT NULL DEFAULT '0' COMMENT '订单编码' COLLATE 'utf8_unicode_ci',
             sale_id INT(50) NULL DEFAULT NULL COMMENT '支付id',
             vendor_id INT(200) NULL DEFAULT NULL COMMENT '售货机ID',
             cube_partner_id VARCHAR(50) NULL DEFAULT NULL COMMENT '第三方身份id' COLLATE 'utf8_unicode_ci',
@@ -143,15 +144,19 @@
     <update id="createSaleTable" parameterType="String">
     CREATE TABLE  ${tableName} (
     sale_id INT(50) NOT NULL AUTO_INCREMENT COMMENT '销售ID',
+    sale_code VARCHAR(100) NOT NULL DEFAULT '0' COMMENT '销售编码' COLLATE 'utf8_unicode_ci',
     vendor_id INT(200) NULL DEFAULT NULL COMMENT '售货机ID',
     channel_id INT(10) NULL DEFAULT NULL COMMENT '货道ID',
      agency_id INT(50) NULL DEFAULT NULL COMMENT '运营商或出租商id',
     price DECIMAL(18,2) NULL DEFAULT NULL COMMENT '销售价格',
     number INT(10) NULL DEFAULT NULL COMMENT '销售数量',
     time DATETIME NULL DEFAULT NULL COMMENT '销售时间',
-    goods_code INT(10) NULL DEFAULT NULL COMMENT '商品分组',
-    goods_name VARCHAR(50) NULL DEFAULT NULL COMMENT '商品名称' COLLATE 'utf8_unicode_ci',
-
+    group_code VARCHAR(50) NULL DEFAULT NULL COMMENT '商品分组编码' COLLATE 'utf8_unicode_ci',
+    goods_code INT(10) NULL DEFAULT NULL COMMENT '商品信息编码',
+    goods_name VARCHAR(50) NULL DEFAULT NULL COMMENT '商品信息详情' COLLATE 'utf8_unicode_ci',
+	sale_type INT(10) NULL DEFAULT NULL COMMENT '销售类型：1：普通现金，2：扫码云商城',
+	order_id INT(100) NULL DEFAULT NULL COMMENT '订单表ID',
+	success_not INT(10) NULL DEFAULT NULL COMMENT '出货成功：1代表出货成功 0 出货失败',
     PRIMARY KEY (sale_id)
     )
     COMMENT=' 自动创建销售表'

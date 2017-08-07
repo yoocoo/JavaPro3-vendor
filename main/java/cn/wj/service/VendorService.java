@@ -13,8 +13,8 @@ public interface VendorService extends BaseService<Vendor> {
 	//1.1 .1功能说明： 生产商用户 ：注册新的售货机
 	void shengAddVendor(Vendor vendor) throws Exception;
 
-	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
-	void updateThirdId(@Param("thirdpayId") int thirdpayId,@Param("thirdpayKey") String thirdpayKey) throws Exception;
+	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy  （带重新使用） -->
+	//void updateThirdId(@Param("thirdpayId") int thirdpayId, @Param("thirdpayKey") String thirdpayKey) throws Exception;
 
 	//2.1.1 生产商售货机 列表
 
@@ -27,7 +27,7 @@ public interface VendorService extends BaseService<Vendor> {
 	void ShengRemoveVendor(@Param("vendorId") int vendorId) throws Exception;
 
 	//2.2.3   生产商用户 通过新注册 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  审核新注册售货机-->
-	void shengPassVendor(@Param("vendorId") int vendorId,@Param("checkUser") String checkUser) throws Exception;
+	void shengPassVendor(@Param("vendorId") int vendorId, @Param("checkUser") String checkUser) throws Exception;
 
 	//2.3.1 系统管理员的售货机 列表
 	List<Vendor> getAllXiVendor(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
@@ -41,8 +41,12 @@ public interface VendorService extends BaseService<Vendor> {
 	//2.4.2 运营商管理员jquery DataTable +PageHelper  服务器端分页
 	int getAllYunCount(@Param("agencyId") int agencyId);
 
+	//2.4.3 运营商管理员更新售货机资料， 更新售货机名称
+	void updateVendorName( @Param("vendorName") String vendorName,@Param("vendorId") int vendorId)throws Exception;
+
 	//2.5.1  (1)生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
 	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId, @Param("roleId") int roleId) throws Exception;
+
 	//2.5.1  (1)生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
 	List<Vendor> getAgencyNameList(@Param("factoryId") int factoryId) throws Exception;
 

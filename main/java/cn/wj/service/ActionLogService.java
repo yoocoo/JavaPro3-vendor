@@ -1,6 +1,5 @@
 package cn.wj.service;
 import cn.wj.domain.UserActionLog;
-import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -28,6 +27,7 @@ public interface ActionLogService  extends BaseService<UserActionLog> {
 	//测试
 
 	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
-	 void updateLogInfo(@Param("broName") String broName , @Param("id") long id )throws Exception;
+	// void updateLogInfo(@Param("broName") String broName , @Param("broVersion") String broVersion ,@Param("id") long id )throws Exception;
+	 void updateLogInfo(UserActionLog userActionLog )throws Exception;
 }
 

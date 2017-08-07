@@ -32,6 +32,7 @@ public interface ActionLogDao extends Dao<UserActionLog> {
 	//测试
 
 	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
-	int updateLogInfo(@Param("broName") String broName ,@Param("id") long id );
+	//int updateLogInfo(@Param("broName") String broName ,@Param("broVersion") String broVersion ,@Param("id") long id );
+	int updateLogInfo(UserActionLog userActionLog);
 
 }

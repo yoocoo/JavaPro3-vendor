@@ -206,11 +206,6 @@
     var editor; // use a global for the submit and return data rendering in the examples
 
     $(document).ready(function () {
-//        var   id1 = $("#id1").val();
-//        console.log("id1:"+ id1);
-//
-//        var name1 = $("#name1").val();
-//        console.log("name1:"+ name1);
         editor = new $.fn.dataTable.Editor({
             ajax: {
                 url: "<%=request.getContextPath()%>/actionLog/editLogList",// 数据请求地址
@@ -219,7 +214,8 @@
                     //此处为定义查询条件 传给控制器的参数
                     //角色名称
                     params.broName = $("#name1").val(),
-                        params.id = $("#id1").val()
+                        params.logId = $("#id1").val(),
+                    params.broVersion = $("#name2").val()
                 },
                 dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
                 cache: false,  //不用缓存
@@ -236,12 +232,13 @@
 
             },
             table: "#datatable",
-            idSrc: 'id',
+            idSrc: 'logId',
+            display: 'envelope',
             fields: [
-                {label: "编号", name: "id" ,id:"id1"},
+                {label: "编号", name: "logId" ,id:"id1"},
 //                {label: "账号", name: "accountName"},
-                {label: "浏览器名称", name: "broName",id:"name1"}
-//                {label: "浏览器版本", name: "broVersion"},
+                {label: "浏览器名称", name: "broName",id:"name1"},
+                {label: "浏览器版本", name: "broVersion", id:"name2"},
 //                {label: "系统名称:", name: "osName"},
 //
 //                {label: "系统版本", name: "osVersion"},
@@ -255,6 +252,36 @@
 //                {label: "登录时间", name: "time", type: "datetime"},
 //                {label: "会话id", name: "sessionId"}
             ]
+            ,   i18n: {
+            create: {
+                button: "新建",
+                    title:  "新建一条记录",
+                    submit: "提交新建"
+            },
+            edit: {
+                button: "edit",
+                    title:  "更新该条记录",
+                    submit: "提交更新"
+            },
+            remove: {
+                button: "删除记录",
+                    title:  "删除此条记录",
+                    submit: "提交删除",
+                    confirm: {
+                    _: "这是法语，你看着办吧，反正是出错了，赶紧找错误吧。Etes-vous sûr de vouloir supprimer %d lignes?",
+                        1: "这是法语，你看着办吧，反正是出错了，赶紧找错误吧。Etes-vous sûr de vouloir supprimer 1 ligne?"
+                }
+            },
+            error: {
+                system: "系统出现错误，请联系系统管理员！"
+            },
+            datetime: {
+                previous: '上',
+                    next:     '下',
+                    months:   [ '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月' ],
+                    weekdays: ['七', '一', '二', '三', '四', '五', '六' ]
+            }
+        }
         });
 
         $('#datatable').on('click', 'tbody td:not(:first-child)', function (e) {
@@ -279,6 +306,7 @@
                     //此处为定义查询条件 传给控制器的参数
                     //角色名称
                     params.broName = $("#broName").val()
+//                        params.broVersion = $("#broVersion").val()
                 }
             },
             columns: [
@@ -294,7 +322,7 @@
                         // Combine the first and last names into a single table field
                         return data.id ;
                     },
-                    editField: ['id', 'broName']
+                    editField: ['logId', 'broName','broVersion']
                 },
 //                {data: "id"},
                 {data: "accountName"},
@@ -327,7 +355,7 @@
 //            ]
             buttons: [
                 {extend: "edit",
-                    text: '更新信息 <i class="glyphicon glyphicon-copy"> </i>',
+                    text: '更新资料 <i class="glyphicon glyphicon-pencil"> </i>',
                     className: 'btn bg-olive',
                     editor: editor},
                 {
@@ -360,55 +388,55 @@
 <%--==============编辑器======================改造结束================================================--%>
 <script type="text/javascript">
 
-    var myTable;
-    $(function () {
-        //初始化表格对象
-        myTable = $('#datatable').DataTable({
-            dom: 'irtlp',
-            searching: false,
-            processing: true,
-            serverSide: true,
-            paging: true,
-            info: true,
-            scrollX: true, //列太多，超过显示长度需要滚动条时使用
-            ajax: {
-                url: "<%=request.getContextPath()%>/actionLog/findLogList",// 数据请求地址
-                type: "POST",
-                data: function (params) {
-                    //此处为定义查询条件 传给控制器的参数
-                    //角色名称
-                    params.roleName = $("#theRoleName").val()
-                }
-            },
-            columns: [
-                {data: "id"},
-                {data: "accountName"},
-                {data: "broName"},
-                {data: "broVersion"},
-                {data: "osName"},
+    <%--var myTable;--%>
+    <%--$(function () {--%>
+        <%--//初始化表格对象--%>
+        <%--myTable = $('#datatable').DataTable({--%>
+            <%--dom: 'irtlp',--%>
+            <%--searching: false,--%>
+            <%--processing: true,--%>
+            <%--serverSide: true,--%>
+            <%--paging: true,--%>
+            <%--info: true,--%>
+            <%--scrollX: true, //列太多，超过显示长度需要滚动条时使用--%>
+            <%--ajax: {--%>
+                <%--url: "<%=request.getContextPath()%>/actionLog/findLogList",// 数据请求地址--%>
+                <%--type: "POST",--%>
+                <%--data: function (params) {--%>
+                    <%--//此处为定义查询条件 传给控制器的参数--%>
+                    <%--//角色名称--%>
+                    <%--params.roleName = $("#theRoleName").val()--%>
+                <%--}--%>
+            <%--},--%>
+            <%--columns: [--%>
+                <%--{data: "id"},--%>
+                <%--{data: "accountName"},--%>
+                <%--{data: "broName"},--%>
+                <%--{data: "broVersion"},--%>
+                <%--{data: "osName"},--%>
 
-                {data: "osVersion"},
-                {data: "ipAddrV4"},
-                {data: "ipAddrV6"},
-                {data: "description"},
-                {data: "method"},
-                {data: "other"},
-                {data: "requestBody"},
-                {data: "time"},
-                {data: "sessionId"}
-            ],
-//            columnDefs: [{
-//                targets: 3,// <span style="font-family: Arial, Helvetica, sans-serif;">操作例</span>的位置，从0开始数为第几例，
-//                data: "id",
-//                width: 140,
-//                "render": function (data, type, full) {
-//                    return "<a id='upd' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i>修改权限</a>"
-//                        + "<button class='btn btn-danger btn-xs' onclick='deleteRoleRes(" + data + ")'><i class='fa fa-remove'></i> 删除</button>"
-//                }
-//            }],
+                <%--{data: "osVersion"},--%>
+                <%--{data: "ipAddrV4"},--%>
+                <%--{data: "ipAddrV6"},--%>
+                <%--{data: "description"},--%>
+                <%--{data: "method"},--%>
+                <%--{data: "other"},--%>
+                <%--{data: "requestBody"},--%>
+                <%--{data: "time"},--%>
+                <%--{data: "sessionId"}--%>
+            <%--],--%>
+<%--//            columnDefs: [{--%>
+<%--//                targets: 3,// <span style="font-family: Arial, Helvetica, sans-serif;">操作例</span>的位置，从0开始数为第几例，--%>
+<%--//                data: "id",--%>
+<%--//                width: 140,--%>
+<%--//                "render": function (data, type, full) {--%>
+<%--//                    return "<a id='upd' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i>修改权限</a>"--%>
+<%--//                        + "<button class='btn btn-danger btn-xs' onclick='deleteRoleRes(" + data + ")'><i class='fa fa-remove'></i> 删除</button>"--%>
+<%--//                }--%>
+<%--//            }],--%>
 
-        });
-    });
+        <%--});--%>
+    <%--});--%>
 </script>
 
 <%--<script type="text/javascript">--%>

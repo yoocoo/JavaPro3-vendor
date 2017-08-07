@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.wj.dao.ActionLogDao">
     <resultMap id="ActionLogMapperResultMap" type="cn.wj.domain.UserActionLog">
-        <id column="id" property="id" jdbcType="INTEGER"/>
+        <!--<id column="id" property="id" jdbcType="INTEGER"/>-->
+        <id column="log_id" property="logId" jdbcType="INTEGER"/>
         <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
         <result column="session_id" property="sessionId" jdbcType="VARCHAR"/>
         <result column="time" property="time" jdbcType="TIMESTAMP"/>
@@ -35,7 +36,7 @@
 
         SELECT *
         FROM user_action_log
-        ORDER BY id
+        ORDER BY log_id
 
     </select>
     <!--&#45;&#45; ASC-->
@@ -50,8 +51,9 @@
     <update id="updateLogInfo" parameterType="cn.wj.domain.UserActionLog">
         UPDATE user_action_log
         SET
-            bro_name=#{broName}
-        WHERE  id = #{id}
+            bro_name=#{broName},
+        bro_version=#{broVersion}
+        WHERE  log_id = #{logId}
     </update>
 
     <!--5更新session的ID（暂时未用到）- -->

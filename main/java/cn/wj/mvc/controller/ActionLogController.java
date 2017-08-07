@@ -127,12 +127,15 @@ public class ActionLogController {
 		responseObj = new ResponseObj<UserActionLog>();
 
 		try {
-			long  id= userActionLog.getId();
-			System.out.println("打印要修改谁的日子："+id);
-			String  name1= userActionLog.getBroName();
-			System.out.println("打印要name1："+name1);
+			//long  id= userActionLog.getId();
+			//System.out.println("打印要修改谁的日子："+id);
+			//String  name1= userActionLog.getBroName();
+			//String  name2= userActionLog.getBroName();
 
-			actionLogService.updateLogInfo(name1,id);//新注册售货机时， 售货机表格 添加一条记录
+			//System.out.println("打印要name1："+name1);
+
+			//actionLogService.updateLogInfo(name1,name2,id);//新注册售货机时， 售货机表格 添加一条记录
+			actionLogService.updateLogInfo(userActionLog);//新注册售货机时， 售货机表格 添加一条记录
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -147,6 +150,7 @@ public class ActionLogController {
 		System.out.println("===更新日志 ：：：=====" + userActionLog);// 只有注册时输入表单项数，其他在后台sql语句中赋了一定的初始值
 		//vendor.setNextUrl(request.getContextPath() + "/mvc/home");//单独控制地址
 		result = new GsonUtils().toJson(responseObj);
+		System.out.println("result:"+result);
 		result = result;
 		return result;
 	}

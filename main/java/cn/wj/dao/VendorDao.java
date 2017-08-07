@@ -16,8 +16,8 @@ public interface VendorDao extends Dao<Vendor> {
 	//1.1.1 功能说明： 生产商用户 ：注册新的售货机
 	int shengAddVendor(Vendor vendor);
 
-	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
-	int updateThirdId(@Param("thirdpayId") int thirdpayId,@Param("thirdpayKey") String thirdpayKey);
+	//1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy  (待重新使用) -->
+	//int updateThirdId(@Param("thirdpayId") int thirdpayId, @Param("thirdpayKey") String thirdpayKey);
 
 	//1.1.3 查找-售货机名称，查找该售货机名称是否已经被命名-->
 	Vendor findOneById(Serializable Id);
@@ -33,7 +33,7 @@ public interface VendorDao extends Dao<Vendor> {
 	int ShengRemoveVendor(@Param("vendorId") int vendorId);
 
 	//2.2.3   生产商用户 通过新注册 售货机 ，使得 vendor表里 check ==1 ,checkuser= 系统管理员 即可， 说明:生产商管理员：  审核新注册售货机
-	int shengPassVendor(@Param("vendorId") int vendorId,@Param("checkUser") String checkUser);
+	int shengPassVendor(@Param("vendorId") int vendorId, @Param("checkUser") String checkUser);
 
 	//2.3.1 系统管理员的售货机 列表
 	List<Vendor> getAllXiVendor(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
@@ -47,8 +47,12 @@ public interface VendorDao extends Dao<Vendor> {
 	//2.4.2 运营商管理员jquery DataTable +PageHelper  服务器端分页
 	int getAllYunCount(@Param("agencyId") int agencyId);
 
+	//2.4.3 运营商管理员更新售货机资料， 更新售货机名称
+	int updateVendorName( @Param("vendorName") String vendorName,@Param("vendorId") int vendorId);
+
 	//2.5.1  (1)生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
 	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId, @Param("roleId") int roleId);
+
 	//2.5.1  (2)生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
 	List<Vendor> getAgencyNameList(@Param("factoryId") int factoryId);
 

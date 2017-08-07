@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.GroupsDao" >
+  <resultMap id="GroupsResultMap" type="cn.wj.domain.Groups" >
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+    <result column="agency_id" property="agencyId" jdbcType="INTEGER" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <!--========================运营商角色======================================-->
+
+  <!--1.1.1 得到 该运营商所拥有的一套商品列表-->
+  <select id="getYgoodsList"   resultMap="GroupsResultMap">
+    SELECT  i.goods_id, i.goods_code, i.goods_name,
+    i.goods_img, i.goods_unit,i.price,i.group_code ,
+    g.group_name,g.agency_id,g.group_id
+    FROM  groups g
+    LEFT JOIN   goods_info i
+    ON  g.group_code = i.group_code
+    WHERE  g.agency_id=#{agencyId}
+  </select>
+  <!--1.1.2 得到 该运营商所拥有的一套商品列表记录数 -->
+  <select id="getYgoodsCount" resultType="int">
+    SELECT COUNT(*)
+   FROM  groups g
+    LEFT JOIN   goods_info i
+    ON  g.group_code = i.group_code
+    WHERE  g.agency_id=#{agencyId}
+  </select>
+  <!--1.1.3 运营商管理员 更新分组表信息  -->
+  <update id="updateGroupInfo" parameterType="cn.wj.domain.Groups">
+    UPDATE groups
+    SET
+    group_code=#{groupCode},
+    group_name = #{groupName}
+    WHERE  group_id = #{groupId}
+  </update>
+  <!--========================运营商角色======================================-->
+
+
+  <!--========================系统管理角色======================================-->
+
+
+
+
+  <!--========================系统管理角色======================================-->
+
+
+
+
+
+
+
+  <!--=========================自动生成===============================================-->
+  <insert id="insert" parameterType="cn.wj.domain.Groups" >
+    insert into groups (group_id, group_code, agency_id,
+      group_name)
+    values (#{groupId,jdbcType=INTEGER}, #{groupCode,jdbcType=VARCHAR}, #{agencyId,jdbcType=INTEGER}, 
+      #{groupName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.Groups" >
+    insert into groups
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+      <if test="agencyId != null" >
+        agency_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyId != null" >
+        #{agencyId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

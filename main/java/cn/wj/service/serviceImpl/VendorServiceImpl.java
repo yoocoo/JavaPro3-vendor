@@ -42,23 +42,23 @@ public class VendorServiceImpl implements VendorService {
 
 	/**
 	 * 1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy
-	 * 时间： 2017 年 07 月 25 日
+	 * 时间： 2017 年 07 月 25 日 （等待重新使用）
 	 * @param thirdpayKey
 	 * @throws OtherThingsException
 	 */
-	public void updateThirdId(int thirdpayId, String thirdpayKey) throws OtherThingsException {
-		int result = 0;//受影响的行数默认为零
-		try {
-			result = vendorDao.updateThirdId(thirdpayId,thirdpayKey);
-		} catch (Exception e) {
-			System.out.println("生产商管理用户注册售货机更新第三方ID  失败");
-			//其他用户添加失败异常
-			throw new OtherThingsException(e);
-		}
-		if (result > 0) {
-			System.out.println("生产商管理用户注册售货机更新第三方ID 成功");
-		}
-	}
+	//public void updateThirdId(int thirdpayId, String thirdpayKey) throws OtherThingsException {
+	//	int result = 0;//受影响的行数默认为零
+	//	try {
+	//		result = vendorDao.updateThirdId(thirdpayId,thirdpayKey);
+	//	} catch (Exception e) {
+	//		System.out.println("生产商管理用户注册售货机更新第三方ID  失败");
+	//		//其他用户添加失败异常
+	//		throw new OtherThingsException(e);
+	//	}
+	//	if (result > 0) {
+	//		System.out.println("生产商管理用户注册售货机更新第三方ID 成功");
+	//	}
+	//}
 	/**
 	 * 1.1.3 查找-售货机名称，查找该售货机名称是否已经被命名
 	 *时间： 2017 年 07 月 25 日
@@ -186,6 +186,27 @@ public class VendorServiceImpl implements VendorService {
 	 */
 	public int getAllYunCount(int agencyId) {
 		return vendorDao.getAllYunCount(agencyId);
+	}
+
+	/**
+	 * 时间： 2017 年08 月 05 日
+	 * 功能说明： 运营商更新 售货机资料
+	 * @param vendorId
+	 * @param vendorName
+	 * @throws Exception
+	 */
+	public void updateVendorName(  String vendorName, int vendorId) throws OtherThingsException {
+		int result = 0;//受影响的行数默认为零
+		try {
+			result = vendorDao.updateVendorName(vendorName,vendorId);
+		} catch (Exception e) {
+			System.out.println("运营商更新售货机资料  失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result > 0) {
+			System.out.println("service运营商更新售货机资料 成功");
+		}
 	}
 
 	/**

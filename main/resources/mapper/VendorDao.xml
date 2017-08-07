@@ -40,11 +40,12 @@
         <result column="current_cashless" property="currentCashless" jdbcType="DECIMAL"/>
         <result column="current_extra_income" property="currentExtraIncome" jdbcType="DECIMAL"/>
         <result column="model_number" property="modelNumber" jdbcType="VARCHAR"/>
-        <result column="thirdpay_id" property="thirdpayId" jdbcType="INTEGER"/>
+        <result column="thirdpay_id" property="thirdpayId" jdbcType="VARCHAR"/>
         <result column="thirdpay_key" property="thirdpayKey" jdbcType="VARCHAR"/>
         <result column="wireless_pay_enabled" property="wirelessPayEnabled" jdbcType="INTEGER"/>
         <result column="date_of_product" property="dateOfProduct" jdbcType="TIMESTAMP"/>
         <result column="gprs_level" property="gprsLevel" jdbcType="INTEGER"/>
+        <result column="cloud_set" property="cloudSet" jdbcType="INTEGER"/>
     </resultMap>
     <resultMap id="AgencyResultMap" type="cn.wj.domain.Agency">
         <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
@@ -58,7 +59,7 @@
     <!--timestamps, last_sale_time, actived, inactive_reason, total_saled, total_money, total_bill,-->
     <!--total_coin, total_change, total_cashless, total_extra_income, current_saled, current_money,-->
     <!--current_bill, current_coin, current_change, current_cashless, current_extra_income,-->
-    <!--model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product, gprs_level-->
+    <!--model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product, gprs_level,cloud_set-->
     <!--</sql>-->
 
     <!--1.1.1 功能说明： 生产商用户 ：注册新的售货机 -->
@@ -75,7 +76,7 @@
         total_change, total_cashless, total_extra_income, current_saled, current_money,
         current_bill, current_coin, current_change, current_cashless, current_extra_income,
         model_number, thirdpay_id, thirdpay_key, wireless_pay_enabled, date_of_product,
-        gprs_level
+        gprs_level,cloud_set
         )
         values (
         #{vendorName,jdbcType=VARCHAR}, #{commPassword,jdbcType=VARCHAR}, #{factoryId,jdbcType=INTEGER},0, 0, '待审核',
@@ -85,16 +86,16 @@
         '暂无', 0, 0, 0, 0,
         0, 0, 0,0, 0,
         0,0, 0, 0, 0,
-        #{modelNumber,jdbcType=VARCHAR}, 0,#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER},
+        #{modelNumber,jdbcType=VARCHAR}, #{thirdpayId,jdbcType=VARCHAR},#{thirdpayKey,jdbcType=VARCHAR}, #{wirelessPayEnabled,jdbcType=INTEGER},
         #{dateOfProduct,jdbcType=TIMESTAMP},
-        0 )
+        0 ,#{cloudSet,jdbcType=INTEGER})
     </insert>
-    <!--1.1.2 功能说明：更新第三方支付ID  依据第三放支付KEy   -->
-    <update id="updateThirdId" parameterType="cn.wj.domain.Vendor">
-        UPDATE vendor SET
-        thirdpay_id = #{thirdpayId}
-        WHERE  thirdpay_key = #{thirdpayKey}
-    </update>
+    <!--1.1.2 功能说明：更新第三方支付ID (暂时不用) 依据第三放支付KEy   -->
+    <!--<update id="updateThirdId" parameterType="cn.wj.domain.Vendor">-->
+        <!--UPDATE vendor SET-->
+        <!--thirdpay_id = #{thirdpayId}-->
+        <!--WHERE  thirdpay_key = #{thirdpayKey}-->
+    <!--</update>-->
 
     <!--1.1.3 查找-售货机名称，查找该售货机名称是否已经被命名-->
     <select id="findOneById" resultMap="VendorMap" parameterType="String">
@@ -121,7 +122,7 @@
     v.current_coin, v.current_change, v.current_cashless,
     v.current_extra_income, v.model_number, v.thirdpay_id,
     v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
-    v.gprs_level,a.agency_name,sum(stock_number) sum,
+    v.gprs_level,v.cloud_set,a.agency_name,sum(stock_number) sum,
                   count(case when stock_number !=0  then 'count_num'END ) count_num,
                   count(case when motor_status = 0 then 'count_status'END) count_status
     FROM  vendor v
@@ -175,7 +176,7 @@
                 v.current_coin, v.current_change, v.current_cashless,
                 v.current_extra_income, v.model_number, v.thirdpay_id,
                 v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
-                v.gprs_level,sum(stock_number) sum,
+                v.gprs_level,v.cloud_set,sum(stock_number) sum,
                   count(case when stock_number !=0  then 'count_num'END ) count_num,
                   count(case when motor_status = 0 then 'count_status'END) count_status
                  FROM vendor v
@@ -208,7 +209,7 @@
     v.current_coin, v.current_change, v.current_cashless,
     v.current_extra_income, v.model_number, v.thirdpay_id,
     v.thirdpay_key, v.wireless_pay_enabled, v.date_of_product,
-    v.gprs_level,a.agency_name,sum(stock_number) sum,
+    v.gprs_level,v.cloud_set,a.agency_name,sum(stock_number) sum,
                   count(case when stock_number !=0  then 'count_num'END ) count_num,
                   count(case when motor_status = 0 then 'count_status'END) count_status
         FROM vendor v
@@ -225,6 +226,12 @@
         FROM vendor
          WHERE  agency_id =#{agencyId}
     </select>
+    <!--2.4.3 运营商管理员更新售货机资料， 更新售货机名称-->
+    <update id="updateVendorName" parameterType="cn.wj.domain.Vendor">
+        UPDATE vendor SET
+        vendor_name = #{vendorName}
+        WHERE  vendor_id = #{vendorId}
+    </update>
     <!--2.5.1   (1)生产商售货机 数据查询统计的准备条件（一）： 按指定运营商售货机名称，（带运营商分组）： 查询-->
     <select id="getAgencyNameList" resultMap="VendorMap">
         select u.agency_id  ,a.agency_name

@@ -108,9 +108,17 @@
         var hardwareversion = $("#hardwareversion").val();
         var maxChannel = $("#maxChannel").val();
         var modelnumber = $("#modelnumber").val();
+
+        var kid = $("#kid").val();
         var key = $("#key").val();
 //        var dateofproduct = $("#dateofproduct").val();
         var abled = $("input[type=checkbox]:checked").val();//获取被选中按钮的值
+        var cloudset = $(":selected", "#sel5").val();
+//        var cloudset = $("#cloudset:checked").val();//获取被选中按钮的值
+
+//        var cloudset = $(":selected", "#cloudset").val();
+        console.log("云端："+cloudset);
+
 
         $.ajax({
             type: "POST",
@@ -119,14 +127,21 @@
                 vendorName: name1,
                 commPassword: password,
                 factoryId: factoryid,
+
                 expireDate: timea,
                 softVersion: softversion,
                 hardwareVersion: hardwareversion,
+
                 maxChannelNum: maxChannel,
                 modelNumber: modelnumber,
+
+                thirdpayId: kid,
                 thirdpayKey: key,
+
                 wirelessPayEnabled: abled,
-                dateOfProduct: timeb
+                dateOfProduct: timeb,
+                cloudSet:cloudset
+
             },
             dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
             cache: false,
@@ -195,8 +210,11 @@
                             </div>
                             <div class="x_content">
                                 <!-- Smart Wizard -->
-                                <p> 1：售货机概述：***********&nbsp; 2：售货机职责：*********** <br>
-                                    3：售货机权限：***********&nbsp; 4：售货机工作范围：***********。
+                                <p>
+                                    　　1、产品功能适配性好，与被测被控对象功能几乎完全匹配，具有一定的扩展性但不以扩展为主要目的，因而产品性价比很高;
+                                    　　2、装置小型化是主要体现之一，体现为紧凑型设计，结构设计没有标准可参考，要充分考虑对外接口及安装空间合理利用;
+                                    　　3、可靠性要求高，在电气功能满足可靠性设计基础上，要仔细考虑散热设计、电磁兼容设计、防尘防水设计、抗震动设计等可靠性设计内容;
+                                    　　4、超低功耗无风扇设计为主流。由于装置小型化后，散热能力有限，且嵌入式系统MTBF（平均无故障工作时间）要求也很高，特别在无人值守类应用，超低功耗无风扇设计成为必须。
                                 </p>
                                 <form name="regform" id="vendorreg" action=""
                                       accept-charset="utf-8"
@@ -266,22 +284,22 @@
                                             <h2 class="StepTitle">步骤 1 详情</h2>
                                             <p>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                1.***********
+                                                1.  信息安全产品包括VPN、无线审计、入侵检测系统、UTM、防病毒过滤、内容审计系统等安全应用领域。
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                2.***********
+                                                2.针对环保、能源监测项目推出的能源监测端系统、环境监测端系统、智能电力控制系统。
                                             </p>
                                             <br/>
                                             <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                3.***********
+                                                3.针对物联网网关项目推出的多协议数据转换和采集终端、交互式数字控制平台、移动语音视频终端、智能物流柜专用控制器。
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                4.***********
+                                                4. 针对工业控制推出的4U工业服务器、壁挂式控制终端、工业平板电脑
                                             </p>
                                             <br/>
                                             <p>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                5. ***********
+                                                5. 智慧零售系统包括智慧厨房、智能商铺、智慧药房、信息惠民终端等
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                6.***********
+                                                6.可靠安全的智能系统及云运维平台，提供多种应用，全方位自主满足用户各种需求。
                                             </p>
                                             <br/>
                                             <br/>
@@ -372,6 +390,15 @@
                                                            class="form-control col-md-7 col-xs-12">
                                                 </div>
                                             </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">第三方账户Id<span
+                                                            class="required"></span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <input type="text" id="kid" name="thirdpayId" placeholder=""
+                                                               class="form-control col-md-7 col-xs-12">
+                                                    </div>
+                                                </div>
                                             <div class="item form-group">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">第三方账户Key<span
                                                         class="required"></span>
@@ -392,7 +419,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">是否开启云端商城模式</label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <select id="sel5" name="cloudSet" class="form-control">
+                                                            <option value="1" id="00"> 开启云端商城模式</option>
+                                                            <option value="0" id="001"> 无云端商城</option>
+                                                        </select>
+                                                </div>
+                                                </div>
                                             <%--<div class="item form-group">--%>
                                             <%--<label--%>
                                             <%--class="control-label col-md-3 col-sm-3 col-xs-12">出厂日期</label>--%>
@@ -482,12 +517,12 @@
         $('input[name="expireDate"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
-                format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
-//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
+//                format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期  显示的日期格式  没有用处
                 locale: {
-//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//                    format: 'YYYY-MM-DD ', //控件中from和to
 
-                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间 可以保证数据库不会出错
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
                         '七月', '八月', '九月', '十月', '十一月', '十二月']
@@ -504,12 +539,12 @@
         $('input[name="dateOfProduct"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
-                format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
-//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
+//                format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期  显格式示日期  没有用处
                 locale: {
-//                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间,这样可以保证数据库不会出错
 
-                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+//                    format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
                     daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
                     monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
                         '七月', '八月', '九月', '十月', '十一月', '十二月']

@@ -12,7 +12,19 @@ import java.sql.Timestamp;
  */
 public class OrderBase implements Serializable {
     private Integer orderId;
+    //============08.06====新增======================
 
+
+    private String orderCode;
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+ //============08.06====新增======================
     private Integer saleId;
 
     private Integer vendorId;

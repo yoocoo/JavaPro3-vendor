@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wj.dao.GoodsInfoDao" >
+  <resultMap id="GoodsInfoResultMap" type="cn.wj.domain.GoodsInfo" >
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_img" property="goodsImg" jdbcType="VARCHAR" />
+    <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+
+  </resultMap>
+<!--1.1.1 运营商管理员 更新商品表 信息-->
+  <update id="updateGoodsInfo" parameterType="cn.wj.domain.GoodsInfo">
+    UPDATE goods_info
+    SET
+    goods_code=#{goodsCode},
+    goods_name = #{goodsName},
+    goods_img = #{goodsImg},
+    goods_unit = #{goodsUnit},
+    price = #{price}
+    WHERE  goods_id = #{goodsId}
+  </update>
+
+
+
+
+
+
+
+
+  <!--==============================自动生成========================================-->
+  <insert id="insert" parameterType="cn.wj.domain.GoodsInfo" >
+    insert into goods_info (goods_id, goods_code, goods_name, 
+      goods_img, group_code)
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{goodsImg,jdbcType=VARCHAR}, #{groupCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.wj.domain.GoodsInfo" >
+    insert into goods_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsImg != null" >
+        goods_img,
+      </if>
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImg != null" >
+        #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

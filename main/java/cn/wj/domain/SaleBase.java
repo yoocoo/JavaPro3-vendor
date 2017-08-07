@@ -11,7 +11,55 @@ import java.sql.Timestamp;
  */
 public class SaleBase implements Serializable {
 	private Integer saleId;
+	//================08.06新增=================================
+	private  String saleCode;
+	private String  groupCode;
+	private  Integer saleType;
+	private  Integer orderId;
+	private  Integer successNot;
 
+	public Integer getSaleType() {
+		return saleType;
+	}
+
+	public void setSaleType(Integer saleType) {
+		this.saleType = saleType;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public Integer getSuccessNot() {
+		return successNot;
+	}
+
+	public void setSuccessNot(Integer successNot) {
+		this.successNot = successNot;
+	}
+
+	public String getSaleCode() {
+		return saleCode;
+	}
+
+	public void setSaleCode(String saleCode) {
+		this.saleCode = saleCode;
+	}
+
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
+	}
+
+	//================08.06新增=================================
 	private Integer vendorId;
 
 	private Integer channelId;

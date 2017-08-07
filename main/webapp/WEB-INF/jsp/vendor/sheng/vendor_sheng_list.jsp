@@ -117,6 +117,7 @@
                                         <th class="text-center">ID</th>
                                         <th class="text-left">售货机名称</th>
                                         <th class="text-left">通信状态</th>
+                                        <th class="text-left">云端状态</th>
 
                                         <th class="text-left">总销售次数</th>
                                         <th class="text-left">最大货道数</th>
@@ -394,6 +395,7 @@
 //            retrieve:true,//检索已存在的Datatables实例(retrieve)
                 destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
                 //deferRender : true,//延迟渲染 ,当处理大数据时，延迟渲染数据，有效提高Datatables处理能力
+//                responsive: true,//加入一个自适应 测试，加入这个 自己写的模态弹窗编辑会没数据，也许是提取的时候，提取错误
                 columns: [
                     {data: "vendorId"},//售货机ID  -0
                     {data: "vendorName"},//售货机名称-1
@@ -405,6 +407,18 @@
 //                            return '<i class="fa fa-smile-o bg-green"></i>'
                             } else {
                                 return '<h4 class="red"><i class="fa fa-power-off"></i></h4>'
+//                            return '<i class="fa fa-frown-o bg-red"></i>'
+                            }
+                        }
+                    },
+                    {
+                        data: "cloudSet",//云端状态）-2
+                        "render": function (data, type, full, meta) {
+                            if (data == 1) {
+                                return '<h4 class="green"><i class="fa fa-toggle-on"></i></h4>'
+//                            return '<i class="fa fa-smile-o bg-green"></i>'
+                            } else {
+                                return '<h4 class="red"><i class="fa fa-toggle-off"></i></h4>'
 //                            return '<i class="fa fa-frown-o bg-red"></i>'
                             }
                         }
@@ -503,21 +517,21 @@
 //                        return data + ' /' + row[4].data ;//jquery
                             return data + ' /' + row.maxChannelNum;//api
                         },
-                        "targets": 12
+                        "targets": 13
                     },
                     {
                         "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
                             return data + ' /' + row.maxChannelNum;//api
                         },
-                        "targets": 11
+                        "targets": 12
                     },
 //                {
 //                    "visible": false,
 //                    "targets": 4 //售货机最大货道数
 //                },
                     {
-                        "targets": 19,//权限操作
+                        "targets": 20,//权限操作
                         "data": null,//下面这行，添加了编辑按钮和，删除按钮
                         "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
                         "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +

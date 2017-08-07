@@ -3,26 +3,38 @@
 <mapper namespace="cn.wj.dao.SaleBaseDao">
     <resultMap id="SaleBaseResultMap" type="cn.wj.domain.SaleBase">
         <id column="sale_id" property="saleId" jdbcType="INTEGER"/>
+
+        <id column="sale_code" property="saleCode" jdbcType="VARCHAR"/>
+
         <result column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
         <result column="channel_id" property="channelId" jdbcType="INTEGER"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="number" property="number" jdbcType="INTEGER"/>
         <result column="time" property="time" jdbcType="TIMESTAMP"/>
-        <result column="goods_code" property="goodsCode" jdbcType="INTEGER"/>
+
+        <result column="group_code" property="groupCode" jdbcType="VARCHAR"/>
+
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
         <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
         <result column="agency_id" property="agencyId" jdbcType="INTEGER"/>
+
+        <result column="sale_type" property="saleType" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="success_not" property="successNot" jdbcType="INTEGER"/>
+
     </resultMap>
 
     <sql id="SaleBase_Column_List">
-    sale_id, vendor_id, channel_id, price, number, time, goods_code, goods_name, agency_id
+    sale_id, sale_code,vendor_id, channel_id, price, number, time,group_code, goods_code, goods_name, agency_id,
+    sale_type,order_id,success_not
   </sql>
 
     <!--业务逻辑实现-->
     <!--1.1.1   (生产商角色、运营商角色、出租商、贸易商） 查看 指定  时间段 和 指定售货机 的销售订单 列表-->
     <select id="getAllShengSaleName" resultMap="SaleBaseResultMap" parameterType="cn.wj.domain.SaleBase">
         SELECT
-        s.sale_id, s.vendor_id, s.channel_id, s.price, s.number, s.time, s.goods_code, s.goods_name, s.agency_id,
-        v.vendor_name
+        s.sale_id, s.vendor_id,s.sale_code, s.channel_id, s.price, s.number, s.time, s.group_code,s.goods_code, s.goods_name, s.agency_id,
+         s.sale_type,s.order_id,s.success_not, v.vendor_name
         FROM ${tableName} s
         LEFT JOIN vendor v
         ON s.vendor_id= v.vendor_id

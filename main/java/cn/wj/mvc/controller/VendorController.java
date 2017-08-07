@@ -58,15 +58,14 @@ public class VendorController {
 		}
 		try {
 			vendorService.shengAddVendor(vendor);//新注册售货机时， 售货机表格 添加一条记录
-			thirdPayService.addVendor(thirdPay);//新注册售货机时，添加第三方支付 一条记录
-			int  id = thirdPay.getThirdpayId();
-			String key = vendor.getThirdpayKey();
-			System.out.println("王八一："+id);
-			System.out.println("王八二："+key);
-			vendorService.updateThirdId(id,key);
-			int id2 = vendor.getVendorId();
-			System.out.print("王八三："+id2);
-			thirdPayService.updateVendorId(id2,key);
+			//thirdPayService.addVendor(thirdPay);//新注册售货机时，添加第三方支付 一条记录
+			//int id = thirdPay.getThirdpayId();
+			//String key = vendor.getThirdpayKey();
+			//System.out.println("王八一：" + id);
+			//System.out.println("王八二：" + key);
+			//int id2 = vendor.getVendorId();
+			//System.out.print("王八三：" + id2);
+			//thirdPayService.updateVendorId(id2, key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -109,8 +108,8 @@ public class VendorController {
 	 */
 	@RequestMapping(value = "/listAllSVendor", method = RequestMethod.POST)
 	public void PageInfoVendor(HttpServletRequest request,
-							   HttpServletResponse response,HttpSession session,
-							   Vendor vendor,User user,
+							   HttpServletResponse response, HttpSession session,
+							   Vendor vendor, User user,
 							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
 							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
 		int fId = user.getFactoryId();
@@ -127,7 +126,7 @@ public class VendorController {
 		//还是使用List，方便后期用到
 		//int fId = user.getFactoryId();
 		System.out.println("===打印即将用于生产商的所有售货机的 fId===" + fId);
-		List<Vendor> shengVendorList = vendorService.getAllShengVendor(fId,1, 10);
+		List<Vendor> shengVendorList = vendorService.getAllShengVendor(fId, 1, 10);
 		//System.out.println("===打印分页请求=shengVendorList==" + shengVendorList);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(shengVendorList);
@@ -149,6 +148,50 @@ public class VendorController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 时间： 2017 年 8 月 5 日
+	 * 说明：   运营商管理员 更新 售货机资料
+	 *
+	 * @param request
+	 * @param response
+	 * @param vendor
+	 * @return
+	 */
+	@RequestMapping(value = "/editYunList",
+			method = RequestMethod.POST,
+			produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object editYunVendor(HttpServletRequest request,
+								HttpServletResponse response,
+								Vendor vendor) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<Vendor>();
+		// 运营商更新 售货机资料
+		try {
+			String vName = vendor.getVendorName();
+			int vendorId = vendor.getVendorId();
+
+			System.out.println("-=====日志打印运营商更新售货机的ID:" + vendorId);
+			System.out.println("-=====日志打印运营商更新售货机的名称:" + vName);
+			vendorService.updateVendorName(vName,vendorId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("运营商更新售货机资料，其他错误");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("运营商更新售货机资料成功!!");
+		responseObj.setData(vendor);
+		result = new GsonUtils().toJson(responseObj);
+		System.out.println("result:"+result);
+		result = result;
+		return result;
+
+	}
+
 
 	/**
 	 * 时间： 2017 年 7 月 10 日
@@ -180,7 +223,7 @@ public class VendorController {
 		responseObj.setCode(ResponseObj.OK);
 		responseObj.setMsg("冻结异常售货机成功");
 		responseObj.setData(vendor);
-		//System.out.println("====7.7 打印冻结可疑售货机后 vendorInfo===" + vendor);
+		//System.out.println("====7.7  打印冻结可疑售货机后 vendorInfo===" + vendor);
 		result = new GsonUtils().toJson(responseObj);
 		//System.out.println("=====打印result =" + result);
 		result = result;
@@ -208,7 +251,7 @@ public class VendorController {
 			int vendorId = vendor.getVendorId();
 			String cUser = vendor.getCheckUser();
 			System.out.println("-=====7.7打印要冻结账户ID:" + vendorId);
-			vendorService.shengPassVendor(vendorId,cUser);
+			vendorService.shengPassVendor(vendorId, cUser);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -231,6 +274,7 @@ public class VendorController {
 	 * 创建日期： 2017 年 07 月 11 日
 	 * 创建者： 王娇
 	 * 一更时间： 2017 年 07 月28 日
+	 *
 	 * @param request
 	 * @param vendor
 	 * @return
@@ -252,16 +296,16 @@ public class VendorController {
 	 */
 	@RequestMapping(value = "/listAllXVendor", method = RequestMethod.POST)
 	public void PageInfoVendor1(HttpServletRequest request,
-							   HttpServletResponse response,
-							   Vendor vendor,User user, Channel channel,
-							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
-							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+								HttpServletResponse response,
+								Vendor vendor, User user, Channel channel,
+								@RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+								@RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
 		//使用DataTables的属性接收分页数据
 		DataTablePageUtil<Vendor> dataTable = new DataTablePageUtil<Vendor>(request);
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
-		List<Vendor> xiVendorList = vendorService.getAllXiVendor(1,10);
+		List<Vendor> xiVendorList = vendorService.getAllXiVendor(1, 10);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(xiVendorList);
 		//封装数据给DataTables
@@ -312,17 +356,17 @@ public class VendorController {
 	 */
 	@RequestMapping(value = "/listAllYVendor", method = RequestMethod.POST)
 	public void PageInfoVendor2(HttpServletRequest request,
-							   HttpServletResponse response,
-							   Vendor vendor,User user,
-							   @RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
-							   @RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
+								HttpServletResponse response,
+								Vendor vendor, User user,
+								@RequestParam(value = "offset", defaultValue = "0") Integer pageNum,
+								@RequestParam(value = "limit", defaultValue = "10") Integer pageSize) {
 		//使用DataTables的属性接收分页数据
 		DataTablePageUtil<Vendor> dataTable = new DataTablePageUtil<Vendor>(request);
 		//开始分页：PageHelper会处理接下来的第一个查询
 		PageHelper.startPage(dataTable.getPage_num(), dataTable.getPage_size());
 		//还是使用List，方便后期用到
 		int aId = user.getAgencyId();
-		List<Vendor> yunVendorList = vendorService.getAllYunVendor(aId,1, 10);
+		List<Vendor> yunVendorList = vendorService.getAllYunVendor(aId, 1, 10);
 		//用PageInfo对结果进行包装
 		PageInfo<Vendor> pageInfo = new PageInfo<Vendor>(yunVendorList);
 		//封装数据给DataTables

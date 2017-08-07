@@ -10,6 +10,19 @@ import java.sql.Timestamp;
  * 时间： 2017 年 07 月 10 日
  */
 public class Vendor implements Serializable {
+
+	//================08.06新增云端===========================
+	private  Integer cloudSet;//1：表示启用了云端商城模式
+
+	public Integer getCloudSet() {
+		return cloudSet;
+	}
+
+	public void setCloudSet(Integer cloudSet) {
+		this.cloudSet = cloudSet;
+	}
+	//================08.06新增云端===========================
+
 	private Integer vendorId;
 
 	private String vendorName;
@@ -87,13 +100,13 @@ public class Vendor implements Serializable {
 
 	private String modelNumber;
 
-	private Integer thirdpayId;
+	private String thirdpayId;
 
-	public Integer getThirdpayId() {
+	public String getThirdpayId() {
 		return thirdpayId;
 	}
 
-	public void setThirdpayId(Integer thirdpayId) {
+	public void setThirdpayId(String thirdpayId) {
 		this.thirdpayId = thirdpayId;
 	}
 

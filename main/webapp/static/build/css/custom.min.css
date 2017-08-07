@@ -3241,8 +3241,11 @@ ul.messages {
 }
 
 img.avatar, ul.messages li img.avatar {
-    height: 32px;
-    width: 32px;
+
+    height: 64px;
+    /*height: 32px;*/
+    width: 64px;
+    /*width: 32px;*/
     float: left;
     display: inline-block;
     border-radius: 2px;

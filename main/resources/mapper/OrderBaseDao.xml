@@ -3,6 +3,9 @@
 <mapper namespace="cn.wj.dao.OrderBaseDao">
     <resultMap id="OrderBaseResultMap" type="cn.wj.domain.OrderBase">
         <id column="order_id" property="orderId" jdbcType="INTEGER"/>
+
+        <id column="order_code" property="orderCode" jdbcType="VARCHAR"/>
+
         <result column="sale_id" property="saleId" jdbcType="INTEGER"/>
         <result column="vendor_id" property="vendorId" jdbcType="INTEGER"/>
         <result column="cube_partner_id" property="cubePartnerId" jdbcType="VARCHAR"/>
@@ -19,12 +22,12 @@
         <result column="channel" property="channel" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="OrderBase_Column_List">
-    order_id, sale_id, vendor_id, cube_partner_id, price, create_time, paid_time, paid_money,
+    order_id, order_code,sale_id, vendor_id, cube_partner_id, price, create_time, paid_time, paid_money,
     paid_source, status, pay_url, discount, refound, cube_create_result, channel
   </sql>
     <!--1.1.1  (生产商角色、出租商、贸易商）查看订单表详情-->
     <select id="getAllShengOrder" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
-    SELECT   o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
+    SELECT   o.order_id, o.order_code,o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
     o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
     FROM  ${tableName} o
     LEFT JOIN vendor v
@@ -38,7 +41,7 @@
     </select>
     <!--2.1.1  (生产商角色、运营商角色、出租商、贸易商），查看订单表详情 双条件：按 选择售货机名称段查询-->
     <select id="getAllShengOrderName" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
-        SELECT o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
+        SELECT o.order_id, o.order_code,o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.create_time, o.paid_time, o.paid_money,
         o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
         FROM ${tableName} o
         LEFT JOIN vendor v
@@ -74,7 +77,7 @@
     </select>
     <!--3.1.1（暂时未用到） 生产商管理员，查看订单表详情 独条件（2）：按时间段查询-->
     <select id="getAllShengOrderTime" resultMap="OrderBaseResultMap" parameterType="cn.wj.domain.OrderBase">
-        SELECT o.order_id, o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.creat_time, o.paid_time, o.paid_money,
+        SELECT o.order_id, o.order_code,o.sale_id, o.vendor_id, o.cube_partner_id, o.price, o.creat_time, o.paid_time, o.paid_money,
         o.paid_source, o.status, o.pay_url, o.discount, o.refound, o.cube_creat_result, o.channel,v.vendor_name
         FROM ${tableName} o
         LEFT JOIN vendor v

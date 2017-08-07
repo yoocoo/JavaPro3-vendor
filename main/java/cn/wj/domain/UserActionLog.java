@@ -31,13 +31,23 @@ import java.sql.Date;
  */
 public class UserActionLog implements Serializable {
 
-	private long id;
+	//private long id;
+	private long logId;
+
+	public long getLogId() {
+		return logId;
+	}
+
+	public void setLogId(long logId) {
+		this.logId = logId;
+	}
+
 	private String accountName, sessionId, ipAddrV4, ipAddrV6, osName, osVersion, broName, broVersion, requestBody, description, other, method;
 	private Date time;
 
-	public long getId() {
-		return id;
-	}
+	//public long getId() {
+	//	return id;
+	//}
 
 	public String getAccountName() {
 		return accountName;
@@ -143,15 +153,15 @@ public class UserActionLog implements Serializable {
 		this.time = time;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	//public void setId(long id) {
+	//	this.id = id;
+	//}
 
 	@Override
 	public String toString() {
 		return "{"
 
-				+ '\"' + "id"  + '\"' + ":" + '\"' + id + '\"'
+				+ '\"' + "logId"  + '\"' + ":" + '\"' + logId + '\"'
 				+ "," + '\"' +"accountName"+ '\"' + ":" + '\"' + accountName + '\"'
 				+ "," + '\"' +"sessionId" + '\"' + ":" + '\"' + sessionId + '\"'
 				+ "," + '\"' +"ipAddrV4" + '\"' + ":" + '\"' + ipAddrV4 + '\"'
