@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>运营商管理员注册售货机</title>
+    <title>运营商管理员注册售货机(暂时不用)</title>
 </head>
 <body>
 

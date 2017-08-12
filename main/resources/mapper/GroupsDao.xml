@@ -16,7 +16,7 @@
     i.goods_img, i.goods_unit,i.price,i.group_code ,
     g.group_name,g.agency_id,g.group_id
     FROM  groups g
-    LEFT JOIN   goods_info i
+    RIGHT JOIN   goods_info i
     ON  g.group_code = i.group_code
     WHERE  g.agency_id=#{agencyId}
   </select>
@@ -24,7 +24,7 @@
   <select id="getYgoodsCount" resultType="int">
     SELECT COUNT(*)
    FROM  groups g
-    LEFT JOIN   goods_info i
+    RIGHT JOIN   goods_info i
     ON  g.group_code = i.group_code
     WHERE  g.agency_id=#{agencyId}
   </select>
@@ -36,6 +36,15 @@
     group_name = #{groupName}
     WHERE  group_id = #{groupId}
   </update>
+  <!--2.1.1 运营商管理员 增加分组信息  -->
+  <insert id="yunAddGroup" parameterType="cn.wj.domain.Groups">
+  <selectKey keyProperty="groupId" resultType="int" order="AFTER">
+    SELECT @@IDENTITY AS group_id
+  </selectKey>
+    insert into groups (group_code,agency_id,group_name)
+    values (#{groupCode},#{agencyId},#{groupName})
+  </insert>
+
   <!--========================运营商角色======================================-->
 
 

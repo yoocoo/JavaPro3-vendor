@@ -50,6 +50,13 @@
           href="<c:url value='/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+            href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -239,16 +246,22 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/jszip/dist/jszip.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
-
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
 <script type="text/javascript">
+
     var editor; // use a global for the submit and return data rendering in the examples
 
     var agencyid = ${userMess.agencyId};
     console.log("打印筛选的参数运营商id" + agencyid);
     $(document).ready(function () {
+        $('.ui-pnotify').remove();
+
         $.extend($.fn.dataTable.Editor.display.envelope.conf, {
             attach: 'head'
         });
@@ -266,11 +279,27 @@
                 cache: false,  //不用缓存
                 success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
                     if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
-                        alert(data.msg);
+//                        alert(data.msg);
+                        $(function(){
+                            new PNotify({
+                                title: '成功执行操作',
+                                text: data.msg,
+                                type: 'success',
+                                styling: 'bootstrap3'
+                            });
+                        });
                         <%--window.location.href = "<%=request.getContextPath()%>/vendorAction/listAllYVendor";//返回运营商售货机管理界面--%>
 
                     } else {//更新不成功
-                        alert(data.msg);//弹出对话框，提示返回错误信息
+//                        alert(data.msg);//弹出对话框，提示返回错误信息
+                        $(function(){
+                            new PNotify({
+                                title: '发现错误，请联系系统管理员',
+                                text: data.msg,
+                                type: 'error',
+                                styling: 'bootstrap3'
+                            });
+                        });
                     }
                 }
             },
@@ -399,8 +428,7 @@
 //                        return '<input type="text" id= "aName" name="agencyName" value=" ' + data + '">';
 //                    }
                 },
-                {
-                    data: "dateOfProduct",//出厂日期--4
+                {data: "dateOfProduct",//出厂日期--4
                     "render": function (data, type, full, meta) {
                         var dataStr = Date.parse(data);
                         return new Date(dataStr).Format("yyyy-MM-dd");
@@ -408,8 +436,7 @@
 //                                ' value='+ '"'+new Date(dataStr).Format("yyyy-MM-dd")+'">';
                     }
                 },
-                {
-                    data: "expireDate",//停服日期--5
+                {data: "expireDate",//停服日期--5
                     "render": function (data, type, full, meta) {
                         var dataStr = Date.parse(data);
                         return new Date(dataStr).Format("yyyy-MM-dd");

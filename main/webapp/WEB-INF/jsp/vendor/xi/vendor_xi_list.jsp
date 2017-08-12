@@ -45,6 +45,13 @@
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -360,6 +367,10 @@
 <!-- Switchery -->
 <script type="text/javascript"
         src="<c:url value='/static/vendors/switchery/dist/switchery.min.js'/>"></script>
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
@@ -367,6 +378,7 @@
 
 
     $(document).ready(function () {
+        $('.ui-pnotify').remove();
         var tables = $('#listS').DataTable({
             dom: 'Bfrtip',//来显示TableTools按钮
             buttons: [
@@ -411,12 +423,12 @@
 //          scrollY: "200px",
 //          scrollCollapse: true,
             searching: true,//是否开始本地搜索
-//         'bStateSave': true,//配置好这个,刷新页面会让页面停留在之前的页码
-            stateSave: true,//刷新时是否保存状态
+//
+            stateSave: true,//刷新时是否保存状态,配置好这个,刷新页面会让页面停留在之前的页码
 //          autoWidth: true,//自动计算宽度
 //            retrieve:true,//检索已存在的Datatables实例(retrieve)
             destroy: true, //Cannot reinitialise DataTable,解决重新加载表格内容问题,销毁Datatables实例(destroy)
-            //deferRender : true,//延迟渲染
+            deferRender : true,//延迟渲染
             columns: [
                 {data: "vendorId"},//售货机ID  -0
                 {data: "vendorName"},//售货机名称-1
@@ -696,7 +708,15 @@
                             }
                         },
                         error: function (err) {
-                            alert("冻结成功");
+//                            alert("冻结成功");
+                            $(function () {
+                                new PNotify({
+                                    title: '成功执行操作',
+                                    text: '冻结成功？？',
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                            });
                             window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
                         }
@@ -745,7 +765,15 @@
                             }
                         },
                         error: function (err) {
-                            alert("售货机信息，通过审核");
+//                            alert("售货机信息，通过审核");
+                            $(function () {
+                                new PNotify({
+                                    title: '成功执行操作',
+                                    text: '售货机信息，通过审核',
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                            });
                             window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
                         }

@@ -4,6 +4,7 @@ import cn.wj.dao.VendorDao;
 import cn.wj.domain.Vendor;
 import cn.wj.exception.OtherThingsException;
 import cn.wj.service.VendorService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +94,47 @@ public class VendorServiceImpl implements VendorService {
 	 */
 	public int getAllCount(int factoryId) {
 		return vendorDao.getAllCount(factoryId);
+	}
+
+	/**
+	 * 功能说明： 2.1.3 生产商角色对运营商角色指定售货机
+	 * @param agencyId
+	 * @param vendorId
+	 * @throws Exception
+	 */
+	public void ShengPerYunVendor(@Param("agencyId") int agencyId, @Param("vendorId") int vendorId) throws Exception {
+		int result1 = 0;//受影响的行数默认为零
+		try {
+			result1 = vendorDao.ShengPerYunVendor(agencyId,vendorId);
+		} catch (Exception e) {
+			System.out.println("生产商对运营商授权售货机 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result1 > 0) {
+			System.out.println("生产商对运营商授权售货机 service 成功！");
+		}
+	}
+
+	/**
+	 * 功能说明：2.1.4 生产商角色 修改售货机的权限信息
+	 * 时间：2017 年 08 月12 日
+	 * 作者：王娇
+	 * @param vendor
+	 * @throws Exception
+	 */
+	public void ShengEditVendorInfo(Vendor vendor) throws Exception {
+		int result1 = 0;//受影响的行数默认为零
+		try {
+			result1 = vendorDao.ShengEditVendorInfo(vendor);
+		} catch (Exception e) {
+			System.out.println("生产商对售货机的权限信息修改 失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result1 > 0) {
+			System.out.println("生产商对售货机的权限信息修改 service 成功！");
+		}
 	}
 
 	/**

@@ -43,6 +43,8 @@ public class VendorController {
 	private ThirdPayServiceImpl thirdPayService;//自动载入  第三方支付 Service 对象
 	private ResponseObj responseObj;//封装 放到前端页面 数据
 
+//===============================生产商角色=================================================================
+
 	@RequestMapping(value = "/RegVendor",
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
@@ -58,14 +60,6 @@ public class VendorController {
 		}
 		try {
 			vendorService.shengAddVendor(vendor);//新注册售货机时， 售货机表格 添加一条记录
-			//thirdPayService.addVendor(thirdPay);//新注册售货机时，添加第三方支付 一条记录
-			//int id = thirdPay.getThirdpayId();
-			//String key = vendor.getThirdpayKey();
-			//System.out.println("王八一：" + id);
-			//System.out.println("王八二：" + key);
-			//int id2 = vendor.getVendorId();
-			//System.out.print("王八三：" + id2);
-			//thirdPayService.updateVendorId(id2, key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
@@ -150,52 +144,99 @@ public class VendorController {
 	}
 
 	/**
-	 * 时间： 2017 年 8 月 5 日
-	 * 说明：   运营商管理员 更新 售货机资料
+	 * 时间：2017 年 08 月 11 日
+	 * 功能说明：生产商管理员 对运营商指定售货机
+	 * 作者：王娇
+	 *
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @param vendor
+	 * @return
+	 */
+	@RequestMapping(value = "/editVendorPer",
+			method = RequestMethod.POST,
+			produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object updateYunVendorPer(HttpServletRequest request,
+									 HttpServletResponse response, HttpSession session,
+									 Vendor vendor, User user) {
+		Object result;
+		responseObj = new ResponseObj<Groups>();
+		//if (null == vendor) {
+		//	responseObj.setCode(ResponseObj.FAILED);
+		//	responseObj.setMsg("售货机的信息不能为空");
+		//	result = new GsonUtils().toJson(responseObj);
+		//	return result;
+		//}//不能掌控
+		if (vendor.getAgencyId() == null) {//必须保证某些字段不能为空
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("授权时，绑定运维的运营商不能为空");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		//更新售货机绑定授权信息
+		try {
+			int aId = vendor.getAgencyId();
+			int vId = vendor.getVendorId();
+			vendorService.ShengPerYunVendor(aId, vId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("生产商绑定售货机出现其他系统错误，请联系系统管理员 邮箱：***@qq.com");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("商生产商绑定售货机，更新授权成功");
+		responseObj.setData(vendor);
+		result = new GsonUtils().toJson(responseObj);
+		result = result;
+		return result;
+	}
+
+	/**
+	 * 时间： 2017 年 8 月 12 日
+	 * 说明：   生产商 管理员 更新 售货机权限信息
 	 *
 	 * @param request
 	 * @param response
 	 * @param vendor
 	 * @return
 	 */
-	@RequestMapping(value = "/editYunList",
+	@RequestMapping(value = "/editSVendorInfo",
 			method = RequestMethod.POST,
 			produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Object editYunVendor(HttpServletRequest request,
-								HttpServletResponse response,
-								Vendor vendor) throws Exception {
+	public Object editShengVendor(HttpServletRequest request,
+								  HttpServletResponse response,
+								  Vendor vendor) throws Exception {
 		Object result;
 		responseObj = new ResponseObj<Vendor>();
-		// 运营商更新 售货机资料
+		// 生产商 更新 售货机权限信息
 		try {
-			String vName = vendor.getVendorName();
-			int vendorId = vendor.getVendorId();
-
-			System.out.println("-=====日志打印运营商更新售货机的ID:" + vendorId);
-			System.out.println("-=====日志打印运营商更新售货机的名称:" + vName);
-			vendorService.updateVendorName(vName,vendorId);
+			vendorService.ShengEditVendorInfo(vendor);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseObj.setCode(ResponseObj.FAILED);
-			responseObj.setMsg("运营商更新售货机资料，其他错误");
+			responseObj.setMsg("生产商更新售货机权限信息，出现系统其他错误");
 			result = new GsonUtils().toJson(responseObj);
 			return result;
 		}
 		responseObj.setCode(ResponseObj.OK);
-		responseObj.setMsg("运营商更新售货机资料成功!!");
+		responseObj.setMsg("生产商更新售货机权限信息成功");
 		responseObj.setData(vendor);
 		result = new GsonUtils().toJson(responseObj);
-		System.out.println("result:"+result);
+		System.out.println("result:" + result);
 		result = result;
 		return result;
 
 	}
-
+//===============================系统管理员角色=================================================================
 
 	/**
 	 * 时间： 2017 年 7 月 10 日
-	 * 说明：   系统管理员，运营商管理员，生产商管理员 冻结 可疑的售货机
+	 * 说明：   系统管理员 冻结 可疑的售货机
 	 *
 	 * @param request
 	 * @param response
@@ -233,7 +274,7 @@ public class VendorController {
 
 	/**
 	 * 时间： 2017 年 7 月 10 日
-	 * 说明：  系统管理员，运营商管理员，生产商管理员 通过  售货机信息
+	 * 说明：  系统管理员 通过  售货机信息
 	 *
 	 * @param request
 	 * @param response
@@ -327,9 +368,10 @@ public class VendorController {
 		}
 	}
 
+//===============================运营商角色=================================================================
 
 	/**
-	 * 说明：接受 生产商管理员售货机列表数据的页面
+	 * 说明：接受 运营商管理员售货机列表数据的页面
 	 * 创建日期： 2017 年 07 月 10 日
 	 * 创建者： 王娇
 	 *
@@ -349,7 +391,7 @@ public class VendorController {
 	/**
 	 * 时间： 2017 年 7 月  10  日
 	 * 作者： 王娇
-	 * 说明： 生产商管理员请求 所属的售货机列表
+	 * 说明： 运营商管理员请求 所属的售货机列表
 	 * 基于jquery DataTable API 插件 的分页
 	 *
 	 * @return
@@ -387,6 +429,50 @@ public class VendorController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 时间： 2017 年 8 月 5 日
+	 * 说明：   运营商管理员 更新 售货机资料
+	 *
+	 * @param request
+	 * @param response
+	 * @param vendor
+	 * @return
+	 */
+	@RequestMapping(value = "/editYunList",
+			method = RequestMethod.POST,
+			produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Object editYunVendor(HttpServletRequest request,
+								HttpServletResponse response,
+								Vendor vendor) throws Exception {
+		Object result;
+		responseObj = new ResponseObj<Vendor>();
+		// 运营商更新 售货机资料
+		try {
+			String vName = vendor.getVendorName();
+			int vendorId = vendor.getVendorId();
+
+			System.out.println("-=====日志打印运营商更新售货机的ID:" + vendorId);
+			System.out.println("-=====日志打印运营商更新售货机的名称:" + vName);
+			vendorService.updateVendorName(vName, vendorId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseObj.setCode(ResponseObj.FAILED);
+			responseObj.setMsg("运营商更新售货机资料，其他错误");
+			result = new GsonUtils().toJson(responseObj);
+			return result;
+		}
+		responseObj.setCode(ResponseObj.OK);
+		responseObj.setMsg("运营商更新售货机资料成功!!");
+		responseObj.setData(vendor);
+		result = new GsonUtils().toJson(responseObj);
+		System.out.println("result:" + result);
+		result = result;
+		return result;
+
+	}
+
 
 }
 

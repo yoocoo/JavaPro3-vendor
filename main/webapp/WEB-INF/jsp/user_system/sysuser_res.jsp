@@ -26,6 +26,13 @@
           href="<c:url value='/static/vendors/font-awesome/css/font-awesome.min.css'/>">
     <!-- NProgress -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -144,10 +151,26 @@
                 success: function (data) {
                     if (data.code == 1) {
 //                    window.location.href = data.data.nextUrl;
-                        alert(data.msg);
+//                        alert(data.msg);
+                        $(function () {
+                            new PNotify({
+                                title: '成功执行操作',
+                                text: data.msg,
+                                type: 'success',
+                                styling: 'bootstrap3'
+                            });
+                        });
                         window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
                     } else {
-                        alert(data.msg);
+//                        alert(data.msg);
+                        $(function () {
+                            new PNotify({
+                                title: '发现错误，请根据提示重新操作',
+                                text: data.msg,
+                                type: 'error',
+                                styling: 'bootstrap3'
+                            });
+                        });
                         $("#user").focus();
                     }
                 }
@@ -477,10 +500,19 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
 <!-- validator -->
 <%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 <%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
 <script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ui-pnotify').remove();
+    });
+</script>
 </body>
 </html>
 

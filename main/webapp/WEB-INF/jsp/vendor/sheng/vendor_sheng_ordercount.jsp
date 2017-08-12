@@ -46,6 +46,13 @@
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -332,6 +339,7 @@
             return fmt;
         }
         $(document).ready(function () {
+            $('.ui-pnotify').remove();
             //时间插件
             $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD HH:mm:ss') + ' - ' + moment().format('YYYY-MM-DD HH:mm:ss'));
 //            $('#reportrange span').html(moment().subtract('hours', 1).format('YYYY-MM-DD ') + ' - ' + moment().format('YYYY-MM-DD '));

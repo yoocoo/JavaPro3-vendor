@@ -14,6 +14,8 @@ public interface GroupsDao extends Dao<Groups> {
     int getYgoodsCount(@Param("agencyId") int agencyId);
     //1.1.3运营商管理员更新 商品分组信息
      int  updateGroupInfo(Groups groups);
+     //2.1.1 运营商管理员 新增分组信息
+     int  yunAddGroup (Groups groups);
 
     //============================自动生成============
     int insert(Groups record);

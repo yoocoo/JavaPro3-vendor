@@ -38,6 +38,13 @@
           href="<c:url value='/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'/>">
     <link type="text/css" rel="stylesheet"
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -233,6 +240,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.ui-pnotify').remove();
+
         //DataTable
         var tables = $('#datatable').DataTable({
             dom: 'Bfrtip',
@@ -448,15 +457,39 @@
                     data: {userId: userid},
                     success: function (data) {
                         if (data.code == 1) {
-                            alert(data.msg);
+//                            alert(data.msg);
+                            $(function () {
+                                new PNotify({
+                                    title: '成功执行操作',
+                                    text: data.msg,
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                            });
                             window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
                         } else {
-                            alert(data.msg);
+//                            alert(data.msg);
+                            $(function () {
+                                new PNotify({
+                                    title: '发现错误，请根据提示重新操作',
+                                    text: data.msg,
+                                    type: 'error',
+                                    styling: 'bootstrap3'
+                                });
+                            });
                             $("#user").focus();
                         }
                     },
                     error: function (err) {
-                        alert("冻结成功");
+//                        alert("冻结成功");
+                        $(function () {
+                            new PNotify({
+                                title: '成功执行操作？？',
+                                text: data.msg,
+                                type: 'success',
+                                styling: 'bootstrap3'
+                            });
+                        });
                         window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
                     }
@@ -501,7 +534,15 @@
                         }
                     },
                     error: function (err) {
-                        alert("用户信息，通过审核");
+//                        alert("用户信息，通过审核");
+                        $(function () {
+                            new PNotify({
+                                title: '成功执行操作',
+                                text: '用户信息，通过审核?',
+                                type: 'success',
+                                styling: 'bootstrap3'
+                            });
+                        });
                         window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
                     }

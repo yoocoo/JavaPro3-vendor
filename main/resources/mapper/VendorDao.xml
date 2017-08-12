@@ -105,7 +105,7 @@
     </select>
 
     <!-- ===============（一 ）生产商角色======================-->
-    <!--2.1.1 生产商售货机 列表-->
+    <!--2.1.1 生产商售货机 列表  系统管理员审核通过（and v.checked=1）的售货机列表才能出现-->
     <select id="getAllShengVendor" resultMap="VendorMap">
     SELECT
     v.vendor_id, v.vendor_name, v.factory_id,
@@ -130,15 +130,27 @@
      ON  v.agency_id= a.agency_id
      LEFT  JOIN  channel c1
      on v.vendor_id = c1.vendor_id
-     WHERE  v.factory_id =#{factoryId}
+     WHERE  v.factory_id =#{factoryId} and v.checked=1
      GROUP  BY  v.vendor_id
     </select>
     <!--2.1.2 jquery DataTable +PageHelper  服务器端分页-->
     <select id="getAllCount" resultType="int">
         SELECT COUNT(*)
         FROM vendor
-        WHERE factory_id =#{factoryId}
+        WHERE factory_id =#{factoryId} and checked=1
     </select>
+    <!--2.1.3  生产商角色对售货机  进行运营商授权操作======编辑权限和信息-->
+    <update id="ShengPerYunVendor" parameterType="cn.wj.domain.Vendor">
+        UPDATE  vendor
+        SET  agency_id=#{agencyId}
+        WHERE  vendor_id = #{vendorId}
+    </update>
+    <!--2.1.4  生产商角色对售货机 权限信息进行编辑======-->
+    <update id="ShengEditVendorInfo" parameterType="cn.wj.domain.Vendor">
+        UPDATE  vendor
+        SET  thirdpay_id=#{thirdpayId},thirdpay_key=#{thirdpayKey},expire_date=#{expireDate}
+        WHERE  vendor_id = #{vendorId}
+    </update>
 
     <!--  =====（四）===还需要再改写权限问题 冻结和审核问题=======系统管理员角色==============-->
 

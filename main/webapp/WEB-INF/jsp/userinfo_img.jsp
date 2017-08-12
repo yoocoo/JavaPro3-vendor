@@ -19,6 +19,13 @@
           href="<c:url value='/static/vendors/font-awesome/css/font-awesome.min.css'/>">
     <!-- NProgress -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -247,7 +254,7 @@
         <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
         <%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
         <script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
-        <%--文件上传和下载 脚本引用--%>
-        <script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
+            <%--文件上传和下载 脚本引用--%>
+            <script type="text/javascript" src="<c:url value='/static/js/jquery.ajaxfileupload.js'/>"></script>
 </body>
 </html>

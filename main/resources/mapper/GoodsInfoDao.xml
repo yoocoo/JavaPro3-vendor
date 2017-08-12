@@ -22,7 +22,24 @@
     price = #{price}
     WHERE  goods_id = #{goodsId}
   </update>
-
+  <!--1.1.2 运营商管理员 更新商品图像 表 -->
+  <update id="updateGoodsImg" parameterType="cn.wj.domain.GoodsInfo">
+    UPDATE goods_info
+    SET
+    goods_img = #{goodsImg}
+    WHERE  goods_id = #{goodsId}
+  </update>
+  <!--2.1.1 运营商管理员 增加商品信息  -->
+  <insert id="yunAddGoods" parameterType="cn.wj.domain.GoodsInfo">
+    <selectKey keyProperty="goodsId" resultType="int" order="AFTER">
+      SELECT @@IDENTITY AS goods_id
+    </selectKey>
+    insert into goods_info (goods_code,goods_name,goods_img,goods_unit,price,group_code)
+    values (#{goodsCode},#{goodsName},#{goodsImg},#{goodsUnit},#{price},#{groupCode})
+  </insert>
+  <delete id="deleteGoodsInfo" parameterType="cn.wj.domain.GoodsInfo">
+    delete from goods_info where goods_id = #{goodsId}
+  </delete>
 
 
 

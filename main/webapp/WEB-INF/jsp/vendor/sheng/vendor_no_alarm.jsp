@@ -17,8 +17,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>售货机未确认故障统计</title>
-
-
     <link rel="shortcut icon" href="<c:url value='/static/img/favicon.ico'/>"/>
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/bootstrap/dist/css/bootstrap.min.css'/>">
@@ -309,7 +307,10 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/jszip/dist/jszip.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
-
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
@@ -320,6 +321,7 @@
     var alarmTablename = "alarm_" + fantoryid;
     console.log("name："+alarmTablename);
     $(document).ready(function () {
+        $('.ui-pnotify').remove();
         var tables = $('#list').DataTable({
             ajax: {
                 url: "<%=request.getContextPath()%>/alarmAction/NoAlarmName",
@@ -423,7 +425,7 @@
                         }
                     },
                     error: function (err) {
-                        alert("确认成功");
+                        alert("确认成功??");
                         window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
 
                     }

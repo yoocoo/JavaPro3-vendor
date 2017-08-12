@@ -12,142 +12,23 @@
           href="<c:url value='/static/vendors/font-awesome/css/font-awesome.min.css'/>">
     <!-- NProgress -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/nprogress/nprogress.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
     <%--=======创建运营商 开始=======--%>
-    <script type="text/javascript">
-        function webReg() {
-            if ($('#name').val() == "") {
-                $('#name').focus();
-                $('#name').tips({
-                    side: 2,
-                    msg: '用户名不能为空',
-                    bg: '#B22222',
-                    time: 3,
-                });
-                return false;
-            }
-            if ($('#name').val().length < 6 || $('#name').val().length > 10) {
-                $('#name').focus();
-                $('#name').tips({
-                    side: 2,
-                    msg: '用户名位数建议6-10位',
-                    bg: '#B22222',
-                    time: 3,
-                });
-                return false;
-            }
-            if ($('#password5').val().length < 6) {
-                $('#password5').focus();
-                $("#password5").tips({
-                    side: 2,
-                    msg: '密码不能小于6位',
-                    bg: '#B22222',
-                    time: 3
-                });
-                return false;
-            }
-            if ($('#password5').val().length > 10) {
-                $('#password5').focus();
-                $("#password5").tips({
-                    side: 2,
-                    msg: '密码不能大于10位',
-                    bg: '#B22222',
-                    time: 3
-                });
-                return false;
-            }
+    <%--<script type="text/javascript">--%>
+        <%--$(document).ready(function () {--%>
+            <%--$('.ui-pnotify').remove();--%>
+        <%--});--%>
+    <%--</script>--%>
 
-            if ($('#password6').val() != $('#password5').val()) {
-                $('#password6').focus();
-                $("#password6").tips({
-                    side: 2,
-                    msg: '两次密码不一致',
-                    bg: '#B22222',
-                    time: 3
-                });
-                return false;
-            }
-
-
-            var sqq = /^1[34578]\d{9}$/;
-            if (!sqq.test($('#telephone1').val())
-                || $('#telephone1').val().length < 11
-                || $('#telephone1').val().length > 14
-                || $('#telephone1').val() == "") {
-
-                $('#telephone1').focus();
-                $("#telephone1").tips({
-                    side: 2,
-                    msg: '手机号不正确',
-                    bg: '#B22222',
-                    time: 3
-                });
-                return false;
-            }
-            if ($('#telephone4').val().length !== 18) {
-                $('#telephone4').focus();
-                $("#telephone4").tips({
-                    side: 2,
-                    msg: '请输入正确的18位二代身份号',
-                    bg: '#B22222',
-                    time: 3
-                });
-                return false;
-            }
-            var loginname = $("#name").val();
-            var password = $("#password5").val();
-            var cellnumber = $("#telephone1").val();
-            var realname = $("#name2").val();
-//            alert("检查运营商管理员roleid 的值 =  3 ,而不是弹出来的值是 id= 2");
-//            alert($(":selected", "#sel5").val());
-            var roleid = $(":selected", "#sel5").val();
-//        var roleid = $("select option:selected").val();
-            var Email = $("#email1").val();
-            var QQ = $("#telephone2").val();
-            var code = $("#telephone3").val();
-            var card = $("#telephone4").val();
-            var adress = $("#name3").val();
-
-//        =========================
-            var agencyname = $("#name4").val();
-
-            var agencyid = $("#agencyid").val();
-//            alert("打印要提交 归属的生产商用户的id值" + agencyid);
-            $.ajax({
-                type: "POST",
-                url: '<%=request.getContextPath()%>/userAction/sysuserResYunPei',
-                data: {
-                    accountName: loginname,
-                    password: password,
-                    mobilePhone: cellnumber,
-                    roleId: roleid,
-                    realName: realname,
-                    email: Email,
-                    qq: QQ,
-                    postcode: code,
-                    idcard: card,
-                    postAdress: adress,
-                    agencyName: agencyname,
-                    agencyId: agencyid
-                },
-                dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
-                cache: false,
-                success: function (data) {
-                    if (data.code == 1) {
-//                    window.location.href = data.data.nextUrl;
-                        alert(data.msg);
-                        window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
-                    } else {
-                        alert(data.msg);
-                        $("#user").focus();
-                    }
-                }
-            })
-            ;
-        }
-    </script>
 </head>
 
 
@@ -493,9 +374,166 @@
 <script type="text/javascript" src="<c:url value='/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js'/>"></script>
 <!-- validator -->
 <%--<script type="text/javascript" src="<c:url value='/static/vendors/validator/validator.js'/>"></script>--%>
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 <%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
 <script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ui-pnotify').remove();
+        function webReg() {
+            if ($('#name').val() == "") {
+                $('#name').focus();
+                $('#name').tips({
+                    side: 2,
+                    msg: '用户名不能为空',
+                    bg: '#B22222',
+                    time: 3,
+                });
+                return false;
+            }
+            if ($('#name').val().length < 6 || $('#name').val().length > 10) {
+                $('#name').focus();
+                $('#name').tips({
+                    side: 2,
+                    msg: '用户名位数建议6-10位',
+                    bg: '#B22222',
+                    time: 3,
+                });
+                return false;
+            }
+            if ($('#password5').val().length < 6) {
+                $('#password5').focus();
+                $("#password5").tips({
+                    side: 2,
+                    msg: '密码不能小于6位',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+            if ($('#password5').val().length > 10) {
+                $('#password5').focus();
+                $("#password5").tips({
+                    side: 2,
+                    msg: '密码不能大于10位',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+
+            if ($('#password6').val() != $('#password5').val()) {
+                $('#password6').focus();
+                $("#password6").tips({
+                    side: 2,
+                    msg: '两次密码不一致',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+
+
+            var sqq = /^1[34578]\d{9}$/;
+            if (!sqq.test($('#telephone1').val())
+                || $('#telephone1').val().length < 11
+                || $('#telephone1').val().length > 14
+                || $('#telephone1').val() == "") {
+
+                $('#telephone1').focus();
+                $("#telephone1").tips({
+                    side: 2,
+                    msg: '手机号不正确',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+            if ($('#telephone4').val().length !== 18) {
+                $('#telephone4').focus();
+                $("#telephone4").tips({
+                    side: 2,
+                    msg: '请输入正确的18位二代身份号',
+                    bg: '#B22222',
+                    time: 3
+                });
+                return false;
+            }
+            var loginname = $("#name").val();
+            var password = $("#password5").val();
+            var cellnumber = $("#telephone1").val();
+            var realname = $("#name2").val();
+//            alert("检查运营商管理员roleid 的值 =  3 ,而不是弹出来的值是 id= 2");
+//            alert($(":selected", "#sel5").val());
+            var roleid = $(":selected", "#sel5").val();
+//        var roleid = $("select option:selected").val();
+            var Email = $("#email1").val();
+            var QQ = $("#telephone2").val();
+            var code = $("#telephone3").val();
+            var card = $("#telephone4").val();
+            var adress = $("#name3").val();
+
+//        =========================
+            var agencyname = $("#name4").val();
+
+            var agencyid = $("#agencyid").val();
+//            alert("打印要提交 归属的生产商用户的id值" + agencyid);
+            $.ajax({
+                type: "POST",
+                url: '<%=request.getContextPath()%>/userAction/sysuserResYunPei',
+                data: {
+                    accountName: loginname,
+                    password: password,
+                    mobilePhone: cellnumber,
+                    roleId: roleid,
+                    realName: realname,
+                    email: Email,
+                    qq: QQ,
+                    postcode: code,
+                    idcard: card,
+                    postAdress: adress,
+                    agencyName: agencyname,
+                    agencyId: agencyid
+                },
+                dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                cache: false,
+                success: function (data) {
+                    if (data.code == 1) {
+//                    window.location.href = data.data.nextUrl;
+//                        alert(data.msg);
+                        $(function () {
+                            new PNotify({
+                                title: '成功创建三级运营商用户',
+                                text: data.msg,
+                                type: 'success',
+                                styling: 'bootstrap3'
+                            });
+                        });
+                        window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
+                    } else {
+                        $(function () {
+                            new PNotify({
+                                title: '发现错误，请联系系统管理员',
+                                text: data.msg,
+                                type: 'error',
+                                styling: 'bootstrap3'
+                            });
+                        });
+//                        alert(data.msg);
+                        $("#user").focus();
+                    }
+                }
+            })
+            ;
+        }
+    });
+
+</script>
 </body>
 </html>

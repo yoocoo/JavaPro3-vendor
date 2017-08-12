@@ -44,6 +44,20 @@
           href="<c:url value='/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'/>">
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
+    <%--====7.31=新增 编辑器===================================--%>
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/extensions/Editor/css/editor.dataTables.min.css'/>">
+
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/datatables.net-select/css/select.dataTables.min.css'/>">
+    <%--======================================================================--%>
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -109,13 +123,14 @@
                                 <input type="hidden" id="factoryid" name="factoryId"
                                        value="${userMess.factoryId}">
                                 <table id="listS"
-                                       class="table table-striped table-bordered projects ">
+                                       class="table table-striped table-bordered projects " cellspacing="0"
+                                       width="100%">
                                     <thead>
                                     <tr>
-
-
                                         <th class="text-center">ID</th>
                                         <th class="text-left">售货机名称</th>
+                                        <th class="text-left">绑定运营商</th>
+
                                         <th class="text-left">通信状态</th>
                                         <th class="text-left">云端状态</th>
 
@@ -141,9 +156,10 @@
                                         <th class="text-left">最近一次销售</th>
 
                                         <th class="text-left">审核状态</th>
+                                        <th class="text-left">出厂日期</th>
+                                        <th class="text-left">停服日期</th>
                                         <%--<th class="text-left">生产商</th>--%>
-                                        <%--<th class="text-left">运营商详情</th>--%>
-                                        <th class="text-left">权限操作</th>
+                                        <%--<th class="text-left">权限操作</th>--%>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -159,7 +175,7 @@
             </div>
 
             <%--===============================--%>
-            <%--查看售货机资料  start====--%>
+            <%--售货机模态窗口 暂时不需要了====--%>
             <!-- Large modal -->
             <%--<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>--%>
 
@@ -238,27 +254,6 @@
                                                    class="form-control" placeholder="">
                                         </div>
                                     </div>
-
-
-                                    <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>--%>
-                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
-                                    <%--<input type="text" class="form-control" placeholder="Default Input">--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>--%>
-                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
-                                    <%--<input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>--%>
-                                    <%--<div class="col-md-9 col-sm-9 col-xs-12">--%>
-                                    <%--<input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">--%>
-                                    <%--</div>--%>
-                                    <%--</div>--%>
-
                                     <div class="ln_solid"></div>
 
 
@@ -336,7 +331,16 @@
     <script type="text/javascript" src="<c:url value='/static/vendors/jszip/dist/jszip.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/pdfmake.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/static/vendors/pdfmake/build/vfs_fonts.js'/>"></script>
-
+    <%--=====新增 编辑器插件==================================--%>
+    <script type="text/javascript"
+            src="<c:url value='/static/vendors/extensions/Editor/js/dataTables.editor.min.js'/>"></script>
+    <script type="text/javascript"
+            src="<c:url value='/static/vendors/datatables.net-select/js/dataTables.select.min.js'/>"></script>
+    <%--======================================================================--%>
+    <!-- PNotify -->
+    <script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 
@@ -344,9 +348,186 @@
         var fantoryid = ${userMess.factoryId};
         console.log("打印筛选的参数 生产商id" + fantoryid);
         $(document).ready(function () {
+            $('.ui-pnotify').remove();
+            //1.1绑定售货机
+            editorForPer = new $.fn.dataTable.Editor({
+                i18n: {
+                    edit: {
+                        title: "售货机权限绑定",
+                        submit: "提交权限修改"
+                    }
+                },
+                ajax: {
+                    url: "<%=request.getContextPath()%>/vendorAction/editVendorPer",// 数据请求地址，生产商角色对运营商指定售货机
+                    type: "POST",
+                    data: function (params) {
+                        //此处为定义查询条件 传给控制器的参数
+                        params.vendorId = $("#vendorId").val()
+                        params.agencyId = $("#agencyId").val()
+                    },
+                    dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                    cache: false,  //不用缓存
+                    success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
+                        if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
+                            $(function () {
+                                new PNotify({
+                                    title: '成功执行操作',
+                                    text: data.msg,
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                            });
+                        } else {//更新不成功
+                            $(function () {
+                                new PNotify({
+                                    title: '发现错误，请按提示，重新编辑',
+                                    text: data.msg,
+                                    type: 'error',
+                                    styling: 'bootstrap3'
+                                });
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        alert("哎呀呀，系统出现未知错误，请联系系统管理员");
+                        window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
+                    }
+                },
+                table: "#listS",
+                idSrc: 'vendorId',
+                display: 'envelope',// 信封展示方式
+                fields: [
+                    {label: "售货机Id", name: "vendorId", id: "vendorId"},
+                    {
+                        label: "运营商列表", name: "agencyId", id: "agencyId", type: "select",
+                        options: [
+                            <c:forEach items="${agencyNameList}" var="alist">
+                            {label: "${alist.agencyName}", value: '${alist.agencyId}'},
+                            </c:forEach>
+                        ]
+                    }
+                ],
+
+            });
+        // 2.1生产商角色：编辑售货机权限信息
+            editorForInfo = new $.fn.dataTable.Editor({
+                i18n: {
+                    edit: {
+                        title: "售货机权限信息",
+                        submit: "提交权限信息修改"
+                    },
+                    datetime: {
+                        previous: '上',
+                        next: '下',
+                        months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                        weekdays: ['七', '一', '二', '三', '四', '五', '六']
+                    },
+
+                    error: {
+                        system: "请联系系统管理员！"
+                    },
+                },
+                ajax: {
+                    url: "<%=request.getContextPath()%>/vendorAction/editSVendorInfo",// 数据请求地址，生产商角色对运营商指定售货机
+                    type: "POST",
+                    data: function (params) {
+                        //此处为定义查询条件 传给控制器的参数
+                        params.thirdpayKey = $("#thirdpayKey").val()
+                        params.thirdpayId = $("#thirdpayId").val()
+                        params.expireDate = $("#expireDate").val()
+                        params.vendorId = $("#vendorId").val()
+                    },
+                    dataType: 'json',   //当这里指定为json的时候，获取到了数据后会自己解析的，只需要 返回值.字段名称 就能使用了
+                    cache: false,  //不用缓存
+                    success: function (data) { //请求成功，http状态码为200。返回的数据已经打包在data中了
+                        if (data.code == 1) {  //获判断json数据中的code是否为1，登录的用户名和密码匹配，通过效验，登陆成功
+                            $(function () {
+                                new PNotify({
+                                    title: '成功执行操作',
+                                    text: data.msg,
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                            });
+                        } else {//更新不成功
+                            $(function () {
+                                new PNotify({
+                                    title: '发现错误，请按提示，重新编辑',
+                                    text: data.msg,
+                                    type: 'error',
+                                    styling: 'bootstrap3'
+                                });
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        $(function () {
+                            new PNotify({
+                                title: '发现错误，请按提示，重新编辑',
+                                text: '哎呀呀，系统出现未知错误，请联系系统管理员',
+                                type: 'error',
+                                styling: 'bootstrap3'
+                            });
+                        });
+//                        window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
+                    }
+                },
+                table: "#listS",
+                idSrc: 'vendorId',
+                display: 'envelope',// 信封展示方式
+                fields: [
+                    {label: "售货机Id", name: "vendorId", id: "vendorId"},
+                    {label: "绑定运营商", name: "agencyName", id: "agencyName"},
+                    {label: "售货机名称", name: "vendorName", id: "vendorName"},
+                    {label: "审核状态", name: "checked", id: "checked", fieldInfo: '1:代表通过审核 0：代表未合格'},
+                    {label: "审核员", name: "checkUser", id: "checkUser"},
+//                    {label: "出厂日期", name: "dateOfProduct", id: "dateOfProduct",  type:'datetime',
+//                        display: "yyyy / MM / dd"
+//                    },
+                    {label: "第三方ID", name: "thirdpayId", id: "thirdpayId"},
+                    {label: "第三方KEY", name: "thirdpayKey", id: "thirdpayKey"},
+//                    {label: "售货机注册时间", name: "registeredTime", id: "registeredTime"},
+                    {label: "售货机停服时间", name: "expireDate", id: "expireDate", type: 'datetime',
+                        def: function () {
+                            return new Date();
+                        },//定义一个选择时间的器
+//                        display: 'YYYY/M/D',//显示的格式
+                        format: 'YYYY-MM-DD hh:mm:ss',//选完时间后，在格式化
+                        fieldInfo: '请选择时间'
+                    }
+
+                ],
+            });
+            // 2.2编辑售货机权限信息   某些信息是不能被编辑的
+            editorForInfo.on('onInitEdit', function () {
+                editorForInfo.disable('vendorId');
+                editorForInfo.disable('agencyName');
+                editorForInfo.disable('vendorName');
+                editorForInfo.disable('checked');
+                editorForInfo.disable('checkUser');
+//                editorForInfo.disable('dateOfProduct');
+            });
+            // 1.2授权售货机时候  某些信息是不能被编辑的
+            editorForPer.on('onInitEdit', function () {
+                editorForInfo.disable('vendorId');
+            });
+//            =================================================
+//售货机列表初始化
             var tables = $('#listS').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
+                    {
+                        extend: "edit",
+                        text: '绑定售货机 <i class="glyphicon glyphicon-pencil"> </i>',
+                        className: 'btn bg-green',
+                        editor: editorForPer
+                    },
+                    {
+                        extend: "edit",
+                        text: '编辑信息 <i class="glyphicon glyphicon-pencil"> </i>',
+                        className: 'btn bg-olive',
+                        editor: editorForInfo
+                    },
                     {
                         extend: 'copy',
                         text: '复制数据 <i class="glyphicon glyphicon-copy"> </i>',
@@ -378,6 +559,7 @@
 //args1: "我是固定传参的值，在服务器接收参数[args1]"
                     }
                 },
+                select: true,
                 serverSide: true,//开启服务器模式:启用服务器分页
                 lengthChange: false,//是否允许用户改变表格每页显示的记录数
                 ordering: false,//是否允许用户排序
@@ -399,8 +581,9 @@
                 columns: [
                     {data: "vendorId"},//售货机ID  -0
                     {data: "vendorName"},//售货机名称-1
-                    {
-                        data: "actived",//是否在线（通信状态）-2
+                    {data: "agencyName", width: "80px", "defaultContent": "<i>待绑定</i>"},//归属运营商ID-20
+
+                    {data: "actived",//是否在线（通信状态）-2
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-power-off"></i></h4>'
@@ -411,22 +594,18 @@
                             }
                         }
                     },
-                    {
-                        data: "cloudSet",//云端状态）-2
+                    {data: "cloudSet",//云端状态）-2
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-toggle-on"></i></h4>'
-//                            return '<i class="fa fa-smile-o bg-green"></i>'
                             } else {
                                 return '<h4 class="red"><i class="fa fa-toggle-off"></i></h4>'
-//                            return '<i class="fa fa-frown-o bg-red"></i>'
                             }
                         }
                     },
 
                     {data: "totalSaled"},//总出货次数(总销售次数)-3
-                    {
-                        data: "maxChannelNum",
+                    {data: "maxChannelNum",
                         "render": function (data, type, full, mata) {
                             return '<span class="label label-info">' + data + '</span>'
                         }
@@ -442,8 +621,7 @@
 
                     {data: "countNum"},//库存状态 -11
                     {data: "countStatus"},//马达状态（其实是：马达状态motorstatus ==0/总motorstatus）-12
-                    {
-                        data: "mdbbillAlarmCode",//纸币器状态-13
+                    {data: "mdbbillAlarmCode",//纸币器状态-13
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
@@ -452,8 +630,7 @@
                             }
                         }
                     },
-                    {
-                        data: "mdbchangerAlarmCode",//硬币器状态-14
+                    {data: "mdbchangerAlarmCode",//硬币器状态-14
                         "render": function (data, type, full, meta) {
                             if (data == 1) {
                                 return '<h4 class="green"><i class="fa fa-check-circle"></i></h4>'
@@ -463,8 +640,7 @@
                         }
                     },
 
-                    {
-                        data: "temperature",//售货机温度-15
+                    {data: "temperature",//售货机温度-15
                         "render": function (data, type, full, meta) {
                             if (data < 0) {
                                 return '<span class="label label-primary">' + data + ' ℃</span>'
@@ -474,8 +650,7 @@
                             }
                         }
                     },
-                    {
-                        data: "gprsLevel",//信号强度-16
+                    {data: "gprsLevel",//信号强度-16
                         class: "project_progress",
 //                    width: "200px",
                         "render": function (data, type, full, meta) {
@@ -486,8 +661,7 @@
                                 '"></div> </div> <small>' + data + '% </small>'
                         }
                     },
-                    {
-                        data: "lastSaleTime"//最近一次出货时间-17
+                    {data: "lastSaleTime"//最近一次出货时间-17
                         ,
                         "render": function (data, type, full, meta) {
                             var dataStr = Date.parse(data);
@@ -506,9 +680,24 @@
 
                         }
                     },
+                    {data: "dateOfProduct",//出厂日期--4
+                        "render": function (data, type, full, meta) {
+                            var dataStr = Date.parse(data);
+                            return new Date(dataStr).Format("yyyy-MM-dd");
+//                            return '<input  type="text" id= "pdate" name="dateOfProduct" ' +
+//                                ' value='+ '"'+new Date(dataStr).Format("yyyy-MM-dd")+'">';
+                        }
+                    },
+                    {data: "expireDate",//停服日期--5
+                        "render": function (data, type, full, meta) {
+                            var dataStr = Date.parse(data);
+                            return new Date(dataStr).Format("yyyy-MM-dd");
+//                        return '<input type="text" id= "odate" name="expireDate" ' +
+//                            ' value='+ '"'+ new Date(dataStr).Format("yyyy-MM-dd")+'">';
+                        }
+                    }
 //                {data: "factoryId"},//负责生产商ID-19
-//                {data: "agencyId", width: "80px", "defaultContent": "<i>还没有设置</i>"},//归属运营商ID-20
-                    {data: null}//操作-19
+//                    {data: null}//操作-19
 
                 ],
                 columnDefs: [
@@ -517,26 +706,41 @@
 //                        return data + ' /' + row[4].data ;//jquery
                             return data + ' /' + row.maxChannelNum;//api
                         },
-                        "targets": 13
+                        "targets": 14
                     },
                     {
                         "render": function (data, type, row) {
 //                    return data + ' /' + row[4].data ;//jquery
                             return data + ' /' + row.maxChannelNum;//api
                         },
-                        "targets": 12
-                    },
+                        "targets": 13
+                    }
 //                {
 //                    "visible": false,
 //                    "targets": 4 //售货机最大货道数
 //                },
-                    {
-                        "targets": 20,//权限操作
-                        "data": null,//下面这行，添加了编辑按钮和，删除按钮
-                        "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
-                        "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +
-                        "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
-                    }],
+//                    {
+//                        "targets": 21,//权限操作(改版)
+//                        "data": null,//下面这行，添加了编辑按钮和，删除按钮
+//                        "defaultContent": "<button id='editrow'  class='btn btn-info btn-xs' type='button'><i class='fa fa-pencil'></i> 授权</button>" +
+//                        "<button id='delrow' class='btn btn-danger btn-xs' type='button'><i class='fa fa-trash-o'></i>待去掉</button>" +
+//                        "<button id='editinfo' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.bs-example-modal-lg'  type='button'><i class='fa fa-pencil-square-o'></i>编辑</button>"
+//                    }
+                ],
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal({
+                            header: function (row, type, full, mata) {
+                                var data = row.data();
+                                console.log("data:" + data);
+                                return '售货机详情' + '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>';
+                            }
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                            tableClass: 'table'
+                        })
+                    }
+                },
                 "createdRow": function (row, data, dataIndex) {
                     //每加载完一行的回调函数
 //                $('td', row).eq(17).css('font-weight', "bold").css("color", "green");//获取到具体行具体格的元素
@@ -545,6 +749,7 @@
                     return row;
                 }
             });
+            tables.buttons().container().appendTo("#buttons");
 //            ============编辑弹窗======================================================
             $('#listS tbody').on('click', 'button#editinfo', function () {
 
@@ -560,7 +765,6 @@
                 console.log("获取data2 字符串？" + data2);
 
 
-
                 var vendorid = $('#vendorid').val(data.vendorId);//取对象
                 var vname = $('#vname').val(data.vendorName);
                 var mNumber = $('#mNumber').val(data.modelNumber);
@@ -571,10 +775,6 @@
 
                 var key = $('#key').val(data.thirdpayKey);
                 var aname = $('#aname').val(data.agencyName);
-//                var odate1 = $('#odate').val(data.expireDate);
-//                var odate2 = Date.parse(odate1);
-//                var odate=Date(odate2).Format("yyyy-MM-dd hh:mm:ss");
-
 
             });
             //========================================对数据中表格进行日期格式化=============================
@@ -595,50 +795,6 @@
             }
             //  =================以下为自定义的删除按钮事件，可以忽略，也可以参考写法===========================
             //================================冻结可疑账户==================================================
-            $('#listS tbody').on('click', 'button#delrow', function () {
-                var oTable = $('#listS').dataTable();
-                var data = oTable.fnGetData($(this).parent().parent());
-                var datastr = JSON.stringify(data);
-                var dataObj = JSON.parse(datastr);
-                console.log("====JsonObj中vendorId :" + dataObj.vendorId);
-                //tables.ajax.reload();重新获取数据
-                //tables.draw(false);重新刷新页面
-                if (confirm("是否确认冻结该售货机")) {
-                    var vendorid = dataObj.vendorId;
-                    if (dataObj.checked == 0) {
-                        confirm("该售货机已被冻结，无需重复操作！")
-                    }
-                    else {
-                        console.log("====  确认选择 冻结售货机的vendorid===:" + vendorid);
-                        $.ajax({
-                            type: "POST",  //http请求方式为POST
-                            url: '<%=request.getContextPath()%>/vendorAction/listSVendorRemove',
-//                type:'delete',
-//                type : 'json',
-                            dataType: 'json',//返回值类型 一般设置为json
-//                    timeout: "3000",
-                            cache: "false",
-                            data: {vendorId: vendorid},
-                            success: function (data) {
-                                if (data.code == 1) {
-                                    alert(data.msg);
-                                    window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-                                } else {
-                                    alert(data.msg);
-                                    $("#vendor").focus();
-                                    alert("测试获取数据");
-
-                                }
-                            },
-                            error: function (err) {
-                                alert("冻结成功");
-                                window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-
-                            }
-                        });
-                    }
-                }
-            });
 
             //            ==============================测试获得一行数据 start=====================================
             $('#listS tbody').on('click', 'tr', function () {
@@ -646,85 +802,36 @@
                 var oTable2 = $('#listS').DataTable();
                 console.log("测试一正行数据：" + oTable2.row(this).data());
                 var sss = oTable2.row(this).data().vendorName;
-
                 console.log("测试一行数据：" + oTable2.row(this).data().vendorName);
-                console.log("测试一行数据sssss：" + ssss);
             });
-            //            =============================测试获得一行数据  end======================================
 
-            //        ===========================审核用户信息======================================
-            $('#listS tbody').on('click', 'button#editrow', function () {
-                var oTable1 = $('#listS').dataTable();
-                var data1 = oTable1.fnGetData($(this).parent().parent());
-                var datastr1 = JSON.stringify(data1);
-                var dataObj1 = JSON.parse(datastr1);
-                console.log("====JsonObj中userid :" + dataObj1.vendorId);
-//            var data = tables.rows($(this).parents("tr")).data();
-//            alert("=========" +tables.rows('.selected').data().length +' row(s) selected' );
-                //tables.ajax.reload();重新获取数据
-                //tables.draw(false);重新刷新页面
-                if (confirm("是否确认通过该售货机信息")) {
-                    var vendorid = dataObj1.vendorId;
-                    console.log("====  确认选择 冻结该售货机的vendorid===:" + vendorid);
-                    if (dataObj1.checked == 1) {
-                        confirm("该售货机已通过审核，无需重复操作！")
-                    }
-                    else {
-                        $.ajax({
-                            type: "POST",  //http请求方式为POST
-                            url: '<%=request.getContextPath()%>/vendorAction/listSVendorPass',
-//                type:'delete',
-//                type : 'json',
-                            dataType: 'json',//返回值类型 一般设置为json
-//                    timeout: "3000",
-                            cache: "false",
-                            data: {vendorId: vendorid},
-                            success: function (data) {
-                                if (data.code == 1) {
-                                    alert(data.msg);
-                                    window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-                                } else {
-                                    alert(data.msg);
-                                    $("#vendor").focus();
-                                }
-                            },
-                            error: function (err) {
-                                alert("售货机信息，通过审核");
-                                window.location.reload();//重新刷新页面，还有一种方式：tables.draw(false);(这是不刷新，重新初始化插件，但是做删除时候，老有问题)
-
-                            }
-                        });
-                    }
-                }
-            });
-        })
-        ;
+        });
 
 
     </script>
     // =========================时间编辑==================================================================
 
     <script type="text/javascript">
-        $(function () {
-            $('input[name="expireDate"]').daterangepicker({
-                    singleDatePicker: true,
-                    showDropdowns: true,
-                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
-//                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
-                    locale: {
+//        $(function () {
+//            $('input[name="expireDate"]').daterangepicker({
+//                    singleDatePicker: true,
+//                    showDropdowns: true,
 //                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
-
-                        format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
-                        daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
-                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
-                            '七月', '八月', '九月', '十月', '十一月', '十二月']
-                    }
-                },
-                function (start, end, label) {
-                    var odate = start.format('YYYY-MM-DD HH:mm:ss');
-                    document.getElementById('odate').value = odate;
-                });
-        });
+////                format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 不带时间日期
+//                    locale: {
+////                    format: 'YYYY-MM-DD HH:mm:ss', //控件中from和to 显示的日期格式 全格式时间
+//
+//                        format: 'YYYY-MM-DD ', //控件中from和to 显示的日期格式 全格式时间
+//                        daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+//                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+//                            '七月', '八月', '九月', '十月', '十一月', '十二月']
+//                    }
+//                },
+//                function (start, end, label) {
+//                    var odate = start.format('YYYY-MM-DD HH:mm:ss');
+//                    document.getElementById('odate').value = odate;
+//                });
+//        });
     </script>
 </body>
 </html>

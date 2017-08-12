@@ -32,6 +32,13 @@
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/vendors/switchery/dist/switchery.min.css'/>">
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="<c:url value='/static/vendors/bootstrap-daterangepicker/daterangepicker.css'/>">
+    <!-- PNotify -->
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.css'/>">
+    <link type="text/css" rel="stylesheet"
+          href="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.css'/>">
     <!-- Custom Theme Style -->
     <link type="text/css" rel="stylesheet" href="<c:url value='/static/build/css/custom.min.css'/>">
     <%--引入CSS 样式 end --%>
@@ -147,10 +154,26 @@
             cache: false,
             success: function (data) {
                 if (data.code == 1) {
-                    alert(data.msg);
+//                    alert(data.msg);
+                    $(function () {
+                        new PNotify({
+                            title: '成功执行操作',
+                            text: data.msg,
+                            type: 'success',
+                            styling: 'bootstrap3'
+                        });
+                    });
                     window.location.href = "<%=request.getContextPath()%>/mvc/home";//返回到后台首页
                 } else {
-                    alert(data.msg);
+//                    alert(data.msg);
+                    $(function () {
+                        new PNotify({
+                            title: '发现错误，请根据提示重新操作',
+                            text: data.msg,
+                            type: 'error',
+                            styling: 'bootstrap3'
+                        });
+                    });
                     $("#vendor").focus();
                 }
             }
@@ -508,10 +531,14 @@
 <!-- Switchery -->
 <script type="text/javascript"
         src="<c:url value='/static/vendors/switchery/dist/switchery.min.js'/>"></script>
+<!-- PNotify -->
+<script type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.buttons.js'/>"></script>
+<script  type="text/javascript" src="<c:url value='/static/vendors/pnotify/dist/pnotify.nonblock.js'/>"></script>
 <!-- Custom Theme Scripts -->
 <script type="text/javascript" src="<c:url value='/static/build/js/custom.min.js'/>"></script>
 <%--判断消息提示脚本引用-公共引用 锁定焦点提示--%>
-<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>
+<%--<script type="text/javascript" src="<c:url value='/static/js/common/jquery.tips.js'/>"></script>--%>
 <script type="text/javascript">
     $(function () {
         $('input[name="expireDate"]').daterangepicker({
@@ -556,7 +583,11 @@
             });
     });
 </script>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ui-pnotify').remove();
+    });
+</script>
 </body>
 </html>
 

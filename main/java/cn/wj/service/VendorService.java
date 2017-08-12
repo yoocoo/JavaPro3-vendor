@@ -23,6 +23,12 @@ public interface VendorService extends BaseService<Vendor> {
 	//2.1.2 得到生产商所有的售货机 数量(jquery DataTable +PageHelper  服务器端分页)
 	int getAllCount(@Param("factoryId") int factoryId);
 
+	//2.1.3  生产商角色对售货机  进行运营商授权操作======编辑权限和信息-->
+	void ShengPerYunVendor(@Param("agencyId") int agencyId, @Param("vendorId") int vendorId) throws Exception;
+
+	//2.1.4 生产商角色修改售货机权限信息
+	void ShengEditVendorInfo(Vendor vendor) throws Exception;
+
 	//2.2.2   生产商用户 冻结 售货机 ，使得 vendor表里 check ==1 即可， 说明:生产商管理员：  冻结可疑售货机，过期售货机-->
 	void ShengRemoveVendor(@Param("vendorId") int vendorId) throws Exception;
 
@@ -42,7 +48,7 @@ public interface VendorService extends BaseService<Vendor> {
 	int getAllYunCount(@Param("agencyId") int agencyId);
 
 	//2.4.3 运营商管理员更新售货机资料， 更新售货机名称
-	void updateVendorName( @Param("vendorName") String vendorName,@Param("vendorId") int vendorId)throws Exception;
+	void updateVendorName(@Param("vendorName") String vendorName, @Param("vendorId") int vendorId) throws Exception;
 
 	//2.5.1  (1)生产商售货机 数据查询统计的准备条件： 按指定生产商售货机名称列表 查询
 	List<Vendor> getAllSvendorName(@Param("factoryId") int factoryId, @Param("roleId") int roleId) throws Exception;

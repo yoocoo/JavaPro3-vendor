@@ -66,6 +66,27 @@ public class GroupsServiceImpl implements GroupsService {
 		}
 	}
 
+	/**
+	 * 时间： 2017 年 08 月08 日
+	 * 功能说明： 运营商管理员 新增分组信息记录
+	 * 作者： 王娇
+	 * @param groups
+	 * @throws Exception
+	 */
+	public void yunAddGroup(Groups groups) throws OtherThingsException {
+		int result1 = 0;//受影响的行数默认为零
+		try {
+			result1 = groupsDao.yunAddGroup(groups);
+		} catch (Exception e) {
+			System.out.println(" 运营商新增商品 分组 表 service失败");
+			//其他用户添加失败异常
+			throw new OtherThingsException(e);
+		}
+		if (result1 > 0) {
+			System.out.println(" 运营商新增商品 分组 表 service更新用户信息成功！");
+		}
+	}
+
 	//====================自动生成========================
 	@Override
 	public void add(Groups groups) throws Exception {

@@ -21,4 +21,7 @@ public interface GroupsService extends BaseService<Groups> {
 
 	//1.1.3  运营商管理员 更新 商品分组信息
 	void updateGroupInfo(Groups groups) throws Exception;
+
+	//2.1.1 运营商管理员新增 分组信息记录
+	void yunAddGroup(Groups groups) throws Exception;
 }
